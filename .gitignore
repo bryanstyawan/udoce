@@ -32,6 +32,8 @@ user_guide_src/cilexer/pycilexer.egg-info/*
 /public/excel
 /public/file_pendukung
 /public/file_tugas_tambahan
+/public/video
+/public/buku
 /.vscode
 
 ## Other Files
