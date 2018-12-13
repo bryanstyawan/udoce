@@ -1,0 +1,42 @@
+<?php
+defined('BASEPATH') OR exit('No direct script access allowed');
+
+class Bank_data extends CI_Controller {
+
+	public function __construct () {
+		parent::__construct();
+		$this->load->model ('Mmaster', '', TRUE);
+	}
+
+	public function index()
+	{
+		if(!$this->session->userdata('session_login')){
+			redirect('admin/Admin');
+		}
+		$this->load->view('templateAdmin');
+	}
+
+	public function soal()
+	{
+		# code...
+		redirect('bank_data/soal');
+	}
+
+	public function video()
+	{
+		# code...
+		redirect('bank_data/video');
+	}	
+
+	public function buku()
+	{
+		# code...
+		redirect('bank_data/buku');
+	}		
+
+	public function user()
+	{
+		# code...
+		redirect('bank_data/user');
+	}
+}
