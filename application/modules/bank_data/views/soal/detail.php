@@ -4,14 +4,14 @@
 ?>
 
 <section id="headerdata" >
-	<div class="col-xs-12">
+	<div class="col-xs-8">
 		<div class="box">
 			<div class="box-header">
 				<h3 class="box-title"></h3>
 			</div>
 			<div class="box-body">
 				<div class="row">
-				<input type="hidden" id="oid_header" value="<?=$list[0]['id'];?>">				
+					<input type="hidden" id="oid_header" value="<?=$list[0]['id'];?>">				
 					<div class="col-md-6">
 						<div class="form-group">
 							<label>Deskripsi Soal</label>
@@ -30,6 +30,68 @@
 			</div><!-- /.box-body -->
 		</div><!-- /.box -->
 	</div>
+	<div class="col-xs-4">
+		<div class="box">
+		<div class="box-header">
+				<h3 class="box-title"></h3>
+			</div>
+			<div class="box-body">
+				<div class="row">
+					<div class="col-lg-12">
+						<?php
+							if ($list_soal != array()) {
+								# code...
+								for ($i=0; $i < count($list_soal); $i++) { 
+									# code...
+									$background_color = '';
+									$color            = "";
+									$data_soal        = $this->Allcrud->getdata('mr_soal',array('id'=>$list_soal[$i]['id']))->result_array();
+									$counter          = count($this->Allcrud->getdata('mr_soal_detail',array('id_soal'=>$list_soal[$i]['id']))->result_array());
+									if ($counter == 0) {
+										# code...
+										$color            = "color:#fff";										
+										$background_color = 'background-color: #F44336;';
+									}
+									else {
+										# code...
+										if($counter == 4)
+										{
+											if($data_soal[0]['jawaban'] != '')
+											{
+												$color            = "color:#fff";										
+												$background_color = 'background-color: #8BC34A;';
+											}
+											else
+											{
+												$color            = "color:#fff";										
+												$background_color = 'background-color: #F44336;';												
+											}
+
+										}
+										else {
+											# code...
+											$color            = "color:#fff";										
+											$background_color = 'background-color: #F44336;';											
+										}
+									}
+
+									if ($id == $list_soal[$i]['id']) {
+										# code...
+										$color            = "color:#fff";										
+										$background_color = 'background-color: #2196F3;';																				
+									}
+						?>
+									<a href="<?=base_url();?>bank_data/soal/detail/<?=$list_soal[$i]['id'];?>/<?=$list_soal[$i]['id_materi'];?>/<?=$list_soal[$i]['id_parent'];?>/<?=$list_soal[$i]['id_tipe_soal'];?>" class="btn btn-default" style="<?=$background_color;?><?=$color;?>"><?=$i+1;?></a>
+						<?php
+								}								
+							}
+						?>
+					</div>
+				</div>
+
+			</div><!-- /.box-body -->		
+		</div>
+	</div>
 </section>
 
 <section id="viewdata">
@@ -44,6 +106,7 @@
 					<thead>
 				<tr>
 					<th>No</th>
+					<th></th>
 					<th>Deskripsi Pilihan</th>
 					<th>Aksi</th>
 				</tr>
@@ -64,7 +127,8 @@
 				?>
 						<tr style="<?=$color_row;?>">
 							<td><?php echo $x;?></td>
-							<td><?php echo $row->name;?></td>
+							<td><?php echo $row->choice;?></td>							
+							<td><?php echo $row->name;?></td>							
 							<td>
 								<button class="btn btn-primary btn-xs" onclick="edit('<?php echo $row->id;?>')"><i class="fa fa-edit"></i> Ubah</button>&nbsp;&nbsp;
 								<?php
@@ -75,7 +139,7 @@
 								<?php
 									}
 								?>
-								<button class="btn btn-danger btn-xs" onclick="del('<?php echo $row->id;?>')"><i class="fa fa-trash"></i> Hapus</button>
+								<!-- <button class="btn btn-danger btn-xs" onclick="del('<?php echo $row->id;?>')"><i class="fa fa-trash"></i> Hapus</button> -->
 							</td>
 						</tr>
 					<?php $x++; }
@@ -98,7 +162,8 @@
 			<div class="box-body">
 				<div class="row">
 					<input class="form-control" type="hidden" id="oid">
-					<input class="form-control" type="hidden" id="crud">					
+					<input class="form-control" type="hidden" id="crud">
+					<input class="form-control" type="hidden" id="f_key">										
 					<div class="col-md-6">
 						<div class="form-group">
 							<label>Deskripsi Pilihan</label>
@@ -176,13 +241,15 @@ $(document).ready(function(){
 		var crud       = $("#crud").val();
 		var f_name     = $("#f_name").val();
 		var f_jawaban  = $("#f_jawaban").is(":checked");
+		var f_key      = $("#f_key").val();
 
 		var data_sender = {
 			'oid'       : oid,
-			'crud'      : crud,			
+			'crud'      : crud,
 			'oid_header': oid_header,
 			'f_name'    : f_name,
-			'f_jawaban' : f_jawaban
+			'f_jawaban' : f_jawaban,
+			'f_key'     : f_key 
 		}
 
 		if (f_name.length <= 0) {
@@ -228,14 +295,15 @@ function edit(id){
 			var obj = jQuery.parseJSON (msg);
 			if (obj.status == 1)
 			{
-				$(".form-control").val('');
+				// $(".form-control").val('');
 				$("#formdata").css({"display": ""})
 				$("#viewdata").css({"display": "none"})
 				$("#formdata > div > div > div.box-header > h3").html("Ubah Data Soal");		
 				$("#crud").val('update');
 				$("#oid").val(obj.data[0]['id']);
 				$("#f_name").val(obj.data[0]['name']);
-				$("#f_jawaban").val(obj.data[0]['name']);												
+				$("#f_jawaban").val(obj.data[0]['name']);
+				$("#f_key").val(obj.data[0]['choice']);																
 				$("#loadprosess").modal('hide');				
 			}
 			else
@@ -261,7 +329,7 @@ function del(id)
 		callback: function ($this, type) {
 			if (type === 'yes'){			
 				$.ajax({
-					url :"<?php echo site_url();?>bank_data/soal/store/"+'delete/'+id,
+					url :"<?php echo site_url();?>bank_data/soal/store_detail/"+'delete/'+id,
 					type:"post",
 					beforeSend:function(){
 						$("#editData").modal('hide');

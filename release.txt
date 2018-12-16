@@ -1,102 +1,22 @@
-v2.0.0-Alpha    
-2019-11-9
+v1.0.0    
+2019-12-16
 ==========
 New:
+- Bank data video
+- Bank data buku
+- Bank data pengguna
+- Management quiz & pre test (Data Materi)
+    - Management Materi & sub materi
+    - Route pre test & quiz
+    - Management soal quiz & pre test
+    - Management pilihan ganda
 Improved:
-- layouting header - helper 
 Fixed:
-- datatable Struktur Organisasi
 
-v2.0.0-Alpha    
-2019-11-5
+v1.0.0    
+2019-12-13
 ==========
 New:
+- Released Master
 Improved:
 Fixed:
-- fixing frezee ketika menyimpan tambah skp pegawai dalam keadaan kosong
-- remarks skp hanya ditampilkan ketika ada penolakan data skp dari atasan
-
-v2.0.0-Alpha    
-2019-11-5
-==========
-New:
-- master jft
-Improved:
-- master jfu (tahun)
-- sync master jft to organisasi
-Fixed:
-
-
-v2.0.0-Alpha    
-2019-10-31
-==========
-New:
-Improved:
-Fixed:
-- Fixing bug pengajuan setup skp
-
-
-v2.0.0-Alpha    
-2019-10-24
-==========
-New:
-Improved:
-- [dashboard]modal pekerjaan belum diperiksa
-- [dashboard]modal Realisasi menit kerja efektif
-- [dashboard]sync Jabatan Fungsional Umum - Organisasi
-Fixed:
-- uppercase pekerjaan belum diperiksa, Realisasi, Tunjangan, fingerprint, capaian skp di dashboard
-
-
-v2.0.0-Alpha    
-2019-10-22
-==========
-New:
-- Master 
-    * Eselon 1
-    * Eselon 2
-    * Eselon 3
-    * Eselon 4
-    * Struktur Organisasi
-    * Pegawai
-    * Kategori Posisi
-    * Grade Posisi
-    * Hari Aktif
-    * Tugas Belajar
-    * Tunjangan Profesi
-    * Golongan
-    * Jurusan Pendidikan
-    * Akademik
-    * Jabatan Fungsional Umum
-- Rekapitulasi
-    * Data Kinerja
-    * Tunjangan Kinerja Aspek Produktivitas & Aspek Kinerja
-    * Import Tunjangan Kinerja Aspek Produktivitas & Aspek Kinerja
-- Transaksi
-    * Transaksi
-        # link SKP (Realisasi)
-    * Tugas tambahan dan kreativitas
-        # link SKP (Realisasi)
-    * Persetujuan tugas tambahan dan kreativitas
-- SKP
-    * Master SKP
-    * Setup SKP
-    * Penilaian Prilaku
-    * Cetak SKP
-- Konfigurasi
-    * Management Menu & Submenu
-    * Akses Menu
-    * Role
-- Pesan 
-- Dashboard
-    * Informasi Pegawai
-    * Ubah data Pribadi
-    * Persentase menit kerja
-    * Chart Pencapaian ment efektif per tahun
-- Other
-    * Notification
-Improved:
-0
-Fixed:
-0
-Error:

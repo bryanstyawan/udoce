@@ -40,7 +40,8 @@
 				<tr>
 					<th>No</th>
 					<th>Soal</th>
-					<th>action</th>
+					<th>Jumlah Pilihan Ganda</th>
+					<th>Aksi</th>
 				</tr>
 				</thead>
 				<tbody>
@@ -49,9 +50,10 @@
 						<tr>
 							<td><?php echo $x;?></td>
 							<td><?php echo $row->name;?></td>
+							<td><?=count($this->Allcrud->getdata('mr_soal_detail',array('id_soal'=>$row->id))->result_array());?></td>
 							<td>
 								<button class="btn btn-primary btn-xs" onclick="edit('<?php echo $row->id;?>')"><i class="fa fa-edit"></i> Ubah</button>&nbsp;&nbsp;
-								<button class="btn btn-success btn-xs" onclick="detail('<?php echo $row->id;?>')"><i class="fa fa-edit"></i> Detail</button>&nbsp;&nbsp;							
+								<button class="btn btn-success btn-xs" onclick="detail('<?php echo $row->id;?>','<?php echo $row->id_materi;?>','<?php echo $row->id_parent;?>','<?php echo $row->id_tipe_soal;?>')"><i class="fa fa-edit"></i> Pilihan Ganda</button>&nbsp;&nbsp;							
 								<button class="btn btn-danger btn-xs" onclick="del('<?php echo $row->id;?>')"><i class="fa fa-trash"></i> Hapus</button>
 							</td>
 						</tr>
@@ -236,7 +238,7 @@ function del(id)
 	})		
 }
 
-function detail(id) {
-	window.location.href = "<?php echo site_url();?>bank_data/soal/detail/"+id
+function detail(id,materi,parent,tipe) {
+	window.location.href = "<?php echo site_url();?>bank_data/soal/detail/"+id+'/'+materi+'/'+parent+'/'+tipe
 }
 </script>
