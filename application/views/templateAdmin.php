@@ -48,6 +48,8 @@
 <style type="text/css">@import url("<?php echo base_url() . 'assets/plugins/loadme/style/loadme.css'; ?>");</style>
 <!-- Jquery -->
 <script type='text/javascript' src="<?php echo base_url(); ?>assets/plugins/jQuery/jQuery-2.1.4.min.js"></script>
+<!-- CKeditors -->
+<script type='text/javascript' src="<?php echo base_url(); ?>assets/plugins/ckeditor5/ckeditor.js"></script>
 <style>
 .footer-icon > i
 {
@@ -414,6 +416,12 @@ function ajax_catch(jqXHR,exception) {
             // "dom": '<"top"f>rt'
             // "dom": '<"top"fl>rt<"bottom"ip><"clear">'
         });
+
+        ClassicEditor
+            .create( document.querySelector( '.editor-classic' ) )
+            .catch( error => {
+                console.error( error );
+            } );        
     });
 </script>
 
