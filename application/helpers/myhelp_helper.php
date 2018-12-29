@@ -174,8 +174,10 @@
 
 		}
 
-		function treeview($role){
-			$CI =& get_instance();
+	function treeview($role){
+		$CI =& get_instance();
+		if($role != 3)
+		{
 			$induk = $CI->db->query("SELECT config_menu.*,
 											config_menu_akses.id_akses,
 											config_menu_akses.buat,
@@ -188,40 +190,109 @@
 									WHERE id_role= '".$role."'
 									AND config_menu.flag <> 0
 									AND id_parent=0
-									AND flag=1");
-			foreach($induk->result() as $row){?>
-				<tr>
-					<td><?php echo "<i class='".$row->icon."'></i> ".$row->nama_menu; ?></td>
-					<td><?php if ($row->buat == 0){echo "<input id=cr".$row->id_akses." name='name_cr' class='minimal name_cr' type='checkbox' value=".$row->buat." onclick='create(".$row->id_akses.")'>";}else{echo "<input id=cr".$row->id_akses." class='minimal' type='checkbox' value=".$row->buat." onclick='create(".$row->id_akses.")' checked >";} ?></td>
-					<td><?php if ($row->baca == 0){echo "<input id=re".$row->id_akses." name='name_re' class='minimal name_re' type='checkbox' value=".$row->baca." onclick='read(".$row->id_akses.")'>";}else{echo "<input id=re".$row->id_akses." class='minimal' type='checkbox' value=".$row->baca." onclick='read(".$row->id_akses.")' checked >";} ?></td>
-					<td><?php if ($row->ubah == 0){echo "<input id=up".$row->id_akses." name='name_up' class='minimal name_up' type='checkbox' value=".$row->ubah." onclick='update(".$row->id_akses.")'>";}else{echo "<input id=up".$row->id_akses." class='minimal' type='checkbox' value=".$row->ubah." onclick='update(".$row->id_akses.")' checked >";} ?></td>
-					<td><?php if ($row->hapus == 0){echo "<input id=de".$row->id_akses." name='name_de' class='minimal name_de' type='checkbox' value=".$row->hapus." onclick='delet(".$row->id_akses.")'>";}else{echo "<input id=de".$row->id_akses." class='minimal' type='checkbox' value=".$row->hapus." onclick='delet(".$row->id_akses.")' checked >";} ?></td>
-				</tr>
-
-			<?php $anak = $CI->db->query(" SELECT config_menu.*,
-													config_menu_akses.id_akses,
-													config_menu_akses.buat,
-													config_menu_akses.baca,
-													config_menu_akses.ubah,
-													config_menu_akses.hapus
-											FROM config_menu
-											INNER JOIN config_menu_akses
-											ON config_menu.id_menu=config_menu_akses.id_menu
-											WHERE id_role = '".$role."'
-											AND config_menu.flag <> 0											
-											AND id_parent=$row->id_menu");
-				foreach ($anak->result() as $baris){?>
+									AND flag=1
+									ORDER BY config_menu.prioritas ASC");
+			foreach($induk->result() as $row)
+			{
+				if ($row->user_role != 3) {
+					# code...
+			?>
 					<tr>
-					<td>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<?php echo "<i class='".$baris->icon."'></i> ". $baris->nama_menu;?></td>
-					<td><?php if ($baris->buat == 0){echo "<input id=cr".$baris->id_akses." class='minimal name_cr' type='checkbox' value=".$baris->buat." onclick='create(".$baris->id_akses.")'>";}else{echo "<input id=cr".$baris->id_akses." class='minimal' type='checkbox' value=".$baris->buat." onclick='create(".$baris->id_akses.")' checked >";} ?></td>
-					<td><?php if ($baris->baca == 0){echo "<input id=re".$baris->id_akses." class='minimal name_re' type='checkbox' value=".$baris->baca." onclick='read(".$baris->id_akses.")'>";}else{echo "<input id=re".$baris->id_akses." class='minimal' type='checkbox' value=".$baris->baca." onclick='read(".$baris->id_akses.")' checked >";} ?></td>
-					<td><?php if ($baris->ubah == 0){echo "<input id=up".$baris->id_akses." class='minimal name_up' type='checkbox' value=".$baris->ubah." onclick='update(".$baris->id_akses.")'>";}else{echo "<input id=up".$baris->id_akses." class='minimal' type='checkbox' value=".$baris->ubah." onclick='update(".$baris->id_akses.")' checked >";} ?></td>
-					<td><?php if ($baris->hapus == 0){echo "<input id=de".$baris->id_akses." class='minimal name_de' type='checkbox' value=".$baris->hapus." onclick='delet(".$baris->id_akses.")'>";}else{echo "<input id=de".$baris->id_akses." class='minimal' type='checkbox' value=".$baris->hapus." onclick='delet(".$baris->id_akses.")' checked >";} ?></td>
-				</tr>
-				<?php }
+						<td><?php echo "<i class='".$row->icon."'></i> ".$row->nama_menu; ?></td>
+						<td><?php if ($row->buat == 0){echo "<input id=cr".$row->id_akses." name='name_cr' class='minimal name_cr' type='checkbox' value=".$row->buat." onclick='create(".$row->id_akses.")'>";}else{echo "<input id=cr".$row->id_akses." class='minimal' type='checkbox' value=".$row->buat." onclick='create(".$row->id_akses.")' checked >";} ?></td>
+						<td><?php if ($row->baca == 0){echo "<input id=re".$row->id_akses." name='name_re' class='minimal name_re' type='checkbox' value=".$row->baca." onclick='read(".$row->id_akses.")'>";}else{echo "<input id=re".$row->id_akses." class='minimal' type='checkbox' value=".$row->baca." onclick='read(".$row->id_akses.")' checked >";} ?></td>
+						<td><?php if ($row->ubah == 0){echo "<input id=up".$row->id_akses." name='name_up' class='minimal name_up' type='checkbox' value=".$row->ubah." onclick='update(".$row->id_akses.")'>";}else{echo "<input id=up".$row->id_akses." class='minimal' type='checkbox' value=".$row->ubah." onclick='update(".$row->id_akses.")' checked >";} ?></td>
+						<td><?php if ($row->hapus == 0){echo "<input id=de".$row->id_akses." name='name_de' class='minimal name_de' type='checkbox' value=".$row->hapus." onclick='delet(".$row->id_akses.")'>";}else{echo "<input id=de".$row->id_akses." class='minimal' type='checkbox' value=".$row->hapus." onclick='delet(".$row->id_akses.")' checked >";} ?></td>
+					</tr>
+			<?php					
+				} 
+
+				$anak = $CI->db->query(" SELECT config_menu.*,
+												config_menu_akses.id_akses,
+												config_menu_akses.buat,
+												config_menu_akses.baca,
+												config_menu_akses.ubah,
+												config_menu_akses.hapus
+										FROM config_menu
+										INNER JOIN config_menu_akses
+										ON config_menu.id_menu=config_menu_akses.id_menu
+										WHERE id_role = '".$role."'
+										AND config_menu.flag <> 0											
+										AND id_parent=$row->id_menu");
+
+				foreach ($anak->result() as $baris)
+				{
+					if ($baris->user_role != 3) {
+						# code...
+			?>
+						<tr>
+							<td>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<?php echo "<i class='".$baris->icon."'></i> ". $baris->nama_menu;?></td>
+							<td><?php if ($baris->buat == 0){echo "<input id=cr".$baris->id_akses." class='minimal name_cr' type='checkbox' value=".$baris->buat." onclick='create(".$baris->id_akses.")'>";}else{echo "<input id=cr".$baris->id_akses." class='minimal' type='checkbox' value=".$baris->buat." onclick='create(".$baris->id_akses.")' checked >";} ?></td>
+							<td><?php if ($baris->baca == 0){echo "<input id=re".$baris->id_akses." class='minimal name_re' type='checkbox' value=".$baris->baca." onclick='read(".$baris->id_akses.")'>";}else{echo "<input id=re".$baris->id_akses." class='minimal' type='checkbox' value=".$baris->baca." onclick='read(".$baris->id_akses.")' checked >";} ?></td>
+							<td><?php if ($baris->ubah == 0){echo "<input id=up".$baris->id_akses." class='minimal name_up' type='checkbox' value=".$baris->ubah." onclick='update(".$baris->id_akses.")'>";}else{echo "<input id=up".$baris->id_akses." class='minimal' type='checkbox' value=".$baris->ubah." onclick='update(".$baris->id_akses.")' checked >";} ?></td>
+							<td><?php if ($baris->hapus == 0){echo "<input id=de".$baris->id_akses." class='minimal name_de' type='checkbox' value=".$baris->hapus." onclick='delet(".$baris->id_akses.")'>";}else{echo "<input id=de".$baris->id_akses." class='minimal' type='checkbox' value=".$baris->hapus." onclick='delet(".$baris->id_akses.")' checked >";} ?></td>
+						</tr>
+			<?php 						
+					}
+				}
 			}
+		}
+		else
+		{
+			$induk = $CI->db->query("SELECT config_menu.*,
+											config_menu_akses.id_akses,
+											config_menu_akses.buat,
+											config_menu_akses.baca,
+											config_menu_akses.ubah,
+											config_menu_akses.hapus
+									FROM config_menu
+									INNER JOIN config_menu_akses
+									ON config_menu.id_menu=config_menu_akses.id_menu
+									WHERE id_role= '".$role."'
+									AND config_menu.user_role = '".$role."'
+									AND config_menu.flag <> 0
+									AND id_parent=0
+									AND flag=1
+									ORDER BY config_menu.prioritas ASC");
+			foreach($induk->result() as $row)
+			{
+			?>
+					<tr>
+						<td><?php echo "<i class='".$row->icon."'></i> ".$row->nama_menu; ?></td>
+						<td><?php if ($row->buat == 0){echo "<input id=cr".$row->id_akses." name='name_cr' class='minimal name_cr' type='checkbox' value=".$row->buat." onclick='create(".$row->id_akses.")'>";}else{echo "<input id=cr".$row->id_akses." class='minimal' type='checkbox' value=".$row->buat." onclick='create(".$row->id_akses.")' checked >";} ?></td>
+						<td><?php if ($row->baca == 0){echo "<input id=re".$row->id_akses." name='name_re' class='minimal name_re' type='checkbox' value=".$row->baca." onclick='read(".$row->id_akses.")'>";}else{echo "<input id=re".$row->id_akses." class='minimal' type='checkbox' value=".$row->baca." onclick='read(".$row->id_akses.")' checked >";} ?></td>
+						<td><?php if ($row->ubah == 0){echo "<input id=up".$row->id_akses." name='name_up' class='minimal name_up' type='checkbox' value=".$row->ubah." onclick='update(".$row->id_akses.")'>";}else{echo "<input id=up".$row->id_akses." class='minimal' type='checkbox' value=".$row->ubah." onclick='update(".$row->id_akses.")' checked >";} ?></td>
+						<td><?php if ($row->hapus == 0){echo "<input id=de".$row->id_akses." name='name_de' class='minimal name_de' type='checkbox' value=".$row->hapus." onclick='delet(".$row->id_akses.")'>";}else{echo "<input id=de".$row->id_akses." class='minimal' type='checkbox' value=".$row->hapus." onclick='delet(".$row->id_akses.")' checked >";} ?></td>
+					</tr>
+			<?php					
 
+				$anak = $CI->db->query(" SELECT config_menu.*,
+												config_menu_akses.id_akses,
+												config_menu_akses.buat,
+												config_menu_akses.baca,
+												config_menu_akses.ubah,
+												config_menu_akses.hapus
+										FROM config_menu
+										INNER JOIN config_menu_akses
+										ON config_menu.id_menu=config_menu_akses.id_menu
+										WHERE id_role = '".$role."'
+										AND config_menu.flag <> 0											
+										AND id_parent=$row->id_menu");
 
+				foreach ($anak->result() as $baris)
+				{
+			?>
+						<tr>
+							<td>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<?php echo "<i class='".$baris->icon."'></i> ". $baris->nama_menu;?></td>
+							<td><?php if ($baris->buat == 0){echo "<input id=cr".$baris->id_akses." class='minimal name_cr' type='checkbox' value=".$baris->buat." onclick='create(".$baris->id_akses.")'>";}else{echo "<input id=cr".$baris->id_akses." class='minimal' type='checkbox' value=".$baris->buat." onclick='create(".$baris->id_akses.")' checked >";} ?></td>
+							<td><?php if ($baris->baca == 0){echo "<input id=re".$baris->id_akses." class='minimal name_re' type='checkbox' value=".$baris->baca." onclick='read(".$baris->id_akses.")'>";}else{echo "<input id=re".$baris->id_akses." class='minimal' type='checkbox' value=".$baris->baca." onclick='read(".$baris->id_akses.")' checked >";} ?></td>
+							<td><?php if ($baris->ubah == 0){echo "<input id=up".$baris->id_akses." class='minimal name_up' type='checkbox' value=".$baris->ubah." onclick='update(".$baris->id_akses.")'>";}else{echo "<input id=up".$baris->id_akses." class='minimal' type='checkbox' value=".$baris->ubah." onclick='update(".$baris->id_akses.")' checked >";} ?></td>
+							<td><?php if ($baris->hapus == 0){echo "<input id=de".$baris->id_akses." class='minimal name_de' type='checkbox' value=".$baris->hapus." onclick='delet(".$baris->id_akses.")'>";}else{echo "<input id=de".$baris->id_akses." class='minimal' type='checkbox' value=".$baris->hapus." onclick='delet(".$baris->id_akses.")' checked >";} ?></td>
+						</tr>
+			<?php 						
+				}
+			}			
+		}
 	}
 
 	function selisihMenit($awal,$akhir){

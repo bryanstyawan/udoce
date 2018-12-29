@@ -1,4 +1,15 @@
 v1.0.0    
+2019-12-30
+==========
+New:
+- Penambahan halaman bimbingan belajar
+- layout penawaran bimbingan belajar
+Improved:
+- Penyesuaian Menu 
+Fixed:
+- Perbaikan penulisan text ketika gagal login, ketika user dan password salah
+
+v1.0.0    
 2019-12-29
 ==========
 New:

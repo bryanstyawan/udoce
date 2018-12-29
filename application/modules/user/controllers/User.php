@@ -69,4 +69,13 @@ class User extends CI_Controller {
 					);
 		echo json_encode($res);		
 	}
+
+	public function bimbingan_belajar()
+	{
+		# code...
+		$this->Globalrules->session_rule();
+		$data['title']              = '';
+		$data['content']            = 'user/bimbingan_belajar/root/index';
+		$this->load->view('templateAdmin',$data);		
+	}
 }

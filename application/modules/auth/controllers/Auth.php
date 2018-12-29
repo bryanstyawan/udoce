@@ -60,7 +60,7 @@ class Auth extends CI_Controller
 			$res = array
 			(
 				'status' => 0,
-				'text'   => 'Verifikasi user gagal, nip atau password tidak sesuai'
+				'text'   => 'Verifikasi user gagal, username atau password tidak sesuai'
 			);
 			echo json_encode($res);
 		}		
