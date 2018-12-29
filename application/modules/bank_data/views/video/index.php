@@ -1,3 +1,33 @@
+<section id="headerdata" >
+	<div class="col-xs-12">
+		<div class="box">
+			<div class="box-header">
+				<h3 class="box-title"></h3>
+			</div>
+			<div class="box-body">
+				<div class="row">
+				<input type="hidden" id="id_materi" value="<?=$materi->result_array()[0]['id'];?>">
+				<input type="hidden" id="id_parent" value="<?=$materi->result_array()[0]['id_parent'];?>">								
+					<div class="col-md-6">
+						<div class="form-group">
+							<label>Materi</label>
+							<input type="text" class="form-control" id="f_name_soal" placeholder="Deskripsi Soal" disabled="disabled" value="<?=$parent->result_array()[0]['name'];?>">
+						</div>
+					</div>
+
+					<div class="col-md-6">						
+						<div class="form-group">
+							<label>Deskripsi Pembahasan</label>
+							<input type="text" class="form-control" id="f_desc_pembahasan_soal" rows="3" placeholder="Deskripsi Pembahasan" disabled="disabled" value="<?=$materi->result_array()[0]['name'];?>">
+						</div>						
+					</div>
+				</div>
+
+			</div><!-- /.box-body -->
+		</div><!-- /.box -->
+	</div>
+</section>
+
 <section id="viewdata">
 	<div class="col-xs-12">
 		<div class="box">
@@ -46,19 +76,19 @@
 			</div>
 			<div class="box-body">
 				<div class="row">
-					<input class="form-control" type="hidden" id="oid">
-					<input class="form-control" type="hidden" id="crud">					
+					<input class="form-control form-control-data" type="hidden" id="oid">
+					<input class="form-control form-control-data" type="hidden" id="crud">					
 					<div class="col-md-6">
 						<div class="form-group">
 							<label>Judul Video</label>
-							<input type="text" class="form-control" placeholder="Judul" id="f_name">
+							<input type="text" class="form-control form-control-data" placeholder="Judul" id="f_name">
 						</div>
 					</div>
 
 					<div class="col-md-6">						
 						<div class="form-group">
 							<label>File Video</label>
-							<input type="file" class="form-control" placeholder="File Video" id="f_file">
+							<input type="file" class="form-control form-control-data" placeholder="File Video" id="f_file">
 						</div>						
 					</div>
 					
@@ -80,7 +110,7 @@
 $(document).ready(function(){	
 	$("#addData").click(function()
 	{
-		$(".form-control").val('');
+		$(".form-control-data").val('');
 		$("#formdata").css({"display": ""})
 		$("#viewdata").css({"display": "none"})
 		$('video source').each(function(num,val){
@@ -100,71 +130,53 @@ $(document).ready(function(){
 		var res_status   = 0;
 		var flag_allowed = 0;
 		var oid          = $("#oid").val();
+		var id_materi    = $('#id_materi').val();
+		var id_parent    = $('#id_parent').val();
 		var crud         = $("#crud").val();
 		var f_name       = $("#f_name").val();
 		var f_file       = $("#f_file").prop('files')[0];
 
-		var data_sender = {
-			'oid'   : oid,
-			'crud'  : crud,
-			'f_name': f_name
-		}
-
 		if (crud == 'insert') {
-			if (f_file == undefined) {
-				flag_allowed = 0;
-				Lobibox.alert("warning", //AVAILABLE TYPES: "error", "info", "success", "warning"
-				{
-					title: 'Peringatan',					
-					msg: "Data File Video tidak ditemukan, mohon lengkapi data tersebut"
-				});												
-			}
-			else
-			{
-				flag_allowed = 1;				
-			}
-		}
-		else
-		{
-			flag_allowed = 1;
-		}
-
-		if (f_name.length <= 0 || f_file == undefined) {
 			if (f_name.length <= 0) {
 				Lobibox.alert("warning", //AVAILABLE TYPES: "error", "info", "success", "warning"
 				{
 					title: 'Peringatan',					
 					msg: "Data Judul Video belum terisi, mohon lengkapi data tersebut"
 				});				
+				flag_allowed = 0;				
 			}
-		}
-		else
-		{
-			if (f_file == undefined) {
-				var data_sender = {
-								'oid'   : oid,
-								'crud'  : 'update',
-								'f_name': f_name
-							}				
-				$.ajax({
-					url :"<?php echo site_url();?>bank_data/video/store",
-					type:"post",
-					data:{data_sender : data_sender},
-					beforeSend:function(){
-						$("#editData").modal('hide');
-						$("#loadprosess").modal('show');
-					},
-					success:function(msg){
-						var obj = jQuery.parseJSON (msg);
-						ajax_status(obj);
-					},
-					error:function(jqXHR,exception)
-					{
-						ajax_catch(jqXHR,exception);					
-					}
-				})				
+			else if (f_file == undefined) {
+				Lobibox.alert("warning", //AVAILABLE TYPES: "error", "info", "success", "warning"
+				{
+					title: 'Peringatan',					
+					msg: "Data File Video tidak ditemukan, mohon lengkapi data tersebut"
+				});								
+				flag_allowed = 0;												
 			}
 			else
+			{
+				flag_allowed = 1;				
+			}
+		}
+		else if(crud == 'update')
+		{
+			if (f_name.length <= 0) {
+				Lobibox.alert("warning", //AVAILABLE TYPES: "error", "info", "success", "warning"
+				{
+					title: 'Peringatan',					
+					msg: "Data Judul Video belum terisi, mohon lengkapi data tersebut"
+				});				
+				flag_allowed = 0;				
+			}
+			else
+			{
+				flag_allowed = 1;
+			}			
+		}
+
+		if(flag_allowed == 1)
+		{
+			if(crud == 'insert')
 			{
 				var form_data = new FormData();
 				form_data.append('file', f_file);
@@ -177,50 +189,20 @@ $(document).ready(function(){
 					data: form_data,
 					type: 'post',
 					beforeSend:function(){
-						$("#editData").modal('hide');
 						$("#loadprosess").modal('show');                                                
-						// Lobibox.progress({
-						// 	title: 'Upload Data',
-						// 	label: '',          
-						// 	onShow: function ($this) {
-						// 		var i = 0;
-						// 		var inter = setInterval(function () {
-						// 			if (i > 100) {
-						// 				inter = clearInterval(inter);
-						// 			}
-						// 			i = i + 0.1;
-						// 			$this.setProgress(i);
-						// 		}, 10);
-						// 	}
-						// });    
 					},
 					success: function(msg1){
 						var obj1 = jQuery.parseJSON (msg1);             	
 						if (obj1.status == 1)
 						{
 							var data_sender = {
-								'oid'   : obj1.id,
-								'crud'  : 'update',
-								'f_name': f_name
+								'oid'      : obj1.id,
+								'id_materi': id_materi,
+								'id_parent': id_parent,
+								'crud'     : 'update',
+								'f_name'   : f_name
 							}
-
-							$.ajax({
-								url :"<?php echo site_url();?>bank_data/video/store",
-								type:"post",
-								data:{data_sender : data_sender},
-								beforeSend:function(){
-									$("#editData").modal('hide');
-									$("#loadprosess").modal('show');
-								},
-								success:function(msg){
-									var obj = jQuery.parseJSON (msg);
-									ajax_status(obj);
-								},
-								error:function(jqXHR,exception)
-								{
-									ajax_catch(jqXHR,exception);					
-								}
-							})
+							post(data_sender);
 						}
 						else
 						{
@@ -234,7 +216,63 @@ $(document).ready(function(){
 					{
 						ajax_catch(jqXHR,exception);					
 					}
-				}); 
+				});				
+			}
+			else if(crud == 'update')
+			{
+				if (f_file == undefined) 
+				{
+					var data_sender = {
+								'oid'      : oid,
+								'id_materi': id_materi,
+								'id_parent': id_parent,
+								'crud'     : crud,
+								'f_name'   : f_name
+							}	
+					post(data_sender);					
+				}				
+				else
+				{
+					var form_data = new FormData();					
+					form_data.append('file', f_file);
+					$.ajax({
+						url :"<?php echo site_url();?>bank_data/video/upload_data/"+crud+"/"+oid, // point to server-side PHP script
+						// dataType: 'json',  // what to expect back from the PHP script, if anything
+						cache: false,
+						contentType: false,
+						processData: false,
+						data: form_data,
+						type: 'post',
+						beforeSend:function(){
+							$("#loadprosess").modal('show');                                                
+						},
+						success: function(msg1){
+							var obj1 = jQuery.parseJSON (msg1);             	
+							if (obj1.status == 1)
+							{
+								var data_sender = {
+											'oid'      : obj1.id,
+											'id_materi': id_materi,
+											'id_parent': id_parent,
+											'crud'     : crud,
+											'f_name'   : f_name
+										}	
+								post(data_sender);
+							}
+							else
+							{
+								Lobibox.notify('warning', {msg: obj1.text});
+								setTimeout(function(){
+									$("#loadprosess").modal('hide');
+								}, 500);
+							}
+						},
+						error:function(jqXHR,exception)
+						{
+							ajax_catch(jqXHR,exception);					
+						}
+					});					
+				}
 			}
 		}
 	})
@@ -262,7 +300,6 @@ function edit(id){
 				$("#oid").val(obj.data[0]['id']);
 				$("#f_name").val(obj.data[0]['name']);
 				var source = '<?=base_url();?>public/video/'+obj.data[0]['file'];
-				console.log(source);
 				var f_video = document.getElementById('f_video');
 				var f_source = document.getElementById('f_source');
 				f_source.src = source;
@@ -295,7 +332,6 @@ function del(id)
 					url :"<?php echo site_url();?>bank_data/video/store/"+'delete/'+id,
 					type:"post",
 					beforeSend:function(){
-						$("#editData").modal('hide');
 						$("#loadprosess").modal('show');
 					},
 					success:function(msg){
@@ -310,5 +346,24 @@ function del(id)
 			}
 		}
 	})		
+}
+
+function post(_data_sender) {
+	$.ajax({
+		url :"<?php echo site_url();?>bank_data/video/store",
+		type:"post",
+		data:{data_sender : _data_sender},
+		beforeSend:function(){
+			$("#loadprosess").modal('show');
+		},
+		success:function(msg){
+			var obj = jQuery.parseJSON (msg);
+			ajax_status(obj);
+		},
+		error:function(jqXHR,exception)
+		{
+			ajax_catch(jqXHR,exception);					
+		}
+	})	
 }
 </script>

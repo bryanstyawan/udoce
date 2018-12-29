@@ -12,7 +12,7 @@ class Soal extends CI_Controller {
 	{
 		$this->Globalrules->session_rule();						
 
-		$arg       = $this->Allcrud->getData('lt_tipe_materi_soal',array('id'=>$param))->result_array()[0]['text'];
+		$arg       = $this->Allcrud->getData('lt_tipe_bimbingan_belajar',array('id'=>$param))->result_array()[0]['text'];
 		$data['title']   = 'Bank Soal '.$arg;
 		$data['content'] = 'bank_data/soal/index';
 		$data['list']    = $this->Allcrud->getdata('mr_soal',array('id_materi'=>$id,'id_parent'=>$parent,'id_tipe_soal'=>$param));
@@ -255,7 +255,7 @@ class Soal extends CI_Controller {
 		$data['content'] = 'bank_data/materi/detail';
 		$data['materi'] = $this->Allcrud->getData('mr_materi',array('id'=>$id));
 		$data['parent'] = $this->Allcrud->getData('mr_materi',array('id'=>$parent));
-		$data['tipe']   = $this->Allcrud->listData('lt_tipe_materi_soal');
+		$data['tipe']   = $this->Allcrud->listData('lt_tipe_bimbingan_belajar');
 		$this->load->view('templateAdmin',$data);
-	}	
+	}
 }

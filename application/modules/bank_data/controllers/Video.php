@@ -10,11 +10,7 @@ class Video extends CI_Controller {
 	
 	public function index()
 	{
-		$this->Globalrules->session_rule();						
-		$data['title']   = 'Bank Video';
-		$data['content'] = 'bank_data/video/index';
-		$data['list']    = $this->Allcrud->listData('mr_video');
-		$this->load->view('templateAdmin',$data);
+		redirect(base_url());
 	}
 
 	public function upload_data($arg,$oid=NULL)
@@ -22,7 +18,7 @@ class Video extends CI_Controller {
 		# code...
 		$config['upload_path']   = FCPATH.'/public/video/';
 		$config['allowed_types'] = 'mp4';
-		$config['max_size']      = '100000';
+		$config['max_size']      = '300000';
 		$this->load->library('upload', $config);
 		$id_pekerjaan = "";
 		$f_file       = "";
@@ -144,9 +140,11 @@ class Video extends CI_Controller {
 			# code...
 		} elseif ($data_sender['crud'] == 'update') {
 			# code...
-			$data_store['name']            = $data_sender['f_name'];
-			            $res_data          = $this->Allcrud->editData('mr_video',$data_store,array('id'=>$data_sender['oid']));
-			            $text_status       = $this->Globalrules->check_status_res($res_data,'Data video berhasil diupdate.');			
+			$data_store['name']      = $data_sender['f_name'];
+			$data_store['id_materi'] = $data_sender['id_materi'];
+			$data_store['id_parent'] = $data_sender['id_parent'];
+			            $res_data    = $this->Allcrud->editData('mr_video',$data_store,array('id'=>$data_sender['oid']));
+			            $text_status = $this->Globalrules->check_status_res($res_data,'Data video berhasil diupdate.');
 		} elseif ($data_sender['crud'] == 'delete') {
 			# code...
 			$config['upload_path'] = FCPATH.'/public/video/';
@@ -221,4 +219,19 @@ class Video extends CI_Controller {
 			return $data;			
 		}
 	}
+
+	public function video_materi($id=NULL,$parent=NULL,$param=NULL)
+	{
+		# code...
+		$this->Globalrules->session_rule();						
+
+		$arg       = $this->Allcrud->getData('lt_tipe_bimbingan_belajar',array('id'=>$param))->result_array()[0]['text'];
+		$data['list']    = $this->Allcrud->getdata('mr_video',array('id_materi'=>$id,'id_parent'=>$parent));
+		$data['materi']  = $this->Allcrud->getData('mr_materi',array('id'=>$id));
+		$data['parent']  = $this->Allcrud->getData('mr_materi',array('id'=>$parent));
+		$data['param']   = $param;
+		$data['title']   = 'Data '.$arg;
+		$data['content'] = 'bank_data/video/index';
+		$this->load->view('templateAdmin',$data);		
+	}	
 }

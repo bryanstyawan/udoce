@@ -1,4 +1,13 @@
 v1.0.0    
+2019-12-29
+==========
+New:
+Improved:
+- Perubahan bank data video menjadi video materi. video materi permateri seperti soal quiz dan pre test. video materi ada didalam menu Management
+- Perubahan maximal upload video dari 100mb menjadi 300mb
+Fixed:
+
+v1.0.0    
 2019-12-16
 ==========
 New:

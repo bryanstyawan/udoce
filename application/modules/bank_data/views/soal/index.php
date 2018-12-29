@@ -1,3 +1,33 @@
+<section id="headerdata" >
+	<div class="col-xs-12">
+		<div class="box">
+			<div class="box-header">
+				<h3 class="box-title"></h3>
+			</div>
+			<div class="box-body">
+				<div class="row">
+				<input type="hidden" id="id" value="<?=$materi->result_array()[0]['id'];?>">
+				<input type="hidden" id="id_parent" value="<?=$materi->result_array()[0]['id_parent'];?>">								
+					<div class="col-md-6">
+						<div class="form-group">
+							<label>Materi</label>
+							<input type="text" class="form-control" id="f_name_soal" placeholder="Deskripsi Soal" disabled="disabled" value="<?=$parent->result_array()[0]['name'];?>">
+						</div>
+					</div>
+
+					<div class="col-md-6">						
+						<div class="form-group">
+							<label>Deskripsi Pembahasan</label>
+							<input type="text" class="form-control" id="f_desc_pembahasan_soal" rows="3" placeholder="Deskripsi Pembahasan" disabled="disabled" value="<?=$materi->result_array()[0]['name'];?>">
+						</div>						
+					</div>
+				</div>
+
+			</div><!-- /.box-body -->
+		</div><!-- /.box -->
+	</div>
+</section>
+
 <section id="viewdata">
 	<input type="hidden" id="id_table" value="<?=$materi->result_array()[0]['id'];?>">
 	<input type="hidden" id="id_parent" value="<?=$materi->result_array()[0]['id_parent'];?>">
@@ -81,14 +111,14 @@
 					<div class="col-md-6">
 						<div class="form-group">
 							<label>Deskripsi Soal</label>
-							<textarea class="form-control editor-classic" id="f_name" rows="3" placeholder="Deskripsi Soal"></textarea>
+							<textarea class="form-control" id="f_name" rows="3" placeholder="Deskripsi Soal"></textarea>
 						</div>
 					</div>
 
 					<div class="col-md-6">						
 						<div class="form-group">
 							<label>Deskripsi Pembahasan</label>
-							<textarea class="form-control editor-classic" id="f_desc_pembahasan" rows="3" placeholder="Deskripsi Pembahasan"></textarea>
+							<textarea class="form-control" id="f_desc_pembahasan" rows="3" placeholder="Deskripsi Pembahasan"></textarea>
 						</div>						
 					</div>
 				</div>

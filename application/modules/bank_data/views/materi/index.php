@@ -12,6 +12,9 @@
 					<th>No</th>
 					<th>Materi</th>
 					<th>Sub Materi</th>					
+					<th>Pre Test</th>
+					<th>Quiz</th>
+					<th>Video Materi</th>
 					<th>action</th>
 				</tr>
 				</thead>
@@ -25,6 +28,9 @@
 							<td><?php echo $x;?></td>
 							<td><?php echo $row->name;?></td>
 							<td></td>
+							<td></td>
+							<td></td>
+							<td></td>																					
 							<td>
 								<button class="btn btn-primary btn-xs" onclick="edit('<?php echo $row->id;?>')"><i class="fa fa-edit"></i> Ubah</button>&nbsp;&nbsp;
 								<button class="btn btn-success btn-xs" onclick="detail('<?php echo $row->id;?>')"><i class="fa fa-edit"></i> Sub Materi</button>&nbsp;&nbsp;							
@@ -40,10 +46,13 @@
 									<td></td>
 									<td></td>									
 									<td><?php echo $key->name;?></td>
+									<td></td>
+									<td></td>
+									<td></td>																											
 									<td>
 										<button class="btn btn-primary btn-xs" onclick="edit('<?php echo $key->id;?>')"><i class="fa fa-edit"></i> Ubah</button>&nbsp;&nbsp;
 										<button class="btn btn-danger btn-xs" onclick="del('<?php echo $key->id;?>')"><i class="fa fa-trash"></i> Hapus</button>
-										<button class="btn btn-success btn-xs pull-right" onclick="detail_soal('<?php echo $key->id;?>','<?php echo $key->id_parent;?>')"><i class="fa fa-edit"></i> Soal</button>&nbsp;&nbsp;										
+										<button class="btn btn-success btn-xs pull-right" style="margin-right: 10px;" onclick="detail_soal('<?php echo $key->id;?>','<?php echo $key->id_parent;?>')"><i class="fa fa-edit"></i> Soal dan Materi</button>&nbsp;&nbsp;
 									</td>
 								</tr>
 				<?php								

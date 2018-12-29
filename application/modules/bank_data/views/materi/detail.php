@@ -71,6 +71,12 @@
 function go(arg,param) {
 	var id     = $("#id").val();
 	var parent = $("#id_parent").val();
-	window.open("<?php echo site_url();?>bank_data/soal/index/"+arg+"/"+id+"/"+parent+"/"+param,'_blank');
+	if (param != 3) {
+		window.open("<?php echo site_url();?>bank_data/soal/index/"+arg+"/"+id+"/"+parent+"/"+param,'_blank');		
+	}
+	else
+	{
+		window.open("<?php echo site_url();?>bank_data/video/video_materi/"+id+"/"+parent+"/"+param,'_blank');		
+	}
 }
 </script>
