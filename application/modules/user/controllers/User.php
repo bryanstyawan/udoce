@@ -74,8 +74,52 @@ class User extends CI_Controller {
 	{
 		# code...
 		$this->Globalrules->session_rule();
-		$data['title']              = '';
-		$data['content']            = 'user/bimbingan_belajar/root/index';
+		$data['title']            = 'Bimbingan Belajar';
+		$data['verify_user_paid'] = $this->Allcrud->getData('tr_layanan',array('id_user'=>$this->session->userdata('session_user'),'type'=>'bimbel'));
+		$data['list']             = $this->Allcrud->getData('mr_materi',array('id_parent'=>NULL));
+		$data['content']          = 'user/bimbingan_belajar/root/index';
 		$this->load->view('templateAdmin',$data);		
+	}
+
+	public function verify_token()
+	{
+		# code...
+		$text_status = "";
+		$data_sender = $this->input->post('data_sender');
+		$check_token = $this->Allcrud->getData('mr_token',array('name'=>$data_sender['token'],'id_layanan'=>$data_sender['oid']));
+		if ($check_token->result_array() == array()) {
+			# code...
+			$res_data    = 0 ;
+			$text_status = "Token Tidak Ditemukan.";
+		}
+		else {
+			# code...
+			$check_token = $this->Allcrud->getData('mr_token',array('name'=>$data_sender['token'],'id_layanan'=>$data_sender['oid'],'status'=>1));
+			if ($check_token->result_array() == array()) {
+				# code...
+				$res_data = 0;
+				$text_status = "Token Telah terpakai.";				
+			}
+			else {
+				# code...
+				$data_store  = $this->Globalrules->trigger_insert_update('insert');
+				$data_store1 = $this->Globalrules->trigger_insert_update('update');
+				$data_store  ['id_user']    = $this->session->userdata('session_user');
+				$data_store  ['id_layanan'] = $data_sender['oid'];
+				$data_store  ['type']       = $data_sender['type'];
+				$data_store  ['token']      = $data_sender['token'];
+				$data_store  ['status']     = 1;
+				$data_store1['status']      = 0;
+				$res_data    = $this->Allcrud->editData('mr_token',$data_store1,array('name'=>$data_sender['token']));				
+				$res_data    = $this->Allcrud->addData('tr_layanan',$data_store);
+				$text_status = $this->Globalrules->check_status_res($res_data,'Pembelian Telah berhasil.');
+			}
+		}
+		$res = array
+					(
+						'status' => $res_data,
+						'text'   => $text_status
+					);
+		echo json_encode($res);		
 	}
 }

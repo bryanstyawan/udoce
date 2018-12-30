@@ -1,10 +1,20 @@
 v1.0.0    
+2019-12-31
+==========
+New:
+- verifikasi token pembelian paket bimbingan belajar
+- verifikasi user yang sudah membeli paket bimbingan belajar
+- halaman materi bimbingan belajar
+Improved:
+Fixed:
+
+v1.0.0    
 2019-12-30
 ==========
 New:
-- Penambahan halaman bimbingan belajar
+- halaman bimbingan belajar
 - layout penawaran bimbingan belajar
-- Penambahan Token per layanan (generate, lihat token)
+- Token per layanan (generate, lihat token)
 Improved:
 - Penyesuaian Menu 
 Fixed:
