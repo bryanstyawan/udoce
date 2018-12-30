@@ -4,6 +4,7 @@ v1.0.0
 New:
 - Penambahan halaman bimbingan belajar
 - layout penawaran bimbingan belajar
+- Penambahan Token per layanan (generate, lihat token)
 Improved:
 - Penyesuaian Menu 
 Fixed:

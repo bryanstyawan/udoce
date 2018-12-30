@@ -22,4 +22,10 @@ class Management extends CI_Controller {
 		redirect('management/try_out');
 	}
 
+	public function token()
+	{
+		# code...
+		redirect('management/token');		
+	}
+
 }
