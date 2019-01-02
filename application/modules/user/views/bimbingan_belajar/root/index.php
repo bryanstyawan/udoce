@@ -283,9 +283,9 @@ else {
 									<td><?=$x;?></td>
 									<td><?php echo $row->name;?></td>									
 									<td><?php echo $key->name;?></td>
-									<td><a class="btn btn-primary"><i class="fa fa-hourglass-start"></i> Mulai</a></td>
-									<td><a class="btn btn-primary"><i class="fa fa-search-plus"></i> Lihat</a></td>
-									<td><a class="btn btn-primary"><i class="fa fa-hourglass-start"></i> Mulai</a></td>
+									<td><a class="btn btn-primary" href="<?=base_url();?>user/bimbingan_belajar/pre_test/1/<?php echo $key->id;?>" target="_blank"><i class="fa fa-hourglass-start"></i> Mulai</a></td>
+									<td><a class="btn btn-primary" href="<?=base_url();?>user/bimbingan_belajar/video_materi/3/<?php echo $key->id;?>" target="_blank"><i class="fa fa-search-plus"></i> Lihat</a></td>
+									<td><a class="btn btn-primary" href="<?=base_url();?>user/bimbingan_belajar/quiz/2/<?php echo $key->id;?>" target="_blank"><i class="fa fa-hourglass-start"></i> Mulai</a></td>
 								</tr>
 				<?php
 								$x++; 												

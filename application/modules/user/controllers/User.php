@@ -70,15 +70,31 @@ class User extends CI_Controller {
 		echo json_encode($res);		
 	}
 
-	public function bimbingan_belajar()
+	public function bimbingan_belajar($arg=NULL,$type=NULL,$materi=NULL)
 	{
 		# code...
-		$this->Globalrules->session_rule();
-		$data['title']            = 'Bimbingan Belajar';
-		$data['verify_user_paid'] = $this->Allcrud->getData('tr_layanan',array('id_user'=>$this->session->userdata('session_user'),'type'=>'bimbel'));
-		$data['list']             = $this->Allcrud->getData('mr_materi',array('id_parent'=>NULL));
-		$data['content']          = 'user/bimbingan_belajar/root/index';
-		$this->load->view('templateAdmin',$data);		
+		if ($arg == NULL) {
+			# code...
+			$this->Globalrules->session_rule();
+			$data['title']            = 'Bimbingan Belajar';
+			$data['verify_user_paid'] = $this->Allcrud->getData('tr_layanan',array('id_user'=>$this->session->userdata('session_user'),'type'=>'bimbel'));
+			$data['list']             = $this->Allcrud->getData('mr_materi',array('id_parent'=>NULL));
+			$data['content']          = 'user/bimbingan_belajar/root/index';
+			$this->load->view('templateAdmin',$data);		
+		}
+		elseif($arg == 'pre_test')
+		{
+			redirect('user/zbimbingan_belajar/'.$arg.'/'.$type.'/'.$materi);
+		}
+		elseif($arg == 'video_materi')
+		{
+			redirect('user/zbimbingan_belajar/'.$arg.'/'.$type.'/'.$materi);
+		}
+		elseif ($arg == 'quiz') {
+			# code...
+			redirect('user/zbimbingan_belajar/'.$arg.'/'.$type.'/'.$materi);			
+		}
+
 	}
 
 	public function verify_token()
