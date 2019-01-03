@@ -37,7 +37,7 @@
 		<div class="box-body">
 			<div class="row">
 				<div class="col-lg-12 text-center">
-					<a class="btn btn-success">Selesai Dan Lanjutkan</a>
+					<a class="btn btn-success" onclick="finish(<?=$materi;?>,<?=$type;?>)">Selesai dan Lanjutkan</a>
 				</div>
 			</div>
 
@@ -53,6 +53,7 @@ $(document).ready(function(){
 	var f_source = document.getElementById('f_source');
 	f_source.src = source;
 	f_video.load();	
+
 	$("#addData").click(function()
 	{
 		$(".form-control-detail").val('');
@@ -184,5 +185,47 @@ function del(id)
 
 function detail(id) {
 	window.location.href = "<?php echo site_url();?>bank_data/soal/detail/"+id
+
+
+}
+
+function finish(_materi,_type)
+{	
+	data_sender = {
+		'materi': _materi,
+		'type'  : _type
+	}					
+	Lobibox.confirm({
+		title   : "Konfirmasi",
+		msg     : "Anda yakin ingin menyelesaikan video belajar ini ?",
+		callback: function ($this, type) {
+			if (type === 'yes'){			
+				$.ajax({
+					url :"<?php echo site_url();?>user/zbimbingan_belajar/finish_step",
+					type:"post",
+					data:{data_sender : data_sender},
+					beforeSend:function(){
+						$("#loadprosess").modal('show');
+					},
+					success:function(msg){
+						var obj = jQuery.parseJSON (msg);
+						if (obj.status == 1)
+						{
+							Lobibox.notify('success', {msg: obj.text});
+							window.location.href = "<?php echo site_url();?>user/bimbingan_belajar";							
+						}
+						else
+						{
+							Lobibox.notify('warning', {msg: obj.text+' ,silahkan ulangi kembali'});
+						}						
+					},
+					error:function(jqXHR,exception)
+					{
+						ajax_catch(jqXHR,exception);					
+					}
+				})
+			}
+		}
+	})		
 }
 </script>

@@ -16,19 +16,25 @@
 				</div>
 				<div class="row">
 					<div class="col-md-12">
-					<table class="table table-bordered table-striped">
+					<table class="table table-bordered table-striped" id="table_<?=$list[$i]['id'];?>">
 					<body>
 						<?php
 							$detail = $this->Allcrud->getData('mr_soal_detail',array('id_soal'=>$list[$i]['id']))->result_array();
 							if ($detail != array()) {
 								# code...
+								$check_data  = $this->Allcrud->getData('tr_jawaban_bimbingan_belajar',array('id_user'=>$this->session->userdata('session_user'),'id_type'=>$type,'id_materi'=>$materi,'id_soal'=>$list[$i]['id']))->result_array();
 								for ($ii=0; $ii < count($detail); $ii++) { 
 									# code...
+									$mark = '';
+									if ($detail[$ii]['id'] == $check_data[0]['id_jawaban']) {
+										# code...
+										$mark = "style='background-color:#4CAF50;'";
+									}
 						?>
-									<tr>
+									<tr class="tr_choice" id="tr_<?=$detail[$ii]['id'];?>" <?=$mark;?>>
 										<td style="width: 5%;"><?=$detail[$ii]['choice'];?>.</td>
 										<td style="width: 100%;"><?=$detail[$ii]['name'];?>.</td>
-										<td><a class="btn btn-primary">Pilih</a></td>
+										<td><a class="btn btn-primary" onclick="choice(<?=$detail[$ii]['id'];?>,<?=$detail[$ii]['id_soal'];?>,<?=$materi;?>,<?=$type;?>)">Pilih</a></td>
 									</tr>
 						<?php
 								}
@@ -55,7 +61,7 @@
 		<div class="box-body">
 			<div class="row">
 				<div class="col-lg-12 text-center">
-					<a class="btn btn-success">Selesai dan Lanjutkan</a>
+					<a class="btn btn-success" onclick="finish(<?=$materi;?>,<?=$type;?>)">Selesai dan Lanjutkan</a>
 				</div>
 			</div>
 
@@ -65,124 +71,74 @@
 
 <script>
 $(document).ready(function(){
-	$("#addData").click(function()
-	{
-		$(".form-control-detail").val('');
-		$("#formdata").css({"display": ""})
-		$("#viewdata").css({"display": "none"})
-		$("#formdata > div > div > div.box-header > h3").html("Tambah Data Deskripsi Pilihan");		
-		$("#crud").val('insert');
-	})
 
-	$("#closeData").click(function(){
-		$("#formdata").css({"display": "none"})
-		$("#viewdata").css({"display": ""})		
-	})	
-
-	$("#btn-trigger-controll").click(function(){
-		var res_status = 0;
-		var oid_header = $("#oid_header").val();
-		var oid        = $("#oid").val();
-		var crud       = $("#crud").val();
-		var f_name     = $("#f_name").val();
-		var f_jawaban  = $("#f_jawaban").is(":checked");
-		var f_key      = $("#f_key").val();
-
-		var data_sender = {
-			'oid'       : oid,
-			'crud'      : crud,
-			'oid_header': oid_header,
-			'f_name'    : f_name,
-			'f_jawaban' : f_jawaban,
-			'f_key'     : f_key 
-		}
-
-		if (f_name.length <= 0) {
-			if (f_name.length <= 0) {
-				Lobibox.alert("warning", //AVAILABLE TYPES: "error", "info", "success", "warning"
-				{
-					title: 'Peringatan',					
-					msg: "Data Deskripsi Pilihan belum terisi, mohon lengkapi data tersebut"
-				});				
-			}
-		}
-		else
-		{
-			$.ajax({
-				url :"<?php echo site_url();?>bank_data/soal/store_detail",
-				type:"post",
-				data:{data_sender : data_sender},
-				beforeSend:function(){
-					$("#editData").modal('hide');
-					$("#loadprosess").modal('show');
-				},
-				success:function(msg){
-					var obj = jQuery.parseJSON (msg);
-					ajax_status(obj);
-				},
-				error:function(jqXHR,exception)
-				{
-					ajax_catch(jqXHR,exception);					
-				}
-			})
-		}
-	})
 })
 
-function edit(id){
+function choice(_choice,_soal,_materi,_type) {
+	data_sender = {
+		'choice': _choice,
+		'soal'  : _soal,
+		'materi': _materi,
+		'type'  : _type
+	}
+
 	$.ajax({
-		url :"<?php echo site_url();?>bank_data/soal/get_data/"+id+"/ajax/mr_soal_detail",
+		url :"<?php echo site_url();?>user/zbimbingan_belajar/store_choice",
 		type:"post",
+		data:{data_sender : data_sender},
 		beforeSend:function(){
-			$("#loadprosess").modal('show');
+			$("#table_"+_soal+" .tr_choice").css({"background-color": ""})				
+			$("#table_"+_soal+" #tr_"+_choice).css({"background-color": "#4CAF50"})				
 		},
 		success:function(msg){
 			var obj = jQuery.parseJSON (msg);
 			if (obj.status == 1)
 			{
-				// $(".form-control").val('');
-				$("#formdata").css({"display": ""})
-				$("#viewdata").css({"display": "none"})
-				$("#formdata > div > div > div.box-header > h3").html("Ubah Data Soal");		
-				$("#crud").val('update');
-				$("#oid").val(obj.data[0]['id']);
-				$("#f_name").val(obj.data[0]['name']);
-				$("#f_jawaban").val(obj.data[0]['name']);
-				$("#f_key").val(obj.data[0]['choice']);																
-				$("#loadprosess").modal('hide');				
+				Lobibox.notify('success', {msg: obj.text});
 			}
 			else
 			{
-				Lobibox.notify('warning',{msg: obj.text});
-				setTimeout(function(){
-					$("#loadprosess").modal('hide');
-				}, 500);
-			}						
+				$("#table_"+_soal+" #tr_"+_choice).css({"background-color": ""})					
+				Lobibox.notify('warning', {msg: obj.text+' ,silahkan pilih kembali pilihan anda'});
+			}
 		},
 		error:function(jqXHR,exception)
 		{
+			$("#table_"+_soal+" #tr_"+_choice).css({"background-color": ""})								
 			ajax_catch(jqXHR,exception);					
 		}
 	})
 }
 
-function del(id)
-{					
+function finish(_materi,_type)
+{	
+	data_sender = {
+		'materi': _materi,
+		'type'  : _type
+	}					
 	Lobibox.confirm({
 		title   : "Konfirmasi",
-		msg     : "Anda yakin akan menghapus data ini ?",
+		msg     : "Anda yakin ingin menyelesaikan pre test ini ?",
 		callback: function ($this, type) {
 			if (type === 'yes'){			
 				$.ajax({
-					url :"<?php echo site_url();?>bank_data/soal/store_detail/"+'delete/'+id,
+					url :"<?php echo site_url();?>user/zbimbingan_belajar/finish_step",
 					type:"post",
+					data:{data_sender : data_sender},
 					beforeSend:function(){
-						$("#editData").modal('hide');
 						$("#loadprosess").modal('show');
 					},
 					success:function(msg){
 						var obj = jQuery.parseJSON (msg);
-						ajax_status(obj);
+						if (obj.status == 1)
+						{
+							Lobibox.notify('success', {msg: obj.text});
+							window.location.href = "<?php echo site_url();?>user/bimbingan_belajar";							
+						}
+						else
+						{
+							Lobibox.notify('warning', {msg: obj.text+' ,silahkan ulangi kembali'});
+						}						
 					},
 					error:function(jqXHR,exception)
 					{
@@ -192,9 +148,5 @@ function del(id)
 			}
 		}
 	})		
-}
-
-function detail(id) {
-	window.location.href = "<?php echo site_url();?>bank_data/soal/detail/"+id
 }
 </script>
