@@ -136,6 +136,43 @@ class Soal extends CI_Controller {
 		$this->load->view('templateAdmin',$data);
 	}
 
+	public function store_detail_multi()
+	{
+		# code...
+		$res_data    = 0;
+		$text_status = '';
+		$data_sender = $this->input->post('data_sender');		
+
+		for ($i=0; $i < count($data_sender); $i++) { 
+			# code...
+			$data_store = $this->Globalrules->trigger_insert_update($data_sender[$i]['crud']);
+			$count_data = $this->Allcrud->getData('mr_soal_detail',array('id_soal'=>$data_sender[$i]['oid_header']));
+			$data_alp   = $this->Globalrules->data_alphabet(count($count_data->result_array()));			
+
+			if ($data_sender[$i]['f_jawaban'] == 'true') {
+				# code...
+				$data_store1['jawaban'] = $data_alp;
+				$data_store ['jawaban'] = 'false';
+				$res_data  = $this->Allcrud->editData('mr_soal',$data_store1,array('id'=>$data_sender[$i]['oid_header']));
+				// $res_data  = $this->Allcrud->editData('mr_soal_detail',$data_store,array('id_soal'=>$data_sender[$i]['oid_header']));
+			}
+			$data_store['choice']    = $data_alp;			
+			$data_store['id_soal']   = $data_sender[$i]['oid_header'];
+			$data_store['name']      = $data_sender[$i]['f_name'];
+			$data_store['jawaban']   = $data_sender[$i]['f_jawaban'];
+			$res_data    = $this->Allcrud->addData('mr_soal_detail',$data_store);
+			$text_status = $this->Globalrules->check_status_res($res_data,'Data Jawaban telah berhasil ditambahkan.');			
+		}
+
+		$res = array
+					(
+						'status' => $res_data,
+						'text'   => $text_status
+					);
+		echo json_encode($res);		
+		
+	}
+
 	public function store_detail($arg=NULL,$oid=NULL)
 	{
 		# code...
@@ -161,28 +198,28 @@ class Soal extends CI_Controller {
 				# code...
 				$data_store1['jawaban'] = $data_alp;
 				$data_store ['jawaban'] = 'false';
-				             $res_data  = $this->Allcrud->editData('mr_soal',$data_store1,array('id'=>$data_sender['oid_header']));
-				             $res_data  = $this->Allcrud->editData('mr_soal_detail',$data_store,array('id_soal'=>$data_sender['oid_header']));
+				$res_data  = $this->Allcrud->editData('mr_soal',$data_store1,array('id'=>$data_sender['oid_header']));
+				$res_data  = $this->Allcrud->editData('mr_soal_detail',$data_store,array('id_soal'=>$data_sender['oid_header']));
 			}
 			$data_store['choice']    = $data_alp;			
 			$data_store['id_soal']   = $data_sender['oid_header'];
 			$data_store['name']      = $data_sender['f_name'];
 			$data_store['jawaban']   = $data_sender['f_jawaban'];
-			            $res_data    = $this->Allcrud->addData('mr_soal_detail',$data_store);
-			            $text_status = $this->Globalrules->check_status_res($res_data,'Data Jawaban telah berhasil ditambahkan.');
+			$res_data    = $this->Allcrud->addData('mr_soal_detail',$data_store);
+			$text_status = $this->Globalrules->check_status_res($res_data,'Data Jawaban telah berhasil ditambahkan.');
 		} elseif ($data_sender['crud'] == 'update') {
 			# code...
 			if ($data_sender['f_jawaban'] == 'true') {
 				# code...
 				$data_store1['jawaban'] = $data_sender['f_key'];
 				$data_store ['jawaban'] = 'false';
-				             $res_data  = $this->Allcrud->editData('mr_soal',$data_store1,array('id'=>$data_sender['oid_header']));
-				             $res_data  = $this->Allcrud->editData('mr_soal_detail',$data_store,array('id_soal'=>$data_sender['oid_header']));
+				$res_data  = $this->Allcrud->editData('mr_soal',$data_store1,array('id'=>$data_sender['oid_header']));
+				$res_data  = $this->Allcrud->editData('mr_soal_detail',$data_store,array('id_soal'=>$data_sender['oid_header']));
 			}			
 			$data_store['name']      = $data_sender['f_name'];
 			$data_store['jawaban']   = $data_sender['f_jawaban'];
-			            $res_data    = $this->Allcrud->editData('mr_soal_detail',$data_store,array('id'=>$data_sender['oid']));
-			            $text_status = $this->Globalrules->check_status_res($res_data,'Data Jawaban telah berhasil diubah.');
+			$res_data    = $this->Allcrud->editData('mr_soal_detail',$data_store,array('id'=>$data_sender['oid']));
+			$text_status = $this->Globalrules->check_status_res($res_data,'Data Jawaban telah berhasil diubah.');
 		} elseif ($data_sender['crud'] == 'delete') {
 			# code...
 			$res_data          = $this->Allcrud->delData('mr_soal_detail',array('id'=>$data_sender['oid']));

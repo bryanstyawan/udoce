@@ -34,14 +34,12 @@ class Dashboard extends CI_Controller {
 	}
 
 
-	public function view_notification(Type $var = null)
+	public function soon()
 	{
 		# code...
 		$this->Globalrules->session_rule();
-		$this->Allcrud->notif_message();
-		$data['title']   = 'Lihat Semua Pemberitahuan';
-		$data['list']    = $this->Allcrud->getData('log_notifikasi',array('receiver'=>$this->session->userdata('sesUser')));
-		$data['content'] = 'dashboard/notification/view_all';
-		$this->load->view('templateAdmin',$data);
+		$data['title']   = '';
+		$data['content'] = 'dashboard/soon/index';
+		$this->load->view('templateAdmin',$data);		
 	}
 }

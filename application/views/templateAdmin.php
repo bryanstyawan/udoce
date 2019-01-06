@@ -323,10 +323,8 @@ function ajax_status(obj)
     }
     else
     {
+        $("#loadprosess").modal('hide');        
         Lobibox.notify('warning', {msg: obj.text});
-        setTimeout(function(){
-            $("#loadprosess").modal('hide');
-        }, 500);
     }
 }
 

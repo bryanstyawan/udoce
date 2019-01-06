@@ -47,7 +47,8 @@
 				<?php 
 					$x  = 1;
 					foreach($tipe->result() as $row){
-						
+						if ($row->id != 4) {
+							# code...
 				?>
 						<tr>
 							<td><?php echo $x;?></td>
@@ -55,7 +56,8 @@
 								<button class="btn btn-primary btn-xs" onclick="go('<?php echo $row->name;?>','<?php echo $row->id;?>')"><i class="fa fa-edit"></i> <?php echo $row->text;?></button>&nbsp;&nbsp;
 							</td>
 						</tr>
-				<?php 
+				<?php 							
+						}
 						$x++; 
 					}
 				?>
@@ -71,7 +73,7 @@
 function go(arg,param) {
 	var id     = $("#id").val();
 	var parent = $("#id_parent").val();
-	if (param != 3) {
+	if (param != 2) {
 		window.open("<?php echo site_url();?>bank_data/soal/index/"+arg+"/"+id+"/"+parent+"/"+param,'_blank');		
 	}
 	else

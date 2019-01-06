@@ -1,19 +1,19 @@
 v1.0.0    
-2019-1-2
+2019-01-03
 ==========
 New:
-- pre test & end step
-- video belajar & end step
 Improved:
 Fixed:
 
 v1.0.0    
-2019-1-2
+2019-01-02
 ==========
 New:
 - layout Pre test
 - layout video belajar
 - layout quiz
+- pre test & end step
+- video belajar & end step
 Improved:
 Fixed:
 

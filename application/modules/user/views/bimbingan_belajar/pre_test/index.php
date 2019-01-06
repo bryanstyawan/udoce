@@ -1,56 +1,92 @@
-<section id="headerdata" class="col-xs-12">
-		<input type="hidden" id="oid_header" value="">				
-		<?php
-		if ($list != array()) {
+<section id="headerdata" class="col-xs-11">
+	<input type="hidden" id="oid_header" value="">				
+	<?php
+	if ($list != array()) {
+		# code...
+		for ($i=0; $i < count($list); $i++) { 
 			# code...
-			for ($i=0; $i < count($list); $i++) { 
-				# code...
-		?>
-		<div class="box">
-			<div class="box-body">
-				<div class="row">
-					<div class="col-md-12">
-							<label class="col-lg-1"><?=$i+1;?>.</label>
-							<label class="col-lg-11"><?=$list[$i]['name'];?></label>
-					</div>
+	?>
+	<div class="box">
+		<div class="box-body">
+			<div class="row">
+				<div class="col-md-12">
+						<label class="col-lg-1"><?=$i+1;?>.</label>
+						<label class="col-lg-11"><?=$list[$i]['name'];?></label>
 				</div>
-				<div class="row">
-					<div class="col-md-12">
-					<table class="table table-bordered table-striped" id="table_<?=$list[$i]['id'];?>">
-					<body>
-						<?php
-							$detail = $this->Allcrud->getData('mr_soal_detail',array('id_soal'=>$list[$i]['id']))->result_array();
-							if ($detail != array()) {
+			</div>
+			<div class="row">
+				<div class="col-md-12">
+				<table class="table table-bordered table-striped" id="table_<?=$list[$i]['id'];?>">
+				<body>
+					<?php
+						$detail = $this->Allcrud->getData('mr_soal_detail',array('id_soal'=>$list[$i]['id']))->result_array();
+						if ($detail != array()) {
+							# code...
+							$check_data  = $this->Allcrud->getData('tr_jawaban_bimbingan_belajar',array('id_user'=>$this->session->userdata('session_user'),'id_type'=>$type,'id_materi'=>$materi,'id_soal'=>$list[$i]['id']))->result_array();
+							for ($ii=0; $ii < count($detail); $ii++) { 
 								# code...
-								$check_data  = $this->Allcrud->getData('tr_jawaban_bimbingan_belajar',array('id_user'=>$this->session->userdata('session_user'),'id_type'=>$type,'id_materi'=>$materi,'id_soal'=>$list[$i]['id']))->result_array();
-								for ($ii=0; $ii < count($detail); $ii++) { 
+								$mark = '';
+								if ($check_data != array()) {
 									# code...
-									$mark = '';
 									if ($detail[$ii]['id'] == $check_data[0]['id_jawaban']) {
 										# code...
 										$mark = "style='background-color:#4CAF50;'";
-									}
-						?>
-									<tr class="tr_choice" id="tr_<?=$detail[$ii]['id'];?>" <?=$mark;?>>
-										<td style="width: 5%;"><?=$detail[$ii]['choice'];?>.</td>
-										<td style="width: 100%;"><?=$detail[$ii]['name'];?>.</td>
-										<td><a class="btn btn-primary" onclick="choice(<?=$detail[$ii]['id'];?>,<?=$detail[$ii]['id_soal'];?>,<?=$materi;?>,<?=$type;?>)">Pilih</a></td>
-									</tr>
-						<?php
+									}										
 								}
+					?>
+								<tr class="tr_choice" id="tr_<?=$detail[$ii]['id'];?>" <?=$mark;?>>
+									<td style="width: 5%;"><?=$detail[$ii]['choice'];?>.</td>
+									<td style="width: 100%;"><?=$detail[$ii]['name'];?>.</td>
+									<td><a class="btn btn-primary" onclick="choice(<?=$detail[$ii]['id'];?>,<?=$detail[$ii]['id_soal'];?>,<?=$materi;?>,<?=$type;?>)">Pilih</a></td>
+								</tr>
+					<?php
 							}
-						?>
-					</body>
-					</table>
-					</div>
+						}
+					?>
+				</body>
+				</table>
 				</div>
+			</div>
 
-			</div><!-- /.box-body -->
-		</div><!-- /.box -->		
-		<?php
-			}			
-		}
-		?>
+		</div><!-- /.box-body -->
+	</div><!-- /.box -->		
+	<?php
+		}			
+	}
+	?>
+</section>
+
+<section class="col-xs-1">
+	<div class="box">
+	<div class="box-header">
+			<h3 class="box-title"></h3>
+		</div>
+		<div class="box-body">
+			<div class="row">
+				<div class="col-lg-12">
+					<?php
+						if ($list != array()) {
+							# code...
+							for ($i=0; $i < count($list); $i++) { 
+								# code...
+								$background_color = '';
+								$color            = "";
+								$check_data  = $this->Allcrud->getData('tr_jawaban_bimbingan_belajar',array('id_user'=>$this->session->userdata('session_user'),'id_type'=>$type,'id_materi'=>$materi,'id_soal'=>$list[$i]['id']))->result_array();
+								if ($check_data != array()) {
+									# code...
+									$background_color = "background-color:#4CAF50;";
+								}								
+					?>
+								<a class="btn btn-default col-xs-6" id="counter_choice_<?=$list[$i]['id'];?>" style="<?=$background_color;?><?=$color;?>"><?=$i+1;?></a>
+					<?php
+							}								
+						}
+					?>
+				</div>
+			</div>
+
+		</div><!-- /.box-body -->		
+	</div>
 </section>
 
 <section class="col-lg-12">
@@ -88,13 +124,14 @@ function choice(_choice,_soal,_materi,_type) {
 		data:{data_sender : data_sender},
 		beforeSend:function(){
 			$("#table_"+_soal+" .tr_choice").css({"background-color": ""})				
-			$("#table_"+_soal+" #tr_"+_choice).css({"background-color": "#4CAF50"})				
+			$("#table_"+_soal+" #tr_"+_choice).css({"background-color": "#4CAF50"})
+			$("#counter_choice_"+_soal).css({"background-color": "#4CAF50"})							
 		},
 		success:function(msg){
 			var obj = jQuery.parseJSON (msg);
 			if (obj.status == 1)
 			{
-				Lobibox.notify('success', {msg: obj.text});
+				// Lobibox.notify('success', {msg: obj.text});
 			}
 			else
 			{

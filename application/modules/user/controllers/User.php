@@ -78,22 +78,14 @@ class User extends CI_Controller {
 			$this->Globalrules->session_rule();
 			$data['title']            = 'Bimbingan Belajar';
 			$data['verify_user_paid'] = $this->Allcrud->getData('tr_layanan',array('id_user'=>$this->session->userdata('session_user'),'type'=>'bimbel'));
-			$data['list']             = $this->Allcrud->getData('mr_materi',array('id_parent'=>NULL));
+			$data['list']             = $this->Allcrud->getData('mr_materi',array('id_parent'=>NULL))->result_array();
 			$data['content']          = 'user/bimbingan_belajar/root/index';
 			$this->load->view('templateAdmin',$data);		
 		}
-		elseif($arg == 'pre_test')
+		else
 		{
-			redirect('user/zbimbingan_belajar/'.$arg.'/'.$type.'/'.$materi);
-		}
-		elseif($arg == 'video_materi')
-		{
-			redirect('user/zbimbingan_belajar/'.$arg.'/'.$type.'/'.$materi);
-		}
-		elseif ($arg == 'quiz') {
-			# code...
 			redirect('user/zbimbingan_belajar/'.$arg.'/'.$type.'/'.$materi);			
-		}
+		}		
 
 	}
 
@@ -137,5 +129,15 @@ class User extends CI_Controller {
 						'text'   => $text_status
 					);
 		echo json_encode($res);		
+	}
+
+	public function video_materi()
+	{
+		# code...
+		$this->Globalrules->session_rule();
+		$data['title']   = 'Video Materi';
+		$data['list']    = $this->Allcrud->getData('mr_materi',array('id_parent'=>NULL))->result_array();		
+		$data['content'] = 'user/video_materi/index';
+		$this->load->view('templateAdmin',$data);		
 	}
 }

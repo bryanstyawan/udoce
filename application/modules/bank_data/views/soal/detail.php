@@ -99,7 +99,12 @@
 		<div class="box">
 			<div class="box-header">
 				<h3 class="box-title"></h3>
-				<div class="box-tools pull-right"><button class="btn btn-block btn-primary" id="addData"><i class="fa fa-plus-square"></i> Tambah Data</button></div>
+				<div class="box-tools pull-right">
+					<button class="btn btn-block btn-primary" id="addDatamulti"><i class="fa fa-plus-square"></i> Tambah Data</button>
+				</div>
+				<div class="box-tools pull-right" style="margin-right: 130px;">
+					<button class="btn btn-block btn-primary" id="addData"><i class="fa fa-plus-square"></i> Tambah Data (single)</button>
+				</div>				
 			</div><!-- /.box-header -->
 			<div class="box-body" id="table_fill">
 				<table class="table table-bordered table-striped table-view">
@@ -188,6 +193,49 @@
 	</div>
 </section>
 
+<section id="formdatamulti" style="display:none">
+	<div class="col-xs-12">
+		<div class="box">
+			<div class="box-header">
+				<h3 class="box-title"></h3>
+				<div class="box-tools pull-right"><button class="btn btn-block btn-danger" id="closeDatamulti"><i class="fa fa-close"></i></button></div>				
+			</div>
+			<div class="box-body">
+				<?php
+					for ($i=0; $i < 4; $i++) { 
+						# code...
+				?>
+				<div class="row">
+					<input class="form-control" name="oidmulti" type="hidden" id="oid_multi_<?=$i;?>">
+					<input class="form-control" type="hidden" id="crud_multi_<?=$i;?>" value="insert">
+					<input class="form-control" type="hidden" id="f_key_multi_<?=$i;?>">										
+					<div class="col-md-6">
+						<div class="form-group">
+							<label>Deskripsi Pilihan</label>
+							<textarea class="form-control form-control-detail" id="f_name_multi_<?=$i;?>" rows="3" placeholder="Deskripsi Pilihan"></textarea>
+						</div>
+					</div>
+
+					<div class="col-md-6">						
+						<div class="form-group">
+							<label>Jawaban yang benar</label>
+							<br>
+							<input class="minimal" id="f_jawaban_multi_<?=$i;?>" type="checkbox" style="display: block;position: absolute;width: 4%;height: 100%;">
+						</div>						
+					</div>
+				</div>				
+				<?php
+					}
+				?>
+
+			</div><!-- /.box-body -->
+			<div class="box-footer">
+				<a class="btn btn-success pull-right" id="btn-trigger-controll-multi"><i class="fa fa-save"></i>&nbsp; Simpan</a>
+			</div>
+		</div><!-- /.box -->
+	</div>
+</section>
+
 <?php
 	}
 	else {
@@ -229,10 +277,58 @@ $(document).ready(function(){
 		$("#crud").val('insert');
 	})
 
+	$("#addDatamulti").click(function()
+	{
+		$(".form-control-detail").val('');
+		$("#formdatamulti").css({"display": ""})
+		$("#viewdata").css({"display": "none"})
+		$("#formdata > div > div > div.box-header > h3").html("Tambah Data Deskripsi Pilihan");		
+		$("#crud").val('insert');
+	})	
+
 	$("#closeData").click(function(){
 		$("#formdata").css({"display": "none"})
 		$("#viewdata").css({"display": ""})		
-	})	
+	})
+
+	$("#closeDatamulti").click(function(){
+		$("#formdatamulti").css({"display": "none"})
+		$("#viewdata").css({"display": ""})		
+	})		
+
+	$("#btn-trigger-controll-multi").click(function() {
+        var data_sender = [];
+        var inputs      = document.getElementsByName("oidmulti");
+		for (index = 0; index < inputs.length; index++) {
+			data_sender[index] = {
+				'oid'       : $("#oid_multi_"+index).val(),
+				'crud'      : $("#crud_multi_"+index).val(),
+				'oid_header': $("#oid_header").val(),
+				'f_name'    : $("#f_name_multi_"+index).val(),
+				'f_jawaban' : $("#f_jawaban_multi_"+index).is(":checked"),
+				'f_key'     : $("#f_key_multi_"+index).val() 
+			}			
+		}
+
+			$.ajax({
+				url :"<?php echo site_url();?>bank_data/soal/store_detail_multi",
+				type:"post",
+				data:{data_sender : data_sender},
+				beforeSend:function(){
+					$("#editData").modal('hide');
+					$("#loadprosess").modal('show');
+				},
+				success:function(msg){
+					var obj = jQuery.parseJSON (msg);
+					ajax_status(obj);
+				},
+				error:function(jqXHR,exception)
+				{
+					ajax_catch(jqXHR,exception);					
+				}
+			})		
+		console.table(data_sender);
+	})
 
 	$("#btn-trigger-controll").click(function(){
 		var res_status = 0;
