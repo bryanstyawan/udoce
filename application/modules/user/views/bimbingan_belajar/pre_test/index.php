@@ -97,7 +97,7 @@
 		<div class="box-body">
 			<div class="row">
 				<div class="col-lg-12 text-center">
-					<a class="btn btn-success" onclick="finish(<?=$materi;?>,<?=$type;?>)">Selesai dan Lanjutkan</a>
+					<a class="btn btn-success" onclick="finish(<?=$materi;?>,<?=$type;?>)"><?=($type==1)?'Lanjut ke Video Materi':'Lanjut ke Analisis';?></a>
 				</div>
 			</div>
 
@@ -170,7 +170,7 @@ function finish(_materi,_type)
 						if (obj.status == 1)
 						{
 							Lobibox.notify('success', {msg: obj.text});
-							window.location.href = "<?php echo site_url();?>user/bimbingan_belajar";							
+							window.location.href = "<?php echo site_url();?>user/zbimbingan_belajar/<?=($type==1)?'video_materi':'analisis';?>/<?=$type+1;?>/<?=$materi;?>";							
 						}
 						else
 						{

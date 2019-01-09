@@ -206,7 +206,7 @@
 		</video>
 
 		<div class="col-lg-12 text-center">
-			<a class="btn btn-success" onclick="finish(<?=$materi;?>,<?=$type;?>)">Selesai dan Lanjutkan</a>
+			<a class="btn btn-success" onclick="finish(<?=$materi;?>,<?=$type;?>)">Lanjut ke Quiz</a>
 		</div>
 	</div>
 </section>
@@ -289,7 +289,7 @@
 
 <script>
 $(document).ready(function(){
-	// _force();
+	_force();
 	var source = '<?=base_url();?>public/video/<?=$list[0]['file'];?>';
 	var f_video = document.getElementById('f_video');
 	var f_source = document.getElementById('f_source');
@@ -454,7 +454,7 @@ function finish(_materi,_type)
 						if (obj.status == 1)
 						{
 							Lobibox.notify('success', {msg: obj.text});
-							window.location.href = "<?php echo site_url();?>user/bimbingan_belajar";							
+							window.location.href = "<?php echo site_url();?>user/zbimbingan_belajar/quiz/<?=$type+1;?>/<?=$materi;?>";							
 						}
 						else
 						{

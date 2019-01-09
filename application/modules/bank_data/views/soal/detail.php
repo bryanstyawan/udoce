@@ -99,12 +99,19 @@
 		<div class="box">
 			<div class="box-header">
 				<h3 class="box-title"></h3>
-				<div class="box-tools pull-right">
-					<button class="btn btn-block btn-primary" id="addDatamulti"><i class="fa fa-plus-square"></i> Tambah Data</button>
-				</div>
-				<div class="box-tools pull-right" style="margin-right: 130px;">
-					<button class="btn btn-block btn-primary" id="addData"><i class="fa fa-plus-square"></i> Tambah Data (single)</button>
-				</div>				
+				<?php
+				if (count($detail->result_array()) == 0) {
+					# code...
+				?>
+					<div class="box-tools pull-right">
+						<button class="btn btn-block btn-primary" id="addDatamulti"><i class="fa fa-plus-square"></i> Tambah Data</button>
+					</div>
+					<div class="box-tools pull-right" style="margin-right: 130px;display:none;">
+						<button class="btn btn-block btn-primary" id="addData"><i class="fa fa-plus-square"></i> Tambah Data (single)</button>
+					</div>				
+				<?php
+				}
+				?>				
 			</div><!-- /.box-header -->
 			<div class="box-body" id="table_fill">
 				<table class="table table-bordered table-striped table-view">
@@ -202,7 +209,16 @@
 			</div>
 			<div class="box-body">
 				<?php
-					for ($i=0; $i < 4; $i++) { 
+					$counter = "";
+					if ($parent == 1) {
+						# code...
+						$counter = 4;
+					}
+					elseif($parent == 2)
+					{
+						$counter = 5;
+					}
+					for ($i=0; $i < $counter; $i++) { 
 						# code...
 				?>
 				<div class="row">
@@ -299,6 +315,7 @@ $(document).ready(function(){
 	$("#btn-trigger-controll-multi").click(function() {
         var data_sender = [];
         var inputs      = document.getElementsByName("oidmulti");
+		var flag = 0;
 		for (index = 0; index < inputs.length; index++) {
 			data_sender[index] = {
 				'oid'       : $("#oid_multi_"+index).val(),
@@ -308,8 +325,17 @@ $(document).ready(function(){
 				'f_jawaban' : $("#f_jawaban_multi_"+index).is(":checked"),
 				'f_key'     : $("#f_key_multi_"+index).val() 
 			}			
+
+			if ($("#f_name_multi_"+index).val().length <= 0) {
+				flag = 0;
+			}
+			else 
+			{
+				flag = 1;
+			}
 		}
 
+		if (flag == 1) {
 			$.ajax({
 				url :"<?php echo site_url();?>bank_data/soal/store_detail_multi",
 				type:"post",
@@ -326,7 +352,16 @@ $(document).ready(function(){
 				{
 					ajax_catch(jqXHR,exception);					
 				}
-			})		
+			})					
+		}
+		else
+		{
+			Lobibox.alert("warning", //AVAILABLE TYPES: "error", "info", "success", "warning"
+				{
+					title: 'Peringatan',					
+					msg: "Harap lengkapi data"
+				});							
+		}
 		console.table(data_sender);
 	})
 

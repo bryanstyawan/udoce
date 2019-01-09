@@ -111,14 +111,14 @@
 					<div class="col-md-6">
 						<div class="form-group">
 							<label>Deskripsi Soal</label>
-							<textarea class="form-control" id="f_name" rows="3" placeholder="Deskripsi Soal"></textarea>
+							<textarea class="form-control form-control-detail" id="f_name" rows="3" placeholder="Deskripsi Soal"></textarea>
 						</div>
 					</div>
 
 					<div class="col-md-6">						
 						<div class="form-group">
 							<label>Deskripsi Pembahasan</label>
-							<textarea class="form-control" id="f_desc_pembahasan" rows="3" placeholder="Deskripsi Pembahasan"></textarea>
+							<textarea class="form-control form-control-detail" id="f_desc_pembahasan" rows="3" placeholder="Deskripsi Pembahasan"></textarea>
 						</div>						
 					</div>
 				</div>
@@ -134,7 +134,7 @@
 $(document).ready(function(){
 	$("#addData").click(function()
 	{
-		$(".form-control").val('');
+		$(".form-control-detail").val('');
 		$("#formdata").css({"display": ""})
 		$("#viewdata").css({"display": "none"})
 		$("#formdata > div > div > div.box-header > h3").html("Tambah Data Soal");		
@@ -215,7 +215,7 @@ function edit(id){
 			var obj = jQuery.parseJSON (msg);
 			if (obj.status == 1)
 			{
-				$(".form-control").val('');
+				$(".form-control-detail").val('');
 				$("#formdata").css({"display": ""})
 				$("#viewdata").css({"display": "none"})
 				$("#formdata > div > div > div.box-header > h3").html("Ubah Data Soal");		

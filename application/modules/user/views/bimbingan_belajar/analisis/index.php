@@ -48,20 +48,30 @@
 
 										if ($check_choice != array()) {
 											# code...
-											if ($detail[$ii]['id'] == $check_choice[0]['id']) {
+											if ($check_data != array()) {
 												# code...
-												if ($check_choice[0]['id'] == $check_data[0]['id_jawaban']) {
+												if ($detail[$ii]['id'] == $check_choice[0]['id']) {
 													# code...
-													$mark = "background-color:#4CAF50;";
-													$pre_test_true += 1;											
-												}
-												else {
+													if ($check_choice[0]['id'] == $check_data[0]['id_jawaban']) {
+														# code...
+														$mark = "background-color:#4CAF50;";
+														$pre_test_true += 1;											
+													}
+													else {
+														# code...
+														$mark_right = "background-color:red;";											
+														$pre_test_false += 1;
+													}
+												}																						
+											}
+											else {
+												# code...
+												if ($detail[$ii]['id'] == $check_choice[0]['id']) {
 													# code...
 													$mark_right = "background-color:red;";											
 													$pre_test_false += 1;
-												}
-
-											}										
+												}																												
+											}
 										}								
 							?>
 										<tr class="tr_choice" id="tr_<?=$detail[$ii]['id'];?>" style="<?=$mark;?><?=$mark_right;?>">
@@ -128,8 +138,7 @@
 									$check_choice = $this->Allcrud->getData('mr_soal_detail',array('id_soal'=>$quiz[$i]['id'],'jawaban'=>'true'))->result_array();
 									for ($ii=0; $ii < count($detail); $ii++) { 
 										# code...
-										$mark = '';
-										$mark_right = '';								
+										$mark = '';$mark_right = '';								
 										if ($check_data != array()) {
 											# code...
 											if ($detail[$ii]['id'] == $check_data[0]['id_jawaban']) {
@@ -140,20 +149,30 @@
 
 										if ($check_choice != array()) {
 											# code...
-											if ($detail[$ii]['id'] == $check_choice[0]['id']) {
+											if ($check_data != array()) {
 												# code...
-												if ($check_choice[0]['id'] == $check_data[0]['id_jawaban']) {
+												if ($detail[$ii]['id'] == $check_choice[0]['id']) {
 													# code...
-													$mark = "background-color:#4CAF50;";
-													$quiz_true += 1;											
-												}
-												else {
+													if ($check_choice[0]['id'] == $check_data[0]['id_jawaban']) {
+														# code...
+														$mark = "background-color:#4CAF50;";
+														$quiz_true += 1;											
+													}
+													else {
+														# code...
+														$mark_right = "background-color:red;";											
+														$quiz_false += 1;
+													}
+												}																						
+											}
+											else {
+												# code...
+												if ($detail[$ii]['id'] == $check_choice[0]['id']) {
 													# code...
 													$mark_right = "background-color:red;";											
 													$quiz_false += 1;
-												}
-
-											}										
+												}																												
+											}
 										}								
 							?>
 										<tr class="tr_choice" id="tr_<?=$detail[$ii]['id'];?>" style="<?=$mark;?><?=$mark_right;?>">
@@ -265,7 +284,7 @@
 		<div class="box-body">
 			<div class="row">
 				<div class="col-lg-12 text-center">
-					<a class="btn btn-success" onclick="finish(<?=$materi;?>,<?=$type;?>)">Selesai dan Lanjutkan</a>
+					<a class="btn btn-success" onclick="finish(<?=$materi;?>,<?=$type;?>)">Kembali Ke Materi</a>
 				</div>
 			</div>
 

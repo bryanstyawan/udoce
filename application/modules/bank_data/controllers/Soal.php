@@ -133,6 +133,7 @@ class Soal extends CI_Controller {
 		$data['detail']    = $this->Allcrud->getData('mr_soal_detail',array('id_soal'=>$id));
 		$data['list_soal'] = $this->Allcrud->getdata('mr_soal',array('id_materi'=>$materi,'id_parent'=>$parent,'id_tipe_soal'=>$tipe))->result_array();
 		$data['id']        = $id;
+		$data['parent']    = $parent;
 		$this->load->view('templateAdmin',$data);
 	}
 
@@ -237,7 +238,7 @@ class Soal extends CI_Controller {
 	public function materi()
 	{
 		$this->Globalrules->session_rule();						
-		$data['title']   = 'Data Materi';
+		$data['title']   = 'Data Materi Bimbingan Belajar';
 		$data['content'] = 'bank_data/materi/index';
 		$data['list']    = $this->Allcrud->getData('mr_materi',array('id_parent'=>NULL));
 		$this->load->view('templateAdmin',$data);

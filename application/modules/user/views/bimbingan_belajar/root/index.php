@@ -322,7 +322,7 @@ else {
 												}
 												else {
 													# code...
-													$check_data_next  = $this->Allcrud->getData('tr_track_bimbingan_belajar',array('id_user'=>$this->session->userdata('session_user'),'id_tipe_bimbel'=>4,'id_materi'=>$child[$ii-1]['id']))->result_array();													
+													$check_data_next  = $this->Allcrud->getData('tr_track_bimbingan_belajar',array('id_user'=>$this->session->userdata('session_user'),'id_tipe_bimbel'=>3,'id_materi'=>$child[$ii-1]['id']))->result_array();													
 													if ($check_data_next != array()) {
 														# code...
 														if ($check_data_next[0]['status'] == 1) {

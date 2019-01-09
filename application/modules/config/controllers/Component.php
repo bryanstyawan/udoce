@@ -11,9 +11,9 @@ class Component extends CI_Controller {
 	public function index()
 	{
 		$this->Globalrules->session_rule();						
-		$data['title']   = 'Bank Soal';
-		$data['content'] = 'bank_data/soal/index';
-		$data['list']    = $this->Allcrud->listData('mr_soal');
+		$data['title']   = 'Component';
+		$data['content'] = 'config/component/index';
+		$data['list']    = $this->Allcrud->listData('config_component');
 		$this->load->view('templateAdmin',$data);
 	}
 
@@ -36,19 +36,17 @@ class Component extends CI_Controller {
 		if ($data_sender['crud'] == 'insert') {
 			# code...
 			$data_store['name']            = $data_sender['f_name'];
-			$data_store['desc_pembahasan'] = $data_sender['f_desc_pembahasan'];
-			            $res_data          = $this->Allcrud->addData('mr_soal',$data_store);
-			            $text_status       = $this->Globalrules->check_status_res($res_data,'Data Soal telah berhasil ditambahkan.');
+			            $res_data          = $this->Allcrud->addData('config_component',$data_store);
+			            $text_status       = $this->Globalrules->check_status_res($res_data,'Data Component telah berhasil ditambahkan.');
 		} elseif ($data_sender['crud'] == 'update') {
 			# code...
 			$data_store['name']            = $data_sender['f_name'];
-			$data_store['desc_pembahasan'] = $data_sender['f_desc_pembahasan'];
-			            $res_data          = $this->Allcrud->editData('mr_soal',$data_store,array('id'=>$data_sender['oid']));
-			            $text_status       = $this->Globalrules->check_status_res($res_data,'Data Soal telah berhasil diubah.');			
+			            $res_data          = $this->Allcrud->editData('config_component',$data_store,array('id'=>$data_sender['oid']));
+			            $text_status       = $this->Globalrules->check_status_res($res_data,'Data Component telah berhasil diubah.');			
 		} elseif ($data_sender['crud'] == 'delete') {
 			# code...
-			$res_data          = $this->Allcrud->delData('mr_soal',array('id'=>$data_sender['oid']));
-			$text_status       = $this->Globalrules->check_status_res($res_data,'Data Soal telah berhasil dihapus.');			
+			$res_data    = $this->Allcrud->delData('config_component',array('id'=>$data_sender['oid']));
+			$text_status = $this->Globalrules->check_status_res($res_data,'Data Component telah berhasil dihapus.');
 		}
 
 		$res = array

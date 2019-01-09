@@ -1,9 +1,21 @@
 v1.0.0    
-2019-01-03
+2019-01-09
 ==========
 New:
+- Tombol Aturan bimbingan belajar disisi admin
+- Component disisi developer
+- Analisis
+- Pembahasan pre test dihilangkan
+- route lanjutkan diarahkan ke tahap selanjutnya
 Improved:
+- Tambah pilihan jawaban disetting menjadi 1 bundle soal (Multi choice)
+- Tombol tambah data pilihan jawaban akan muncul jika pilihan jawaban belum terisi
+- Jumlah pilihan jawaban disesuaikan dengan materi, jika tbi maka hanya 4 dan jika tpa hanya 5 
+- materi selanjutnya akan muncul, jika quiz telah dikerjakan.
 Fixed:
+- Perubahan nama dari Data Materi ke Data Materi bimbingan belajar
+- Perubahan nama dari "Selesaikan dan lanjutkan" menjadi "Lanjut ke Video Materi/Quiz/Analisis"
+- form-controll
 
 v1.0.0    
 2019-01-02
