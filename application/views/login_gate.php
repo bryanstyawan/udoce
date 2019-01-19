@@ -295,9 +295,9 @@ body {
 	left: 0;
 	width: 75%;
 	height: 100%;
-	/* background: url('<?php echo base_url();?>assets_home/login/sikerjabaru.jpg'); */
+	background: url('<?php echo base_url();?>assets/images/login-background-1-1080x720.jpg');
 	background-size: cover;
-	/* background-position: 50% 50%; */
+	background-position: 50% 50%;
 }
 
 #back {
@@ -426,6 +426,7 @@ input {
 				<div class="wrapper">
 					<!-- Icon -->
 					<div class="fadeIn first text-center">
+						<a href="http://ecodu.id"><h2>ECODU</h2></a>
 						<!-- <img src="<?=base_url();?>/assets_home/logo.png" id="icon" alt="User Icon" /> -->
 					</div>
 					<div id="formContent">

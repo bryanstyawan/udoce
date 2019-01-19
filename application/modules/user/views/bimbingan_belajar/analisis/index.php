@@ -207,7 +207,6 @@
 		<div class="box">
 			<div class="box-header">
 				<h3 class="box-title">Pre Test</h3>
-				<div class="box-tools pull-right"><button class="btn btn-block btn-primary" onclick="view_analisis('pre_test')"><i class="fa fa-x"></i> Pembahasan Pre Test</button></div>								
 			</div>
 			<div class="box-body">
 				<div class="row">
@@ -241,7 +240,7 @@
 		<div class="box">
 			<div class="box-header">
 				<h3 class="box-title">Quiz</h3>
-				<div class="box-tools pull-right"><button class="btn btn-block btn-primary" onclick="view_analisis('quiz')"><i class="fa fa-x"></i> Pembahasan Quiz</button></div>				
+				<div class="box-tools pull-right"></div>				
 			</div>
 			<div class="box-body">
 				<div class="row">
@@ -284,6 +283,7 @@
 		<div class="box-body">
 			<div class="row">
 				<div class="col-lg-12 text-center">
+					<button class="btn btn-primary" onclick="view_analisis('quiz')"><i class="fa fa-x"></i> Pembahasan Quiz</button>				
 					<a class="btn btn-success" onclick="finish(<?=$materi;?>,<?=$type;?>)">Kembali Ke Materi</a>
 				</div>
 			</div>

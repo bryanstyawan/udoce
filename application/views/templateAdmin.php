@@ -46,6 +46,7 @@
 <!-- bootstrap wysihtml5 - text editor -->
 <style type="text/css">@import url("<?php echo base_url() . 'assets/plugins/bootstrap-wysihtml5/bootstrap3-wysihtml5.min.css'; ?>");</style>
 <style type="text/css">@import url("<?php echo base_url() . 'assets/plugins/loadme/style/loadme.css'; ?>");</style>
+<style type="text/css">@import url("<?php echo base_url() . 'assets/css/mobile/mobile-base.css'; ?>");</style>
 <!-- Jquery -->
 <script type='text/javascript' src="<?php echo base_url(); ?>assets/plugins/jQuery/jQuery-2.1.4.min.js"></script>
 <!-- CKeditors -->
@@ -171,51 +172,65 @@ $(document).click(function(e) {
             <?php menu_header();?>
         </header>
 
+        <aside class="content-mobile main-sidebar">
+            <section class="sidebar" style="height: auto;">
+                <ul class="sidebar-menu tree" data-widget="tree">
+                    <?php menuSamping();?>
+                </ul>
+            </section>        
+        </aside>
+        <!-- <aside class="main-sidebar hidden-lg">
 
-        <div class="content-wrapper">
-           <section class="content-header">
-              <h1>
-                <?php echo $title;?>
-      			<i id="subtitle">
-          			<small> <?php if(isset($subtitle)){ echo $subtitle;} ?></small>
-      			</i>
-              </h1>
+        </aside>         -->
+
+        <div class="content-wrapper" style="background: #f6ecde;/*height:510px*/;">
+            <section class="content-header">
+                <h1>
+                    <?php echo $title;?>
+                    <i id="subtitle">
+                        <small> <?php if(isset($subtitle)){ echo $subtitle;} ?></small>
+                    </i>
+                </h1>
             </section>
 			<section class="content">
     			<div class="row">
     			<?php $this->load->view($content);?>
     			</div>
             </section>
-        </div>
+        </div>    
+    </div>
 
-        <footer class="main-footer" style="margin-left:0px;background-color: #00a7d0;padding:15px;">
+    <footer class="main-footer" style="margin-left:0px;background-color: #00a7d0;padding:26px!important;">
             <div class="container-fluid">
                 <div class="row">
-                    <div class="col-lg-4 text-center" style="font-size:20px;color:#00a7d0;">
-                        &nbsp;
-                    </div>
-                    <div class="col-lg-4 text-center" style="font-size:20px;color:#00a7d0;">
-                        <a href="" class="footer-icon"><i class="fa fa-chrome"></i></a>
-                        <a href="" class="footer-icon"><i class="fa fa-instagram"></i></a>
-                        <a href="" class="footer-icon"><i class="fa fa-twitter"></i></a>
-                        <a href="" class="footer-icon"><i class="fa fa-facebook"></i></a>
-                    </div>
-                </div>
-                <div class="row">
-                    <div class="col-lg-12" style="padding-top: 15px;">
+                    <div class="col-lg-12">
                         <div class="text-center" style="color:#fff;">
-                            <span>Copyright@2018 </span><span>Right Reserved</span>
-                            <br>
-                            <span>V.2.0.0-Alpha</span>
+                            <span>Copyright@2019 ECODU. </span><span>Development by Karya Web Studio.</span>
+                            <span>V.1.0.0-Alpha</span>
                         </div>
                     </div>
                 </div>
             </div>
+        </footer>    
+</body>
+</html>
 
+<div class="example-modal">
+    <div class="modal modal-success fade" id="loadprosess" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+        <div class="box-content">
 
-        </footer>
-
+                <div class="modal-dialog">
+                    <div class="modal-content">
+                        <div style="margin-top: 320px;">
+                            <div class="loadme-rotateplane"></div>
+                            <div class="loadme-mask"></div>
+                        </div>
+                    </div>
+                </div>
+        </div>
     </div>
+</div>
+
 
 <!-- jQuery UI 1.11.4 -->
 <script type='text/javascript' src="<?php echo base_url(); ?>assets/plugins/jQueryUI/jquery-ui.min.js"></script>
@@ -240,9 +255,6 @@ $.widget.bridge('uibutton', $.ui.button);
 <!-- Sparkline -->
 <!-- <script type='text/javascript' src="<?php echo base_url(); ?>assets/sparkline/jquery.sparkline.min.js"></script> -->
 <!-- jvectormap -->
-
-
-
 <!-- <script type='text/javascript' src="<?php echo base_url(); ?>assets/jvectormap/jquery-jvectormap-1.2.2.min.js"></script> -->
 <!-- <script type='text/javascript' src="<?php echo base_url(); ?>assets/jvectormap/jquery-jvectormap-world-mill-en.js"></script> -->
 <!-- daterangepicker -->
@@ -422,22 +434,3 @@ function ajax_catch(jqXHR,exception) {
             } );        
     });
 </script>
-
-</body>
-</html>
-
-<div class="example-modal">
-    <div class="modal modal-success fade" id="loadprosess" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
-        <div class="box-content">
-
-                <div class="modal-dialog">
-                    <div class="modal-content">
-                        <div style="margin-top: 320px;">
-                            <div class="loadme-rotateplane"></div>
-                            <div class="loadme-mask"></div>
-                        </div>
-                    </div>
-                </div>
-        </div>
-    </div>
-</div>

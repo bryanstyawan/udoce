@@ -4,14 +4,14 @@
 ?>
 
 <section id="headerdata" >
-	<div class="col-xs-12">
+	<div class="col-xs-8">
 		<div class="box">
 			<div class="box-header">
 				<h3 class="box-title"></h3>
 			</div>
 			<div class="box-body">
 				<div class="row">
-				<input type="hidden" id="oid_header" value="<?=$list[0]['id'];?>">				
+					<input type="hidden" id="oid_header" value="<?=$list[0]['id'];?>">				
 					<div class="col-md-6">
 						<div class="form-group">
 							<label>Deskripsi Soal</label>
@@ -30,6 +30,68 @@
 			</div><!-- /.box-body -->
 		</div><!-- /.box -->
 	</div>
+	<div class="col-xs-4">
+		<div class="box">
+		<div class="box-header">
+				<h3 class="box-title"></h3>
+			</div>
+			<div class="box-body">
+				<div class="row">
+					<div class="col-lg-12">
+						<?php
+							if ($list_soal != array()) {
+								# code...
+								for ($i=0; $i < count($list_soal); $i++) { 
+									# code...
+									$background_color = '';
+									$color            = "";
+									$data_soal        = $this->Allcrud->getdata('mr_try_out_soal',array('id'=>$list_soal[$i]['id']))->result_array();
+									$counter          = count($this->Allcrud->getdata('mr_try_out_soal_detail',array('id_soal'=>$list_soal[$i]['id']))->result_array());
+									if ($counter == 0) {
+										# code...
+										$color            = "color:#fff";										
+										$background_color = 'background-color: #F44336;';
+									}
+									else {
+										# code...
+										if($counter >= 4)
+										{
+											if($data_soal[0]['jawaban'] != '')
+											{
+												$color            = "color:#fff";										
+												$background_color = 'background-color: #8BC34A;';
+											}
+											else
+											{
+												$color            = "color:#fff";										
+												$background_color = 'background-color: #F44336;';												
+											}
+
+										}
+										else {
+											# code...
+											$color            = "color:#fff";										
+											$background_color = 'background-color: #F44336;';											
+										}
+									}
+
+									if ($id == $list_soal[$i]['id']) {
+										# code...
+										$color            = "color:#fff";										
+										$background_color = 'background-color: #2196F3;';																				
+									}
+						?>
+									<a href="<?=base_url();?>management/try_out/detail_soal/<?=$list_soal[$i]['id'];?>/<?=$list_soal[$i]['id_parent'];?>/<?=$list_soal[$i]['id_type'];?>/<?=$list_soal[$i]['id_paket'];?>" class="btn btn-default" style="<?=$background_color;?><?=$color;?>"><?=$i+1;?></a>
+						<?php
+								}								
+							}
+						?>
+					</div>
+				</div>
+
+			</div><!-- /.box-body -->		
+		</div>
+	</div>
 </section>
 
 <section id="viewdata">
@@ -37,15 +99,28 @@
 		<div class="box">
 			<div class="box-header">
 				<h3 class="box-title"></h3>
-				<div class="box-tools pull-right"><button class="btn btn-block btn-primary" id="addData"><i class="fa fa-plus-square"></i> Tambah Data</button></div>
+				<?php
+				if (count($detail->result_array()) == 0) {
+					# code...
+				?>
+					<div class="box-tools pull-right">
+						<button class="btn btn-block btn-primary" id="addDatamulti"><i class="fa fa-plus-square"></i> Tambah Data</button>
+					</div>
+					<div class="box-tools pull-right" style="margin-right: 130px;display:none;">
+						<button class="btn btn-block btn-primary" id="addData"><i class="fa fa-plus-square"></i> Tambah Data (single)</button>
+					</div>				
+				<?php
+				}
+				?>				
 			</div><!-- /.box-header -->
 			<div class="box-body" id="table_fill">
 				<table class="table table-bordered table-striped table-view">
 					<thead>
 				<tr>
 					<th>No</th>
-					<th>Jawaban</th>
-					<th>action</th>
+					<th></th>
+					<th>Deskripsi Pilihan</th>
+					<th>Aksi</th>
 				</tr>
 				</thead>
 				<tbody>
@@ -64,7 +139,8 @@
 				?>
 						<tr style="<?=$color_row;?>">
 							<td><?php echo $x;?></td>
-							<td><?php echo $row->name;?></td>
+							<td><?php echo $row->choice;?></td>							
+							<td><?php echo $row->name;?></td>							
 							<td>
 								<button class="btn btn-primary btn-xs" onclick="edit('<?php echo $row->id;?>')"><i class="fa fa-edit"></i> Ubah</button>&nbsp;&nbsp;
 								<?php
@@ -75,7 +151,7 @@
 								<?php
 									}
 								?>
-								<button class="btn btn-danger btn-xs" onclick="del('<?php echo $row->id;?>')"><i class="fa fa-trash"></i> Hapus</button>
+								<!-- <button class="btn btn-danger btn-xs" onclick="del('<?php echo $row->id;?>')"><i class="fa fa-trash"></i> Hapus</button> -->
 							</td>
 						</tr>
 					<?php $x++; }
@@ -97,12 +173,14 @@
 			</div>
 			<div class="box-body">
 				<div class="row">
+					<input class="form-control" type="hidden" id="oid_header" value="<?=$id;?>">				
 					<input class="form-control" type="hidden" id="oid">
-					<input class="form-control" type="hidden" id="crud">					
+					<input class="form-control" type="hidden" id="crud">
+					<input class="form-control" type="hidden" id="f_key">										
 					<div class="col-md-6">
 						<div class="form-group">
-							<label>Jawaban</label>
-							<textarea class="form-control form-control-detail" id="f_name" rows="3" placeholder="Jawaban"></textarea>
+							<label>Deskripsi Pilihan</label>
+							<textarea class="form-control form-control-detail" id="f_name" rows="3" placeholder="Deskripsi Pilihan"></textarea>
 						</div>
 					</div>
 
@@ -118,6 +196,91 @@
 			</div><!-- /.box-body -->
 			<div class="box-footer">
 				<a class="btn btn-success pull-right" id="btn-trigger-controll"><i class="fa fa-save"></i>&nbsp; Simpan</a>
+			</div>
+		</div><!-- /.box -->
+	</div>
+</section>
+
+<section id="formdatamulti" style="display:none">
+	<div class="col-xs-12">
+		<div class="box">
+			<div class="box-header">
+				<h3 class="box-title"></h3>
+				<div class="box-tools pull-right"><button class="btn btn-block btn-danger" id="closeDatamulti"><i class="fa fa-close"></i></button></div>				
+			</div>
+			<div class="box-body">
+				<?php
+					$counter = 5;
+					// if ($parent == 1) {
+					// 	# code...
+					// 	$counter = 5;
+					// }
+					// elseif($parent == 2)
+					// {
+					// 	$counter = 5;
+					// }
+					for ($i=0; $i < $counter; $i++) { 
+						# code...
+						$_class = "";
+						if ($type == 5) {
+							# code...
+							$_class = "col-lg-4";
+						}
+						else {
+							# code...
+							$_class = "col-lg-6";
+						}
+				?>
+				<div class="row">
+					<input class="form-control" name="oidmulti" type="hidden" id="oid_multi_<?=$i;?>">
+					<input class="form-control" type="hidden" id="crud_multi_<?=$i;?>" value="insert">
+					<input class="form-control" type="hidden" id="f_key_multi_<?=$i;?>">												
+					<div class="<?=$_class;?>">
+						<div class="form-group">
+							<label class="col-lg-1">&nbsp;</label>						
+							<label class="col-lg-11">Deskripsi Pilihan</label>
+							<div class="col-lg-1 text-center">
+								<div class="form-group">
+									<label><?=$this->Globalrules->data_alphabet($i);?></label>
+								</div>
+							</div>							
+							<div class="col-lg-11">							
+								<textarea class="form-control form-control-detail" id="f_name_multi_<?=$i;?>" rows="3" placeholder="Deskripsi Pilihan"></textarea>
+								<input type="hidden" class="form-control form-control-detail" id="f_bobot_multi_<?=$i;?>" rows="3" placeholder="Bobot">							
+							</div>
+						</div>						
+					</div>
+
+					<?php
+						if ($type == 5) {
+							# code...
+					?>
+					<div class="col-md-4">
+						<div class="form-group">
+							<label>Bobot</label>
+							<input type="text" class="form-control form-control-detail" id="f_bobot_multi_<?=$i;?>" rows="3" placeholder="Bobot">
+						</div>
+					</div>					
+					<?php
+						}
+					?>
+
+					<div class="<?=$_class;?>">						
+						<div class="form-group">
+							<label>Jawaban yang benar</label>
+							<br>
+							<input class="minimal" id="f_jawaban_multi_<?=$i;?>" type="checkbox" style="display: block;position: absolute;width: 4%;height: 100%;">
+						</div>						
+					</div>
+				</div>				
+				<hr>
+				<?php
+					}
+				?>
+
+			</div><!-- /.box-body -->
+			<div class="box-footer">
+				<a class="btn btn-success pull-right" id="btn-trigger-controll-multi"><i class="fa fa-save"></i>&nbsp; Simpan</a>
 			</div>
 		</div><!-- /.box -->
 	</div>
@@ -160,44 +323,56 @@ $(document).ready(function(){
 		$(".form-control-detail").val('');
 		$("#formdata").css({"display": ""})
 		$("#viewdata").css({"display": "none"})
-		$("#formdata > div > div > div.box-header > h3").html("Tambah Data Jawaban");		
+		$("#formdata > div > div > div.box-header > h3").html("Tambah Data Deskripsi Pilihan");		
 		$("#crud").val('insert');
 	})
+
+	$("#addDatamulti").click(function()
+	{
+		$(".form-control-detail").val('');
+		$("#formdatamulti").css({"display": ""})
+		$("#viewdata").css({"display": "none"})
+		$("#formdata > div > div > div.box-header > h3").html("Tambah Data Deskripsi Pilihan");		
+		$("#crud").val('insert');
+	})	
 
 	$("#closeData").click(function(){
 		$("#formdata").css({"display": "none"})
 		$("#viewdata").css({"display": ""})		
-	})	
+	})
 
-	$("#btn-trigger-controll").click(function(){
-		var res_status = 0;
-		var oid_header = $("#oid_header").val();
-		var oid        = $("#oid").val();
-		var crud       = $("#crud").val();
-		var f_name     = $("#f_name").val();
-		var f_jawaban  = $("#f_jawaban").is(":checked");
+	$("#closeDatamulti").click(function(){
+		$("#formdatamulti").css({"display": "none"})
+		$("#viewdata").css({"display": ""})		
+	})		
 
-		var data_sender = {
-			'oid'       : oid,
-			'crud'      : crud,			
-			'oid_header': oid_header,
-			'f_name'    : f_name,
-			'f_jawaban' : f_jawaban
-		}
+	$("#btn-trigger-controll-multi").click(function() {
+        var data_sender = [];
+        var inputs      = document.getElementsByName("oidmulti");
+		var flag = 0;
+		for (index = 0; index < inputs.length; index++) {
+			data_sender[index] = {
+				'oid'       : $("#oid_multi_"+index).val(),
+				'crud'      : $("#crud_multi_"+index).val(),
+				'oid_header': $("#oid_header").val(),
+				'f_name'    : $("#f_name_multi_"+index).val(),
+				'f_bobot'   : $("#f_bobot_multi_"+index).val(),
+				'f_jawaban' : $("#f_jawaban_multi_"+index).is(":checked"),
+				'f_key'     : $("#f_key_multi_"+index).val()
+			}			
 
-		if (f_name.length <= 0) {
-			if (f_name.length <= 0) {
-				Lobibox.alert("warning", //AVAILABLE TYPES: "error", "info", "success", "warning"
-				{
-					title: 'Peringatan',					
-					msg: "Data Jawaban belum terisi, mohon lengkapi data tersebut"
-				});				
+			if ($("#f_name_multi_"+index).val().length <= 0) {
+				flag = 0;
+			}
+			else 
+			{
+				flag = 1;
 			}
 		}
-		else
-		{
+
+		if (flag == 1) {
 			$.ajax({
-				url :"<?php echo site_url();?>bank_data/soal/store_detail",
+				url :"<?php echo site_url();?>management/try_out/store_soal_detail",
 				type:"post",
 				data:{data_sender : data_sender},
 				beforeSend:function(){
@@ -212,8 +387,17 @@ $(document).ready(function(){
 				{
 					ajax_catch(jqXHR,exception);					
 				}
-			})
+			})					
 		}
+		else
+		{
+			Lobibox.alert("warning", //AVAILABLE TYPES: "error", "info", "success", "warning"
+				{
+					title: 'Peringatan',					
+					msg: "Harap lengkapi data"
+				});							
+		}
+		console.table(data_sender);
 	})
 })
 
@@ -228,14 +412,15 @@ function edit(id){
 			var obj = jQuery.parseJSON (msg);
 			if (obj.status == 1)
 			{
-				$(".form-control").val('');
+				// $(".form-control").val('');
 				$("#formdata").css({"display": ""})
 				$("#viewdata").css({"display": "none"})
 				$("#formdata > div > div > div.box-header > h3").html("Ubah Data Soal");		
 				$("#crud").val('update');
 				$("#oid").val(obj.data[0]['id']);
 				$("#f_name").val(obj.data[0]['name']);
-				$("#f_jawaban").val(obj.data[0]['name']);												
+				$("#f_jawaban").val(obj.data[0]['name']);
+				$("#f_key").val(obj.data[0]['choice']);																
 				$("#loadprosess").modal('hide');				
 			}
 			else
@@ -261,7 +446,7 @@ function del(id)
 		callback: function ($this, type) {
 			if (type === 'yes'){			
 				$.ajax({
-					url :"<?php echo site_url();?>bank_data/soal/store/"+'delete/'+id,
+					url :"<?php echo site_url();?>bank_data/soal/store_detail/"+'delete/'+id,
 					type:"post",
 					beforeSend:function(){
 						$("#editData").modal('hide');

@@ -1,62 +1,12 @@
 <?php
 defined('BASEPATH') OR exit('No direct script access allowed');
 
-class Zbimbingan_belajar extends CI_Controller {
+class Ztry_out extends CI_Controller {
 
 	public function __construct () {
 		parent::__construct();
 		$this->load->model ('Muser', '', TRUE);
 	}
-
-	public function pre_test($type=NULL,$materi=NULL)
-	{
-		# code...
-		$this->Globalrules->session_rule();
-		$data['title']   = 'Bimbingan Belajar - Pre Test';
-		$data['type']    = $type;
-		$data['materi']  = $materi;
-		$data['list']    = $this->Allcrud->getData('mr_soal',array('id_materi'=>$materi,'id_tipe_soal'=>$type))->result_array();
-		$data['content'] = 'user/bimbingan_belajar/pre_test/index';
-		$this->load->view('templateAdmin',$data);		
-	}	
-
-	public function video_materi($type=NULL,$materi=NULL)
-	{
-		# code...
-		$this->Globalrules->session_rule();
-		$data['title']   = 'Bimbingan Belajar - Video Belajar';
-		$data['type']    = $type;
-		$data['materi']  = $materi;
-		$data['list']    = $this->Allcrud->getData('mr_video',array('id_materi'=>$materi))->result_array();
-		$data['chat']    = $this->Allcrud->getData('tr_chat',array('id_user_sender'=>$this->session->userdata('session_user'),'id_materi'=>$materi))->result_array();
-		$data['content'] = 'user/bimbingan_belajar/video/index';
-		$this->load->view('templateAdmin',$data);				
-	}
-
-	public function quiz($type=NULL,$materi=NULL)
-	{
-		# code...
-		$this->Globalrules->session_rule();
-		$data['title']   = 'Bimbingan Belajar - Quiz';
-		$data['type']    = $type;
-		$data['materi']  = $materi;
-		$data['list']    = $this->Allcrud->getData('mr_soal',array('id_materi'=>$materi,'id_tipe_soal'=>$type))->result_array();
-		$data['content'] = 'user/bimbingan_belajar/pre_test/index';
-		$this->load->view('templateAdmin',$data);				
-	}
-
-	public function analisis($type=NULL,$materi=NULL)
-	{
-		# code...
-		$this->Globalrules->session_rule();
-		$data['title']    = 'Bimbingan Belajar - Hasil Analisis';
-		$data['type']     = $type;
-		$data['materi']   = $materi;
-		$data['pre_test'] = $this->Allcrud->getData('mr_soal',array('id_materi'=>$materi,'id_tipe_soal'=>1))->result_array();
-		$data['quiz']     = $this->Allcrud->getData('mr_soal',array('id_materi'=>$materi,'id_tipe_soal'=>3))->result_array();
-		$data['content']  = 'user/bimbingan_belajar/analisis/index';
-		$this->load->view('templateAdmin',$data);				
-	}	
 
 	public function store_choice()
 	{
@@ -66,7 +16,7 @@ class Zbimbingan_belajar extends CI_Controller {
 		$text_status = "";
 		$data_sender = $this->input->post('data_sender');
 		$user        = $this->session->userdata('session_user');
-		$check_data  = $this->Allcrud->getData('tr_jawaban_bimbingan_belajar',array('id_user'=>$user,'id_type'=>$data_sender['type'],'id_materi'=>$data_sender['materi'],'id_soal'=>$data_sender['soal']))->result_array();
+		$check_data  = $this->Allcrud->getData('tr_jawaban_try_out',array('id_user'=>$user,'id_parent'=>$data_sender['parent'],'id_paket'=>$data_sender['paket'],'id_soal'=>$data_sender['soal']))->result_array();
 		if ($check_data == array()) {
 			# code...
 			$crud = 'insert';
@@ -78,20 +28,20 @@ class Zbimbingan_belajar extends CI_Controller {
 
 		$data_store = $this->Globalrules->trigger_insert_update($crud);
 		$data_store['id_user']    = $user;
-		$data_store['id_type']    = $data_sender['type'];
-		$data_store['id_materi']  = $data_sender['materi'];
+		$data_store['id_parent']  = $data_sender['parent'];
+		$data_store['id_paket']   = $data_sender['paket'];
 		$data_store['id_soal']    = $data_sender['soal'];
 		$data_store['id_jawaban'] = $data_sender['choice'];
-		$data_store['status']     = 0;
+		$data_store['status']     = 1;
 		if ($crud == 'insert') 
 		{
 			# code...
-			$res_data    = $this->Allcrud->addData('tr_jawaban_bimbingan_belajar',$data_store);			
+			$res_data    = $this->Allcrud->addData('tr_jawaban_try_out',$data_store);			
 		}
 		elseif($crud == 'update') 
 		{
 			# code...
-			$res_data  = $this->Allcrud->editData('tr_jawaban_bimbingan_belajar',$data_store,array('id_user'=>$user,'id_type'=>$data_sender['type'],'id_materi'=>$data_sender['materi'],'id_soal'=>$data_sender['soal']));			
+			$res_data  = $this->Allcrud->editData('tr_jawaban_try_out',$data_store,array('id_user'=>$user,'id_parent'=>$data_sender['parent'],'id_paket'=>$data_sender['paket'],'id_soal'=>$data_sender['soal']));			
 		}
 
 		$text_status       = $this->Globalrules->check_status_res($res_data,'Jawaban anda telah disimpan.');

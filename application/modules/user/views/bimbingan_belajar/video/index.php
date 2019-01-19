@@ -214,82 +214,90 @@
 <section id="headerdata" class="col-xs-5">
 	<div class="clearfix">		
 		<div class="chat">
-		<div class="chat-header clearfix">
-			<img src="https://s3-us-west-2.amazonaws.com/s.cdpn.io/195612/chat_avatar_01_green.jpg" alt="avatar" />
-			
-			<div class="chat-about">
-			<div class="chat-with">Chat Dengan Admin</div>
-			<!-- <div class="chat-num-messages">already 1 902 messages</div> -->
-			</div>
-			<!-- <i class="fa fa-star"></i> -->
-		</div> <!-- end chat-header -->
-		
-		<div class="chat-history">
-			<ul>				
-				<li>
-					<div class="message-data">
-					<span class="message-data-name"><i class="fa fa-circle online"></i> Vincent</span>
-					<span class="message-data-time">10:12 AM, Hari ini</span>
-					</div>
-					<div class="message my-message">
-					Are we meeting today? Project has been already finished and I have results to show you.
-					</div>
-				</li>
+			<div class="chat-header clearfix">
+				<img src="https://s3-us-west-2.amazonaws.com/s.cdpn.io/195612/chat_avatar_01_green.jpg" alt="avatar" />
 				
-				<li class="clearfix">
-					<div class="message-data align-right">
-					<span class="message-data-time" >10:14 AM, Hari ini</span> &nbsp; &nbsp;
-					<span class="message-data-name" >Olia</span> <i class="fa fa-circle me"></i>
-					
-					</div>
-					<div class="message other-message float-right">
-					Well I am not sure. The rest of the team is not here yet. Maybe in an hour or so? Have you faced any problems at the last phase of the project?
-					</div>
-				</li>
-			</ul>
+				<div class="chat-about">
+					<div class="chat-with">Chat Dengan Admin</div>
+				</div>
+			</div> <!-- end chat-header -->
 			
-		</div> <!-- end chat-history -->
-		
-		<div class="chat-message clearfix">
-			<textarea name="message-to-send" id="message-to-send" placeholder ="Tulis pesan" rows="3"></textarea>
-								
-			<button class="btn btn-primary">Kirim</button>
-
-		</div> <!-- end chat-message -->
-		
+			<div class="chat-history">
+				<ul id="list-chat">				
+					<?php
+						if ($chat != array()) {
+							# code...
+							for ($i=0; $i < count($chat); $i++) { 
+								# code...
+								if ($chat[$i]['id_admin_sender'] == '' || $chat[$i]['id_admin_sender'] == 0) {
+									# code...
+					?>
+									<li class="clearfix">
+										<div class="message-data align-right">
+										<span class="message-data-time" ><?=$chat[$i]['audit_time_insert'];?></span> &nbsp; &nbsp;
+										<span class="message-data-name" >Anda</span> <i class="fa fa-circle me"></i>
+										
+										</div>
+										<div class="message other-message float-right">
+										<?=$chat[$i]['name'];?>
+										</div>
+									</li>					
+					<?php
+								}
+								else {
+									# code...
+					?>
+									<li>
+										<div class="message-data">
+										<span class="message-data-name"><i class="fa fa-circle online"></i> Admin</span>
+										<span class="message-data-time"><?=$chat[$i]['audit_time_insert'];?></span>
+										</div>
+										<div class="message my-message">
+										<?=$chat[$i]['name'];?>
+										</div>
+									</li>										
+					<?php
+								}
+							}
+						}
+					?>
+					<!-- <li>
+							<div class="message-data">
+							<span class="message-data-name"><i class="fa fa-circle online"></i> Vincent</span>
+							<span class="message-data-time">10:12 AM, Hari ini</span>
+							</div>
+							<div class="message my-message">
+							Are we meeting today? Project has been already finished and I have results to show you.
+							</div>
+						</li>
+					
+					<li class="clearfix">
+						<div class="message-data align-right">
+						<span class="message-data-time" >10:14 AM, Hari ini</span> &nbsp; &nbsp;
+						<span class="message-data-name" >Olia</span> <i class="fa fa-circle me"></i>
+						
+						</div>
+						<div class="message other-message float-right">
+						Well I am not sure. The rest of the team is not here yet. Maybe in an hour or so? Have you faced any problems at the last phase of the project?
+						</div>
+					</li> -->
+					
+				</ul>
+				
+			</div> <!-- end chat-history -->
+			
+			<div class="chat-message clearfix">
+				<input type="hidden" id="oid_materi" value="<?=$materi;?>">
+				<textarea name="message-to-send" id="message-to-send" placeholder ="Tulis pesan" rows="3"></textarea>				
+				<button class="btn btn-primary" id="btn-trigger-controll">Kirim</button>
+			</div> <!-- end chat-message -->
 		</div> <!-- end chat -->
-		
 	</div> <!-- end container -->
-
-	<script id="message-template" type="text/x-handlebars-template">
-	<li class="clearfix">
-		<div class="message-data align-right">
-		<span class="message-data-time" >{{time}}, Hari ini</span> &nbsp; &nbsp;
-		<span class="message-data-name" >Olia</span> <i class="fa fa-circle me"></i>
-		</div>
-		<div class="message other-message float-right">
-		{{messageOutput}}
-		</div>
-	</li>
-	</script>
-
-	<script id="message-response-template" type="text/x-handlebars-template">
-	<li>
-		<div class="message-data">
-		<span class="message-data-name"><i class="fa fa-circle online"></i> Vincent</span>
-		<span class="message-data-time">{{time}}, Hari ini</span>
-		</div>
-		<div class="message my-message">
-		{{response}}
-		</div>
-	</li>
-	</script>
-
 </section>
 
 <script>
 $(document).ready(function(){
-	_force();
+	// _force();
 	var source = '<?=base_url();?>public/video/<?=$list[0]['file'];?>';
 	var f_video = document.getElementById('f_video');
 	var f_source = document.getElementById('f_source');
@@ -311,45 +319,38 @@ $(document).ready(function(){
 	})	
 
 	$("#btn-trigger-controll").click(function(){
-		var res_status = 0;
-		var oid_header = $("#oid_header").val();
-		var oid        = $("#oid").val();
-		var crud       = $("#crud").val();
-		var f_name     = $("#f_name").val();
-		var f_jawaban  = $("#f_jawaban").is(":checked");
-		var f_key      = $("#f_key").val();
+		var f_name = $("#message-to-send").val();
+		var oid    = $("#oid_materi").val();
 
 		var data_sender = {
-			'oid'       : oid,
-			'crud'      : crud,
-			'oid_header': oid_header,
-			'f_name'    : f_name,
-			'f_jawaban' : f_jawaban,
-			'f_key'     : f_key 
+			'f_name': f_name,
+			'oid'   : oid,
+			'crud'  : 'insert'
 		}
 
 		if (f_name.length <= 0) {
-			if (f_name.length <= 0) {
-				Lobibox.alert("warning", //AVAILABLE TYPES: "error", "info", "success", "warning"
-				{
-					title: 'Peringatan',					
-					msg: "Data Deskripsi Pilihan belum terisi, mohon lengkapi data tersebut"
-				});				
-			}
+			// $("#formdata").css({"display": "none"})
 		}
 		else
 		{
 			$.ajax({
-				url :"<?php echo site_url();?>bank_data/soal/store_detail",
+				url :"<?php echo site_url();?>user/zchat/send_message",
 				type:"post",
 				data:{data_sender : data_sender},
 				beforeSend:function(){
-					$("#editData").modal('hide');
 					$("#loadprosess").modal('show');
 				},
 				success:function(msg){
-					var obj = jQuery.parseJSON (msg);
-					ajax_status(obj);
+					var newrec  = '<li class="clearfix">'+
+										'<div class="message-data align-right">'+
+											'<span class="message-data-time" ><?=date('d-m-Y');?></span> &nbsp; &nbsp;'+
+											'<span class="message-data-name" >Anda</span> <i class="fa fa-circle me"></i>'+
+										'</div>'+
+										'<div class="message other-message float-right">'+f_name+'</div>'+
+									'</li>';
+					$('#list-chat').append(newrec);
+					$("#message-to-send").val('');	
+					$("#loadprosess").modal('hide');														
 				},
 				error:function(jqXHR,exception)
 				{

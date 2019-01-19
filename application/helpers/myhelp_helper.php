@@ -81,7 +81,7 @@
 		$CI->load->view('templates/header/open_tag',array('tag'=>'div','class'=>'navbar-custom-menu hidden-xs'));
 		$CI->load->view('templates/header/open_tag',array('tag'=>'ul','class'=>'nav navbar-nav pull-right'));
 		// $CI->load->view('templates/header/message');
-		$CI->load->view('templates/header/notification',array('counter'=>$count_notify,'notify_result'=>$notify->result()));												
+		// $CI->load->view('templates/header/notification',array('counter'=>$count_notify,'notify_result'=>$notify->result()));												
 		$CI->load->view('templates/header/user',array('info_user'=>$info_user));				
 		$CI->load->view('templates/header/close_tag',array('tag'=>'ul'));		
 		$CI->load->view('templates/header/close_tag',array('tag'=>'div'));				
@@ -91,7 +91,7 @@
 
 		function menuSamping(){
 			$CI =& get_instance();
-			$role = $CI->session->userdata('sesRole');
+			$role = $CI->session->userdata('session_role');
 			$induk = $CI->db->query(" SELECT config_menu.*, config_menu_akses.id_akses FROM config_menu INNER JOIN config_menu_akses ON config_menu.id_menu=config_menu_akses.id_menu WHERE id_parent=0 AND flag=1 AND id_role=$role AND baca=1");
 			foreach($induk->result() as $row){
 	

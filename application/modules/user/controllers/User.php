@@ -5,7 +5,7 @@ class User extends CI_Controller {
 
 	public function __construct () {
 		parent::__construct();
-		$this->load->model ('Mmaster', '', TRUE);
+		$this->load->model ('Muser', '', TRUE);
 	}
 
 	public function index()
@@ -31,13 +31,63 @@ class User extends CI_Controller {
 		$this->load->view('templateAdmin',$data);		
 	}	
 
-	public function try_out()
+	public function try_out($type=NULL,$parent=NULL,$id=NULL,$detail=NULL)
 	{
 		# code...
-		$this->Globalrules->session_rule();
-		$data['title']              = '';
-		$data['content']            = 'dashboard/index';
-		$this->load->view('templateAdmin',$data);		
+		$this->Globalrules->session_rule();		
+		if ($type == 'mulai') {
+			# code...	
+			$data['title']            = '';
+			$data['content']          = 'user/try_out/root/mulai';
+			$data['verify_user_paid'] = $this->Allcrud->getData('tr_layanan',array('id_user'=>$this->session->userdata('session_user'),'type'=>'bimbel'))->result_array();
+			$data['list_soal']        = $this->Allcrud->getData('mr_try_out_soal',array('id_parent'=>$parent,'id_paket'=>$id))->result_array();
+			if ($detail == NULL) {
+				# code...
+				$data['counter_soal'] = 0;
+			}
+			else {
+				# code...
+				$data['counter_soal'] = $detail;
+			}
+
+			$get_time = $this->Allcrud->getData('tr_track_time_try_out',array('id_user'=>$this->session->userdata('session_user'),'id_paket'=>$id,'id_parent'=>$parent))->result_array();						
+			if ($get_time == array()) {
+				# code...
+				$data_store['audit_time_insert'] = date('Y-m-d H:i:s a', time() + 5400);
+				$data_store['id_user']           = $this->session->userdata('session_user');
+				$data_store['id_paket']          = $id;
+				$data_store['id_parent']         = $parent;
+
+				$res_data = $this->Allcrud->addData('tr_track_time_try_out',$data_store);
+				$get_time = $this->Allcrud->getData('tr_track_time_try_out',array('id_user'=>$this->session->userdata('session_user'),'id_paket'=>$id,'id_parent'=>$parent))->result_array();
+				if ($get_time != array()) {
+					# code...
+					$timeout = $get_time[0]['audit_time_insert'];
+					$timeout = strtotime($timeout) - strtotime(date('Y-m-d H:i:s'));
+					$data['timeout'] = $timeout/60;
+				}
+			}
+			else {
+				# code...
+				$timeout = $get_time[0]['audit_time_insert'];
+				$timeout = strtotime($timeout) - strtotime(date('Y-m-d H:i:s'));
+				$data['timeout'] = $timeout ;
+			}
+			$this->load->view('templateAdmin',$data);					
+					
+		}
+		elseif ($type == 'analisis') {
+			# code...
+		}
+		elseif ($type == NULL) {
+			# code...
+			$data['title']            = '';
+			$data['content']          = 'user/try_out/root/index';
+			$data['verify_user_paid'] = $this->Allcrud->getData('tr_layanan',array('id_user'=>$this->session->userdata('session_user'),'type'=>'bimbel'))->result_array();
+			$data['list']    = $this->Allcrud->listData('mr_soal');
+			$data['tipe']    = $this->Allcrud->listData('lt_paket_try_out')->result_array();		
+			$this->load->view('templateAdmin',$data);					
+		}
 	}
 
 	public function store()
@@ -86,7 +136,17 @@ class User extends CI_Controller {
 		{
 			redirect('user/zbimbingan_belajar/'.$arg.'/'.$type.'/'.$materi);			
 		}		
+	}
 
+	public function bimbingan_belajar_trial()
+	{
+		# code...
+		$this->Globalrules->session_rule();
+		$data['title']            = 'Bimbingan Belajar';
+		$data['verify_user_paid'] = $this->Allcrud->getData('tr_layanan',array('id_user'=>$this->session->userdata('session_user'),'type'=>'bimbel'));
+		$data['list']             = $this->Allcrud->getData('mr_materi',array('id_parent'=>NULL))->result_array();
+		$data['content']          = 'user/bimbingan_belajar/root/trial';
+		$this->load->view('templateAdmin',$data);		
 	}
 
 	public function verify_token()
@@ -137,6 +197,7 @@ class User extends CI_Controller {
 		$this->Globalrules->session_rule();
 		$data['title']   = 'Video Materi';
 		$data['list']    = $this->Allcrud->getData('mr_materi',array('id_parent'=>NULL))->result_array();		
+		$data['verify_user_paid'] = $this->Allcrud->getData('tr_layanan',array('id_user'=>$this->session->userdata('session_user'),'type'=>'bimbel'))->result_array();		
 		$data['content'] = 'user/video_materi/index';
 		$this->load->view('templateAdmin',$data);		
 	}

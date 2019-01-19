@@ -8,23 +8,44 @@ class Mdashboard extends CI_Model
 	
 	}
 
-	public function get_data_menit_efektif($param)
+	public function get_chat_user($param,$id=NULL,$id2=NULL)
 	{
 		# code...
-		$bulan = date('m');
-		$tahun = date('Y'); 
-		$sql = "SELECT SUM(".$param.") as jumlah
-				FROM tr_capaian_pekerjaan a
-				JOIN mr_skp_pegawai b ON a.id_uraian_tugas = b.skp_id
-				JOIN mr_pegawai c ON a.id_pegawai = c.id
-				WHERE a.tanggal_mulai LIKE '%".date('Y-m')."%'
-				AND a.tanggal_selesai LIKE '%".date('Y-m')."%'
-				AND a.id_pegawai = '".$this->session->userdata('sesUser')."'
-				AND a.status_pekerjaan = '1'";
+		$sql = "";
+		if ($param == 'all') {
+			# code...
+			$sql = "";
+		}
+		else {
+			# code...
+			$and = "";
+			$and2 = "";			
+			if ($id != NULL)$and = "AND a.id_user_sender = ".$id."";
+			if ($id2 != NULL)$and2 = "AND a.id_materi = ".$id2."";			
+			$sql = "WHERE a.status_read = 0 AND a.id_admin_sender = 0 ".$and." ".$and2."";
+		}
+
+		$sql = "SELECT DISTINCT b.name,
+								COUNT(a.id_user_sender) as counter,
+								a.id_user_sender,
+								a.id_materi,
+								d.name as materi
+				FROM tr_chat a
+				LEFT JOIN mr_user b
+				ON a.id_user_sender = b.id
+				LEFT JOIN mr_video c
+				ON a.id_materi = c.id_materi
+				LEFT JOIN mr_materi d
+				ON c.id_materi = d.id				
+				".$sql."
+				GROUP BY a.id_materi
+				ORDER BY a.audit_time_insert DESC
+		";
+		// print_r($sql);die();		
 		$query = $this->db->query($sql);
 		if($query->num_rows() > 0)
 		{
-			return $query->result()[0]->jumlah;
+			return $query->result();
 		}
 		else
 		{

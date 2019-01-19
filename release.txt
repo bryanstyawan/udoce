@@ -1,4 +1,32 @@
 v1.0.0    
+2019-01-19
+==========
+New:
+- Menu disisi mobile
+- chat disisi admin untuk pertanyaan user di bimbingan belajar & video materi
+- Management Try Out
+- Video Materi
+- Try Out user
+- Bimbingan Belajar trial
+- Chat user untuk pertanyaan di bimbingan belajar dan video materi
+Improved:
+- Penyederhanaan Management bimbingan belajar
+    - Pemindahan akses untuk input data konten
+    - Penyesuaian jumlah opsi jawaban berdasarkan tbi dan tpa
+- Penyederhanaan layout pre test dan quiz
+- Perubahan layout halaman login
+Fixed:
+- Menghapus Pembahasan pre test
+- Perubahan tata letak opsi jawaban di pre test dan quiz dipindah ke sebelah kiri jawaban
+- Pembenahan route untuk bimbingan belajar. jika sudah selesai langsung ketahap selanjutnya, tanpa harus kembali kehalaman awal bimbingan belajar, 
+    jika ditahap analisis, jika sudah selesai. kembali kehalaman awal bimbingan belajar. Disetiap tahap bimbingan belajar, tulisan "Selesai dan lanjutkan" 
+    diubah menjadi "lanjut ke video materi/quiz/" dan untuk analisis "kembali Ke materi". untuk ke materi bimbingan selanjutnya, 
+    bisa muncul ketika quiz sudah selesai tanpa harus melihat analisis (tahapan dari quiz tetap ke diarahkan ke halaman analisis).
+-  Perubahan Tata letak Pembahasan quiz, dipindah dan disejajarkan dengan tombol "Kembali ke materi" (analisis)
+- soal yang sudah terjawab, progress soal tetap muncul ketika discrool kebawan (pre test/quiz)
+- Perbaikan Footer
+
+v1.0.0    
 2019-01-09
 ==========
 New:

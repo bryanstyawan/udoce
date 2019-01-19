@@ -11,8 +11,25 @@ class Dashboard extends CI_Controller {
 	public function home()
 	{
 		$this->Globalrules->session_rule();
-		$data['title']              = '';
-		$data['content']            = 'vdashboard';
+		$data['title']             = '';
+		$data['user_chat'] = $this->mdashboard->get_chat_user('all');
+		if ($data['user_chat'] != 0) {
+			# code...
+			for($i=0;$i<count($data['user_chat']);$i++)
+			{
+				$data_get = $this->mdashboard->get_chat_user('0',$data['user_chat'][$i]->id_user_sender,$data['user_chat'][$i]->id_materi);
+				// print_r($data_get);die();
+				if ($data_get != 0) {
+					# code...
+					$data['user_chat'][$i]->counter = $data_get[0]->counter; 
+				}
+				else {
+					# code...
+					$data['user_chat'][$i]->counter = 0;					
+				}
+			}				
+		}	
+		$data['content']           = 'vdashboard';
 		$this->load->view('templateAdmin',$data);
 	}
 

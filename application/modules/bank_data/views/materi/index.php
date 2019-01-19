@@ -2,7 +2,7 @@
 	<div class="col-xs-12">
 		<div class="box">
 			<div class="box-header">
-				<h3 class="box-title"><button class="btn btn-block btn-primary" id="ruleData"><i class="fa cogs"></i> Aturan Bimbingan Belajar</button></h3>
+				<!-- <h3 class="box-title"><button class="btn btn-block btn-primary" id="ruleData"><i class="fa cogs"></i> Aturan Bimbingan Belajar</button></h3> -->
 				<div class="box-tools pull-right"><button class="btn btn-block btn-primary" id="addData"><i class="fa fa-plus-square"></i> Tambah Data</button></div>
 			</div><!-- /.box-header -->
 			<div class="box-body" id="table_fill">
@@ -13,8 +13,8 @@
 					<th>Materi</th>
 					<th>Sub Materi</th>					
 					<th>Pre Test</th>
+					<th>Video Materi</th>					
 					<th>Quiz</th>
-					<th>Video Materi</th>
 					<th>action</th>
 				</tr>
 				</thead>
@@ -22,7 +22,7 @@
 				<?php 
 					$x  = 1;
 					foreach($list->result() as $row){
-						
+						$child = $this->Allcrud->getData('mr_materi',array('id_parent'=>$row->id));						
 				?>
 						<tr>
 							<td><?php echo $x;?></td>
@@ -34,25 +34,66 @@
 							<td>
 								<button class="btn btn-primary btn-xs" onclick="edit('<?php echo $row->id;?>')"><i class="fa fa-edit"></i> Ubah</button>&nbsp;&nbsp;
 								<button class="btn btn-success btn-xs" onclick="detail('<?php echo $row->id;?>')"><i class="fa fa-edit"></i> Sub Materi</button>&nbsp;&nbsp;							
-								<button class="btn btn-danger btn-xs" onclick="del('<?php echo $row->id;?>')"><i class="fa fa-trash"></i> Hapus</button>
+				<?php
+								if (count($child->result_array()) == 0) {
+									# code...
+				?>
+									<button class="btn btn-danger btn-xs" onclick="del('<?php echo $row->id;?>')"><i class="fa fa-trash"></i> Hapus</button>				
+				<?php
+								}
+				?>
 							</td>
 						</tr>
 				<?php 
-							$child = $this->Allcrud->getData('mr_materi',array('id_parent'=>$row->id));
 							foreach ($child->result() as $key) {
 								# code...
+								$pre_test = $this->Allcrud->getdata('mr_soal',array('id_materi'=>$key->id,'id_parent'=>$row->id,'id_tipe_soal'=>1))->result_array();
+								$video    = $this->Allcrud->getdata('mr_video',array('id_materi'=>$key->id,'id_parent'=>$row->id))->result_array();
+								$quiz     = $this->Allcrud->getdata('mr_soal',array('id_materi'=>$key->id,'id_parent'=>$row->id,'id_tipe_soal'=>3))->result_array();
 				?>
 								<tr>
 									<td></td>
 									<td></td>									
 									<td><?php echo $key->name;?></td>
-									<td></td>
-									<td></td>
-									<td></td>																											
+									<?php 
+										$x  = 1;
+										foreach($tipe->result() as $row_td){
+											if ($row_td->id != 4) {
+												# code...
+									?>
+												<td>
+													<span class="pull-left">
+														<?php
+															if ($row_td->id == 1) {
+																# code...
+																echo (count($pre_test)!=0?count($pre_test).' Soal':'');
+															}
+															elseif ($row_td->id == 2) {
+																# code...
+																echo (count($video)!=0?count($video).' Video':'');
+															}
+															elseif ($row_td->id == 3) {
+																# code...
+																echo (count($quiz)!=0?count($quiz).' Soal':'');
+															}
+														?>
+													</span>
+													<button class="btn btn-primary btn-xs pull-right" onclick="go('<?php echo $row_td->name;?>','<?php echo $row_td->id;?>','<?php echo $key->id;?>',<?php echo $row->id;?>)"><i class="fa fa-edit"></i> <?php echo $row_td->text;?></button>&nbsp;&nbsp;
+												</td>
+									<?php 							
+											}
+										}
+									?>																											
 									<td>
 										<button class="btn btn-primary btn-xs" onclick="edit('<?php echo $key->id;?>')"><i class="fa fa-edit"></i> Ubah</button>&nbsp;&nbsp;
-										<button class="btn btn-danger btn-xs" onclick="del('<?php echo $key->id;?>')"><i class="fa fa-trash"></i> Hapus</button>
-										<button class="btn btn-success btn-xs pull-right" style="margin-right: 10px;" onclick="detail_soal('<?php echo $key->id;?>','<?php echo $key->id_parent;?>')"><i class="fa fa-edit"></i> Soal dan Materi</button>&nbsp;&nbsp;
+										<?php
+											if (count($pre_test) == 0 && count($video) == 0 && count($quiz) == 0) {
+												# code...
+										?>
+												<button class="btn btn-danger btn-xs" onclick="del('<?php echo $key->id;?>')"><i class="fa fa-trash"></i> Hapus</button>										
+										<?php
+											}
+										?>
 									</td>
 								</tr>
 				<?php								
@@ -235,4 +276,15 @@ function detail(id) {
 function detail_soal(id,parent) {
 	window.location.href = "<?php echo site_url();?>bank_data/soal/pre_test_and_quiz/"+id+"/"+parent	
 }
+
+function go(arg,param,id,parent) {
+	if (param != 2) {
+		window.open("<?php echo site_url();?>bank_data/soal/index/"+arg+"/"+id+"/"+parent+"/"+param,'_blank');		
+	}
+	else
+	{
+		window.open("<?php echo site_url();?>bank_data/video/video_materi/"+id+"/"+parent+"/"+param,'_blank');		
+	}
+}
+
 </script>

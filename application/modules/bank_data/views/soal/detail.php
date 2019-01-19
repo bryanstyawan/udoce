@@ -54,7 +54,7 @@
 									}
 									else {
 										# code...
-										if($counter == 4)
+										if($counter >= 4)
 										{
 											if($data_soal[0]['jawaban'] != '')
 											{

@@ -241,6 +241,7 @@ class Soal extends CI_Controller {
 		$data['title']   = 'Data Materi Bimbingan Belajar';
 		$data['content'] = 'bank_data/materi/index';
 		$data['list']    = $this->Allcrud->getData('mr_materi',array('id_parent'=>NULL));
+		$data['tipe']   = $this->Allcrud->listData('lt_tipe_bimbingan_belajar');		
 		$this->load->view('templateAdmin',$data);
 	}
 	

@@ -8,4 +8,4 @@
             <span style="height: 58px;width: 140px;">ECODU</span>
             <!-- <img src="<?php echo base_url();?>assets_home/logo.png" alt="logo" style="height: 58px;width: 140px;"> -->
         </a>
-        <ul class="nav navbar-nav hidden-xs">
+        <ul class="nav navbar-nav hidden-xs" id="header_navigator">

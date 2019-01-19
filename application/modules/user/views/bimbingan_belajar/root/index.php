@@ -3,156 +3,156 @@ if($verify_user_paid->result_array() == array())
 {
 ?>
 <style>
-@import url(https://fonts.googleapis.com/css?family=Lato:400,700);
+	@import url(https://fonts.googleapis.com/css?family=Lato:400,700);
 
-body {
-  background: #F2F2F2;
-  padding: 0;
-  maring: 0;
-}
+	body {
+	background: #F2F2F2;
+	padding: 0;
+	maring: 0;
+	}
 
-#price {
-  text-align: center;
-}
+	#price {
+	text-align: center;
+	}
 
-.plan {
-  display: inline-block;
-  margin: 10px 1%;
-  font-family: 'Lato', Arial, sans-serif;
-}
+	.plan {
+	display: inline-block;
+	margin: 10px 1%;
+	font-family: 'Lato', Arial, sans-serif;
+	}
 
-.plan-inner {
-  background: #fff;
-  margin: 0 auto;
-  min-width: 280px;
-  max-width: 100%;
-  position:relative;
-}
+	.plan-inner {
+	background: #fff;
+	margin: 0 auto;
+	min-width: 280px;
+	max-width: 100%;
+	position:relative;
+	}
 
-.entry-title {
-  background: #53CFE9;
-  height: 140px;
-  position: relative;
-  text-align: center;
-  color: #fff;
-  margin-bottom: 30px;
-}
+	.entry-title {
+	background: #53CFE9;
+	height: 140px;
+	position: relative;
+	text-align: center;
+	color: #fff;
+	margin-bottom: 30px;
+	}
 
-.entry-title>h3 {
-  background: #20BADA;
-  font-size: 20px;
-  padding: 5px 0;
-  text-transform: uppercase;
-  font-weight: 700;
-  margin: 0;
-}
+	.entry-title>h3 {
+	background: #20BADA;
+	font-size: 20px;
+	padding: 5px 0;
+	text-transform: uppercase;
+	font-weight: 700;
+	margin: 0;
+	}
 
-.entry-title .price {
-  position: absolute;
-  bottom: -25px;
-  background: #20BADA;
-  height: 95px;
-  width: 95px;
-  margin: 0 auto;
-  left: 0;
-  right: 0;
-  overflow: hidden;
-  border-radius: 50px;
-  border: 5px solid #fff;
-  line-height: 80px;
-  font-size: 28px;
-  font-weight: 700;
-}
+	.entry-title .price {
+	position: absolute;
+	bottom: -25px;
+	background: #20BADA;
+	height: 95px;
+	width: 95px;
+	margin: 0 auto;
+	left: 0;
+	right: 0;
+	overflow: hidden;
+	border-radius: 50px;
+	border: 5px solid #fff;
+	line-height: 80px;
+	font-size: 28px;
+	font-weight: 700;
+	}
 
-.price span {
-  position: absolute;
-  font-size: 9px;
-  bottom: -10px;
-  left: 30px;
-  font-weight: 400;
-}
+	.price span {
+	position: absolute;
+	font-size: 9px;
+	bottom: -10px;
+	left: 30px;
+	font-weight: 400;
+	}
 
-.entry-content {
-  color: #323232;
-}
+	.entry-content {
+	color: #323232;
+	}
 
-.entry-content ul {
-  margin: 0;
-  padding: 0;
-  list-style: none;
-  text-align: center;
-}
+	.entry-content ul {
+	margin: 0;
+	padding: 0;
+	list-style: none;
+	text-align: center;
+	}
 
-.entry-content li {
-  border-bottom: 1px solid #E5E5E5;
-  padding: 10px 0;
-}
+	.entry-content li {
+	border-bottom: 1px solid #E5E5E5;
+	padding: 10px 0;
+	}
 
-.entry-content li:last-child {
-  border: none;
-}
+	.entry-content li:last-child {
+	border: none;
+	}
 
-.btn {
-  padding: 3em 0;
-  text-align: center;
-}
+	.btn {
+	padding: 3em 0;
+	text-align: center;
+	}
 
-.btn a {
-  background: #323232;
-  padding: 10px 30px;
-  color: #fff;
-  text-transform: uppercase;
-  font-weight: 700;
-  text-decoration: none
-}
-.hot {
-    position: absolute;
-    top: -7px;
-    background: #F80;
-    color: #fff;
-    text-transform: uppercase;
-    z-index: 2;
-    padding: 2px 5px;
-    font-size: 9px;
-    border-radius: 2px;
-    right: 10px;
-    font-weight: 700;
-}
-.basic .entry-title {
-  background: #75DDD9;
-}
+	.btn a {
+	background: #323232;
+	padding: 10px 30px;
+	color: #fff;
+	text-transform: uppercase;
+	font-weight: 700;
+	text-decoration: none
+	}
+	.hot {
+		position: absolute;
+		top: -7px;
+		background: #F80;
+		color: #fff;
+		text-transform: uppercase;
+		z-index: 2;
+		padding: 2px 5px;
+		font-size: 9px;
+		border-radius: 2px;
+		right: 10px;
+		font-weight: 700;
+	}
+	.basic .entry-title {
+	background: #75DDD9;
+	}
 
-.basic .entry-title > h3 {
-  background: #44CBC6;
-}
+	.basic .entry-title > h3 {
+	background: #44CBC6;
+	}
 
-.basic .price {
-  background: #44CBC6;
-}
+	.basic .price {
+	background: #44CBC6;
+	}
 
-.standard .entry-title {
-  background: #4484c1;
-}
+	.standard .entry-title {
+	background: #4484c1;
+	}
 
-.standard .entry-title > h3 {
-  background: #3772aa;
-}
+	.standard .entry-title > h3 {
+	background: #3772aa;
+	}
 
-.standard .price {
-  background: #3772aa;
-}
+	.standard .price {
+	background: #3772aa;
+	}
 
-.ultimite .entry-title > h3 {
-  background: #DD4B5E;
-}
+	.ultimite .entry-title > h3 {
+	background: #DD4B5E;
+	}
 
-.ultimite .entry-title {
-  background: #F75C70;
-}
+	.ultimite .entry-title {
+	background: #F75C70;
+	}
 
-.ultimite .price {
-  background: #DD4B5E;
-}
+	.ultimite .price {
+	background: #DD4B5E;
+	}
 </style>
 <div id="price">
     <!--price tab-->
@@ -172,7 +172,7 @@ body {
 				</ul>
 			</div>
 			<div class="btn">
-				<a href="#">Coba Sekarang</a>
+				<a href="<?=base_url();?>user/bimbingan_belajar_trial">Coba Sekarang</a>
 			</div>
 		</div>
 	</div>
@@ -278,13 +278,13 @@ else {
 						# code...
 						for ($i=0; $i < count($list); $i++) { 
 							# code...
-							$child = $this->Allcrud->getData('mr_materi',array('id_parent'=>$list[$i]['id']))->result_array();
+							// $child = $this->Allcrud->getData('mr_materi',array('id_parent'=>$list[$i]['id']))->result_array();
 							$child = $this->Allcrud->getData('mr_materi',array('id_parent'=>$list[$i]['id']))->result_array();														
 							for ($ii=0; $ii < count($child); $ii++) { 
 								# code...
 				?>
 								<tr>
-									<td><?=$ii+1;?></td>
+									<td></td>
 									<td><?php echo $list[$i]['name'];?></td>									
 									<td><?php echo $child[$ii]['name'];?></td>
 				<?php
