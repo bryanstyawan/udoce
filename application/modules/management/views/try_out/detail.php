@@ -316,23 +316,24 @@
 							<input type="text" class="form-control form-control-detail" id="f_bobot_multi_<?=$i;?>" rows="3" placeholder="Bobot">
 						</div>
 					</div>					
+					<input id="f_jawaban_multi_<?=$i;?>" type="hidden">					
 					<?php
 						}
 						else {
 							# code...
 							?>
 								<input type="hidden" class="form-control form-control-detail" id="f_bobot_multi_<?=$i;?>" rows="3" placeholder="Bobot">							
+
+								<div class="<?=$_class;?>">						
+									<div class="form-group">
+										<label>Jawaban yang benar</label>
+										<br>
+										<input class="minimal" id="f_jawaban_multi_<?=$i;?>" type="checkbox" style="display: block;position: absolute;width: 4%;height: 100%;">
+									</div>						
+								</div>								
 							<?php
 						}
 					?>
-
-					<div class="<?=$_class;?>">						
-						<div class="form-group">
-							<label>Jawaban yang benar</label>
-							<br>
-							<input class="minimal" id="f_jawaban_multi_<?=$i;?>" type="checkbox" style="display: block;position: absolute;width: 4%;height: 100%;">
-						</div>						
-					</div>
 				</div>				
 				<hr>
 				<?php
