@@ -107,7 +107,12 @@
 	<input type="hidden" id="quiz_result" value="">		
 	<div class="row">
 		<div class="col-lg-12">
-			<h3 class="box-title pull-left col-lg-12">Pembahasan Quiz<div class="box-tools pull-right"><button class="btn btn-block btn-primary" onclick="view_analisis('result_analisis')"><i class="fa fa-arrow-circle-o-left"></i></button></div></h3>																				
+			<h3 class="box-title pull-left col-lg-12">
+				Pembahasan Quiz
+				<div class="box-tools pull-right">
+					<button class="btn btn-block btn-primary" onclick="view_analisis('result_analisis')"><i class="fa fa-arrow-circle-o-left"></i> Kembali</button>
+				</div>
+			</h3>																				
 		</div>
 	</div>
 	<?php
@@ -276,14 +281,14 @@
 
 
 <section class="col-lg-12">
-<div class="box">
-	<div class="box-header">
+	<div class="box">
+		<div class="box-header">
 			<h3 class="box-title"></h3>
 		</div>
 		<div class="box-body">
 			<div class="row">
 				<div class="col-lg-12 text-center">
-					<button class="btn btn-primary" onclick="view_analisis('quiz')"><i class="fa fa-x"></i> Pembahasan Quiz</button>				
+					<button class="btn btn-primary" id="btn_pembahasan" onclick="view_analisis('quiz')"><i class="fa fa-x"></i> Pembahasan Quiz</button>				
 					<a class="btn btn-success" onclick="finish(<?=$materi;?>,<?=$type;?>)">Kembali Ke Materi</a>
 				</div>
 			</div>
@@ -405,17 +410,21 @@ function finish(_materi,_type)
 function view_analisis(params) {
 	if (params == 'pre_test') {
 		$("#pre_test_section").css({"display": ""});
+		$("#btn_pembahasan").css({"display": "none"});				
 		$("#analisis_pre_test_quiz_section").css({"display": "none"});		
 	} 
 	else if(params == 'quiz') {
 		$("#quiz_section").css({"display": ""});
+		$("#btn_pembahasan").css({"display": "none"});				
 		$("#analisis_pre_test_quiz_section").css({"display": "none"});
 	}
 	else if(params == 'result_analisis')
 	{
 		$("#pre_test_section").css({"display": "none"});
+		$("#btn_pembahasan").css({"display": ""});		
 		$("#quiz_section").css({"display": "none"});
 		$("#analisis_pre_test_quiz_section").css({"display": ""});
+		
 	}
 }
 </script>

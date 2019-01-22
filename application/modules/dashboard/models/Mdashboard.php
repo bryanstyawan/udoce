@@ -38,8 +38,7 @@ class Mdashboard extends CI_Model
 				LEFT JOIN mr_materi d
 				ON c.id_materi = d.id				
 				".$sql."
-				GROUP BY a.id_materi
-				ORDER BY a.audit_time_insert DESC
+				GROUP BY a.id_materi, a.id_user_sender, b.name
 		";
 		// print_r($sql);die();		
 		$query = $this->db->query($sql);

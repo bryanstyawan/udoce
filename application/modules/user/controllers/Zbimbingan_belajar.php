@@ -16,6 +16,7 @@ class Zbimbingan_belajar extends CI_Controller {
 		$data['type']    = $type;
 		$data['materi']  = $materi;
 		$data['list']    = $this->Allcrud->getData('mr_soal',array('id_materi'=>$materi,'id_tipe_soal'=>$type))->result_array();
+		$data['track']   = $this->Allcrud->getData('tr_track_bimbingan_belajar',array('id_user'=>$this->session->userdata('session_user'),'id_tipe_bimbel'=>$type,'id_materi'=>$materi))->result_array();		
 		$data['content'] = 'user/bimbingan_belajar/pre_test/index';
 		$this->load->view('templateAdmin',$data);		
 	}	
@@ -41,6 +42,7 @@ class Zbimbingan_belajar extends CI_Controller {
 		$data['type']    = $type;
 		$data['materi']  = $materi;
 		$data['list']    = $this->Allcrud->getData('mr_soal',array('id_materi'=>$materi,'id_tipe_soal'=>$type))->result_array();
+		$data['track']   = $this->Allcrud->getData('tr_track_bimbingan_belajar',array('id_user'=>$this->session->userdata('session_user'),'id_tipe_bimbel'=>$type,'id_materi'=>$materi))->result_array();
 		$data['content'] = 'user/bimbingan_belajar/pre_test/index';
 		$this->load->view('templateAdmin',$data);				
 	}

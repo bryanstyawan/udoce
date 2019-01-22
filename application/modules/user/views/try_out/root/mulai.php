@@ -89,8 +89,9 @@ if ($list_soal != array()) {
 	var upgradeTime = time_server;
 	// var upgradeTime = 10;	
 	var seconds     = upgradeTime;
+	console.log(seconds);
 	function timer() {
-		console.log(seconds);
+
 		var days        = Math.floor(seconds/24/60/60);
 		var hoursLeft   = Math.floor((seconds) - (days*86400));
 		var hours       = Math.floor(hoursLeft/3600);
@@ -104,13 +105,18 @@ if ($list_soal != array()) {
 		if (seconds == 0) {
 			clearInterval(countdownTimer);
 			document.getElementById('time_counter').innerHTML = "Jam ujian telah telah selesai";
-			// window.location.href = "<?php echo site_url();?>user/try_out/selesai/"+$("#oid_parent").val()+"/"+$("#oid_paket").val();					
-			window.location.href = "<?php echo site_url();?>user/try_out/";								
+			window.location.href = "<?php echo site_url();?>user/try_out/selesai/"+$("#oid_parent").val()+"/"+$("#oid_paket").val();					
 		} else {
 			seconds--;
 		}
 	}
-	var countdownTimer = setInterval('timer()', 1000);
+		// var countdownTimer = setInterval('timer()', 1000);		
+	if (seconds <= 0) {
+		window.location.href = "<?php echo site_url();?>user/try_out/selesai/"+$("#oid_parent").val()+"/"+$("#oid_paket").val();
+	} else {
+		var countdownTimer = setInterval('timer()', 1000);		
+	}
+
 
 	function choice(_choice,_soal,_parent,_type) {
 		data_sender = {

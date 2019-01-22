@@ -206,7 +206,7 @@
 		</video>
 
 		<div class="col-lg-12 text-center">
-			<a class="btn btn-success" onclick="finish(<?=$materi;?>,<?=$type;?>)">Lanjut ke Quiz</a>
+			<a class="btn btn-success" id="btn_next_step" onclick="finish(<?=$materi;?>,<?=$type;?>)" style="display:none;">Lanjut ke Quiz</a>
 		</div>
 	</div>
 </section>
@@ -218,7 +218,7 @@
 				<img src="https://s3-us-west-2.amazonaws.com/s.cdpn.io/195612/chat_avatar_01_green.jpg" alt="avatar" />
 				
 				<div class="chat-about">
-					<div class="chat-with">Chat Dengan Admin</div>
+					<div class="chat-with">Tanyakan Materi Disini</div>
 				</div>
 			</div> <!-- end chat-header -->
 			
@@ -317,6 +317,10 @@ $(document).ready(function(){
 		$("#formdata").css({"display": "none"})
 		$("#viewdata").css({"display": ""})		
 	})	
+
+	$("#f_video").on('play', function() {
+		$("#btn_next_step").css({"display": ""})
+	});
 
 	$("#btn-trigger-controll").click(function(){
 		var f_name = $("#message-to-send").val();

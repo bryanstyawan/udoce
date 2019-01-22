@@ -34,9 +34,23 @@
 											$mark = "style='background-color:#4CAF50;'";
 										}										
 									}
+
+									$hidden_btn  = "";
+									$show_choice = "";
+									if ($track != array()) {
+										# code...
+										if ($track[0]['status'] == 1) {
+											# code...
+											$hidden_btn  = "style='display:none;'";
+											$show_choice = $detail[$ii]['choice'];
+										}
+									}
 						?>
 									<tr class="tr_choice" id="tr_<?=$detail[$ii]['id'];?>" <?=$mark;?>>
-										<td><a class="btn btn-primary" onclick="choice(<?=$detail[$ii]['id'];?>,<?=$detail[$ii]['id_soal'];?>,<?=$materi;?>,<?=$type;?>)"><?=$detail[$ii]['choice'];?></a></td>								
+										<td >
+											<a <?=$hidden_btn;?> class="btn btn-primary" onclick="choice(<?=$detail[$ii]['id'];?>,<?=$detail[$ii]['id_soal'];?>,<?=$materi;?>,<?=$type;?>)"><?=$detail[$ii]['choice'];?></a>
+											<?=$show_choice;?>
+										</td>								
 										<td style="width: 100%;"><?=$detail[$ii]['name'];?>.</td>
 									</tr>
 						<?php
@@ -90,7 +104,7 @@
 	</section>
 
 	<section class="col-lg-12">
-	<div class="box">
+	<div class="box" style="background: none;border-top: none;box-shadow: none;">
 		<div class="box-header">
 				<h3 class="box-title"></h3>
 			</div>
@@ -171,9 +185,19 @@ function finish(_materi,_type)
 		'materi': _materi,
 		'type'  : _type
 	}					
+
+	var title = "";
+	if (_type == 1) {
+		title = 'Pre Test';
+	}
+	else if(_type == 3)
+	{
+		title = "Quiz";
+	}
+
 	Lobibox.confirm({
 		title   : "Konfirmasi",
-		msg     : "Anda yakin ingin menyelesaikan pre test ini ?",
+		msg     : "Anda yakin ingin menyelesaikan "+title+" ini ?",
 		callback: function ($this, type) {
 			if (type === 'yes'){			
 				$.ajax({

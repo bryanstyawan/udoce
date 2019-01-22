@@ -1,4 +1,21 @@
 v1.0.0    
+2019-01-22
+==========
+New:
+- setting https (hooks,ssl)
+- layout selesai try out
+- layout analisis try out
+Improved:
+- Penyesuaian jumlah soal di try out
+- Timeout try out
+- Quiz dan pre test tidak bisa lagi dilakukan ketika quiz dan pre test telah dikerjakan
+- tombol lanjutkan akan muncul ketika video diputar
+Fixed:
+- fixed query full_grup_id
+- tombol Pembahasan quiz dianalisis Pembahasan quiz dihilangkan
+- Perubahan text di video belajar dari 'chat dengan admin' menjadi 'tanyakan materi disini'
+
+v1.0.0    
 2019-01-19
 ==========
 New:

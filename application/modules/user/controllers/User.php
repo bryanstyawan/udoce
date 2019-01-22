@@ -71,20 +71,35 @@ class User extends CI_Controller {
 				# code...
 				$timeout = $get_time[0]['audit_time_insert'];
 				$timeout = strtotime($timeout) - strtotime(date('Y-m-d H:i:s'));
+				if($timeout < 0)
+				{
+					$timeout = 0;
+				}				
 				$data['timeout'] = $timeout ;
 			}
 			$this->load->view('templateAdmin',$data);					
 					
 		}
+		elseif ($type == 'selesai') {
+			# code...
+			$data['title']            = '';
+			$data['content']          = 'user/try_out/root/end';
+			$data['verify_user_paid'] = $this->Allcrud->getData('tr_layanan',array('id_user'=>$this->session->userdata('session_user'),'type'=>'bimbel'))->result_array();
+			$this->load->view('templateAdmin',$data);								
+		}
 		elseif ($type == 'analisis') {
 			# code...
+			$data['list_soal']        = $this->Allcrud->getData('mr_try_out_soal',array('id_parent'=>$parent,'id_paket'=>$id))->result_array();			
+			$data['title']            = '';
+			$data['content']          = 'user/try_out/root/analisis';
+			$data['verify_user_paid'] = $this->Allcrud->getData('tr_layanan',array('id_user'=>$this->session->userdata('session_user'),'type'=>'bimbel'))->result_array();
+			$this->load->view('templateAdmin',$data);											
 		}
 		elseif ($type == NULL) {
 			# code...
 			$data['title']            = '';
 			$data['content']          = 'user/try_out/root/index';
 			$data['verify_user_paid'] = $this->Allcrud->getData('tr_layanan',array('id_user'=>$this->session->userdata('session_user'),'type'=>'bimbel'))->result_array();
-			$data['list']    = $this->Allcrud->listData('mr_soal');
 			$data['tipe']    = $this->Allcrud->listData('lt_paket_try_out')->result_array();		
 			$this->load->view('templateAdmin',$data);					
 		}

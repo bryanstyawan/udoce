@@ -220,24 +220,28 @@ function choose_paket_try_out(_id,_name) {
 				style_child         = "";
 				status_child        = "";
 				total_counter_child = "";
+				type_try_out        = "";
 				for (index1 = 0; index1 < obj.type.length; index1++) 
 				{
 					if (obj.type[index1].name == 'TPA') {
 						counter_child = obj.list[index].tpa;
+						type_try_out  = "spmb";
 					}
 					else if (obj.type[index1].name == 'TBI'){
 						counter_child = obj.list[index].tbi;						
 						if (obj.list[index].tpa < 60) {
 							style_child = "style='display:none;'";
 						}
-
-						total_counter_child = obj.list[index].tpa + obj.list[index].tbi;								
+						total_counter_child = obj.list[index].tpa + obj.list[index].tbi;
+						type_try_out        = "spmb";
 					}
 					else if (obj.type[index1].name == 'TWK'){
-						counter_child = obj.list[index].twk;						
+						counter_child = obj.list[index].twk;
+						type_try_out  = "skd";
 					}					
 					else if (obj.type[index1].name == 'TIU'){
 						counter_child = obj.list[index].tiu;
+						type_try_out  = "skd";
 						if (obj.list[index].twk < 35) {
 							style_child = "style='display:none;'";
 						}						
@@ -246,16 +250,29 @@ function choose_paket_try_out(_id,_name) {
 						counter_child = obj.list[index].tkk;						
 						if (obj.list[index].tiu < 30) {
 							style_child = "style='display:none;'";
-						}												
-						total_counter_child = obj.list[index].twk + obj.list[index].tiu + obj.list[index].tkk;						
+						}					
+						type_try_out        = "skd";
+						total_counter_child = obj.list[index].twk + obj.list[index].tiu + obj.list[index].tkk;
 					}					
 
-					if (total_counter_child == 100) {
-						total_counter_child = 'Soal try out telah siap';
+					if (type_try_out == 'spmb') {
+						if (total_counter_child == 100) {
+							total_counter_child = 'Soal try out telah siap';
+						}
+						else
+						{
+							total_counter_child = total_counter_child+' Soal';
+						}						
 					}
-					else
+					else if(type_try_out == 'skd')
 					{
-						total_counter_child = total_counter_child+' Soal';
+						if (total_counter_child == 90) {
+							total_counter_child = 'Soal try out telah siap';
+						}
+						else
+						{
+							total_counter_child = total_counter_child+' Soal';
+						}
 					}
 
 					child_result = child_result+'<td>'+
