@@ -203,7 +203,7 @@ class Try_out extends CI_Controller {
 		$data['detail']    = $this->Allcrud->getData('mr_try_out_soal_detail',array('id_soal'=>$id));
 		$data['id']        = $id;
 		$data['parent']    = $id_parent;
-		$data['type']      = $id_parent;
+		$data['type']      = $id_type;
 		$this->load->view('templateAdmin',$data);
 	}	
 

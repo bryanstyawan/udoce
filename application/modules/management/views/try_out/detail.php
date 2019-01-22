@@ -12,6 +12,20 @@
 			<div class="box-body">
 				<div class="row">
 					<input type="hidden" id="oid_header" value="<?=$list[0]['id'];?>">				
+					<?php
+						if ($type == 5) {
+							# code...
+					?>
+					<div class="col-md-6">
+						<div class="form-group">
+							<label>Tema</label>
+							<textarea class="form-control" id="f_tema" rows="3" placeholder="Tema" disabled="disabled"><?=$list[0]['tema'];?></textarea>
+						</div>
+					</div>				
+					<?php
+						}
+					?>
+
 					<div class="col-md-6">
 						<div class="form-group">
 							<label>Deskripsi Soal</label>
@@ -19,12 +33,20 @@
 						</div>
 					</div>
 
+					<?php
+						if ($type != 5) {
+							# code...
+					?>
 					<div class="col-md-6">						
 						<div class="form-group">
 							<label>Deskripsi Pembahasan</label>
 							<textarea class="form-control" id="f_desc_pembahasan_soal" rows="3" placeholder="Deskripsi Pembahasan" disabled="disabled"><?=$list[0]['desc_pembahasan'];?></textarea>
 						</div>						
 					</div>
+					<?php
+						}
+					?>
+
 				</div>
 
 			</div><!-- /.box-body -->
@@ -47,6 +69,8 @@
 									$color            = "";
 									$data_soal        = $this->Allcrud->getdata('mr_try_out_soal',array('id'=>$list_soal[$i]['id']))->result_array();
 									$counter          = count($this->Allcrud->getdata('mr_try_out_soal_detail',array('id_soal'=>$list_soal[$i]['id']))->result_array());
+									$get_bobot        = $this->Allcrud->getdata('mr_try_out_soal_detail',array('id_soal'=>$list_soal[$i]['id'],'bobot !='=>NULL))->result_array();
+
 									if ($counter == 0) {
 										# code...
 										$color            = "color:#fff";										
@@ -74,6 +98,24 @@
 											$background_color = 'background-color: #F44336;';											
 										}
 									}
+
+									if ($type == 5) {
+										# code...
+										if ($get_bobot != array()) {
+											# code...
+											
+											if (count($get_bobot) == 5) {
+												# code...
+												$color            = "color:#fff";										
+												$background_color = 'background-color: #8BC34A;';																						
+											}
+											else {
+												# code...
+												$color            = "color:#fff";										
+												$background_color = 'background-color: #2196F3;';											
+											}
+										}										
+									}									
 
 									if ($id == $list_soal[$i]['id']) {
 										# code...
@@ -117,9 +159,16 @@
 				<table class="table table-bordered table-striped table-view">
 					<thead>
 				<tr>
-					<th>No</th>
 					<th></th>
 					<th>Deskripsi Pilihan</th>
+					<?php
+					if ($type == 5) {
+						# code...
+					?>
+						<th>Bobot</th>
+					<?php
+					}
+					?>
 					<th>Aksi</th>
 				</tr>
 				</thead>
@@ -138,9 +187,16 @@
 						}
 				?>
 						<tr style="<?=$color_row;?>">
-							<td><?php echo $x;?></td>
 							<td><?php echo $row->choice;?></td>							
 							<td><?php echo $row->name;?></td>							
+							<?php
+							if ($type == 5) {
+								# code...
+							?>
+								<td><?php echo $row->bobot;?></td>
+							<?php
+							}
+							?>							
 							<td>
 								<button class="btn btn-primary btn-xs" onclick="edit('<?php echo $row->id;?>')"><i class="fa fa-edit"></i> Ubah</button>&nbsp;&nbsp;
 								<?php
@@ -245,8 +301,7 @@
 								</div>
 							</div>							
 							<div class="col-lg-11">							
-								<textarea class="form-control form-control-detail" id="f_name_multi_<?=$i;?>" rows="3" placeholder="Deskripsi Pilihan"></textarea>
-								<input type="hidden" class="form-control form-control-detail" id="f_bobot_multi_<?=$i;?>" rows="3" placeholder="Bobot">							
+								<textarea class="form-control form-control-detail" id="f_name_multi_<?=$i;?>" rows="3" placeholder="Deskripsi Pilihan"></textarea>							
 							</div>
 						</div>						
 					</div>
@@ -262,6 +317,12 @@
 						</div>
 					</div>					
 					<?php
+						}
+						else {
+							# code...
+							?>
+								<input type="hidden" class="form-control form-control-detail" id="f_bobot_multi_<?=$i;?>" rows="3" placeholder="Bobot">							
+							<?php
 						}
 					?>
 
