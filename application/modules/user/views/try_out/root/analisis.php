@@ -1,11 +1,35 @@
 <div class="container">
 
 <?php
+    $try_out_true_tbi      = 0;
+    $try_out_false_tbi     = 0;
+    $try_out_empty_tbi     = 0;
+    $try_out_value_tbi     = 0;
+    $try_out_parameter_tbi = 0;
+
+    $try_out_true_tpa      = 0;
+    $try_out_false_tpa     = 0;
+    $try_out_empty_tpa     = 0;
+    $try_out_value_tpa     = 0;
+    $try_out_parameter_tpa = 0;
+
+    $try_out_true_twk      = 0;
+    $try_out_false_twk     = 0;
+    $try_out_empty_twk     = 0;
+    $try_out_value_twk     = 0;
+    $try_out_parameter_twk = 0;
+
+    $try_out_true_tiu      = 0;
+    $try_out_false_tiu     = 0;
+    $try_out_empty_tiu     = 0;
+    $try_out_value_tiu     = 0;
+    $try_out_parameter_tiu = 0;
+    
+    $try_out_empty_tkk     = 0;
+    $try_out_value_tkk     = 0;
+    $try_out_parameter_tkk = 0;
     if ($list_soal != array()) {
         # code...
-        $try_out_true           = 0;
-        $try_out_false          = 0;
-        $try_out_value          = 0;        
         for ($i=0; $i < count($list_soal); $i++) { 
             # code...
 ?>
@@ -34,7 +58,11 @@
                                                 # code...
                                                 if ($check_data[0]['id_jawaban'] == $get_data_detail[$ii]['id']) {
                                                     # code...
-                                                    $style_background = "background-color:#4CAF50;"; 												
+                                                    $style_background = "background-color:#4CAF50;"; 
+                                                    if ($list_soal[$i]['id_type'] == 5) {
+                                                        # code...
+                                                        $try_out_value_tkk += $get_data_detail[$ii]['bobot']; 
+                                                    }
                                                 }
                                             }
 
@@ -46,13 +74,51 @@
                                                         # code...
                                                         if ($check_choice[0]['id'] == $check_data[0]['id_jawaban']) {
                                                             # code...
-                                                            $style_background = "background-color:#4CAF50;";
-                                                            $try_out_true += 1;											
+                                                            $style_background = "background-color:#4CAF50;";											
+                                                            if ($list_soal[$i]['id_type'] == 1) {
+                                                                # code...
+                                                                $try_out_true_tpa += 1;                                                                
+                                                                $try_out_value_tpa += 4;
+                                                            }
+                                                            elseif ($list_soal[$i]['id_type'] == 2) {
+                                                                # code...
+                                                                $try_out_true_tbi += 1; 
+                                                                $try_out_value_tbi +=4;                                                               
+                                                            }
+                                                            elseif ($list_soal[$i]['id_type'] == 3) {
+                                                                # code...
+                                                                $try_out_true_twk += 1;
+                                                                $try_out_value_twk += 5;                                                                
+                                                            }
+                                                            elseif ($list_soal[$i]['id_type'] == 4) {
+                                                                # code...
+                                                                $try_out_true_tiu += 1; 
+                                                                $try_out_value_tiu += 5;                                                               
+                                                            }
                                                         }
                                                         else {
                                                             # code...
                                                             $style_background_false = "background-color:red;";											
-                                                            $try_out_false += 1;
+                                                            if ($list_soal[$i]['id_type'] == 1) {
+                                                                # code...
+                                                                $try_out_false_tpa += 1;                                                                
+                                                                $try_out_value_tpa -= 1;
+                                                            }
+                                                            elseif ($list_soal[$i]['id_type'] == 2) {
+                                                                # code...
+                                                                $try_out_false_tbi += 1;
+                                                                $try_out_value_tbi -= 1;
+                                                            }
+                                                            elseif ($list_soal[$i]['id_type'] == 3) {
+                                                                # code...
+                                                                $try_out_false_twk += 1;
+                                                                $try_out_value_twk += 0;                                                                
+                                                            }
+                                                            elseif ($list_soal[$i]['id_type'] == 4) {
+                                                                # code...
+                                                                $try_out_false_tiu += 1; 
+                                                                $try_out_value_tiu += 0;                                                               
+                                                            }
                                                         }
                                                     }																						
                                                 }
@@ -60,9 +126,29 @@
                                                     # code...
                                                     if ($get_data_detail[$ii]['id'] == $check_choice[0]['id']) {
                                                         # code...
+                                                        //tidak dijawab
                                                         $style_background_false = "background-color:red;";											
-                                                        $try_out_false += 1;
-                                                    }																												
+                                                        if ($list_soal[$i]['id_type'] == 1) {
+                                                            # code...
+                                                            $try_out_empty_tpa += 1;                                                                
+                                                            $try_out_value_tpa += 0;
+                                                        }
+                                                        elseif ($list_soal[$i]['id_type'] == 2) {
+                                                            # code...
+                                                            $try_out_empty_tbi += 1;
+                                                            $try_out_value_tbi += 0;
+                                                        }
+                                                        elseif ($list_soal[$i]['id_type'] == 3) {
+                                                            # code...
+                                                            $try_out_empty_twk += 1;
+                                                            $try_out_value_twk += 0;                                                                
+                                                        }
+                                                        elseif ($list_soal[$i]['id_type'] == 4) {
+                                                            # code...
+                                                            $try_out_empty_tiu += 1; 
+                                                            $try_out_value_tiu += 0;                                                               
+                                                        }
+                                                    }
                                                 }
                                             }								                                            
                                 ?>
@@ -83,5 +169,105 @@
 <?php            
         }
     }
+
+    if ($try_out_value_tbi < 67) {
+        # code...
+        $try_out_parameter_tbi = "Tidak Lulus";
+    }
+    else
+    {
+        $try_out_parameter_tbi = "Lulus";
+    }
+
+    if ($try_out_value_tpa < 30) {
+        # code...
+        $try_out_parameter_tpa = "Tidak Lulus";
+    }
+    else
+    {
+        $try_out_parameter_tpa = "Lulus";
+    }    
+
+    if ($try_out_value_twk < 70) {
+        # code...
+        $try_out_parameter_twk = "Tidak Lulus";
+    }
+    else
+    {
+        $try_out_parameter_twk = "Lulus";
+    }   
+    
+    if ($try_out_value_tiu < 85) {
+        # code...
+        $try_out_parameter_tiu = "Tidak Lulus";
+    }
+    else
+    {
+        $try_out_parameter_tiu = "Lulus";
+    }       
+
+    if ($try_out_value_tkk < 143) {
+        # code...
+        $try_out_parameter_tkk = "Tidak Lulus";
+    }
+    else
+    {
+        $try_out_parameter_tkk = "Lulus";
+    }       
+
+
 ?>
 </div>
+
+<div class="container">
+    <div class="row">
+        <div class="box">
+            <div class="box-header">
+                <h3 class="box-title col-lg-12 text-center">SELEKSI KEMAMPUAN DASAR</h3>            
+            </div>
+            <div class="box-body">
+                <div class="row">
+                    <div class="col-lg-12">
+                        <div class="row text-center">
+                            <div class="col-lg-2"></div>
+                            <div class="col-lg-2">Benar</div>
+                            <div class="col-lg-2">Salah</div>
+                            <div class="col-lg-2">Kosong</div>                            
+                            <div class="col-lg-2">Nilai</div>                            
+                            <div class="col-lg-2"></div>                            
+                        </div>                    
+                        <div class="row text-center">
+                            <div class="col-lg-2">TEST KEWARGANEGARAAN</div>
+                            <div class="col-lg-2"><?=$try_out_true_twk;?></div>
+                            <div class="col-lg-2"><?=$try_out_false_twk;?></div>
+                            <div class="col-lg-2"><?=$try_out_empty_twk;?></div>                            
+                            <div class="col-lg-2"><?=$try_out_value_twk;?></div>                            
+                            <div class="col-lg-2"><?=$try_out_parameter_twk;?></div>                            
+                        </div>
+                        <div class="row text-center">
+                            <div class="col-lg-2">TEST INTELEGENSI UMUM</div>
+                            <div class="col-lg-2"><?=$try_out_true_tiu;?></div>
+                            <div class="col-lg-2"><?=$try_out_false_tiu;?></div>
+                            <div class="col-lg-2"><?=$try_out_empty_tiu;?></div>                            
+                            <div class="col-lg-2"><?=$try_out_value_tiu;?></div>                            
+                            <div class="col-lg-2"><?=$try_out_parameter_tiu;?></div>
+                        </div>
+                        <div class="row text-center">
+                            <div class="col-lg-2">TEST KEMAMPUAN PRIBADI</div>
+                            <div class="col-lg-2">-</div>
+                            <div class="col-lg-2">-</div>
+                            <div class="col-lg-2">-</div>                            
+                            <div class="col-lg-2"><?=$try_out_value_tkk;?></div>                            
+                            <div class="col-lg-2"><?=$try_out_parameter_tkk;?></div>                            
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script>
+
+	// console.table(data_sender);
+</script>

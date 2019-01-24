@@ -1,3 +1,20 @@
+<style>
+.box-header-try-out > div > div
+{
+	border: 1px solid #f4f4f4;
+}
+
+.box-header-try-out > div > div > h3
+{
+	text-align: center;
+}
+
+.box-header-try-out > div > div > .box-title
+{
+    padding: 8px;
+    text-align: center;
+}
+</style>
 <?php
 if ($list_soal != array()) {
     # code...
@@ -6,7 +23,50 @@ if ($list_soal != array()) {
 	<div class="col-xs-12">
 		<div class="box">
 			<div class="box-header">
-				<h3 class="box-title"><div id="time_counter"></div></h3>
+				<div class="box-header-try-out">
+					<div class="row">
+						<div class="col-lg-2">
+							<h3>Judul</h3>
+						</div>			
+						<div class="col-lg-2">
+							<h3>Waktu</h3>
+						</div>
+						<div class="col-lg-2">
+							<h3>Jumlah Soal</h3>
+						</div>
+						<div class="col-lg-2">
+							<h3>Sudah Dijawab</h3>
+						</div>				
+						<div class="col-lg-2">
+							<h3>Belum Dijawab</h3>
+						</div>				
+						<div class="col-lg-2">
+							<h3>Selesai Ujian</h3>
+						</div>				
+					</div>
+					<div class="row">
+						<div class="col-lg-2">
+							<h3 class="col-lg-12 box-title"><?=$paket_name[0]['name'].' '.$parent_name[0]['name'];?></h3>				
+						</div>			
+						<div class="col-lg-2">
+							<h3 class="col-lg-12 box-title"><div id="time_counter"></div></h3>				
+						</div>
+						<div class="col-lg-2">
+							<h3 class="col-lg-12 box-title"><?=count($list_soal);?></h3>				
+						</div>
+						<div class="col-lg-2">
+							<h3 class="col-lg-12 box-title"><?=count($this->Allcrud->getData('tr_jawaban_try_out',array('id_user'=>$this->session->userdata('session_user'),'id_parent'=>$list_soal[$counter_soal]['id_parent'],'id_paket'=>$list_soal[$counter_soal]['id_paket']))->result_array());?></h3>				
+						</div>				
+						<div class="col-lg-2">
+						<h3 class="col-lg-12 box-title"><?=count($list_soal)-count($this->Allcrud->getData('tr_jawaban_try_out',array('id_user'=>$this->session->userdata('session_user'),'id_parent'=>$list_soal[$counter_soal]['id_parent'],'id_paket'=>$list_soal[$counter_soal]['id_paket']))->result_array());?></h3>
+						</div>				
+						<div class="col-lg-2">
+							<h3 class="col-lg-12 box-title">
+								<a class="btn btn-success btn-xs">Selesai Ujian</a>
+							</h3>				
+						</div>									
+					</div>																
+				</div>
 			</div>
 			<div class="box-body">
 				<div class="row">
@@ -19,7 +79,8 @@ if ($list_soal != array()) {
                                 <p><?=$counter_soal+1;?>. <?=$list_soal[$counter_soal]['name'];?></p>
                             </div>
                         </div>
-                        <div class="col-lg-6">
+                        
+						<div class="col-lg-6">
                             <?php
 								$get_data_detail = $this->Allcrud->getData('mr_try_out_soal_detail',array('id_soal'=>$list_soal[$counter_soal]['id']))->result_array();
 								$check_data      = $this->Allcrud->getData('tr_jawaban_try_out',array('id_user'=>$this->session->userdata('session_user'),'id_parent'=>$list_soal[$counter_soal]['id_parent'],'id_paket'=>$list_soal[$counter_soal]['id_paket'],'id_soal'=>$list_soal[$counter_soal]['id']))->result_array();
@@ -45,7 +106,23 @@ if ($list_soal != array()) {
                                     }
                                 }
                             ?>
-                        </div>                    
+                        </div>
+						
+						<?php
+						if($counter == count($list_soal))
+						{
+						?>
+						<div class="col-lg-12 box-footer">
+							<div class="col-lg-6">
+								<a onclick="go(<?=$list_soal[$counter_soal]['id_parent'];?>,<?=$list_soal[$counter_soal]['id_paket'];?>,<?=$counter_soal+1;?>)" class="btn btn-primary">SIMPAN DAN LANJUTKAN </a>
+							</div>
+							<div class="col-lg-6">
+								<a onclick="go(<?=$list_soal[$counter_soal]['id_parent'];?>,<?=$list_soal[$counter_soal]['id_paket'];?>,<?=$counter_soal+1;?>)" class="btn btn-primary pull-right">LEWATKAN SOAL INI </a>
+							</div>
+						</div>						
+						<?php
+						}
+						?>
                     </div>
 
                     <div class="col-lg-4" id="counter">
@@ -87,7 +164,6 @@ if ($list_soal != array()) {
 <script>
 	var time_server = "<?=$timeout;?>";
 	var upgradeTime = time_server;
-	// var upgradeTime = 10;	
 	var seconds     = upgradeTime;
 	console.log(seconds);
 	function timer() {

@@ -41,6 +41,11 @@ class User extends CI_Controller {
 			$data['content']          = 'user/try_out/root/mulai';
 			$data['verify_user_paid'] = $this->Allcrud->getData('tr_layanan',array('id_user'=>$this->session->userdata('session_user'),'type'=>'bimbel'))->result_array();
 			$data['list_soal']        = $this->Allcrud->getData('mr_try_out_soal',array('id_parent'=>$parent,'id_paket'=>$id))->result_array();
+			$data['parent_name']      = $this->Allcrud->getData('lt_paket_try_out',array('id'=>$parent))->result_array();
+			$data['paket_name']       = $this->Allcrud->getData('mr_try_out_list',array('id'=>$id))->result_array();
+			
+			$get_durasi = $this->Allcrud->getData('lt_paket_try_out',array('id'=>$parent))->result_array();
+
 			if ($detail == NULL) {
 				# code...
 				$data['counter_soal'] = 0;
@@ -50,10 +55,22 @@ class User extends CI_Controller {
 				$data['counter_soal'] = $detail;
 			}
 
+			$time_minute = "";
+			if ($get_durasi != array()) {
+				# code...
+				$data['durasi'] = $get_durasi[0]['durasi']; 
+				$time_minute = $get_durasi[0]['durasi'] * 60;
+			}
+			else {
+				# code...
+				$data['durasi'] = 0;					
+				$time_minute = 0;
+			}			
+
 			$get_time = $this->Allcrud->getData('tr_track_time_try_out',array('id_user'=>$this->session->userdata('session_user'),'id_paket'=>$id,'id_parent'=>$parent))->result_array();						
 			if ($get_time == array()) {
-				# code...
-				$data_store['audit_time_insert'] = date('Y-m-d H:i:s a', time() + 5400);
+				# code...					
+				$data_store['audit_time_insert'] = date('Y-m-d H:i:s a', time() + $time_minute);
 				$data_store['id_user']           = $this->session->userdata('session_user');
 				$data_store['id_paket']          = $id;
 				$data_store['id_parent']         = $parent;

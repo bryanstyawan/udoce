@@ -1,4 +1,14 @@
 v1.0.0    
+2019-01-24
+==========
+New:
+- Analisis Try Out
+Improved:
+Fixed:
+- Penyesuaian waktu try out
+- Penyesuaian layout try out
+
+v1.0.0    
 2019-01-22
 ==========
 New:
