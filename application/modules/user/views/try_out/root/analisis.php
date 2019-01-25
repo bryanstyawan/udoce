@@ -1,5 +1,20 @@
-<div class="container">
+<style>
+.row_viewanalisis > div
+{
+    padding: 15px;
+}
 
+.row_viewanalisis > div > div > span
+{
+    font-size: 18px;
+}
+</style>
+<div class="container" id="viewpembahasan" style="display:none;">
+    <div class="row">
+        <div class="col-lg-12">
+            <a onclick="go('close')" class="btn btn-danger pull-right"><i class="fa fa-times"></i></a>
+        </div>
+    </div>
 <?php
     $try_out_true_tbi      = 0;
     $try_out_false_tbi     = 0;
@@ -28,6 +43,7 @@
     $try_out_empty_tkk     = 0;
     $try_out_value_tkk     = 0;
     $try_out_parameter_tkk = 0;
+    $end_result            = '';
     if ($list_soal != array()) {
         # code...
         for ($i=0; $i < count($list_soal); $i++) { 
@@ -219,46 +235,111 @@
 ?>
 </div>
 
-<div class="container">
+<div class="container" id="viewanalisisheader">
     <div class="row">
         <div class="box">
             <div class="box-header">
-                <h3 class="box-title col-lg-12 text-center">SELEKSI KEMAMPUAN DASAR</h3>            
+                <h2 class="box-title col-lg-12 text-center"><u>SELEKSI KEMAMPUAN DASAR</u></h2>            
             </div>
             <div class="box-body">
                 <div class="row">
-                    <div class="col-lg-12">
+                    <div class="col-lg-12 row_viewanalisis">
                         <div class="row text-center">
                             <div class="col-lg-2"></div>
-                            <div class="col-lg-2">Benar</div>
-                            <div class="col-lg-2">Salah</div>
-                            <div class="col-lg-2">Kosong</div>                            
-                            <div class="col-lg-2">Nilai</div>                            
+                            <div class="col-lg-2"><span>Benar</span></div>
+                            <div class="col-lg-2"><span>Salah</span></div>
+                            <div class="col-lg-2"><span>Kosong</span></div>                            
+                            <div class="col-lg-2"><span>Nilai</span></div>                            
                             <div class="col-lg-2"></div>                            
                         </div>                    
                         <div class="row text-center">
-                            <div class="col-lg-2">TEST KEWARGANEGARAAN</div>
-                            <div class="col-lg-2"><?=$try_out_true_twk;?></div>
-                            <div class="col-lg-2"><?=$try_out_false_twk;?></div>
-                            <div class="col-lg-2"><?=$try_out_empty_twk;?></div>                            
-                            <div class="col-lg-2"><?=$try_out_value_twk;?></div>                            
-                            <div class="col-lg-2"><?=$try_out_parameter_twk;?></div>                            
+                            <div class="col-lg-2">
+                                <span class="label label-success">TEST KEWARGANEGARAAN</span>
+                            </div>
+                            <div class="col-lg-2"><span><?=$try_out_true_twk;?></span></div>
+                            <div class="col-lg-2"><span><?=$try_out_false_twk;?></span></div>
+                            <div class="col-lg-2"><span><?=$try_out_empty_twk;?></span></div>                            
+                            <div class="col-lg-2"><span><?=$try_out_value_twk;?></span></div>                            
+                            <div class="col-lg-2"><span><?=$try_out_parameter_twk;?></span></div>                            
                         </div>
                         <div class="row text-center">
-                            <div class="col-lg-2">TEST INTELEGENSI UMUM</div>
-                            <div class="col-lg-2"><?=$try_out_true_tiu;?></div>
-                            <div class="col-lg-2"><?=$try_out_false_tiu;?></div>
-                            <div class="col-lg-2"><?=$try_out_empty_tiu;?></div>                            
-                            <div class="col-lg-2"><?=$try_out_value_tiu;?></div>                            
-                            <div class="col-lg-2"><?=$try_out_parameter_tiu;?></div>
+                            <div class="col-lg-2">
+                                <span class="label label-success">TEST INTELEGENSI UMUM</span>
+                            </div>                            
+                            <div class="col-lg-2"><span><?=$try_out_true_tiu;?></span></div>
+                            <div class="col-lg-2"><span><?=$try_out_false_tiu;?></span></div>
+                            <div class="col-lg-2"><span><?=$try_out_empty_tiu;?></span></div>                            
+                            <div class="col-lg-2"><span><?=$try_out_value_tiu;?></span></div>                            
+                            <div class="col-lg-2"><span><?=$try_out_parameter_tiu;?></span></div>
                         </div>
                         <div class="row text-center">
-                            <div class="col-lg-2">TEST KEMAMPUAN PRIBADI</div>
-                            <div class="col-lg-2">-</div>
-                            <div class="col-lg-2">-</div>
-                            <div class="col-lg-2">-</div>                            
-                            <div class="col-lg-2"><?=$try_out_value_tkk;?></div>                            
-                            <div class="col-lg-2"><?=$try_out_parameter_tkk;?></div>                            
+                            <div class="col-lg-2">
+                                <span class="label label-success">TEST KEMAMPUAN PRIBADI</span>
+                            </div>                                                    
+                            <div class="col-lg-2"><span>-</span></div>
+                            <div class="col-lg-2"><span>-</span></div>
+                            <div class="col-lg-2"><span>-</span></div>                            
+                            <div class="col-lg-2"><span><?=$try_out_value_tkk;?></span></div>                            
+                            <div class="col-lg-2"><span><?=$try_out_parameter_tkk;?></span></div>                            
+                        </div>
+                        <div class="row text-center">
+                            <div class="col-lg-12">
+                                <?php
+                                if ($try_out_parameter_twk == 'Lulus' && $try_out_parameter_tiu == 'Lulus' && $try_out_parameter_tkk == 'Lulus') {
+                                    # code...
+                                    $end_result = "Lulus";
+                                ?>
+                                    <span class="label label-success">Lulus</span>
+                                <?php
+                                }
+                                else
+                                {
+                                    $end_result = "Tidak Lulus";                                    
+                                ?>
+                                    <span class="label label-danger">Tidak Lulus</span>
+                                <?php                                    
+                                }
+                                ?>
+                            </div>
+                        </div>
+                        <div clas="row text-center">
+                            <?php
+                                $get_result_analisis = $this->Allcrud->getData('tr_analisis_rangking',array('id_user'=>$this->session->userdata('session_user'),'id_parent'=>$parent,'id_paket'=>$paket))->result_array();
+                                if ($get_result_analisis == array()) {
+                                    # code...
+                                    $data_store = array();
+                                    if ($parent == 1) {
+                                        # code...
+                                    }
+                                    elseif($parent == 2) {
+                                        # code...
+                                        $data_store = $this->Globalrules->trigger_insert_update('insert');
+
+                                        $data_store['id_user']     = $this->session->userdata('session_user');
+                                        $data_store['id_parent']   = $parent;
+                                        $data_store['id_paket']    = $paket;
+                                        $data_store['twk_true']    = $try_out_true_twk;
+                                        $data_store['twk_false']   = $try_out_false_twk;
+                                        $data_store['twk_empty']   = $try_out_empty_twk;
+                                        $data_store['twk_value']   = $try_out_value_twk;
+                                        $data_store['twk_status']  = $try_out_parameter_twk;
+                                        $data_store['tiu_true']    = $try_out_true_tiu;
+                                        $data_store['tiu_false']   = $try_out_false_tiu;
+                                        $data_store['tiu_empty']   = $try_out_empty_tiu;
+                                        $data_store['tiu_value']   = $try_out_value_tiu;
+                                        $data_store['tiu_status']  = $try_out_parameter_tiu;
+                                        $data_store['tkp_empty']   = $try_out_empty_tkk;
+                                        $data_store['tkp_value']   = $try_out_value_tkk;
+                                        $data_store['tkp_status']  = $try_out_parameter_tkk;
+                                        $data_store['total_value'] = $try_out_value_twk + $try_out_value_tiu + $try_out_value_tkk;
+                                        $data_store['end_status']  = $end_result;                                        
+                                    }
+                                    $res_data       = $this->Allcrud->addData('tr_analisis_rangking',$data_store);                                    
+                                }
+                            ?>
+                            <div class="col-lg-12 text-center">
+                                <a onclick="go('pembahasan')" class="btn btn-lg btn-primary"><i class="fa fa-search"></i> PEMBAHASAN</a>
+                            </div>
                         </div>
                     </div>
                 </div>
@@ -268,6 +349,16 @@
 </div>
 
 <script>
-
+    function go(params) {
+        if (params == 'pembahasan') {
+            $("#viewpembahasan").css({"display": ""})
+            $("#viewanalisisheader").css({"display": "none"})            
+        }
+        else if(params == 'close')
+        {
+            $("#viewpembahasan").css({"display": "none"})
+            $("#viewanalisisheader").css({"display": ""})
+        }
+    }
 	// console.table(data_sender);
 </script>

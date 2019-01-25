@@ -31,7 +31,7 @@ class User extends CI_Controller {
 		$this->load->view('templateAdmin',$data);		
 	}	
 
-	public function try_out($type=NULL,$parent=NULL,$id=NULL,$detail=NULL)
+	public function try_out($type=NULL,$parent=NULL,$id=NULL,$detail=NULL,$arg=NULL)
 	{
 		# code...
 		$this->Globalrules->session_rule();		
@@ -44,8 +44,34 @@ class User extends CI_Controller {
 			$data['parent_name']      = $this->Allcrud->getData('lt_paket_try_out',array('id'=>$parent))->result_array();
 			$data['paket_name']       = $this->Allcrud->getData('mr_try_out_list',array('id'=>$id))->result_array();
 			
-			$get_durasi = $this->Allcrud->getData('lt_paket_try_out',array('id'=>$parent))->result_array();
 
+			if ($arg == 1) {
+				# code...
+				if ($detail != NULL) {
+					# code...
+					if ($detail != 0) {
+						# code...
+						$get_data_jawaban = $this->Allcrud->getData('tr_jawaban_try_out',array('id_user'=>$this->session->userdata('session_user'),'id_parent'=>$parent,'id_paket'=>$id,'id_soal'=>$data['list_soal'][$detail-1]['id']))->result_array();				
+						$_data_store_['status'] = 1;
+						if($get_data_jawaban != array()){$res_data = $this->Allcrud->editData('tr_jawaban_try_out',$_data_store_,array('id'=>$get_data_jawaban[0]['id']));}						
+					}									
+				}
+			}
+			elseif($arg == 0) {
+				# code...
+				if ($detail != NULL) {
+					# code...
+					if ($detail != 0) {
+						# code...
+						$get_data_jawaban = $this->Allcrud->getData('tr_jawaban_try_out',array('id_user'=>$this->session->userdata('session_user'),'id_parent'=>$parent,'id_paket'=>$id,'id_soal'=>$data['list_soal'][$detail-1]['id']))->result_array();				
+						$_data_store_['status'] = 0;
+						if($get_data_jawaban != array()){$res_data = $this->Allcrud->editData('tr_jawaban_try_out',$_data_store_,array('id'=>$get_data_jawaban[0]['id']));}															
+					}
+				}
+			}
+
+
+			$get_durasi = $this->Allcrud->getData('lt_paket_try_out',array('id'=>$parent))->result_array();
 			if ($detail == NULL) {
 				# code...
 				$data['counter_soal'] = 0;
@@ -92,6 +118,13 @@ class User extends CI_Controller {
 				{
 					$timeout = 0;
 				}				
+				else {
+					# code...
+					if ($get_time[0]['status'] == 1) {
+						# code...
+						$timeout = 0;						
+					}
+				}
 				$data['timeout'] = $timeout ;
 			}
 			$this->load->view('templateAdmin',$data);					
@@ -106,11 +139,21 @@ class User extends CI_Controller {
 		}
 		elseif ($type == 'analisis') {
 			# code...
-			$data['list_soal']        = $this->Allcrud->getData('mr_try_out_soal',array('id_parent'=>$parent,'id_paket'=>$id))->result_array();			
+			$data['list_soal']        = $this->Allcrud->getData('mr_try_out_soal',array('id_parent'=>$parent,'id_paket'=>$id))->result_array();
 			$data['title']            = '';
 			$data['content']          = 'user/try_out/root/analisis';
+			$data['parent']           = $parent;
+			$data['paket']            = $id;
 			$data['verify_user_paid'] = $this->Allcrud->getData('tr_layanan',array('id_user'=>$this->session->userdata('session_user'),'type'=>'bimbel'))->result_array();
 			$this->load->view('templateAdmin',$data);											
+		}
+		elseif ($type == 'rangking') {
+			# code...
+			$data['title']            = '';
+			$data['content']          = 'user/try_out/root/rangking';
+			$data['verify_user_paid'] = $this->Allcrud->getData('tr_layanan',array('id_user'=>$this->session->userdata('session_user'),'type'=>'bimbel'))->result_array();
+			$data['tipe']    = $this->Allcrud->listData('lt_paket_try_out')->result_array();		
+			$this->load->view('templateAdmin',$data);			
 		}
 		elseif ($type == NULL) {
 			# code...

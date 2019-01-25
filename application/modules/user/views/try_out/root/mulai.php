@@ -17,7 +17,7 @@
 </style>
 <?php
 if ($list_soal != array()) {
-    # code...
+	# code...
 ?>
 <section id="headerdata" class="container">
 	<div class="col-xs-12">
@@ -55,24 +55,31 @@ if ($list_soal != array()) {
 							<h3 class="col-lg-12 box-title"><?=count($list_soal);?></h3>				
 						</div>
 						<div class="col-lg-2">
-							<h3 class="col-lg-12 box-title"><?=count($this->Allcrud->getData('tr_jawaban_try_out',array('id_user'=>$this->session->userdata('session_user'),'id_parent'=>$list_soal[$counter_soal]['id_parent'],'id_paket'=>$list_soal[$counter_soal]['id_paket']))->result_array());?></h3>				
+							<h3 class="col-lg-12 box-title">
+								<?=count($this->Allcrud->getData('tr_jawaban_try_out',array('id_user'=>$this->session->userdata('session_user'),'id_parent'=>$list_soal[0]['id_parent'],'id_paket'=>$list_soal[0]['id_paket'],'status'=>1))->result_array());?>
+							</h3>				
 						</div>				
 						<div class="col-lg-2">
-						<h3 class="col-lg-12 box-title"><?=count($list_soal)-count($this->Allcrud->getData('tr_jawaban_try_out',array('id_user'=>$this->session->userdata('session_user'),'id_parent'=>$list_soal[$counter_soal]['id_parent'],'id_paket'=>$list_soal[$counter_soal]['id_paket']))->result_array());?></h3>
+						<h3 class="col-lg-12 box-title"><?=count($list_soal)-count($this->Allcrud->getData('tr_jawaban_try_out',array('id_user'=>$this->session->userdata('session_user'),'id_parent'=>$list_soal[0]['id_parent'],'id_paket'=>$list_soal[0]['id_paket'],'status'=>1))->result_array());?></h3>
 						</div>				
 						<div class="col-lg-2">
 							<h3 class="col-lg-12 box-title">
-								<a class="btn btn-success btn-xs">Selesai Ujian</a>
+								<a onclick="end_test(<?=$list_soal[0]['id_parent'];?>,<?=$list_soal[0]['id_paket'];?>)" class="btn btn-success btn-xs">Selesai Ujian</a>
 							</h3>				
 						</div>									
 					</div>																
 				</div>
 			</div>
 			<div class="box-body">
-				<div class="row">
+
+				<div class="row">					
+<?php
+	if(($counter_soal+1) <= count($list_soal))
+	{
+?>
 					<input type="hidden" id="oid_soal" value="<?=$list_soal[$counter_soal]['id'];?>">
-					<input type="hidden" id="oid_parent" value="<?=$list_soal[$counter_soal]['id_parent'];?>">									
-					<input type="hidden" id="oid_paket" value="<?=$list_soal[$counter_soal]['id_paket'];?>">					
+					<input type="hidden" id="oid_parent" value="<?=$list_soal[0]['id_parent'];?>">									
+					<input type="hidden" id="oid_paket" value="<?=$list_soal[0]['id_paket'];?>">
                     <div class="col-lg-8 col-xs-12">
                         <div class="col-lg-12">
                             <div class="form-group">
@@ -94,8 +101,17 @@ if ($list_soal != array()) {
 											# code...
 											if ($check_data[0]['id_jawaban'] == $get_data_detail[$i]['id']) {
 												# code...
+							?>
+												<input type="hidden" id="res_status_choice" value="1">
+							<?php
 												$style_background = "background-color:#4CAF50;"; 												
 											}
+										}
+										else {
+											# code...
+							?>
+												<input type="hidden" id="res_status_choice" value="0">							
+							<?php
 										}
                             ?>
                                         <div class="row row_choice" id="row_<?=$get_data_detail[$i]['id'];?>" style="padding:10px;<?=$style_background;?>">
@@ -108,26 +124,37 @@ if ($list_soal != array()) {
                             ?>
                         </div>
 						
-						<?php
-						if($counter == count($list_soal))
+						<?php  
+						if($counter_soal != count($list_soal))
 						{
 						?>
 						<div class="col-lg-12 box-footer">
 							<div class="col-lg-6">
-								<a onclick="go(<?=$list_soal[$counter_soal]['id_parent'];?>,<?=$list_soal[$counter_soal]['id_paket'];?>,<?=$counter_soal+1;?>)" class="btn btn-primary">SIMPAN DAN LANJUTKAN </a>
+								<a onclick="go(<?=$list_soal[$counter_soal]['id_parent'];?>,<?=$list_soal[$counter_soal]['id_paket'];?>,<?=$counter_soal+1;?>,1)" class="btn btn-primary">SIMPAN DAN LANJUTKAN </a>
 							</div>
 							<div class="col-lg-6">
-								<a onclick="go(<?=$list_soal[$counter_soal]['id_parent'];?>,<?=$list_soal[$counter_soal]['id_paket'];?>,<?=$counter_soal+1;?>)" class="btn btn-primary pull-right">LEWATKAN SOAL INI </a>
+								<a onclick="go(<?=$list_soal[$counter_soal]['id_parent'];?>,<?=$list_soal[$counter_soal]['id_paket'];?>,<?=$counter_soal+1;?>,0)" class="btn btn-primary pull-right">LEWATKAN SOAL INI </a>
 							</div>
 						</div>						
 						<?php
 						}
 						?>
                     </div>
-
+<?php
+	}	
+	else {
+		# code...
+?>
+					<div class="col-lg-8 col-xs-12">
+						<h3 class="text-center">Mohon diperiksa kembali, jika anda telah menyelesaikan try out ini.</h3>
+					</div>
+<?php				
+	}
+?>
                     <div class="col-lg-4" id="counter">
                         <div class="col-lg-12">
                             <?php
+								$counter_soal_x = 0;
                                 if ($list_soal != array()) {
                                     # code...
                                     for ($i=0; $i < count($list_soal); $i++) { 
@@ -137,13 +164,21 @@ if ($list_soal != array()) {
 										$check_data       = $this->Allcrud->getData('tr_jawaban_try_out',array('id_user'=>$this->session->userdata('session_user'),'id_parent'=>$list_soal[$i]['id_parent'],'id_paket'=>$list_soal[$i]['id_paket'],'id_soal'=>$list_soal[$i]['id']))->result_array();
 										if ($check_data != array()) {
 											# code...
-											$color            = "color:#fff;";
-											$background_color = "background-color:#4CAF50;";
+											if ($check_data[0]['status'] == 1) {
+												# code...
+												$color            = "color:#fff;";
+												$background_color = "background-color:#4CAF50;";												
+											}
+											else {
+												# code...
+												$color            = "color:#fff;";
+												$background_color = "background-color:red;";												
+											}
 										}										
                                         // $data_soal        = $this->Allcrud->getdata('mr_try_out_soal',array('id'=>$list_soal[$i]['id']))->result_array();
 
                             ?>
-                                        <a onclick="go(<?=$list_soal[$counter_soal]['id_parent'];?>,<?=$list_soal[$counter_soal]['id_paket'];?>,<?=$i;?>)" class="btn btn-default" style="<?=$background_color;?><?=$color;?>"><?=$i+1;?></a>
+                                        <a onclick="go(<?=$list_soal[$counter_soal_x]['id_parent'];?>,<?=$list_soal[$counter_soal_x]['id_paket'];?>,<?=$i;?>,2)" class="btn btn-default" style="<?=$background_color;?><?=$color;?>"><?=$i+1;?></a>
                             <?php
                                     }								
                                 }
@@ -152,7 +187,6 @@ if ($list_soal != array()) {
                     </div>                    
 
 				</div>
-
 			</div><!-- /.box-body -->
 		</div><!-- /.box -->
 	</div>
@@ -183,12 +217,16 @@ if ($list_soal != array()) {
 			document.getElementById('time_counter').innerHTML = "Jam ujian telah telah selesai";
 			window.location.href = "<?php echo site_url();?>user/try_out/selesai/"+$("#oid_parent").val()+"/"+$("#oid_paket").val();					
 		} else {
+			
+			if (seconds <= 600) {
+				$("#time_counter").css({"color": "red"})									
+			}
 			seconds--;
 		}
 	}
 		// var countdownTimer = setInterval('timer()', 1000);		
 	if (seconds <= 0) {
-		window.location.href = "<?php echo site_url();?>user/try_out/selesai/"+$("#oid_parent").val()+"/"+$("#oid_paket").val();
+		window.location.href = "<?php echo site_url();?>user/try_out/analisis/"+$("#oid_parent").val()+"/"+$("#oid_paket").val();
 	} else {
 		var countdownTimer = setInterval('timer()', 1000);		
 	}
@@ -210,28 +248,73 @@ if ($list_soal != array()) {
 				$(".row_choice").css({"background-color": ""})				
 				$("#row_"+_choice).css({"background-color": "#4CAF50"})
 				$("#counter_choice_"+_soal).css({"background-color": "#4CAF50"})							
+				$("#res_status_choice").val(0);				
 			},
 			success:function(msg){
 				var obj = jQuery.parseJSON (msg);
 				if (obj.status == 1)
-				{
-					// Lobibox.notify('success', {msg: obj.text});
+				{	
+					$("#res_status_choice").val(1);
 				}
 				else
 				{
+					$("#res_status_choice").val(0);					
 					$("#row_"+_choice).css({"background-color": ""})					
 					Lobibox.notify('warning', {msg: obj.text+' ,silahkan pilih kembali pilihan anda'});
 				}
 			},
 			error:function(jqXHR,exception)
 			{
+				$("#res_status_choice").val(0);				
 				$("#table_"+_soal+" #tr_"+_choice).css({"background-color": ""})								
 				ajax_catch(jqXHR,exception);					
 			}
 		})
 	}
 
-	function go(parent,paket,counter) {
-		window.location.href = "<?php echo site_url();?>user/try_out/mulai/"+parent+"/"+paket+"/"+counter;		
+	function go(parent,paket,counter,arg) {
+		var res_choice = $("#res_status_choice").val();
+		if (res_choice == 1) 
+		{
+			window.location.href = "<?php echo site_url();?>user/try_out/mulai/"+parent+"/"+paket+"/"+counter+"/"+arg;
+		}
+		else
+		{
+			if (arg == 1) 
+			{
+				Lobibox.alert('warning', {msg: "Harap jawab soal ini terlebih dahulu."});				
+			}		
+			else
+			{
+				window.location.href = "<?php echo site_url();?>user/try_out/mulai/"+parent+"/"+paket+"/"+counter+"/"+arg;
+			}			
+		}
+	}
+
+	function end_test(parent,paket) {
+		Lobibox.confirm({
+		title   : "Konfirmasi",
+		msg     : "Anda yakin akan menyelesaikan try out ini ?",
+		callback: function ($this, type) {
+			if (type === 'yes'){			
+				$.ajax({
+					url :"<?php echo site_url();?>user/ztry_out/end_test/"+parent+"/"+paket,
+					type:"post",
+					beforeSend:function(){
+						$("#editData").modal('hide');
+						$("#loadprosess").modal('show');
+					},
+					success:function(msg){
+						var obj = jQuery.parseJSON (msg);
+						ajax_status(obj);
+					},
+					error:function(jqXHR,exception)
+					{
+						ajax_catch(jqXHR,exception);					
+					}
+				})
+			}
+		}
+	})		
 	}
 </script>

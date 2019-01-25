@@ -19,6 +19,8 @@
 							# code...
 							for ($i=0; $i < count($tipe); $i++) { 
 								# code...
+								if ($tipe[$i]['id'] != 3) {
+									# code...
 					?>
 								<tr>
 									<td><?=$i+1;?></td>
@@ -27,7 +29,8 @@
 										<button class="btn btn-primary btn-xs" onclick="choose_paket_try_out('<?php echo $tipe[$i]['id'];?>','<?=$tipe[$i]['name'];?>')"><i class="fa fa-edit"></i> Pilih</button>&nbsp;&nbsp;								
 									</td>								
 								</tr>
-					<?php
+					<?php									
+								}
 							}
 						}
 					?>
@@ -171,7 +174,8 @@ function choose_paket_try_out(_id,_name) {
 										'<td>'+obj.list[index].name+'</td>'+
 										'<td>'+
 										'<a onclick="go('+_id+','+obj.list[index].id+',1)" class="btn btn-primary pull-left" style="margin-right: 10px;">Mulai</a>'+
-										'<a onclick="go('+_id+','+obj.list[index].id+',2)" class="btn btn-primary pull-left" style="margin-right: 10px;">Analisis</a>'+										
+										'<a onclick="go('+_id+','+obj.list[index].id+',2)" class="btn btn-primary pull-left" style="margin-right: 10px;">Analisis</a>'+
+										'<a onclick="go('+_id+','+obj.list[index].id+',3)" class="btn btn-primary pull-left" style="margin-right: 10px;">Rangking</a>'+																				
 										'</td>'+									
 									'</tr>';
 				$('#view_data_paket tbody').append(newrec_body);                    				
@@ -259,6 +263,10 @@ function go(id_parent,id,type) {
 	else if(type == 2)
 	{
 		type = "analisis";
+	}
+	else if(type == 3)
+	{
+		type = "rangking";		
 	}
 
 	window.open("<?php echo site_url();?>user/try_out/"+type+"/"+id_parent+"/"+id,'_blank');		

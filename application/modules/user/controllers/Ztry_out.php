@@ -32,7 +32,7 @@ class Ztry_out extends CI_Controller {
 		$data_store['id_paket']   = $data_sender['paket'];
 		$data_store['id_soal']    = $data_sender['soal'];
 		$data_store['id_jawaban'] = $data_sender['choice'];
-		$data_store['status']     = 1;
+		$data_store['status']     = 0;
 		if ($crud == 'insert') 
 		{
 			# code...
@@ -112,5 +112,20 @@ class Ztry_out extends CI_Controller {
 		}
 		
 		return $res_data;
+	}
+
+	public function end_test($parent,$paket)
+	{
+		# code...
+		$data_store1['status'] = 1;
+		$user     = $this->session->userdata('session_user');
+		$res_data = $this->Allcrud->editData('tr_track_time_try_out',$data_store1,array('id_user'=>$user,'id_parent'=>$parent,'id_paket'=>$paket));
+		$text_status = $this->Globalrules->check_status_res($res_data,'Anda telah menyelesaikan try out ini.');
+		$res = array
+					(
+						'status' => $res_data,
+						'text'   => $text_status
+					);
+		echo json_encode($res);		
 	}
 }
