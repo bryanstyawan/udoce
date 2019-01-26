@@ -149,12 +149,16 @@ class User extends CI_Controller {
 		}
 		elseif ($type == 'rangking') {
 			# code...
-			$data['title']            = 'Rangking Try Out';
+			$parent_name = $this->Allcrud->getData('lt_paket_try_out',array('id'=>$parent))->result_array();
+			$paket_name  = $this->Allcrud->getData('mr_try_out_list',array('id'=>$id,'id_parent'=>$parent))->result_array();
+			$res_parent  = ($parent_name != array()) ? $parent_name[0]['text'] : '' ;
+			$res_paket   = ($paket_name != array()) ? "(".$paket_name[0]['name'].")" : '' ;
 			$data['content']          = 'user/try_out/root/rangking';
 			$data['verify_user_paid'] = $this->Allcrud->getData('tr_layanan',array('id_user'=>$this->session->userdata('session_user'),'type'=>'bimbel'))->result_array();
 			$data['list_rangking']    = $this->Muser->get_rangking_try_out($parent,$id);
 			$data['parent']           = $parent;
 			$data['paket']            = $id;
+			$data['title']            = 'Rangking Try Out '.$res_parent." ".$res_paket;			
 			$this->load->view('templateAdmin',$data);			
 		}
 		elseif ($type == NULL) {

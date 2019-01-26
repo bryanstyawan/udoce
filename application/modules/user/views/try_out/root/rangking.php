@@ -45,6 +45,12 @@
 
     }
 
+    .row .label-primary
+    {
+        padding: 10px 0px 10px 0px;
+        margin-bottom: 10px;        
+    }
+
 </style>
 <?php
 $posisitin_rangking_user     = 0;
@@ -114,25 +120,51 @@ $posisitin_rangking_username = "";
                                     # code...
                             ?>
                                     <div class="col-lg-2">
-                                        <div class="col-lg-10">
-                                            Benar
+                                        <div class="row label-primary">
+                                            <div class="col-lg-7">Benar : </div>
+                                            <div class="col-lg-4"><?=$list_rangking[$i]->tpa_true;?></div>                                            
                                         </div>
-                                        <div class="col-lg-10">
-                                            Salah
+                                        <div class="row label-primary">
+                                            <div class="col-lg-7">Salah : </div>
+                                            <div class="col-lg-4"><?=$list_rangking[$i]->tpa_false;?></div>                                            
                                         </div>
-                                        <div class="col-lg-10">
-                                            Kosong
-                                        </div>    
-                                        <div class="col-lg-10">
-                                            Nilai
+                                        <div class="row label-primary">
+                                            <div class="col-lg-7">Kosong : </div>
+                                            <div class="col-lg-4"><?=$list_rangking[$i]->tpa_empty;?></div>                                            
                                         </div>
-                                        <div class="col-lg-10">
-                                            Keterangan
+                                        <div class="row label-primary">
+                                            <div class="col-lg-7">Nilai : </div>
+                                            <div class="col-lg-4"><?=$list_rangking[$i]->tpa_value;?></div>                                            
+                                        </div>
+                                        <div class="row label-primary">
+                                            <div class="col-lg-11">Keterangan : </div>
+                                            <div class="col-lg-1"><?=$list_rangking[$i]->tpa_status;?></div>                                            
                                         </div>                                                                                                                                                        
                                     </div>
-                                    <div class="col-lg-2">TBI</div>
-                                    <div class="col-lg-1">Total Nilai</div>
-                                    <div class="col-lg-2">Keterangan</div>
+                                    <div class="col-lg-2">
+                                        <div class="row label-primary">
+                                            <div class="col-lg-7">Benar : </div>
+                                            <div class="col-lg-4"><?=$list_rangking[$i]->tbi_true;?></div>                                            
+                                        </div>
+                                        <div class="row label-primary">
+                                            <div class="col-lg-7">Salah : </div>
+                                            <div class="col-lg-4"><?=$list_rangking[$i]->tbi_false;?></div>                                            
+                                        </div>
+                                        <div class="row label-primary">
+                                            <div class="col-lg-7">Kosong : </div>
+                                            <div class="col-lg-4"><?=$list_rangking[$i]->tbi_empty;?></div>                                            
+                                        </div>
+                                        <div class="row label-primary">
+                                            <div class="col-lg-7">Nilai : </div>
+                                            <div class="col-lg-4"><?=$list_rangking[$i]->tbi_value;?></div>                                            
+                                        </div>
+                                        <div class="row label-primary">
+                                            <div class="col-lg-11">Keterangan : </div>
+                                            <div class="col-lg-1"><?=$list_rangking[$i]->tbi_status;?></div>                                            
+                                        </div>                                                                                                                                                        
+                                    </div>
+                                    <div class="col-lg-1"><?=$list_rangking[$i]->total_value;?></div>
+                                    <div class="col-lg-2"><?=$list_rangking[$i]->end_status;?></div>
                             <?php
                                 }
                             ?>                    
@@ -140,7 +172,15 @@ $posisitin_rangking_username = "";
                         <?php
                             }                        
                         }
-                    ?>            
+                        else {
+                            # code...
+                    ?>
+                        <div class="col-lg-12">
+                            <h3 class="text-center">Data tidak ditemukan</h3>
+                        </div>
+                    <?php                            
+                        }
+                    ?>                                
                 </div>
 			</div><!-- /.box-body -->
         </div><!-- /.box -->
