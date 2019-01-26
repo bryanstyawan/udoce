@@ -1,4 +1,24 @@
 v1.0.0    
+2019-01-27
+==========
+New:
+- rangking
+Improved:
+Fixed:
+
+v1.0.0    
+2019-01-26
+==========
+New:
+- Selesai try out
+- Layout Rangking
+- Analisis dan Pembahasan try out skd
+Improved:
+- Penyesuaian try out untuk simpan dan lewati
+- tampilkan tipe try out selain mini try out untuk user
+Fixed:
+
+v1.0.0    
 2019-01-24
 ==========
 New:
