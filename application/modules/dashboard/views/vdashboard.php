@@ -6,23 +6,26 @@
         <div class="box-body no-padding">
             <ul class="users-list clearfix">
                 <?php
-                    if ($user_chat[0]->name != '') {
-                        # code...
-                        for ($i=0; $i < count($user_chat); $i++) { 
+                    if($user_chat != 0)
+                    {
+                        if ($user_chat[0]->name != '') {
                             # code...
-                            if ($user_chat[$i]->counter != 0) {
+                            for ($i=0; $i < count($user_chat); $i++) { 
                                 # code...
-                    ?>
-                <li>
-                    <a style="cursor: pointer;" onclick="open_chat('<?=$user_chat[$i]->name;?>','<?=$user_chat[$i]->id_user_sender;?>','<?=$user_chat[$i]->id_materi;?>')">
-                        <img src="https://adminlte.io/themes/AdminLTE/dist/img/user1-128x128.jpg" alt="User Image">
-                        <span class="users-list-name" href="#"><?=$user_chat[$i]->name;?><span id="counter_message_<?=$user_chat[$i]->id_user_sender;?>" class="badge bg-yellow"><?=($user_chat[$i]->counter!=0?$user_chat[$i]->counter:'');?></span></span>
-                        <span class="users-list-date">
-                            <span class="badge bg-yellow col-lg-12" style="overflow-x: hidden;"><?=$user_chat[$i]->materi;?></span>
-                        </span>                                            
-                    </a>
-                </li>                    
-                    <?php                                
+                                if ($user_chat[$i]->counter != 0) {
+                                    # code...
+                        ?>
+                    <li>
+                        <a style="cursor: pointer;" onclick="open_chat('<?=$user_chat[$i]->name;?>','<?=$user_chat[$i]->id_user_sender;?>','<?=$user_chat[$i]->id_materi;?>')">
+                            <img src="https://adminlte.io/themes/AdminLTE/dist/img/user1-128x128.jpg" alt="User Image">
+                            <span class="users-list-name" href="#"><?=$user_chat[$i]->name;?><span id="counter_message_<?=$user_chat[$i]->id_user_sender;?>" class="badge bg-yellow"><?=($user_chat[$i]->counter!=0?$user_chat[$i]->counter:'');?></span></span>
+                            <span class="users-list-date">
+                                <span class="badge bg-yellow col-lg-12" style="overflow-x: hidden;"><?=$user_chat[$i]->materi;?></span>
+                            </span>                                            
+                        </a>
+                    </li>                    
+                        <?php                                
+                                }
                             }
                         }
                     }

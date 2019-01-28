@@ -334,8 +334,11 @@
                                         $data_store['total_value'] = $try_out_value_twk + $try_out_value_tiu + $try_out_value_tkk;
                                         $data_store['end_status']  = $end_result;                                        
                                     }
-                                    $res_data       = $this->Allcrud->addData('tr_analisis_rangking',$data_store);                                    
+                                    $res_data       = $this->Allcrud->addData('tr_analisis_rangking',$data_store);                                                                        
                                 }
+                                $data_store1['status'] = 1;
+                                $user     = $this->session->userdata('session_user');
+                                $res_data = $this->Allcrud->editData('tr_track_time_try_out',$data_store1,array('id_user'=>$user,'id_parent'=>$parent,'id_paket'=>$paket));                                
                             ?>
                             <div class="col-lg-12 text-center">
                                 <a onclick="go('pembahasan')" class="btn btn-lg btn-primary"><i class="fa fa-search"></i> PEMBAHASAN</a>

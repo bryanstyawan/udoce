@@ -107,7 +107,18 @@ class User extends CI_Controller {
 					# code...
 					$timeout = $get_time[0]['audit_time_insert'];
 					$timeout = strtotime($timeout) - strtotime(date('Y-m-d H:i:s'));
-					$data['timeout'] = $timeout/60;
+					if($timeout < 0)
+					{
+						$timeout = 0;
+					}				
+					else {
+						# code...
+						if ($get_time[0]['status'] == 1) {
+							# code...
+							$timeout = 0;						
+						}
+					}
+					$data['timeout'] = $timeout ;
 				}
 			}
 			else {
@@ -163,10 +174,30 @@ class User extends CI_Controller {
 		}
 		elseif ($type == NULL) {
 			# code...
-			$data['title']            = '';
-			$data['content']          = 'user/try_out/root/index';
-			$data['verify_user_paid'] = $this->Allcrud->getData('tr_layanan',array('id_user'=>$this->session->userdata('session_user'),'type'=>'bimbel'))->result_array();
-			$data['tipe']             = $this->Allcrud->listData('lt_paket_try_out')->result_array();
+			$get_tryout_id = 0;
+			$get_tryout    = $this->Allcrud->getData('tr_layanan',array('id_user'=>$this->session->userdata('session_user'),'type'=>'tryout'))->result_array();
+			if ($get_tryout != array()) {
+				# code...
+				if ($get_tryout[0]['id_layanan'] == 3) {
+					# code...
+					$get_tryout_id = 1;
+				}
+				elseif ($get_tryout[0]['id_layanan'] == 4) {
+					# code...
+					$get_tryout_id = 2;
+				}
+				
+			}
+			else {
+				# code...
+				$get_tryout_id = 0;
+			}
+			$data['title']                          = '';
+			$data['content']                        = 'user/try_out/root/index';
+			$data['verify_user_paid_bimbel']        = $this->Allcrud->getData('tr_layanan',array('id_user'=>$this->session->userdata('session_user'),'type'=>'bimbel'))->result_array();
+			$data['verify_user_paid_try_out']       = $get_tryout_id;
+			$data['verify_user_paid_try_out_count'] = count($get_tryout);
+			$data['tipe']                           = $this->Allcrud->listData('lt_paket_try_out')->result_array();
 			$this->load->view('templateAdmin',$data);					
 		}
 	}

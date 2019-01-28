@@ -80,10 +80,13 @@ if ($list_soal != array()) {
 					<input type="hidden" id="oid_soal" value="<?=$list_soal[$counter_soal]['id'];?>">
 					<input type="hidden" id="oid_parent" value="<?=$list_soal[0]['id_parent'];?>">									
 					<input type="hidden" id="oid_paket" value="<?=$list_soal[0]['id_paket'];?>">
-                    <div class="col-lg-8 col-xs-12">
+                    <div class="col-lg-9 col-xs-12">
                         <div class="col-lg-12">
                             <div class="form-group">
-                                <p><?=$counter_soal+1;?>. <?=$list_soal[$counter_soal]['name'];?></p>
+								<div class="col-lg-1">
+									<p style="font-size:22px;"><?=(($counter_soal+1) < 10) ? str_pad(($counter_soal+1),2,"0",STR_PAD_LEFT) : ($counter_soal+1);?>.</p> 									
+								</div>
+								<div class="col-lg-11"><p style="font-size:22px;text-align: justify;"><?=$list_soal[$counter_soal]['name'];?></p></div>
                             </div>
                         </div>
                         
@@ -115,8 +118,8 @@ if ($list_soal != array()) {
 										}
                             ?>
                                         <div class="row row_choice" id="row_<?=$get_data_detail[$i]['id'];?>" style="padding:10px;<?=$style_background;?>">
-                                            <div class="col-lg-2 col-xs-3"><a onclick="choice(<?=$get_data_detail[$i]['id'];?>,<?=$get_data_detail[$i]['id_soal'];?>,<?=$list_soal[$counter_soal]['id_parent'];?>,<?=$list_soal[$counter_soal]['id_paket'];?>)" class="btn btn-warning btn-xs"><?=$get_data_detail[$i]['choice'];?></a></div>
-                                            <div class="col-lg-10" style="padding-left: 0px;"><?=$get_data_detail[$i]['name'];?></div>                                        
+                                            <div class="col-lg-2 col-xs-3"><a onclick="choice(<?=$get_data_detail[$i]['id'];?>,<?=$get_data_detail[$i]['id_soal'];?>,<?=$list_soal[$counter_soal]['id_parent'];?>,<?=$list_soal[$counter_soal]['id_paket'];?>)" class="btn btn-warning btn-xs" style="font-size:20px;"><?=$get_data_detail[$i]['choice'];?></a></div>
+                                            <div class="col-lg-10" style="padding-left: 0px;font-size:22px;"><?=$get_data_detail[$i]['name'];?></div>                                        
                                         </div>
                             <?php
                                     }
@@ -151,7 +154,7 @@ if ($list_soal != array()) {
 <?php				
 	}
 ?>
-                    <div class="col-lg-4" id="counter">
+                    <div class="col-lg-3" id="counter">
                         <div class="col-lg-12">
                             <?php
 								$counter_soal_x = 0;
@@ -175,10 +178,11 @@ if ($list_soal != array()) {
 												$background_color = "background-color:red;";												
 											}
 										}										
-                                        // $data_soal        = $this->Allcrud->getdata('mr_try_out_soal',array('id'=>$list_soal[$i]['id']))->result_array();
-
+										// $data_soal        = $this->Allcrud->getdata('mr_try_out_soal',array('id'=>$list_soal[$i]['id']))->result_array();
+										
+										$counter = ($i < 10) ? str_pad($i+1,2,"0",STR_PAD_LEFT) : $i + 1;
                             ?>
-                                        <a onclick="go(<?=$list_soal[$counter_soal_x]['id_parent'];?>,<?=$list_soal[$counter_soal_x]['id_paket'];?>,<?=$i;?>,2)" class="btn btn-default" style="<?=$background_color;?><?=$color;?>"><?=$i+1;?></a>
+                                        <a onclick="go(<?=$list_soal[$counter_soal_x]['id_parent'];?>,<?=$list_soal[$counter_soal_x]['id_paket'];?>,<?=$i;?>,2)" class="btn btn-default" style="<?=$background_color;?><?=$color;?>"><?=$counter;?></a>
                             <?php
                                     }								
                                 }

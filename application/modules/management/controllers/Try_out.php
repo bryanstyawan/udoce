@@ -25,13 +25,17 @@ class Try_out extends CI_Controller {
 			# code...
 			for ($i=0; $i < count($data['list']); $i++) { 
 				# code...
-				$data['list'][$i]['tpa'] = count($this->Allcrud->getdata('mr_try_out_soal',array('id_parent'=>1,'id_type'=>1,'id_paket'=>$data['list'][$i]['id']))->result_array());
-				$data['list'][$i]['tbi'] = count($this->Allcrud->getdata('mr_try_out_soal',array('id_parent'=>1,'id_type'=>2,'id_paket'=>$data['list'][$i]['id']))->result_array());
-				$data['list'][$i]['twk'] = count($this->Allcrud->getdata('mr_try_out_soal',array('id_parent'=>2,'id_type'=>3,'id_paket'=>$data['list'][$i]['id']))->result_array());
-				$data['list'][$i]['tiu'] = count($this->Allcrud->getdata('mr_try_out_soal',array('id_parent'=>2,'id_type'=>4,'id_paket'=>$data['list'][$i]['id']))->result_array());
-				$data['list'][$i]['tkk'] = count($this->Allcrud->getdata('mr_try_out_soal',array('id_parent'=>2,'id_type'=>5,'id_paket'=>$data['list'][$i]['id']))->result_array());
+				$get_analisis = $this->Allcrud->getData('tr_track_time_try_out',array('id_user'=>$this->session->userdata('session_user'),'id_paket'=>$data['list'][$i]['id'],'id_parent'=>$data['list'][$i]['id_parent']))->result_array();
+				$get_rangking = $this->Allcrud->getData('tr_analisis_rangking',array('id_user'=>$this->session->userdata('session_user'),'id_paket'=>$data['list'][$i]['id'],'id_parent'=>$data['list'][$i]['id_parent']))->result_array();
+				$data['list'][$i]['tpa']           = count($this->Allcrud->getdata('mr_try_out_soal',array('id_parent'=>1,'id_type'=>1,'id_paket'=>$data['list'][$i]['id']))->result_array());
+				$data['list'][$i]['tbi']           = count($this->Allcrud->getdata('mr_try_out_soal',array('id_parent'=>1,'id_type'=>2,'id_paket'=>$data['list'][$i]['id']))->result_array());
+				$data['list'][$i]['twk']           = count($this->Allcrud->getdata('mr_try_out_soal',array('id_parent'=>2,'id_type'=>3,'id_paket'=>$data['list'][$i]['id']))->result_array());
+				$data['list'][$i]['tiu']           = count($this->Allcrud->getdata('mr_try_out_soal',array('id_parent'=>2,'id_type'=>4,'id_paket'=>$data['list'][$i]['id']))->result_array());
+				$data['list'][$i]['tkk']           = count($this->Allcrud->getdata('mr_try_out_soal',array('id_parent'=>2,'id_type'=>5,'id_paket'=>$data['list'][$i]['id']))->result_array());
+				$data['list'][$i]['show_analisis'] = ($get_analisis != array()) ? (($get_analisis[0]['status'] != '') ? $get_analisis[0]['status'] : 0 ) : 0 ;
+				$data['list'][$i]['show_rangking'] = ($get_rangking != array()) ? (($get_rangking[0]['status'] != '') ? $get_rangking[0]['status'] : 0 ) : 0 ;
 			}
-		}
+		}		
 		$data['type'] = $this->Allcrud->getData('mr_try_out_paket',array('id_parent'=>$id))->result_array();		
 		echo json_encode($data);
 	}

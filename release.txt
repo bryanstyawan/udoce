@@ -1,4 +1,15 @@
 v1.0.0    
+2019-01-29
+==========
+New:
+- pembelian try out
+Improved:
+- analisis akan muncul ketika try out telah selesai dan rangking akan muncul setelah analisis
+- layout try out disisi user
+Fixed:
+- chat admin
+
+v1.0.0    
 2019-01-27
 ==========
 New:
