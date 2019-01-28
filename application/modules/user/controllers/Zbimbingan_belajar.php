@@ -111,18 +111,50 @@ class Zbimbingan_belajar extends CI_Controller {
 		$crud        = '';
 		$res_data    = "";
 		$text_status = "";
+		$flag_res    = 0;
 		$data_sender = $this->input->post('data_sender');
 		$user        = $this->session->userdata('session_user');
 		if ($data_sender['type'] == 4) {
 			# code...
-			$res_data    = $this->track_bimbingan($user,$data_sender,0,1);			
+			$res_data    = $this->track_bimbingan($user,$data_sender,0,1);						
 		}
 		else {
 			# code...
-			$res_data    = $this->track_bimbingan($user,$data_sender,0,1);
-			$res_data    = $this->track_bimbingan($user,$data_sender,1,0);
+			if ($data_sender['type'] != 2) {
+				# code...
+				$list_soal   = count($this->Allcrud->getData('mr_soal',array('id_materi'=>$data_sender['materi'],'id_tipe_soal'=>$data_sender['type']))->result_array());
+				$list_choice = count($this->Allcrud->getData('tr_jawaban_bimbingan_belajar',array('id_user'=>$user,'id_type'=>$data_sender['type'],'id_materi'=>$data_sender['materi']))->result_array());
+				if ($list_soal == $list_choice) {
+					# code...
+					$flag_res = 1;
+				}
+				else {
+					# code...
+					$flag_res = 0;
+					$text_status = "Harap selesaikan terlebih dahulu";					
+				}
+			}
+			else {
+				# code...
+				$flag_res = 1;
+			}
+
+			if ($flag_res == 1) {
+				# code...
+				$res_data = $this->track_bimbingan($user,$data_sender,0,1);
+				$res_data = $this->track_bimbingan($user,$data_sender,1,0);
+			}
+			else {
+				# code...
+				$res_data = 2;
+			}
 		}		
-		$text_status = $this->Globalrules->check_status_res($res_data,'Anda telah menyelesaikan tahap ini.');
+
+		if ($flag_res == 1) {
+			# code...
+			$text_status = $this->Globalrules->check_status_res($res_data,'Anda telah menyelesaikan tahap ini.');			
+		}
+
 		$res = array
 					(
 						'status' => $res_data,

@@ -6,6 +6,7 @@ New:
 Improved:
 - analisis akan muncul ketika try out telah selesai dan rangking akan muncul setelah analisis
 - layout try out disisi user
+- semua soal pre test dan quiz wajib dijawab semua
 Fixed:
 - chat admin
 

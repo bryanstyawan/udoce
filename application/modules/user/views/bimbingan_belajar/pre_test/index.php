@@ -216,7 +216,14 @@ function finish(_materi,_type)
 						}
 						else
 						{
-							Lobibox.notify('warning', {msg: obj.text+' ,silahkan ulangi kembali'});
+							if (obj.status == 2) {
+								Lobibox.notify('warning', {msg: obj.text});								
+							}
+							else
+							{
+								Lobibox.notify('warning', {msg: obj.text+' ,silahkan ulangi kembali'});
+							}							
+							$("#loadprosess").modal('hide');							
 						}						
 					},
 					error:function(jqXHR,exception)
