@@ -48,7 +48,7 @@
                 <a href="<?=base_url();?>user/try_out">
                     <div class="col-md-6">
                         <div class="box mb-4 shadow-sm">
-                        <svg class="bd-placeholder-img card-img-top" width="100%" height="225" xmlns="http://www.w3.org/2000/svg" preserveAspectRatio="xMidYMid slice" focusable="false" role="img" aria-label="Placeholder: Try "><title>Placeholder</title><rect fill="#39CCCC" width="100%" height="100%"></rect><text fill="#eceeef" dy=".22px" x="50%" y="50%">Try Out</text></svg>
+                        <svg class="bd-placeholder-img card-img-top" width="100%" height="225" xmlns="http://www.w3.org/2000/svg" preserveAspectRatio="xMidYMid slice" focusable="false" role="img" aria-label="Placeholder: Try Out"><title>Try Out</title><rect fill="#39CCCC" width="100%" height="100%"></rect><text fill="#eceeef" dy=".22px" x="50%" y="50%">Try Out</text></svg>
                             <div class="box-body">
                                 <p class="card-text">Try Out.</p>
                             </div>
@@ -59,7 +59,7 @@
                 <a href="<?=base_url();?>user/bimbingan_belajar">
                     <div class="col-md-6">
                         <div class="box mb-4 shadow-sm">
-                            <svg class="bd-placeholder-img card-img-top" width="100%" height="225" xmlns="http://www.w3.org/2000/svg" preserveAspectRatio="xMidYMid slice" focusable="false" role="img" aria-label="Placeholder: Thumbnail"><title>Placeholder</title><rect fill="#3c8dbc" width="100%" height="100%"></rect><text fill="#eceeef" dy=".3em" x="50%" y="50%">Bimbingan Belajar</text></svg>
+                            <svg class="bd-placeholder-img card-img-top" width="100%" height="225" xmlns="http://www.w3.org/2000/svg" preserveAspectRatio="xMidYMid slice" focusable="false" role="img" aria-label="Placeholder: Bimbingan Belajar"><title>Bimbingan Belajar</title><rect fill="#3c8dbc" width="100%" height="100%"></rect><text fill="#eceeef" dy=".3em" x="50%" y="50%">Bimbingan Belajar</text></svg>
                             <div class="box-body">
                                 <p class="card-text">Bimbingan Belajar.</p>
                             </div>
@@ -72,7 +72,7 @@
                 <a href="<?=base_url();?>user/video_materi">            
                     <div class="col-md-6">
                         <div class="box mb-4 shadow-sm">
-                            <svg class="bd-placeholder-img card-img-top" width="100%" height="225" xmlns="http://www.w3.org/2000/svg" preserveAspectRatio="xMidYMid slice" focusable="false" role="img" aria-label="Placeholder: Thumbnail"><title>Placeholder</title><rect fill="#f39c12" width="100%" height="100%"></rect><text fill="#eceeef" dy=".3em" x="50%" y="50%">Video Materi</text></svg>
+                            <svg class="bd-placeholder-img card-img-top" width="100%" height="225" xmlns="http://www.w3.org/2000/svg" preserveAspectRatio="xMidYMid slice" focusable="false" role="img" aria-label="Placeholder: Video Materi"><title>Video Materi</title><rect fill="#f39c12" width="100%" height="100%"></rect><text fill="#eceeef" dy=".3em" x="50%" y="50%">Video Materi</text></svg>
                             <div class="box-body">
                                 <p class="card-text">Video Materi.</p>
                             </div>
@@ -83,7 +83,7 @@
                 <a href="<?=base_url();?>dashboard/soon">
                     <div class="col-md-6">
                         <div class="box mb-4 shadow-sm">
-                            <svg class="bd-placeholder-img card-img-top" width="100%" height="225" xmlns="http://www.w3.org/2000/svg" preserveAspectRatio="xMidYMid slice" focusable="false" role="img" aria-label="Placeholder: Thumbnail"><title>Placeholder</title><rect fill="#55595c" width="100%" height="100%"></rect><text fill="#eceeef" dy=".3em" x="50%" y="50%">Mini Try Out</text></svg>
+                            <svg class="bd-placeholder-img card-img-top" width="100%" height="225" xmlns="http://www.w3.org/2000/svg" preserveAspectRatio="xMidYMid slice" focusable="false" role="img" aria-label="Placeholder: Mini Try Out"><title>Mini Try Out</title><rect fill="#55595c" width="100%" height="100%"></rect><text fill="#eceeef" dy=".3em" x="50%" y="50%">Mini Try Out</text></svg>
                             <div class="box-body">
                                 <p class="card-text">Mini Try Out.</p>
                             </div>

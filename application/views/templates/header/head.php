@@ -9,7 +9,8 @@
 	.navbar-custom-menu>.navbar-nav>li:hover,
 	.dropdown-menu > .menu_header:hover
 	{
-		background-color: #0163D0!important;
+		background-color: #00a7d0!important;
+		color: #fff;
 	}
 
 	.dropdown-menu > .menu_header > li > a > i,

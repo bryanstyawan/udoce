@@ -156,6 +156,7 @@ $(document).ready(function()
 
 
 $(document).click(function(e) {
+    $("#viewnavbarcontent").attr("class", "fa fa-navicon");            
     show_time = $(".noti-container").css('display');
     if (show_time == 'block')
     {
