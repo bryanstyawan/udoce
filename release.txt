@@ -3,6 +3,7 @@ v1.0.0
 ==========
 New:
 - pembelian try out
+- halaman dashboard user
 Improved:
 - analisis akan muncul ketika try out telah selesai dan rangking akan muncul setelah analisis
 - layout try out disisi user
