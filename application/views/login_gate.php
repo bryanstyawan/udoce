@@ -440,8 +440,10 @@ input {
 
 						<!-- Remind Passowrd -->
 						<div id="formFooter">
-							<a class="underlineHover" href="#">Lupa Password?</a>
+							<a class="underlineHover" href="<?=base_url();?>signup">Belum punya akun ? Daftar Sekarang</a>
 							<hr>
+							<a class="underlineHover" href="#">Lupa Password?</a>
+							<hr>							
 							<span style="color:#92badd;">v.1.0.0</span>
 						</div>
 					</div>

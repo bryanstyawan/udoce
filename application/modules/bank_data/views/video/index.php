@@ -78,6 +78,7 @@
 				<div class="row">
 					<input class="form-control form-control-data" type="hidden" id="oid">
 					<input class="form-control form-control-data" type="hidden" id="crud">					
+
 					<div class="col-md-6">
 						<div class="form-group">
 							<label>Judul Video</label>
@@ -96,6 +97,15 @@
 						<video id="f_video" width="480" height="320" controls>
 							<source id="f_source" src="" type="video/mp4">
 						</video>
+					</div>
+
+					<div class="col-lg-12">
+						<div class="progress" style="display:none">
+							<div id="progressBar" class="progress-bar progress-bar-striped active" role="progressbar" aria-valuenow="0" aria-valuemin="0" aria-valuemax="100" style="width: 0%">
+								<span class="sr-only">0%</span>
+							</div>
+						</div>
+						<div class="msg alert alert-info text-left" style="display:none"></div>					
 					</div>
 				</div>
 
@@ -188,8 +198,24 @@ $(document).ready(function(){
 					processData: false,
 					data: form_data,
 					type: 'post',
+					xhr : function() {
+						var xhr = new window.XMLHttpRequest();
+						xhr.upload.addEventListener('progress', function(e){
+							if(e.lengthComputable){
+								console.log('Bytes Loaded : ' + e.loaded);
+								console.log('Total Size : ' + e.total);
+								console.log('Persen : ' + (e.loaded / e.total));
+								
+								var percent = Math.round((e.loaded / e.total) * 100);
+								
+								$('#progressBar').attr('aria-valuenow', percent).css('width', percent + '%').text(percent + '%');
+							}
+						});
+						return xhr;
+					},					
 					beforeSend:function(){
 						$("#loadprosess").modal('show');                                                
+						$('.progress').show();						
 					},
 					success: function(msg1){
 						var obj1 = jQuery.parseJSON (msg1);             	

@@ -107,7 +107,7 @@
 				</fieldset>
 			</div>
 			<div class="login-footer">
-				Sudah mempunyai akun? <button type="button" class="btn btn-md btn-info btn-sign-in pull-right">Masuk</button>
+				Sudah mempunyai akun? <a href="<?=base_url();?>auth" class="btn btn-md btn-info btn-sign-in pull-right">Masuk</a>
 			</div>
 		</form>
 

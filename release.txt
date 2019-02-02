@@ -1,4 +1,16 @@
 v1.0.0    
+2019-02-02
+==========
+New:
+- Link signin di signup
+- link signup di signin
+Improved:
+- set format yang didukung di video materi (mp4|mkv|flv)
+- set maksimal ukuran video materi (500mb)
+- Progressbar upload video materis
+Fixed:
+
+v1.0.0    
 2019-01-29
 ==========
 New:

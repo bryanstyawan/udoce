@@ -17,8 +17,8 @@ class Video extends CI_Controller {
 	{
 		# code...
 		$config['upload_path']   = FCPATH.'/public/video/';
-		$config['allowed_types'] = 'mp4';
-		$config['max_size']      = '300000';
+		$config['allowed_types'] = 'mp4|mkv|flv';
+		$config['max_size']      = '500000';
 		$this->load->library('upload', $config);
 		$id_pekerjaan = "";
 		$f_file       = "";
