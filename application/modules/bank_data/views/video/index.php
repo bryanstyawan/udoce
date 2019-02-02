@@ -202,9 +202,9 @@ $(document).ready(function(){
 						var xhr = new window.XMLHttpRequest();
 						xhr.upload.addEventListener('progress', function(e){
 							if(e.lengthComputable){
-								console.log('Bytes Loaded : ' + e.loaded);
-								console.log('Total Size : ' + e.total);
-								console.log('Persen : ' + (e.loaded / e.total));
+								// console.log('Bytes Loaded : ' + e.loaded);
+								// console.log('Total Size : ' + e.total);
+								// console.log('Persen : ' + (e.loaded / e.total));
 								
 								var percent = Math.round((e.loaded / e.total) * 100);
 								
