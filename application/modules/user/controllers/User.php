@@ -174,8 +174,9 @@ class User extends CI_Controller {
 		}
 		elseif ($type == NULL) {
 			# code...
-			$get_tryout_id = 0;
-			$get_tryout    = $this->Allcrud->getData('tr_layanan',array('id_user'=>$this->session->userdata('session_user'),'type'=>'tryout'))->result_array();
+			$get_tryout_id     = 0;
+			$get_tryout_gratis = $this->Allcrud->getData('tr_layanan',array('id_user'=>$this->session->userdata('session_user'),'type'=>'gratis_tryout'))->result_array();
+			$get_tryout        = $this->Allcrud->getData('tr_layanan',array('id_user'=>$this->session->userdata('session_user'),'type'=>'tryout'))->result_array();
 			if ($get_tryout != array()) {
 				# code...
 				if ($get_tryout[0]['id_layanan'] == 3) {
@@ -192,12 +193,13 @@ class User extends CI_Controller {
 				# code...
 				$get_tryout_id = 0;
 			}
-			$data['title']                          = '';
-			$data['content']                        = 'user/try_out/root/index';
-			$data['verify_user_paid_bimbel']        = $this->Allcrud->getData('tr_layanan',array('id_user'=>$this->session->userdata('session_user'),'type'=>'bimbel'))->result_array();
-			$data['verify_user_paid_try_out']       = $get_tryout_id;
-			$data['verify_user_paid_try_out_count'] = count($get_tryout);
-			$data['tipe']                           = $this->Allcrud->listData('lt_paket_try_out')->result_array();
+			$data['title']                           = '';
+			$data['content']                         = 'user/try_out/root/index';
+			$data['verify_user_paid_bimbel']         = $this->Allcrud->getData('tr_layanan',array('id_user'=>$this->session->userdata('session_user'),'type'=>'bimbel'))->result_array();
+			$data['verify_user_paid_try_out']        = $get_tryout_id;
+			$data['verify_user_paid_try_out_count']  = count($get_tryout);
+			$data['verify_user_paid_try_out_gratis'] = ($get_tryout_gratis != array()) ? ((count($get_tryout_gratis) == 2) ? '7' : $get_tryout_gratis[0]['id_layanan'] ) : '0' ;
+			$data['tipe']                            = $this->Allcrud->listData('lt_paket_try_out')->result_array();
 			$this->load->view('templateAdmin',$data);					
 		}
 	}
@@ -207,7 +209,7 @@ class User extends CI_Controller {
 		# code...
 		$data_sender = $this->input->post('data_sender');
 
-		$data_store  = $this->Globalrules->trigger_insert_update($data_sender['crud']);
+		$data_store = $this->Globalrules->trigger_insert_update($data_sender['crud']);
 		if ($data_sender['crud'] == 'insert') {
 			# code...
 			$data_store['name']         = $data_sender['name'];
@@ -274,26 +276,41 @@ class User extends CI_Controller {
 		}
 		else {
 			# code...
-			$check_token = $this->Allcrud->getData('mr_token',array('name'=>$data_sender['token'],'id_layanan'=>$data_sender['oid'],'status'=>1));
-			if ($check_token->result_array() == array()) {
+			if ($data_sender['oid'] == 5 || $data_sender['oid'] == 6) {
 				# code...
-				$res_data = 0;
-				$text_status = "Token Telah terpakai.";				
+				$data_store = $this->Globalrules->trigger_insert_update('insert');				
+				$data_store['id_user']    = $this->session->userdata('session_user');
+				$data_store['id_layanan'] = $data_sender['oid'];
+				$data_store['type']       = 'gratis_tryout';
+				$data_store['token']      = $data_sender['token'];
+				$data_store['status']     = 1;
+				$res_data    = $this->Allcrud->addData('tr_layanan',$data_store);
+				$text_status = $this->Globalrules->check_status_res($res_data,'Anda mendapat gratis paket try out .');				
 			}
 			else {
 				# code...
-				$data_store  = $this->Globalrules->trigger_insert_update('insert');
-				$data_store1 = $this->Globalrules->trigger_insert_update('update');
-				$data_store  ['id_user']    = $this->session->userdata('session_user');
-				$data_store  ['id_layanan'] = $data_sender['oid'];
-				$data_store  ['type']       = $data_sender['type'];
-				$data_store  ['token']      = $data_sender['token'];
-				$data_store  ['status']     = 1;
-				$data_store1['status']      = 0;
-				$res_data    = $this->Allcrud->editData('mr_token',$data_store1,array('name'=>$data_sender['token']));				
-				$res_data    = $this->Allcrud->addData('tr_layanan',$data_store);
-				$text_status = $this->Globalrules->check_status_res($res_data,'Pembelian Telah berhasil.');
+				$check_token = $this->Allcrud->getData('mr_token',array('name'=>$data_sender['token'],'id_layanan'=>$data_sender['oid'],'status'=>1));
+				if ($check_token->result_array() == array()) {
+					# code...
+					$res_data = 0;
+					$text_status = "Token Telah terpakai.";				
+				}
+				else {
+					# code...
+					$data_store = $this->Globalrules->trigger_insert_update('insert');
+					$data_store1 = $this->Globalrules->trigger_insert_update('update');
+					$data_store['id_user']    = $this->session->userdata('session_user');
+					$data_store['id_layanan'] = $data_sender['oid'];
+					$data_store['type']       = $data_sender['type'];
+					$data_store['token']      = $data_sender['token'];
+					$data_store['status']     = 1;
+					$data_store1['status']      = 0;
+					$res_data    = $this->Allcrud->editData('mr_token',$data_store1,array('name'=>$data_sender['token']));				
+					$res_data    = $this->Allcrud->addData('tr_layanan',$data_store);
+					$text_status = $this->Globalrules->check_status_res($res_data,'Pembelian Telah berhasil.');
+				}				
 			}
+
 		}
 		$res = array
 					(

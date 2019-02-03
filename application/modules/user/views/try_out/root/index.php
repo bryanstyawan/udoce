@@ -11,10 +11,10 @@
 						</button>						
 					</div>
 					<div class="modal-body" style="background-color: #fff!important;">
-						<label style="color: #000;font-weight: 400;font-size: 19px;">Token</label>
+						<label id="lbl_token" style="color: #000;font-weight: 400;font-size: 19px;">Token</label>
 						<div class="form-group">
 							<div class="input-group col-lg-12">
-								<input type="text" id="f_token" name="f_token" class="form-control" placeholder="Token" maxlength="6">
+								<input type="text" id="f_token" name="f_token" class="form-control" placeholder="Token" maxlength="18">
 							</div>
 							<div class="input-group col-lg-12">
 								<div class="btn" style="margin-top: 30px;">
@@ -218,7 +218,8 @@
 				<input type="hidden" id="name_parent">
 				<input type="hidden" id="bimbel_choice" value="<?=($verify_user_paid_bimbel != array()) ? $verify_user_paid_bimbel[0]['id_layanan'] : 0 ;?>">
 				<input type="hidden" id="tryout_choice" value="<?=$verify_user_paid_try_out;?>">												
-				<input type="hidden" id="tryout_count" value="<?=$verify_user_paid_try_out_count;?>">				
+				<input type="hidden" id="tryout_count" value="<?=$verify_user_paid_try_out_count;?>">
+				<input type="hidden" id="tryout_gratis" value="<?=$verify_user_paid_try_out_gratis;?>">								
 				<table class="table table-bordered table-striped" id="view_data_paket">
 					<thead>
 
@@ -352,6 +353,7 @@ function choose_paket_try_out(_id,_name) {
 	var bimbel_choice = $("#bimbel_choice").val();
 	var tryout_choice = $("#tryout_choice").val();
 	var tryout_count  = $("#tryout_count").val();
+	var tryout_gratis = $("#tryout_gratis").val();
 	$.ajax({
 		url :"<?php echo site_url();?>management/try_out/get_data_paket_try_out/"+_id+"",
 		type:"post",
@@ -409,7 +411,47 @@ function choose_paket_try_out(_id,_name) {
 				}			
 				else
 				{
-					paket_choice = 11;
+					if (tryout_count != 2) 
+					{
+						if (_id == tryout_choice) {
+							paket_choice = 1;							
+						}
+						else
+						{
+							if (index == 0) {
+								paket_choice = 1;						
+							}
+							else
+							{
+								paket_choice = 10;
+								lock_choice = "<i class='fa fa-lock'></i>";						
+							}						
+						}
+					}
+					else
+					{
+						paket_choice = 1;
+					}
+				}
+
+				if (index == 1) {
+					if (tryout_gratis != 0) {
+						if (tryout_gratis == 5) {
+							if (_id == 1) {
+								paket_choice = 1;
+								paket_choice = "";
+								lock_choice  = "Mulai";
+							}
+						}
+						else if(tryout_gratis == 6)
+						{
+							if (_id == 2) {
+								paket_choice = 1;
+								paket_choice = "";
+								lock_choice  = "Mulai";
+							}
+						}
+					}
 				}
 
 				analisis_view = "";
@@ -511,15 +553,33 @@ function tryout_package(arg) {
 	$("#newData").modal('show');  
 	if (arg == 3) {
 		$(".modal-title").html("Masukan Token Paket SPMB");
+		$("#lbl_token").html("Token");
 	}
 	else if(arg == 4)
 	{
 		$(".modal-title").html("Masukan Token Paket SKD");		
+		$("#lbl_token").html("Token");		
 	}
+	else if(arg == 5)
+	{
+		$(".modal-title").html("Masukan Password untuk Paket SPMB");				
+		$("#lbl_token").html("Password");
+		$("#f_token").attr("placeholder", "Password");		
+	}
+	else if(arg == 6)
+	{
+		$(".modal-title").html("Masukan Password untuk Paket SKD");				
+		$("#lbl_token").html("Password");		
+		$("#f_token").attr("placeholder", "Password");		
+	}	
 	$("#oid_token").val(arg);
 }
 
 function go(id_parent,id,type) {
+	var bimbel_choice = $("#bimbel_choice").val();
+	var tryout_choice = $("#tryout_choice").val();
+	var tryout_count  = $("#tryout_count").val();	
+	$('#bodyoffering').html('');				
 	if (type == 1) {
 		type = "mulai"; 
 		window.open("<?php echo site_url();?>user/try_out/"+type+"/"+id_parent+"/"+id,'_blank');		
@@ -536,16 +596,103 @@ function go(id_parent,id,type) {
 	}
 	else if(type == 10)
 	{
+		// alert($("#tryout_choice").val());
 		$("#viewdata").css({"display": "none"})
 		$("#offeringdata").css({"display": ""})
-		if ($("#tryout_choice").val() == 3) {
-			
+		if ($("#tryout_choice").val() == 1) {
+			var view_choice = '<div class="plan basic">'+
+									'<div class="plan-inner">'+
+										'<div class="entry-title">'+
+											'<h3 style="padding:10px;">Paket Try Out SKD</h3>'+
+											'<div class="price">SKD<span></span>'+
+											'</div>'+
+										'</div>'+
+										'<div class="entry-content">'+
+											'<ul>'+
+												'<li><strong></strong></li>'+
+												'<li><strong></strong></li>'+
+												'<li><strong></strong></li>'+
+											'</ul>'+
+										'</div>'+
+										'<div class="row text-center">'+
+											'<a class="btn btn-danger"  href="#" onclick="tryout_package('+4+')" style="margin-bottom: 25px;">Beli Sekarang</a>'+
+										'</div>'+
+									'</div>'+
+								'</div>'+
+								'<div class="plan basic">'+
+									'<div class="plan-inner">'+
+										'<div class="entry-title">'+
+											'<h3 style="padding:10px;">Gratis </h3>'+
+											'<div class="price">SKD<span></span>'+
+											'</div>'+
+										'</div>'+
+										'<div class="entry-content">'+
+											'<ul>'+
+												'<li><strong></strong></li>'+
+												'<li><strong></strong></li>'+
+												'<li><strong></strong></li>'+
+											'</ul>'+
+										'</div>'+
+										'<div class="row text-center">'+
+											'<a class="btn btn-danger"  href="#" onclick="tryout_package('+6+')" style="margin-bottom: 25px;">Klik Disini</a>'+
+										'</div>'+
+									'</div>'+
+								'</div>';
+			$('#bodyoffering').append(view_choice);   			
 		}
-		else if ($("#tryout_choice").val() == 4) {
-			
+		else if ($("#tryout_choice").val() == 2) {
+			var view_choice = '<div class="plan basic">'+
+									'<div class="plan-inner">'+
+										'<div class="entry-title">'+
+											'<h3 style="padding:10px;">Paket Try Out SPMB PKN STAN</h3>'+
+											'<div class="price">SPMB<span></span>'+
+											'</div>'+
+										'</div>'+
+										'<div class="entry-content">'+
+											'<ul>'+
+												'<li><strong></strong></li>'+
+												'<li><strong></strong></li>'+
+												'<li><strong></strong></li>'+
+											'</ul>'+
+										'</div>'+
+										'<div class="row text-center">'+
+											'<a class="btn btn-danger"  href="#" onclick="tryout_package('+3+')" style="margin-bottom: 25px;">Beli Sekarang</a>'+
+										'</div>'+
+									'</div>'+
+								'</div>'+
+								'<div class="plan basic">'+
+									'<div class="plan-inner">'+
+										'<div class="entry-title">'+
+											'<h3 style="padding:10px;">Gratis </h3>'+
+											'<div class="price">SPMB<span></span>'+
+											'</div>'+
+										'</div>'+
+										'<div class="entry-content">'+
+											'<ul>'+
+												'<li><strong></strong></li>'+
+												'<li><strong></strong></li>'+
+												'<li><strong></strong></li>'+
+											'</ul>'+
+										'</div>'+
+										'<div class="row text-center">'+
+											'<a class="btn btn-danger"  href="#" onclick="tryout_package('+5+')" style="margin-bottom: 25px;">Klik Disini</a>'+
+										'</div>'+
+									'</div>'+
+								'</div>';
+			$('#bodyoffering').append(view_choice);   			
 		}
 		else
 		{
+			_text = "";
+			_id   = 0;
+			if (id_parent == 1) {
+				_text = "SPMB";
+				_id   = 5;
+			} else if(id_parent == 2) {
+				_text = "SKD";
+				_id   = 6;
+			}
+
 			var view_choice = '<div class="plan basic">'+
 									'<div class="plan-inner">'+
 										'<div class="entry-title">'+
@@ -581,6 +728,25 @@ function go(id_parent,id,type) {
 										'</div>'+
 										'<div class="row text-center">'+
 											'<a class="btn btn-danger"  href="#" onclick="tryout_package('+4+')" style="margin-bottom: 25px;">Beli Sekarang</a>'+
+										'</div>'+
+									'</div>'+
+								'</div>'+
+								'<div class="plan basic">'+
+									'<div class="plan-inner">'+
+										'<div class="entry-title">'+
+											'<h3 style="padding:10px;">Gratis </h3>'+
+											'<div class="price">'+_text+'<span></span>'+
+											'</div>'+
+										'</div>'+
+										'<div class="entry-content">'+
+											'<ul>'+
+												'<li><strong></strong></li>'+
+												'<li><strong></strong></li>'+
+												'<li><strong></strong></li>'+
+											'</ul>'+
+										'</div>'+
+										'<div class="row text-center">'+
+											'<a class="btn btn-danger"  href="#" onclick="tryout_package('+_id+')" style="margin-bottom: 25px;">Klik Disini</a>'+
 										'</div>'+
 									'</div>'+
 								'</div>';

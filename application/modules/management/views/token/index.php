@@ -12,16 +12,25 @@
 				</thead>
 				<tbody>
 				<?php $x=1;
-					foreach($list->result() as $row){?>
+					foreach($list->result() as $row)
+					{
+						$_texttoken = "Token";
+						if ($row->id == 5 || $row->id == 6) {
+							# code...
+							$_texttoken = "Password";
+						}
+				?>
 						<tr>
 							<td><?php echo $x;?></td>
 							<td><?php echo $row->name;?></td>
 							<td>
-								<button class="btn btn-warning btn-xs" onclick="generate('<?php echo $row->id;?>')"><i class="fa fa-cogs"></i> Generate Token</button>&nbsp;&nbsp;
-								<button class="btn btn-primary btn-xs" onclick="view('<?php echo $row->id;?>')"><i class="fa fa-edit"></i> Lihat Token</button>
+								<button class="btn btn-warning btn-xs" onclick="generate('<?php echo $row->id;?>')"><i class="fa fa-cogs"></i> Generate <?=$_texttoken;?></button>&nbsp;&nbsp;
+								<button class="btn btn-primary btn-xs" onclick="view('<?php echo $row->id;?>')"><i class="fa fa-edit"></i> Lihat <?=$_texttoken;?></button>
 							</td>
 						</tr>
-					<?php $x++; }
+				<?php 
+						$x++; 
+					}
 				?>
 				</tbody>
 				</table>
@@ -92,142 +101,142 @@ $(document).ready(function(){
 		$("#viewdata").css({"display": ""})		
 	})	
 
-	$("#btn-trigger-controll").click(function(){
-		var res_status   = 0;
-		var flag_allowed = 0;
-		var oid          = $("#oid").val();
-		var crud         = $("#crud").val();
-		var f_name       = $("#f_name").val();
-		var f_desc       = $("#f_desc").val();		
-		var f_file       = $("#f_file").prop('files')[0];
+	// $("#btn-trigger-controll").click(function(){
+	// 	var res_status   = 0;
+	// 	var flag_allowed = 0;
+	// 	var oid          = $("#oid").val();
+	// 	var crud         = $("#crud").val();
+	// 	var f_name       = $("#f_name").val();
+	// 	var f_desc       = $("#f_desc").val();		
+	// 	var f_file       = $("#f_file").prop('files')[0];
 
-		var data_sender = {
-			'oid'   : oid,
-			'crud'  : crud,
-			'f_name': f_name,
-			'f_desc': f_desc
-		}
+	// 	var data_sender = {
+	// 		'oid'   : oid,
+	// 		'crud'  : crud,
+	// 		'f_name': f_name,
+	// 		'f_desc': f_desc
+	// 	}
 
-		if (crud == 'insert') {
-			if (f_file == undefined) {
-				flag_allowed = 0;
-				Lobibox.alert("warning", //AVAILABLE TYPES: "error", "info", "success", "warning"
-				{
-					title: 'Peringatan',					
-					msg: "Data Sampul Buku tidak ditemukan, mohon lengkapi data tersebut"
-				});												
-			}
-			else
-			{
-				flag_allowed = 1;				
-			}
-		}
-		else
-		{
-			flag_allowed = 1;
-		}
+	// 	if (crud == 'insert') {
+	// 		if (f_file == undefined) {
+	// 			flag_allowed = 0;
+	// 			Lobibox.alert("warning", //AVAILABLE TYPES: "error", "info", "success", "warning"
+	// 			{
+	// 				title: 'Peringatan',					
+	// 				msg: "Data Sampul Buku tidak ditemukan, mohon lengkapi data tersebut"
+	// 			});												
+	// 		}
+	// 		else
+	// 		{
+	// 			flag_allowed = 1;				
+	// 		}
+	// 	}
+	// 	else
+	// 	{
+	// 		flag_allowed = 1;
+	// 	}
 
-		if (f_name.length <= 0 || f_file == undefined) {
-			if (f_name.length <= 0) {
-				Lobibox.alert("warning", //AVAILABLE TYPES: "error", "info", "success", "warning"
-				{
-					title: 'Peringatan',					
-					msg: "Data Judul Buku belum terisi, mohon lengkapi data tersebut"
-				});				
-			}
-		}
-		else
-		{
-			if (f_file == undefined) {
-				var data_sender = {
-								'oid'   : oid,
-								'crud'  : 'update',
-								'f_name': f_name
-							}				
-				$.ajax({
-					url :"<?php echo site_url();?>bank_data/buku/store",
-					type:"post",
-					data:{data_sender : data_sender},
-					beforeSend:function(){
-						$("#editData").modal('hide');
-						$("#loadprosess").modal('show');
-					},
-					success:function(msg){
-						var obj = jQuery.parseJSON (msg);
-						ajax_status(obj);
-					},
-					error:function(jqXHR,exception)
-					{
-						ajax_catch(jqXHR,exception);					
-					}
-				})				
-			}
-			else
-			{
-				var form_data = new FormData();
-				form_data.append('file', f_file);
-				$.ajax({
-					url :"<?php echo site_url();?>bank_data/buku/upload_data/"+crud+"/"+oid, // point to server-side PHP script
-					// dataType: 'json',  // what to expect back from the PHP script, if anything
-					cache: false,
-					contentType: false,
-					processData: false,
-					data: form_data,
-					type: 'post',
-					beforeSend:function(){
-						$("#editData").modal('hide');
-						$("#loadprosess").modal('show');                                                
-					},
-					success: function(msg1){
-						var obj1 = jQuery.parseJSON (msg1);             	
-						if (obj1.status == 1)
-						{
-							var data_sender = {
-								'oid'   : obj1.id,
-								'crud'  : 'update',
-								'f_name': f_name,
-								'f_desc': f_desc
-							}
+	// 	if (f_name.length <= 0 || f_file == undefined) {
+	// 		if (f_name.length <= 0) {
+	// 			Lobibox.alert("warning", //AVAILABLE TYPES: "error", "info", "success", "warning"
+	// 			{
+	// 				title: 'Peringatan',					
+	// 				msg: "Data Judul Buku belum terisi, mohon lengkapi data tersebut"
+	// 			});				
+	// 		}
+	// 	}
+	// 	else
+	// 	{
+	// 		if (f_file == undefined) {
+	// 			var data_sender = {
+	// 							'oid'   : oid,
+	// 							'crud'  : 'update',
+	// 							'f_name': f_name
+	// 						}				
+	// 			$.ajax({
+	// 				url :"<?php echo site_url();?>bank_data/buku/store",
+	// 				type:"post",
+	// 				data:{data_sender : data_sender},
+	// 				beforeSend:function(){
+	// 					$("#editData").modal('hide');
+	// 					$("#loadprosess").modal('show');
+	// 				},
+	// 				success:function(msg){
+	// 					var obj = jQuery.parseJSON (msg);
+	// 					ajax_status(obj);
+	// 				},
+	// 				error:function(jqXHR,exception)
+	// 				{
+	// 					ajax_catch(jqXHR,exception);					
+	// 				}
+	// 			})				
+	// 		}
+	// 		else
+	// 		{
+	// 			var form_data = new FormData();
+	// 			form_data.append('file', f_file);
+	// 			$.ajax({
+	// 				url :"<?php echo site_url();?>bank_data/buku/upload_data/"+crud+"/"+oid, // point to server-side PHP script
+	// 				// dataType: 'json',  // what to expect back from the PHP script, if anything
+	// 				cache: false,
+	// 				contentType: false,
+	// 				processData: false,
+	// 				data: form_data,
+	// 				type: 'post',
+	// 				beforeSend:function(){
+	// 					$("#editData").modal('hide');
+	// 					$("#loadprosess").modal('show');                                                
+	// 				},
+	// 				success: function(msg1){
+	// 					var obj1 = jQuery.parseJSON (msg1);             	
+	// 					if (obj1.status == 1)
+	// 					{
+	// 						var data_sender = {
+	// 							'oid'   : obj1.id,
+	// 							'crud'  : 'update',
+	// 							'f_name': f_name,
+	// 							'f_desc': f_desc
+	// 						}
 
-							$.ajax({
-								url :"<?php echo site_url();?>bank_data/buku/store",
-								type:"post",
-								data:{data_sender : data_sender},
-								beforeSend:function(){
-									$("#editData").modal('hide');
-									$("#loadprosess").modal('show');
-								},
-								success:function(msg){
-									var obj = jQuery.parseJSON (msg);
-									ajax_status(obj);
-								},
-								error:function(jqXHR,exception)
-								{
-									ajax_catch(jqXHR,exception);					
-								}
-							})
-						}
-						else
-						{
-							Lobibox.notify('warning', {msg: obj1.text});
-							setTimeout(function(){
-								$("#loadprosess").modal('hide');
-							}, 500);
-						}
-					},
-					error:function(jqXHR,exception)
-					{
-						ajax_catch(jqXHR,exception);					
-					}
-				}); 
-			}
-		}
-	})
+	// 						$.ajax({
+	// 							url :"<?php echo site_url();?>bank_data/buku/store",
+	// 							type:"post",
+	// 							data:{data_sender : data_sender},
+	// 							beforeSend:function(){
+	// 								$("#editData").modal('hide');
+	// 								$("#loadprosess").modal('show');
+	// 							},
+	// 							success:function(msg){
+	// 								var obj = jQuery.parseJSON (msg);
+	// 								ajax_status(obj);
+	// 							},
+	// 							error:function(jqXHR,exception)
+	// 							{
+	// 								ajax_catch(jqXHR,exception);					
+	// 							}
+	// 						})
+	// 					}
+	// 					else
+	// 					{
+	// 						Lobibox.notify('warning', {msg: obj1.text});
+	// 						setTimeout(function(){
+	// 							$("#loadprosess").modal('hide');
+	// 						}, 500);
+	// 					}
+	// 				},
+	// 				error:function(jqXHR,exception)
+	// 				{
+	// 					ajax_catch(jqXHR,exception);					
+	// 				}
+	// 			}); 
+	// 		}
+	// 	}
+	// })
 })
 
 function edit(id){
 	$.ajax({
-		url :"<?php echo site_url();?>bank_data/soal/get_data/"+id+"/ajax/mr_buku",
+		url :"<?php echo site_url();?>bank_data/soal/get_data/"+id+"/ajax/",
 		type:"post",
 		beforeSend:function(){
 			$("#loadprosess").modal('show');

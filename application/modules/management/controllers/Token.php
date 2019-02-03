@@ -37,7 +37,12 @@ class Token extends CI_Controller {
 		if ($data_sender['crud'] == 'insert') 
 		{
 			# code...
-			for ($i=0; $i < 100; $i++) { 
+			$counter = 500;
+			if ($data_sender['oid'] == 5 || $data_sender['oid'] == 6) {
+				# code...
+				$counter = 1;
+			}
+			for ($i=0; $i < $counter; $i++) { 
 				# code...
 				$token     = $this->get_token()['token'];
 				$res_token = $this->get_token()['res'];
@@ -55,13 +60,12 @@ class Token extends CI_Controller {
 		} elseif ($data_sender['crud'] == 'update') {
 			# code...
 			$data_store['name']            = $data_sender['f_name'];
-			$data_store['desc']            = $data_sender['f_desc'];			
-			            $res_data          = $this->Allcrud->editData('mr_buku',$data_store,array('id'=>$data_sender['oid']));
-			            $text_status       = $this->Globalrules->check_status_res($res_data,'Data Buku berhasil diupdate.');			
+			            $res_data          = $this->Allcrud->editData('mr_token',$data_store,array('id'=>$data_sender['oid']));
+			            $text_status       = $this->Globalrules->check_status_res($res_data,'Data berhasil diupdate.');			
 		} elseif ($data_sender['crud'] == 'delete') {
 			# code...
-			$res_data          = $this->Allcrud->delData('mr_buku',array('id'=>$data_sender['oid']));
-			$text_status       = $this->Globalrules->check_status_res($res_data,'Data Buku telah berhasil dihapus.');			
+			// $res_data          = $this->Allcrud->delData('mr_buku',array('id'=>$data_sender['oid']));
+			// $text_status       = $this->Globalrules->check_status_res($res_data,'Data Buku telah berhasil dihapus.');			
 		}
 
 		$res = array
@@ -87,10 +91,10 @@ class Token extends CI_Controller {
 		}						
 	}
 
-	public function get_data($id,$arg=NULL,$table)
+	public function get_data($id,$arg=NULL,$table=NULL)
 	{
 		# code...
-		$data       = $this->Allcrud->getData($table,array('id'=>$id));		
+		$data       = $this->Allcrud->getData('mr_token',array('id'=>$id));		
 		if ($arg == 'ajax') {
 			# code...
 			$res_status = "";
@@ -139,7 +143,14 @@ class Token extends CI_Controller {
 			# code...
 			$title = '';
 		}
-		$data['title']   = 'Token '.$title;
+
+		$_text = "Token";
+		if ($oid == 5 || $oid == 6) {
+			# code...
+			$_text = "Password";
+		}
+
+		$data['title']   = $_text.' '.$title;
 		$data['content'] = 'management/token/detail';
 		$data['list']    = $this->Allcrud->getData('mr_token',array('id_layanan'=>$oid));
 		$data['oid']     = $oid;
