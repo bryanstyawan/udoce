@@ -118,8 +118,8 @@ class Try_out extends CI_Controller {
 			$data_store  = $this->Globalrules->trigger_insert_update($data_sender['crud']);			
 			$data_store['name']            = $data_sender['f_name'];
 			$data_store['desc_pembahasan'] = $data_sender['f_desc_pembahasan'];
-			            $res_data          = $this->Allcrud->editData('mr_soal',$data_store,array('id'=>$data_sender['oid']));
-			            $text_status       = $this->Globalrules->check_status_res($res_data,'Data Paket Try out telah berhasil diubah.');			
+			            $res_data          = $this->Allcrud->editData('mr_try_out_soal',$data_store,array('id'=>$data_sender['oid']));
+			            $text_status       = $this->Globalrules->check_status_res($res_data,'Data Soal Try out telah berhasil diubah.');			
 		} elseif ($data_sender['crud'] == 'delete') {
 			# code...
 			$res_data          = $this->Allcrud->delData('mr_soal',array('id'=>$data_sender['oid']));
@@ -211,33 +211,50 @@ class Try_out extends CI_Controller {
 		$this->load->view('templateAdmin',$data);
 	}	
 
-	public function store_soal_detail(Type $var = null)
+	public function store_soal_detail($param=NULL)
 	{
 		# code...
 		$res_data    = 0;
 		$text_status = '';
 		$data_sender = $this->input->post('data_sender');		
 
-		for ($i=0; $i < count($data_sender); $i++) { 
+		if ($param == 'insert') {
 			# code...
-			$data_store = $this->Globalrules->trigger_insert_update($data_sender[$i]['crud']);
-			$count_data = $this->Allcrud->getData('mr_try_out_soal_detail',array('id_soal'=>$data_sender[$i]['oid_header']));
-			$data_alp   = $this->Globalrules->data_alphabet(count($count_data->result_array()));			
-
-			if ($data_sender[$i]['f_jawaban'] == 'true') {
+			for ($i=0; $i < count($data_sender); $i++) { 
 				# code...
-				$data_store1['jawaban'] = $data_alp;
+				$data_store = $this->Globalrules->trigger_insert_update($data_sender[$i]['crud']);
+				$count_data = $this->Allcrud->getData('mr_try_out_soal_detail',array('id_soal'=>$data_sender[$i]['oid_header']));
+				$data_alp   = $this->Globalrules->data_alphabet(count($count_data->result_array()));			
+
+				if ($data_sender[$i]['f_jawaban'] == 'true') {
+					# code...
+					$data_store1['jawaban'] = $data_alp;
+					$data_store ['jawaban'] = 'false';
+					$res_data  = $this->Allcrud->editData('mr_try_out_soal',$data_store1,array('id'=>$data_sender[$i]['oid_header']));
+					// $res_data  = $this->Allcrud->editData('mr_soal_detail',$data_store,array('id_soal'=>$data_sender[$i]['oid_header']));
+				}
+				$data_store['choice']  = $data_alp;
+				$data_store['id_soal'] = $data_sender[$i]['oid_header'];
+				$data_store['name']    = $data_sender[$i]['f_name'];
+				$data_store['jawaban'] = $data_sender[$i]['f_jawaban'];
+				$data_store['bobot']   = $data_sender[$i]['f_bobot'];
+				$res_data    = $this->Allcrud->addData('mr_try_out_soal_detail',$data_store);
+				$text_status = $this->Globalrules->check_status_res($res_data,'Data Jawaban telah berhasil ditambahkan.');			
+			}			
+		}
+		elseif ($param == 'update') {
+			# code...
+			if ($data_sender['f_jawaban'] == 'true') {
+				# code...
+				$data_store1['jawaban'] = $data_sender['f_key'];
 				$data_store ['jawaban'] = 'false';
-				$res_data  = $this->Allcrud->editData('mr_try_out_soal',$data_store1,array('id'=>$data_sender[$i]['oid_header']));
-				// $res_data  = $this->Allcrud->editData('mr_soal_detail',$data_store,array('id_soal'=>$data_sender[$i]['oid_header']));
-			}
-			$data_store['choice']  = $data_alp;
-			$data_store['id_soal'] = $data_sender[$i]['oid_header'];
-			$data_store['name']    = $data_sender[$i]['f_name'];
-			$data_store['jawaban'] = $data_sender[$i]['f_jawaban'];
-			$data_store['bobot']   = $data_sender[$i]['f_bobot'];
-			$res_data    = $this->Allcrud->addData('mr_try_out_soal_detail',$data_store);
-			$text_status = $this->Globalrules->check_status_res($res_data,'Data Jawaban telah berhasil ditambahkan.');			
+				$res_data  = $this->Allcrud->editData('mr_try_out_soal',$data_store1,array('id'=>$data_sender['oid_header']));
+				$res_data  = $this->Allcrud->editData('mr_try_out_soal_detail',$data_store,array('id_soal'=>$data_sender['oid_header']));
+			}			
+			$data_store['name']      = $data_sender['f_name'];
+			$data_store['jawaban']   = $data_sender['f_jawaban'];
+			$res_data    = $this->Allcrud->editData('mr_try_out_soal_detail',$data_store,array('id'=>$data_sender['oid']));
+			$text_status = $this->Globalrules->check_status_res($res_data,'Data Jawaban telah berhasil diubah.');			
 		}
 
 		$res = array
@@ -247,4 +264,190 @@ class Try_out extends CI_Controller {
 					);
 		echo json_encode($res);		
 	}
+
+	public function upload_data_soal($arg,$oid=NULL)
+	{
+		# code...
+		$config['upload_path']   = FCPATH.'/public/soal/';
+		$config['allowed_types'] = 'jpg|jpeg|png';
+		$config['max_size']      = '5000';
+		$this->load->library('upload', $config);
+		$id_pekerjaan = "";
+		$f_file       = "";
+		$res_data     = 0;
+		$res_data_id  = "";
+		$text_status  = "";
+		$data         = "";
+		$msg          = "";
+
+		$data_store  = $this->Globalrules->trigger_insert_update($arg);
+		
+		if ($arg == 'insert') {
+			# code...
+			// if ( ! $this->upload->do_upload('file')){
+			// 	$res_data = 0;
+			// 	$msg      = $this->upload->display_errors();
+			// 	$f_file   = "";
+			// }
+			// else
+			// {
+			// 	$dataupload = $this->upload->data();
+			// 	$res_data   = 1;				
+			// 	$msg        = $dataupload['file_name']." berhasil diupload";
+			// 	$f_file     = $this->upload->data('file_name');
+			// }
+
+			// if ($res_data == 1) {
+			// 	if ($f_file != '')$data_store['image'] = $f_file;
+	
+			// 	$data_store['image']      = $f_file;
+			// 	            $process     = $this->Allcrud->addData_with_return_id('mr_buku',$data_store);
+			// 	            $res_data    = $process['status'];
+			// 	            $res_data_id = $process['id'];
+			// 	            $text_status = $this->Globalrules->check_status_res($res_data,$msg);
+			// }
+			// else {
+			// 	# code...
+			// 	$text_status = $msg;								
+			// }
+		}
+		elseif ($arg == 'update') {
+			# code...
+			$get_data     = $this->get_data($oid,'result_array','mr_try_out_soal');
+			$path_to_file = $config['upload_path'].$get_data[0]['image'];
+			if ($get_data[0]['image'] != '' || $get_data[0]['image'] != NULL) {
+				# code...
+				$param_file_exists = 0;
+				if (file_exists($path_to_file)) {
+					# code...
+					$param_file_exists = 1;
+					if(unlink($path_to_file)) {
+						// echo 'deleted successfully';
+					}
+					else {
+						echo 'errors occured';
+					}							
+				}
+				else {
+					# code...
+					$param_file_exists = 0;				
+				}				
+			}				
+
+			if ( ! $this->upload->do_upload('file')){
+				$res_data = 0;
+				$msg      = $this->upload->display_errors();
+				$f_file   = "";
+			}
+			else
+			{
+				$dataupload = $this->upload->data();
+				$res_data   = 1;				
+				$msg        = $dataupload['file_name']." berhasil diupload";
+				$f_file     = $this->upload->data('file_name');
+			}
+			if ($res_data == 1) {
+				# code...
+				if ($f_file != '')$data_store['image'] = $f_file;
+	
+				$data_store['image']      = $f_file;
+								$process     = $this->Allcrud->editData('mr_try_out_soal',$data_store,array('id'=>$oid));
+								$res_data    = $process;
+								$res_data_id = $oid;
+								$text_status = $this->Globalrules->check_status_res($res_data,$msg);
+			}
+			elseif($res_data == 0) {
+				# code...
+				$text_status = $msg;				
+			}
+		}
+
+		$res = array
+		(
+			'status' => $res_data,
+			'text'   => $text_status,
+			'id'     => $res_data_id
+		);
+		echo json_encode($res);						
+	}	
+
+	public function upload_data_soal_jawaban($arg,$oid=NULL)
+	{
+		# code...
+		$config['upload_path']   = FCPATH.'/public/soal/';
+		$config['allowed_types'] = 'jpg|jpeg|png';
+		$config['max_size']      = '5000';
+		$this->load->library('upload', $config);
+		$id_pekerjaan = "";
+		$f_file       = "";
+		$res_data     = 0;
+		$res_data_id  = "";
+		$text_status  = "";
+		$data         = "";
+		$msg          = "";
+
+		$data_store  = $this->Globalrules->trigger_insert_update($arg);
+		
+		if ($arg == 'insert') {
+			# code...
+		}
+		elseif ($arg == 'update') {
+			# code...
+			$get_data     = $this->get_data($oid,'result_array','mr_try_out_soal_detail');
+			$path_to_file = $config['upload_path'].$get_data[0]['image'];
+			if ($get_data[0]['image'] != '' || $get_data[0]['image'] != NULL) {
+				# code...
+				$param_file_exists = 0;
+				if (file_exists($path_to_file)) {
+					# code...
+					$param_file_exists = 1;
+					if(unlink($path_to_file)) {
+						// echo 'deleted successfully';
+					}
+					else {
+						echo 'errors occured';
+					}							
+				}
+				else {
+					# code...
+					$param_file_exists = 0;				
+				}				
+			}				
+
+			if ( ! $this->upload->do_upload('file')){
+				$res_data = 0;
+				$msg      = $this->upload->display_errors();
+				$f_file   = "";
+			}
+			else
+			{
+				$dataupload = $this->upload->data();
+				$res_data   = 1;				
+				$msg        = $dataupload['file_name']." berhasil diupload";
+				$f_file     = $this->upload->data('file_name');
+			}
+			if ($res_data == 1) {
+				# code...
+				if ($f_file != '')$data_store['image'] = $f_file;
+	
+				$data_store['image']     = $f_file;
+				$process     = $this->Allcrud->editData('mr_try_out_soal_detail',$data_store,array('id'=>$oid));
+				$res_data    = $process;
+				$res_data_id = $oid;
+				$text_status = $this->Globalrules->check_status_res($res_data,$msg);
+			}
+			elseif($res_data == 0) {
+				# code...
+				$text_status = $msg;				
+			}
+		}
+
+		$res = array
+		(
+			'status' => $res_data,
+			'text'   => $text_status,
+			'id'     => $res_data_id
+		);
+		echo json_encode($res);						
+	}		
 }

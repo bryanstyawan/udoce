@@ -138,6 +138,8 @@ class User extends CI_Controller {
 				}
 				$data['timeout'] = $timeout ;
 			}
+
+			// print_r($data['timeout']);die();
 			$this->load->view('templateAdmin',$data);					
 					
 		}

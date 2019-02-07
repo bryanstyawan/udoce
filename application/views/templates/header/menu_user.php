@@ -2,8 +2,8 @@
 if ($this->session->userdata('session_role') == 3) {
     # code...
 ?>
-<li class="dropdown notifications-menu open">
-    <a href="#" class="dropdown-toggle" data-toggle="dropdown" aria-expanded="true" id="open_menu">
+<li class="dropdown notifications-menu">
+    <a href="#" class="dropdown-toggle" data-toggle="dropdown" aria-expanded="false" id="open_menu">
         <i id="viewnavbarcontent" class="fa fa-navicon"></i>
     </a>
     <ul class="dropdown-menu" style="left: auto;">

@@ -86,7 +86,7 @@ if ($list_soal != array()) {
 								<div class="col-lg-1">
 									<p style="font-size:22px;"><?=(($counter_soal+1) < 10) ? str_pad(($counter_soal+1),2,"0",STR_PAD_LEFT) : ($counter_soal+1);?>.</p> 									
 								</div>
-								<div class="col-lg-11"><p style="font-size:22px;text-align: justify;"><?=$list_soal[$counter_soal]['name'];?></p></div>
+								<div class="col-lg-11"><p style="font-size:22px;text-align: justify;"><?=($list_soal[$counter_soal]['image'] == '') ? $list_soal[$counter_soal]['name'] : '<img src="'.base_url().'public/soal/'.$list_soal[$counter_soal]['image'].'">';?></p></div>
                             </div>
                         </div>
                         
@@ -119,7 +119,7 @@ if ($list_soal != array()) {
                             ?>
                                         <div class="row row_choice" id="row_<?=$get_data_detail[$i]['id'];?>" style="padding:10px;<?=$style_background;?>">
                                             <div class="col-lg-2 col-xs-3"><a onclick="choice(<?=$get_data_detail[$i]['id'];?>,<?=$get_data_detail[$i]['id_soal'];?>,<?=$list_soal[$counter_soal]['id_parent'];?>,<?=$list_soal[$counter_soal]['id_paket'];?>)" class="btn btn-warning btn-xs" style="font-size:20px;"><?=$get_data_detail[$i]['choice'];?></a></div>
-                                            <div class="col-lg-10" style="padding-left: 0px;font-size:22px;"><?=$get_data_detail[$i]['name'];?></div>                                        
+                                            <div class="col-lg-10" style="padding-left: 0px;font-size:22px;"><?=($get_data_detail[$i]['image'] == '') ? $get_data_detail[$i]['name'] : '<img src="'.base_url().'public/soal/'.$get_data_detail[$i]['image'].'">' ;?></div>                                        
                                         </div>
                             <?php
                                     }
@@ -181,6 +181,11 @@ if ($list_soal != array()) {
 										// $data_soal        = $this->Allcrud->getdata('mr_try_out_soal',array('id'=>$list_soal[$i]['id']))->result_array();
 										
 										$counter = ($i < 10) ? str_pad($i+1,2,"0",STR_PAD_LEFT) : $i + 1;
+										if (($counter_soal+1) == $counter) {
+											# code...
+											$color            = "color:#000;";
+											$background_color = "background-color:yellow;";											
+										}										
                             ?>
                                         <a onclick="go(<?=$list_soal[$counter_soal_x]['id_parent'];?>,<?=$list_soal[$counter_soal_x]['id_paket'];?>,<?=$i;?>,2)" class="btn btn-default" style="<?=$background_color;?><?=$color;?>"><?=$counter;?></a>
                             <?php
@@ -219,7 +224,7 @@ if ($list_soal != array()) {
 		if (seconds == 0) {
 			clearInterval(countdownTimer);
 			document.getElementById('time_counter').innerHTML = "Jam ujian telah telah selesai";
-			window.location.href = "<?php echo site_url();?>user/try_out/selesai/"+$("#oid_parent").val()+"/"+$("#oid_paket").val();					
+			window.location.href = "<?php echo site_url();?>user/try_out/analisis/"+$("#oid_parent").val()+"/"+$("#oid_paket").val();					
 		} else {
 			
 			if (seconds <= 600) {

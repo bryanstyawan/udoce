@@ -81,7 +81,7 @@
 					<div class="col-md-4">
 						<div class="form-group">
 							<label>ID LINE</label>
-							<input type="number" class="form-control" id="f_id_line" placeholder="ID LINE">
+							<input type="text" class="form-control" id="f_id_line" placeholder="ID LINE">
 						</div>
 					</div>				
 					

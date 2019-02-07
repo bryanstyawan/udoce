@@ -439,7 +439,6 @@ function choose_paket_try_out(_id,_name) {
 						if (tryout_gratis == 5) {
 							if (_id == 1) {
 								paket_choice = 1;
-								paket_choice = "";
 								lock_choice  = "Mulai";
 							}
 						}
@@ -447,7 +446,6 @@ function choose_paket_try_out(_id,_name) {
 						{
 							if (_id == 2) {
 								paket_choice = 1;
-								paket_choice = "";
 								lock_choice  = "Mulai";
 							}
 						}

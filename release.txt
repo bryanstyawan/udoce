@@ -6,6 +6,7 @@ New:
     - password gratis try out
     - ubah password gratis try out
     - verifikasi gratis try out
+- Ubah Soal try out & file
 Improved:
 Fixed:
 
@@ -19,7 +20,7 @@ New:
 Improved:
 - set format yang didukung di video materi (mp4|mkv|flv)
 - set maksimal ukuran video materi (500mb)
-- Progressbar upload video materis
+- Progressbar upload video materi
 Fixed:
 
 v1.0.0    

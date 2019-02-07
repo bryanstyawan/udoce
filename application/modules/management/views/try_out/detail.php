@@ -26,23 +26,51 @@
 						}
 					?>
 
-					<div class="col-md-6">
-						<div class="form-group">
-							<label>Deskripsi Soal</label>
-							<textarea class="form-control" id="f_name_soal" rows="3" placeholder="Deskripsi Soal" disabled="disabled"><?=$list[0]['name'];?></textarea>
-						</div>
-					</div>
 
+
+					<!-- <label class="col-lg-12">Deskripsi Soal</label> -->
 					<?php
-						if ($type != 5) {
+						if ($list['0']['image'] == NULL) {
 							# code...
 					?>
-					<div class="col-md-6">						
-						<div class="form-group">
-							<label>Deskripsi Pembahasan</label>
-							<textarea class="form-control" id="f_desc_pembahasan_soal" rows="3" placeholder="Deskripsi Pembahasan" disabled="disabled"><?=$list[0]['desc_pembahasan'];?></textarea>
-						</div>						
-					</div>
+							<div class="col-md-12 text-center">
+								<div class="form-group">
+									<p><?=$list[0]['name'];?></p>
+								</div>
+							</div>									
+
+							<?php
+								if ($type != 5) {
+									# code...
+							?>
+								<div class="col-md-12 text-center">						
+									<label class="col-lg-12" style="text-align: left;">Deskripsi Pembahasan</label>
+									<p><?=$list[0]['desc_pembahasan'];?></p>																					
+								</div>
+							<?php
+								}
+							?>							
+					<?php
+						} else {
+							# code...
+					?>	
+							<div class="col-md-12 text-center">
+								<div class="form-group">							
+									<img src="<?=base_url();?>public/soal/<?=$list['0']['image'];?>">										
+								</div>
+							</div>									
+
+							<?php
+								if ($type != 5) {
+									# code...
+							?>
+								<div class="col-md-12 text-center">						
+									<label class="col-lg-12" style="text-align: left;">Deskripsi Pembahasan</label>
+									<p><?=$list[0]['desc_pembahasan'];?></p>																					
+								</div>
+							<?php
+								}
+							?>							
 					<?php
 						}
 					?>
@@ -188,7 +216,7 @@
 				?>
 						<tr style="<?=$color_row;?>">
 							<td><?php echo $row->choice;?></td>							
-							<td><?php echo $row->name;?></td>							
+							<td><?php echo ($row->image == '') ? $row->name : '<img src="'.base_url().'public/soal/'.$row->image.'">';?></td>							
 							<?php
 							if ($type == 5) {
 								# code...
@@ -203,7 +231,7 @@
 									if ($row->jawaban == 'false') {
 										# code...
 								?>
-								<!-- <button class="btn btn-success btn-xs" onclick="true_answer('<?php echo $row->id;?>')"><i class="fa "></i> Jawaban Yang Benar</button>								 -->
+								<button class="btn btn-success btn-xs" onclick="true_answer('<?php echo $row->id;?>')"><i class="fa "></i> Jawaban Yang Benar</button>								
 								<?php
 									}
 								?>
@@ -247,6 +275,22 @@
 							<input class="minimal" id="f_jawaban" type="checkbox" style="display: block;position: absolute;width: 4%;height: 100%;">
 						</div>						
 					</div>
+
+                    <div class="col-md-12">
+                        <div class="form-group">
+                            <label>File</label>
+							<input type="file" class="form-control" placeholder="File Gambar" id="f_file">
+                        </div>
+                    </div>
+
+					<div class="col-lg-12">
+						<div class="progress" style="display:none">
+							<div id="progressBar" class="progress-bar progress-bar-striped active" role="progressbar" aria-valuenow="0" aria-valuemin="0" aria-valuemax="100" style="width: 0%">
+								<span class="sr-only">0%</span>
+							</div>
+						</div>
+						<div class="msg alert alert-info text-left" style="display:none"></div>					
+					</div>					
 				</div>
 
 			</div><!-- /.box-body -->
@@ -408,33 +452,148 @@ $(document).ready(function(){
 		$("#viewdata").css({"display": ""})		
 	})		
 
-	$("#btn-trigger-controll-multi").click(function() {
+	$("#btn-trigger-controll").click(function(){
         var data_sender = [];
+        var crud        = $("#crud").val(); 
         var inputs      = document.getElementsByName("oidmulti");
-		var flag = 0;
-		for (index = 0; index < inputs.length; index++) {
-			data_sender[index] = {
-				'oid'       : $("#oid_multi_"+index).val(),
-				'crud'      : $("#crud_multi_"+index).val(),
-				'oid_header': $("#oid_header").val(),
-				'f_name'    : $("#f_name_multi_"+index).val(),
-				'f_bobot'   : $("#f_bobot_multi_"+index).val(),
-				'f_jawaban' : $("#f_jawaban_multi_"+index).is(":checked"),
-				'f_key'     : $("#f_key_multi_"+index).val()
+        var flag        = 0;
+
+		if (crud == 'update') 
+		{
+			data_sender = {
+					'oid'       : $("#oid").val(),
+					'crud'      : crud,
+					'oid_header': $("#oid_header").val(),
+					'f_name'    : $("#f_name").val(),
+					'f_bobot'   : $("#f_bobot").val(),
+					'f_jawaban' : $("#f_jawaban").is(":checked"),
+					'f_key'     : $("#f_key").val()
+				}			
+			flag = 1;	
+
+			var f_file      = $("#f_file").prop('files')[0];
+			if (f_file != undefined)
+			{
+				var form_data = new FormData();
+				form_data.append('file', f_file);
+				$.ajax({
+					url :"<?php echo site_url();?>management/try_out/upload_data_soal_jawaban/"+crud+"/"+$("#oid").val(),						
+					// dataType: 'json',  // what to expect back from the PHP script, if anything
+					cache: false,
+					contentType: false,
+					processData: false,
+					data: form_data,
+					type: 'post',
+					xhr : function() {
+						var xhr = new window.XMLHttpRequest();
+						xhr.upload.addEventListener('progress', function(e){
+							if(e.lengthComputable){								
+								var percent = Math.round((e.loaded / e.total) * 100);
+								$('#progressBar').attr('aria-valuenow', percent).css('width', percent + '%').text(percent + '%');
+							}
+						});
+						return xhr;
+					},											
+					beforeSend:function(){
+						$("#editData").modal('hide');
+						$("#loadprosess").modal('show');                                                
+					},
+					success: function(msg1){
+						var obj1 = jQuery.parseJSON (msg1);             	
+						if (obj1.status == 1)
+						{
+							Lobibox.notify('Sukses', {msg: obj1.text});
+						}
+						else
+						{
+							Lobibox.notify('warning', {msg: obj1.text});
+							setTimeout(function(){
+								$("#loadprosess").modal('hide');
+							}, 500);
+						}
+					},
+					error:function(jqXHR,exception)
+					{
+						ajax_catch(jqXHR,exception);					
+					}
+				}); 
 			}			
 
-			if ($("#f_name_multi_"+index).val().length <= 0) {
-				flag = 0;
-			}
-			else 
-			{
-				flag = 1;
-			}
 		}
 
 		if (flag == 1) {
 			$.ajax({
-				url :"<?php echo site_url();?>management/try_out/store_soal_detail",
+				url :"<?php echo site_url();?>management/try_out/store_soal_detail/"+crud,
+				type:"post",
+				data:{data_sender : data_sender},
+				beforeSend:function(){
+					$("#editData").modal('hide');
+					$("#loadprosess").modal('show');
+				},
+				success:function(msg){
+					var obj = jQuery.parseJSON (msg);
+					ajax_status(obj);
+				},
+				error:function(jqXHR,exception)
+				{
+					ajax_catch(jqXHR,exception);					
+				}
+			})					
+		}
+		else
+		{
+			Lobibox.alert("warning", //AVAILABLE TYPES: "error", "info", "success", "warning"
+				{
+					title: 'Peringatan',					
+					msg: "Harap lengkapi data"
+				});							
+		}
+	})
+
+	$("#btn-trigger-controll-multi").click(function() {
+        var data_sender = [];
+        var crud        = $("#crud").val(); 
+        var inputs      = document.getElementsByName("oidmulti");
+        var flag        = 0;
+
+		if (crud == 'insert') 
+		{
+			for (index = 0; index < inputs.length; index++) {
+				data_sender[index] = {
+					'oid'       : $("#oid_multi_"+index).val(),
+					'crud'      : $("#crud_multi_"+index).val(),
+					'oid_header': $("#oid_header").val(),
+					'f_name'    : $("#f_name_multi_"+index).val(),
+					'f_bobot'   : $("#f_bobot_multi_"+index).val(),
+					'f_jawaban' : $("#f_jawaban_multi_"+index).is(":checked"),
+					'f_key'     : $("#f_key_multi_"+index).val()
+				}			
+
+				if ($("#f_name_multi_"+index).val().length <= 0) {
+					flag = 0;
+				}
+				else 
+				{
+					flag = 1;
+				}
+			}			
+		}
+		else
+		{
+			data_sender = {
+					'oid'       : $("#oid").val(),
+					'crud'      : crud,
+					'oid_header': $("#oid_header").val(),
+					'f_name'    : $("#f_name").val(),
+					'f_bobot'   : $("#f_bobot").val(),
+					'f_jawaban' : $("#f_jawaban").is(":checked"),
+					'f_key'     : $("#f_key").val()
+				}			
+		}
+
+		if (flag == 1) {
+			$.ajax({
+				url :"<?php echo site_url();?>management/try_out/store_soal_detail/"+crud,
 				type:"post",
 				data:{data_sender : data_sender},
 				beforeSend:function(){
@@ -465,7 +624,7 @@ $(document).ready(function(){
 
 function edit(id){
 	$.ajax({
-		url :"<?php echo site_url();?>bank_data/soal/get_data/"+id+"/ajax/mr_soal_detail",
+		url :"<?php echo site_url();?>bank_data/soal/get_data/"+id+"/ajax/mr_try_out_soal_detail",
 		type:"post",
 		beforeSend:function(){
 			$("#loadprosess").modal('show');
@@ -481,7 +640,15 @@ function edit(id){
 				$("#crud").val('update');
 				$("#oid").val(obj.data[0]['id']);
 				$("#f_name").val(obj.data[0]['name']);
-				$("#f_jawaban").val(obj.data[0]['name']);
+				if (obj.data[0]['jawaban'] == 'true') 
+				{
+					$("#f_jawaban").prop('checked',true);					
+				}
+				else
+				{
+					$("#f_jawaban").prop('checked', false);
+				}
+
 				$("#f_key").val(obj.data[0]['choice']);																
 				$("#loadprosess").modal('hide');				
 			}
@@ -498,6 +665,34 @@ function edit(id){
 			ajax_catch(jqXHR,exception);					
 		}
 	})
+}
+
+function true_answer(id)
+{
+	Lobibox.confirm({
+		title   : "Konfirmasi",
+		msg     : "Anda yakin, jawaban ini yang benar ?",
+		callback: function ($this, type) {
+			if (type === 'yes'){			
+				$.ajax({
+					url :"<?php echo site_url();?>bank_data/soal/store_detail/"+'delete/'+id,
+					type:"post",
+					beforeSend:function(){
+						$("#editData").modal('hide');
+						$("#loadprosess").modal('show');
+					},
+					success:function(msg){
+						var obj = jQuery.parseJSON (msg);
+						ajax_status(obj);
+					},
+					error:function(jqXHR,exception)
+					{
+						ajax_catch(jqXHR,exception);					
+					}
+				})
+			}
+		}
+	})		
 }
 
 function del(id)

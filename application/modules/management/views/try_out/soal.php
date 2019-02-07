@@ -40,6 +40,7 @@
 				<tr>
 					<th>No</th>
 					<th>Soal</th>
+					<th>Pembahasan</th>					
 					<th>Jumlah Pilihan Ganda</th>
 					<th>Aksi</th>
 				</tr>
@@ -49,15 +50,16 @@
 					foreach($list->result() as $row){?>
 						<tr>
 							<td><?php echo $x;?></td>
-							<td><?php echo $row->name;?></td>
+							<td><?php echo ($row->image != NULL || $row->image != '') ? '<img src="'.base_url().'public/soal/'.$row->image.'">' : $row->name ;?></td>
+							<td><?=$row->desc_pembahasan;?></td>							
 							<td>
-								<?=count($this->Allcrud->getdata('mr_try_out_soal_detail',array('id_soal'=>$row->id))->result_array());?>
-								<a target="_blank" href="<?=base_url();?>management/try_out/detail_soal/<?=$row->id;?>/<?=$row->id_parent;?>/<?=$row->id_type;?>/<?=$row->id_paket;?>" class="btn btn-primary pull-right">Pilihan Ganda</a>
+								<a target="_blank" href="<?=base_url();?>management/try_out/detail_soal/<?=$row->id;?>/<?=$row->id_parent;?>/<?=$row->id_type;?>/<?=$row->id_paket;?>" class="btn btn-primary pull-right"><?=count($this->Allcrud->getdata('mr_try_out_soal_detail',array('id_soal'=>$row->id))->result_array());?></a>
 							</td>
 							<td>
-								<!-- <button class="btn btn-primary btn-xs" onclick="edit('<?php echo $row->id;?>')"><i class="fa fa-edit"></i> Ubah</button>&nbsp;&nbsp;
-								<button class="btn btn-success btn-xs" onclick="detail('<?php echo $row->id;?>')"><i class="fa fa-edit"></i> Pilihan Ganda</button>&nbsp;&nbsp;							
-								<button class="btn btn-danger btn-xs" onclick="del('<?php echo $row->id;?>')"><i class="fa fa-trash"></i> Hapus</button> -->
+								<button class="btn btn-primary btn-xs" onclick="edit('<?php echo $row->id;?>')" style="margin: 1px;"><i class="fa fa-edit"></i> Ubah</button>&nbsp;&nbsp;
+								<button class="btn btn-danger btn-xs" onclick="del('<?php echo $row->id;?>')"><i class="fa fa-trash"></i> Hapus</button>								
+								<!--<button class="btn btn-success btn-xs" onclick="detail('<?php echo $row->id;?>')"><i class="fa fa-edit"></i> Pilihan Ganda</button>&nbsp;&nbsp;							
+								-->
 							</td>
 						</tr>
 					<?php $x++; }
@@ -90,6 +92,41 @@
 
 			</div>
 
+			<div class="box-body" id="editdata" style="display:none;">
+				<div class="row">	
+                    <div class="col-md-12">
+                        <div class="form-group">
+                            <label>Soal</label>
+                            <input class="form-control form-control-detail" id="f_name" rows="3" placeholder="Soal">
+                        </div>
+                    </div>
+
+                    <div class="col-md-12">
+                        <div class="form-group">
+                            <label>Pembahasan</label>
+                            <textarea class="form-control form-control-detail" id="f_desc_pembahasan" rows="3" placeholder="Jumlah data"></textarea>
+                        </div>
+                    </div>										
+
+                    <div class="col-md-12">
+                        <div class="form-group">
+                            <label>File</label>
+							<input type="file" class="form-control" placeholder="File Gambar" id="f_file">
+                        </div>
+                    </div>				
+
+					<div class="col-lg-12">
+						<div class="progress" style="display:none">
+							<div id="progressBar" class="progress-bar progress-bar-striped active" role="progressbar" aria-valuenow="0" aria-valuemin="0" aria-valuemax="100" style="width: 0%">
+								<span class="sr-only">0%</span>
+							</div>
+						</div>
+						<div class="msg alert alert-info text-left" style="display:none"></div>					
+					</div>						                    
+				</div>
+
+			</div>			
+
 			<div class="box-body" id="form_multipartdata" style="display:none;">
 				<div class="row">
 					<input class="form-control" type="hidden" id="oid">
@@ -99,7 +136,9 @@
                     </div>  
 				</div>
 
-			</div>            
+			</div>    
+
+
 			<div class="box-footer" style="display:none;">
 				<a class="btn btn-success pull-right" id="btn-trigger-controll"><i class="fa fa-save"></i>&nbsp; Simpan</a>
 			</div>
@@ -186,14 +225,15 @@ $(document).ready(function(){
 
 	$("#btn-trigger-controll").click(function(){
 		var res_status  = 0;
+		var f_file      = $("#f_file").prop('files')[0];
 		var oid         = $("#oid").val();
 		var crud        = $("#crud").val();
 		var oid_parent  = $("#id_parent").val();
 		var oid_type    = $("#id_type").val();
 		var oid_paket   = $("#id_paket").val();
 		var processdata = $("#f_inputs").val();
-        var data_sender = '';
-        var data_detail = [];
+		var data_sender = '';
+		var data_detail = [];
 
         if (crud == 'insert') {
             var data_sender = {
@@ -222,28 +262,122 @@ $(document).ready(function(){
         }
         else if(crud == 'update')
         {
-
+            var data_sender = {
+                'oid'              : oid,
+                'f_name'           : $("#f_name").val(),
+                'f_desc_pembahasan': $("#f_desc_pembahasan").val(),
+                'crud'             : crud
+            }            			
+			
+			res_status = 1;
         }
+
+		console.table(data_sender);		
 
 
         if (res_status == 1) {
-            $.ajax({
-                url :"<?php echo site_url();?>management/try_out/store_detail",
-                type:"post",
-                data:{data_sender : data_sender, data_detail : data_detail},
-                beforeSend:function()
-                {
-                    $("#loadprosess").modal('show');
-                },
-                success:function(msg){
-                    var obj = jQuery.parseJSON (msg);
-                    ajax_status(obj);
-                },
-                error:function(jqXHR,exception)
-                {
-                    ajax_catch(jqXHR,exception);					
-                }
-            })            
+			if (crud == 'insert') {
+				$.ajax({
+					url :"<?php echo site_url();?>management/try_out/store_detail",
+					type:"post",
+					data:{data_sender : data_sender, data_detail : data_detail},
+					beforeSend:function()
+					{
+						$("#loadprosess").modal('show');
+					},
+					success:function(msg){
+						var obj = jQuery.parseJSON (msg);
+						ajax_status(obj);
+					},
+					error:function(jqXHR,exception)
+					{
+						ajax_catch(jqXHR,exception);					
+					}
+				})            				
+			}
+			else if(crud == 'update')
+			{
+				if (f_file == undefined) {
+					$.ajax({
+						url :"<?php echo site_url();?>management/try_out/store_detail",
+						type:"post",
+						data:{data_sender : data_sender, data_detail : data_detail},
+						beforeSend:function(){
+							$("#loadprosess").modal('show');
+						},
+						success:function(msg){
+							var obj = jQuery.parseJSON (msg);
+							ajax_status(obj);
+						},
+						error:function(jqXHR,exception)
+						{
+							ajax_catch(jqXHR,exception);					
+						}
+					})				
+				}
+				else
+				{
+					var form_data = new FormData();
+					form_data.append('file', f_file);
+					$.ajax({
+						url :"<?php echo site_url();?>management/try_out/upload_data_soal/"+crud+"/"+oid,						
+						// dataType: 'json',  // what to expect back from the PHP script, if anything
+						cache: false,
+						contentType: false,
+						processData: false,
+						data: form_data,
+						type: 'post',
+						xhr : function() {
+							var xhr = new window.XMLHttpRequest();
+							xhr.upload.addEventListener('progress', function(e){
+								if(e.lengthComputable){								
+									var percent = Math.round((e.loaded / e.total) * 100);
+									$('#progressBar').attr('aria-valuenow', percent).css('width', percent + '%').text(percent + '%');
+								}
+							});
+							return xhr;
+						},											
+						beforeSend:function(){
+							$("#editData").modal('hide');
+							$("#loadprosess").modal('show');                                                
+						},
+						success: function(msg1){
+							var obj1 = jQuery.parseJSON (msg1);             	
+							if (obj1.status == 1)
+							{
+								$.ajax({
+									url :"<?php echo site_url();?>management/try_out/store_detail",
+									type:"post",
+									data:{data_sender : data_sender, data_detail : data_detail},
+									beforeSend:function(){
+										$("#editData").modal('hide');
+										$("#loadprosess").modal('show');
+									},
+									success:function(msg){
+										var obj = jQuery.parseJSON (msg);
+										ajax_status(obj);
+									},
+									error:function(jqXHR,exception)
+									{
+										ajax_catch(jqXHR,exception);					
+									}
+								})
+							}
+							else
+							{
+								Lobibox.notify('warning', {msg: obj1.text});
+								setTimeout(function(){
+									$("#loadprosess").modal('hide');
+								}, 500);
+							}
+						},
+						error:function(jqXHR,exception)
+						{
+							ajax_catch(jqXHR,exception);					
+						}
+					}); 
+				}
+			}
         }
         else
         {
@@ -258,7 +392,7 @@ $(document).ready(function(){
 
 function edit(id){
 	$.ajax({
-		url :"<?php echo site_url();?>bank_data/soal/get_data/"+id+"/ajax/mr_soal",
+		url :"<?php echo site_url();?>bank_data/soal/get_data/"+id+"/ajax/mr_try_out_soal",
 		type:"post",
 		beforeSend:function(){
 			$("#loadprosess").modal('show');
@@ -269,12 +403,14 @@ function edit(id){
 			{
 				$(".form-control-detail").val('');
 				$("#formdata").css({"display": ""})
+				$("#editdata").css({"display": ""})		
+				$(".box-footer").css({"display": ""})										
+				$("#processdata").css({"display": "none"})
 				$("#viewdata").css({"display": "none"})
 				$("#formdata > div > div > div.box-header > h3").html("Ubah Data Soal");		
 				$("#crud").val('update');
 				$("#oid").val(obj.data[0]['id']);
 				$("#f_name").val(obj.data[0]['name']);				
-				$("#f_desc_pembahasan").val(obj.data[0]['desc_pembahasan']);								
 				$("#loadprosess").modal('hide');				
 			}
 			else
