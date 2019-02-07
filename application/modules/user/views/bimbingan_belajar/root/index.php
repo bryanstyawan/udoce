@@ -103,7 +103,10 @@ if($verify_user_paid->result_array() == array())
 	color: #fff;
 	text-transform: uppercase;
 	font-weight: 700;
-	text-decoration: none
+	text-decoration: none;
+	padding-left: 0px;
+    padding-right: 0px;
+    margin-bottom: 6px;	
 	}
 	.hot {
 		position: absolute;
@@ -172,7 +175,8 @@ if($verify_user_paid->result_array() == array())
 				</ul>
 			</div>
 			<div class="btn">
-				<a href="<?=base_url();?>user/bimbingan_belajar_trial">Coba Sekarang</a>
+				<a class="col-xs-12" href="<?=base_url();?>user/bimbingan_belajar_trial">Coba Sekarang</a>
+                <a class="col-xs-12" href="#" style="cursor: default;background: transparent;">Cara Beli</a>								
 			</div>
 		</div>
 	</div>
@@ -193,7 +197,8 @@ if($verify_user_paid->result_array() == array())
                 </ul>
             </div>
             <div class="btn">
-                <a href="#" onclick="bimbel_package('1')">Beli Sekarang</a>
+                <a class="col-xs-12" href="#" onclick="bimbel_package('1')">Beli Sekarang</a>
+                <a class="col-xs-12" href="#" onclick="cara_beli()">Cara Beli</a>				
             </div>
         </div>
     </div>
@@ -214,7 +219,8 @@ if($verify_user_paid->result_array() == array())
                 </ul>
             </div>
             <div class="btn">
-                <a href="#" onclick="bimbel_package('2')">Beli Sekarang</a>
+                <a class="col-xs-12" href="#" onclick="bimbel_package('2')">Beli Sekarang</a>
+                <a class="col-xs-12" href="#" onclick="cara_beli()">Cara Beli</a>				
             </div>
         </div>
     </div>    

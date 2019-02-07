@@ -615,6 +615,9 @@ function go(id_parent,id,type) {
 										'<div class="row text-center">'+
 											'<a class="btn btn-danger"  href="#" onclick="tryout_package('+4+')" style="margin-bottom: 25px;">Beli Sekarang</a>'+
 										'</div>'+
+										'<div class="row text-center">'+
+											'<a class="btn btn-primary"  href="#" onclick="cara_beli()" style="margin-bottom: 25px;">Cara Beli</a>'+
+										'</div>'+										
 									'</div>'+
 								'</div>'+
 								'<div class="plan basic">'+
@@ -656,6 +659,9 @@ function go(id_parent,id,type) {
 										'<div class="row text-center">'+
 											'<a class="btn btn-danger"  href="#" onclick="tryout_package('+3+')" style="margin-bottom: 25px;">Beli Sekarang</a>'+
 										'</div>'+
+										'<div class="row text-center">'+
+											'<a class="btn btn-primary"  href="#" onclick="cara_beli()" style="margin-bottom: 25px;">Cara Beli</a>'+
+										'</div>'+										
 									'</div>'+
 								'</div>'+
 								'<div class="plan basic">'+
@@ -708,6 +714,9 @@ function go(id_parent,id,type) {
 										'<div class="row text-center">'+
 											'<a class="btn btn-danger"  href="#" onclick="tryout_package('+3+')" style="margin-bottom: 25px;">Beli Sekarang</a>'+
 										'</div>'+
+										'<div class="row text-center">'+
+											'<a class="btn btn-primary"  href="#" onclick="cara_beli()" style="margin-bottom: 25px;">Cara Beli</a>'+
+										'</div>'+										
 									'</div>'+
 								'</div>'+
 								'<div class="plan basic">'+
@@ -727,6 +736,9 @@ function go(id_parent,id,type) {
 										'<div class="row text-center">'+
 											'<a class="btn btn-danger"  href="#" onclick="tryout_package('+4+')" style="margin-bottom: 25px;">Beli Sekarang</a>'+
 										'</div>'+
+										'<div class="row text-center">'+
+											'<a class="btn btn-primary"  href="#" onclick="cara_beli()" style="margin-bottom: 25px;">Cara Beli</a>'+
+										'</div>'+										
 									'</div>'+
 								'</div>'+
 								'<div class="plan basic">'+

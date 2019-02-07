@@ -317,6 +317,13 @@ function _force() {
 	}    
 }
 
+function cara_beli() {
+	Lobibox.window({
+            title  : 'Cara Beli',
+            content: ''                                              
+        }); 	
+}
+
 
 function numberWithCommas(x) {
     return x.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",");

