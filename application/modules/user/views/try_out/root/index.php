@@ -163,57 +163,46 @@
 	background: #DD4B5E;
 	}
 </style>
-<section id="tipeData" class="col-lg-4">
-	<div class="col-xs-12">
-		<div class="box">
-			<div class="box-header">
-				<h3 class="box-title">Paket Try Out</h3>
-			</div><!-- /.box-header -->
-			<div class="box-body" id="table_fill">
-				<table class="table table-bordered table-striped">
-					<thead>
-				<tr>
-					<th>No</th>
-					<th>Nama</th>
-					<th>Aksi</th>
-				</tr>
-				</thead>
-				<tbody>
-					<?php
-						if ($tipe != array()) {
-							# code...
-							for ($i=0; $i < count($tipe); $i++) { 
-								# code...
-								if ($tipe[$i]['id'] != 3) {
-									# code...
-					?>
-								<tr>
-									<td><?=$i+1;?></td>
-									<td><?=$tipe[$i]['name'];?></td>								
-									<td>
-										<button class="btn btn-primary btn-xs" onclick="choose_paket_try_out('<?php echo $tipe[$i]['id'];?>','<?=$tipe[$i]['name'];?>')"><i class="fa fa-edit"></i> Pilih</button>&nbsp;&nbsp;								
-									</td>								
-								</tr>
-					<?php									
-								}
-							}
-						}
-					?>
-				</tbody>
-				</table>
-				
-			</div><!-- /.box-body -->
-			</div><!-- /.box -->
+<?=$this->load->view('templates/sidebar/main');?>
+<div id="tipeData" class="col-lg-10">
+	<div class="col-xs-12" style="padding: 0px;">
+		<?php
+			if ($tipe != array()) {
+				# code...
+				for ($i=0; $i < count($tipe); $i++) { 
+					# code...
+					if ($tipe[$i]['id'] != 3) {
+						# code...
+		?>
+						<div class="col-lg-6">
+							<div class="box">
+								<div class="box-header">
+								</div><!-- /.box-header -->
+								<div class="box-body">
+									<div class="row">					
+										<div class="col-md-12 text-center">
+											<div class="form-group">
+												<h3><?=$tipe[$i]['name'];?></h3>
+											</div>
+											<button class="btn btn-primary btn-lg" onclick="choose_paket_try_out('<?php echo $tipe[$i]['id'];?>','<?=$tipe[$i]['name'];?>')"><i class="fa fa-edit"></i> Pilih</button>&nbsp;&nbsp;								
+										</div>				
+									</div>				
+								</div><!-- /.box-body -->
+							</div><!-- /.box -->											
+						</div>						
+		<?php									
+					}
+				}
+			}
+		?>
 	</div>
-</section>
 
-<section id="viewdata" style="display:none;">
-	<div class="col-xs-8">
+	<div id="viewdata" class="col-xs-12" style="display:none;">
 		<div class="box">
 			<div class="box-header">
 				<h3 class="box-title" id="header_paket"></h3>
 			</div><!-- /.box-header -->
-			<div class="box-body" id="table_fill">
+			<div class="box-body">
 				<input type="hidden" id="oid_parent">
 				<input type="hidden" id="name_parent">
 				<input type="hidden" id="bimbel_choice" value="<?=($verify_user_paid_bimbel != array()) ? $verify_user_paid_bimbel[0]['id_layanan'] : 0 ;?>">
@@ -231,14 +220,15 @@
 				
 			</div><!-- /.box-body -->
 		</div><!-- /.box -->
-	</div>
+	</div>	
+
+	<div id="offeringdata" style="display:none;">
+		<div class="col-xs-12 text-center" id="bodyoffering">
+
+		</div>
+	</div>	
 </section>
 
-<section id="offeringdata" style="display:none;">
-	<div class="col-xs-8" id="bodyoffering">
-
-	</div>
-</section>
 
 <section id="formdata" style="display:none">
 	<div class="col-xs-8">

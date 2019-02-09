@@ -319,8 +319,18 @@ function _force() {
 
 function cara_beli() {
 	Lobibox.window({
-            title  : 'Cara Beli',
-            content: ''                                              
+            title  : 'Cara Membeli Token',
+            content:    '<div class="container">'+    
+                        '<div class="col-lg-12">'+
+                        '<div><div class="row"><h3>cara membeli token</h3></div>'+
+                        '<div class="row"><span>1. Token dapat dibeli melalui :</span></div>'+
+                        '<div class="row"><p>a. Whatsapps : 0858 5181 6987</p></div>'+
+                        '<div class="row"><p>b. Shopee : <a href="https://shopee.co.id/PAKET-LULUS-SPMB-PKN-STAN-ECODU-i.63017014.1896730820">Klik Disini</a></p></div>'+
+                        '<div class="row"><p>c. LINE : @ecodu.id</p></div>'+
+                        '<div class="row"><p class="col-lg-3">2. Setelah mendapatkan token, klik tombol beli sekarang dan masukkan token.</p></div>'+
+                        '<div class="row"><span>3. Verifikasi Token.</span></div>'+
+                        '<div class="row"><span>4. Selesai.</span></div>'+
+                        '</div></div>'  
         }); 	
 }
 

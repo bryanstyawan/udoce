@@ -52,170 +52,190 @@
     }
 
 </style>
+
+
 <?php
 $posisitin_rangking_user     = 0;
 $posisitin_rangking_username = "";
+$tipe                        = $tipe;
 ?>
+<?=$this->load->view('templates/sidebar/main');?>
 <section>
-    <div class="col-xs-7">
-		<div class="box">
-			<div class="box-header">
-				<h3 class="box-title"></h3>
-			</div><!-- /.box-header -->
-			<div class="box-body" id="table_fill">
-                <div class="box-body">
-                    <div class="col-lg-12 div_row_header">
-                        <div class="col-lg-1">No</div>
-                        <div class="col-lg-2">Nama</div>
-                        <div class="col-lg-2">Asal Sekolah</div>                                    
-                        <?php
-                            if ($parent == 2) {
-                                # code...
-                        ?>
-                                <div class="col-lg-1">TWK</div>
-                                <div class="col-lg-1">TIU</div>
-                                <div class="col-lg-1">TKP</div>
-                                <div class="col-lg-2">Total Nilai</div>
-                                <div class="col-lg-2" style="border-right: none;">Keterangan</div>                                                                                                                                    
-                        <?php
-                            }
-                            else {
-                                # code...
-                        ?>
-                                <div class="col-lg-2">TPA</div>
-                                <div class="col-lg-2">TBI</div>
-                                <div class="col-lg-1">Total Nilai</div>
-                                <div class="col-lg-2" style="border-right: none;">Keterangan</div>                    
-                        <?php
-                            }
-                        ?>
-                    </div>            
-                    <?php
-                        if ($list_rangking != 0) {
-                            # code...
-                            for ($i=0; $i < count($list_rangking); $i++) { 
-                                # code...
-                                if ($list_rangking[$i]->id_user == $this->session->userdata('session_user')) {
-                                    # code...
-                                    $posisitin_rangking_user = $i+1;
-                                    $posisitin_rangking_username = $list_rangking[$i]->b_name;                                    
-                                }
-                        ?>
-                        <div class="col-lg-12 div_row_table">
-                            <div class="col-lg-1"><?=$i+1;?></div>
-                            <div class="col-lg-2"><?=$list_rangking[$i]->b_name;?></div>                    
-                            <div class="col-lg-2"><?=$list_rangking[$i]->b_asal_sekolah;?></div>                
-                            <?php
-                                if ($parent == 2) {
-                                    # code...
-                            ?>
-                                    <div class="col-lg-1"><?=$list_rangking[$i]->twk_value;?></div>
-                                    <div class="col-lg-1"><?=$list_rangking[$i]->tiu_value;?></div>
-                                    <div class="col-lg-1"><?=$list_rangking[$i]->tkp_value;?></div>
-                                    <div class="col-lg-2"><?=$list_rangking[$i]->total_value;?></div>
-                                    <div class="col-lg-2"><?=$list_rangking[$i]->end_status;?></div>                                                                                                                                    
-                            <?php
-                                }
-                                else {
-                                    # code...
-                            ?>
-                                    <div class="col-lg-2">
-                                        <div class="row label-primary">
-                                            <div class="col-lg-7">Benar : </div>
-                                            <div class="col-lg-4"><?=$list_rangking[$i]->tpa_true;?></div>                                            
-                                        </div>
-                                        <div class="row label-primary">
-                                            <div class="col-lg-7">Salah : </div>
-                                            <div class="col-lg-4"><?=$list_rangking[$i]->tpa_false;?></div>                                            
-                                        </div>
-                                        <div class="row label-primary">
-                                            <div class="col-lg-7">Kosong : </div>
-                                            <div class="col-lg-4"><?=$list_rangking[$i]->tpa_empty;?></div>                                            
-                                        </div>
-                                        <div class="row label-primary">
-                                            <div class="col-lg-7">Nilai : </div>
-                                            <div class="col-lg-4"><?=$list_rangking[$i]->tpa_value;?></div>                                            
-                                        </div>
-                                        <div class="row label-primary">
-                                            <div class="col-lg-11">Keterangan : </div>
-                                            <div class="col-lg-1"><?=$list_rangking[$i]->tpa_status;?></div>                                            
-                                        </div>                                                                                                                                                        
+    <?php
+        if ($this->uri->segment(4) != '') {
+            # code...
+            if ($this->uri->segment(5) != '') {
+                # code...
+    ?>
+                <div class="col-xs-7">
+                    <div class="box">
+                        <div class="box-header">
+                            <h3 class="box-title"></h3>
+                        </div><!-- /.box-header -->
+                        <div class="box-body" id="table_fill">
+                            <div class="box-body">
+                                <div class="col-lg-12 div_row_header">
+                                    <div class="col-lg-1">No</div>
+                                    <div class="col-lg-2">Nama</div>
+                                    <div class="col-lg-2">Asal Sekolah</div>                                    
+                                    <?php
+                                        if ($parent == 2) {
+                                            # code...
+                                    ?>
+                                            <div class="col-lg-1">TWK</div>
+                                            <div class="col-lg-1">TIU</div>
+                                            <div class="col-lg-1">TKP</div>
+                                            <div class="col-lg-2">Total Nilai</div>
+                                            <div class="col-lg-2" style="border-right: none;">Keterangan</div>                                                                                                                                    
+                                    <?php
+                                        }
+                                        else {
+                                            # code...
+                                    ?>
+                                            <div class="col-lg-2">TPA</div>
+                                            <div class="col-lg-2">TBI</div>
+                                            <div class="col-lg-1">Total Nilai</div>
+                                            <div class="col-lg-2" style="border-right: none;">Keterangan</div>                    
+                                    <?php
+                                        }
+                                    ?>
+                                </div>            
+                                <?php
+                                    if ($list_rangking != 0) {
+                                        # code...
+                                        for ($i=0; $i < count($list_rangking); $i++) { 
+                                            # code...
+                                            if ($list_rangking[$i]->id_user == $this->session->userdata('session_user')) {
+                                                # code...
+                                                $posisitin_rangking_user = $i+1;
+                                                $posisitin_rangking_username = $list_rangking[$i]->b_name;                                    
+                                            }
+                                    ?>
+                                    <div class="col-lg-12 div_row_table">
+                                        <div class="col-lg-1"><?=$i+1;?></div>
+                                        <div class="col-lg-2"><?=$list_rangking[$i]->b_name;?></div>                    
+                                        <div class="col-lg-2"><?=$list_rangking[$i]->b_asal_sekolah;?></div>                
+                                        <?php
+                                            if ($parent == 2) {
+                                                # code...
+                                        ?>
+                                                <div class="col-lg-1"><?=$list_rangking[$i]->twk_value;?></div>
+                                                <div class="col-lg-1"><?=$list_rangking[$i]->tiu_value;?></div>
+                                                <div class="col-lg-1"><?=$list_rangking[$i]->tkp_value;?></div>
+                                                <div class="col-lg-2"><?=$list_rangking[$i]->total_value;?></div>
+                                                <div class="col-lg-2"><?=$list_rangking[$i]->end_status;?></div>                                                                                                                                    
+                                        <?php
+                                            }
+                                            else {
+                                                # code...
+                                        ?>
+                                                <div class="col-lg-2">
+                                                    <div class="row label-primary">
+                                                        <div class="col-lg-7">Benar : </div>
+                                                        <div class="col-lg-4"><?=$list_rangking[$i]->tpa_true;?></div>                                            
+                                                    </div>
+                                                    <div class="row label-primary">
+                                                        <div class="col-lg-7">Salah : </div>
+                                                        <div class="col-lg-4"><?=$list_rangking[$i]->tpa_false;?></div>                                            
+                                                    </div>
+                                                    <div class="row label-primary">
+                                                        <div class="col-lg-7">Kosong : </div>
+                                                        <div class="col-lg-4"><?=$list_rangking[$i]->tpa_empty;?></div>                                            
+                                                    </div>
+                                                    <div class="row label-primary">
+                                                        <div class="col-lg-7">Nilai : </div>
+                                                        <div class="col-lg-4"><?=$list_rangking[$i]->tpa_value;?></div>                                            
+                                                    </div>
+                                                    <div class="row label-primary">
+                                                        <div class="col-lg-11">Keterangan : </div>
+                                                        <div class="col-lg-1"><?=$list_rangking[$i]->tpa_status;?></div>                                            
+                                                    </div>                                                                                                                                                        
+                                                </div>
+                                                <div class="col-lg-2">
+                                                    <div class="row label-primary">
+                                                        <div class="col-lg-7">Benar : </div>
+                                                        <div class="col-lg-4"><?=$list_rangking[$i]->tbi_true;?></div>                                            
+                                                    </div>
+                                                    <div class="row label-primary">
+                                                        <div class="col-lg-7">Salah : </div>
+                                                        <div class="col-lg-4"><?=$list_rangking[$i]->tbi_false;?></div>                                            
+                                                    </div>
+                                                    <div class="row label-primary">
+                                                        <div class="col-lg-7">Kosong : </div>
+                                                        <div class="col-lg-4"><?=$list_rangking[$i]->tbi_empty;?></div>                                            
+                                                    </div>
+                                                    <div class="row label-primary">
+                                                        <div class="col-lg-7">Nilai : </div>
+                                                        <div class="col-lg-4"><?=$list_rangking[$i]->tbi_value;?></div>                                            
+                                                    </div>
+                                                    <div class="row label-primary">
+                                                        <div class="col-lg-11">Keterangan : </div>
+                                                        <div class="col-lg-1"><?=$list_rangking[$i]->tbi_status;?></div>                                            
+                                                    </div>                                                                                                                                                        
+                                                </div>
+                                                <div class="col-lg-1"><?=$list_rangking[$i]->total_value;?></div>
+                                                <div class="col-lg-2"><?=$list_rangking[$i]->end_status;?></div>
+                                        <?php
+                                            }
+                                        ?>                    
+                                    </div>        
+                                    <?php
+                                        }                        
+                                    }
+                                    else {
+                                        # code...
+                                ?>
+                                    <div class="col-lg-12">
+                                        <h3 class="text-center">Data tidak ditemukan</h3>
                                     </div>
-                                    <div class="col-lg-2">
-                                        <div class="row label-primary">
-                                            <div class="col-lg-7">Benar : </div>
-                                            <div class="col-lg-4"><?=$list_rangking[$i]->tbi_true;?></div>                                            
-                                        </div>
-                                        <div class="row label-primary">
-                                            <div class="col-lg-7">Salah : </div>
-                                            <div class="col-lg-4"><?=$list_rangking[$i]->tbi_false;?></div>                                            
-                                        </div>
-                                        <div class="row label-primary">
-                                            <div class="col-lg-7">Kosong : </div>
-                                            <div class="col-lg-4"><?=$list_rangking[$i]->tbi_empty;?></div>                                            
-                                        </div>
-                                        <div class="row label-primary">
-                                            <div class="col-lg-7">Nilai : </div>
-                                            <div class="col-lg-4"><?=$list_rangking[$i]->tbi_value;?></div>                                            
-                                        </div>
-                                        <div class="row label-primary">
-                                            <div class="col-lg-11">Keterangan : </div>
-                                            <div class="col-lg-1"><?=$list_rangking[$i]->tbi_status;?></div>                                            
-                                        </div>                                                                                                                                                        
-                                    </div>
-                                    <div class="col-lg-1"><?=$list_rangking[$i]->total_value;?></div>
-                                    <div class="col-lg-2"><?=$list_rangking[$i]->end_status;?></div>
-                            <?php
-                                }
-                            ?>                    
-                        </div>        
-                        <?php
-                            }                        
-                        }
-                        else {
-                            # code...
-                    ?>
-                        <div class="col-lg-12">
-                            <h3 class="text-center">Data tidak ditemukan</h3>
-                        </div>
-                    <?php                            
-                        }
-                    ?>                                
+                                <?php                            
+                                    }
+                                ?>                                
+                            </div>
+                        </div><!-- /.box-body -->
+                    </div><!-- /.box -->
                 </div>
-			</div><!-- /.box-body -->
-        </div><!-- /.box -->
-	</div>
 
-    <div class="col-xs-5">
-		<div class="box">
-			<div class="box-header">
-				<h3 class="box-title">Statistik User</h3>
-			</div><!-- /.box-header -->
-			<div class="box-body" id="table_fill">
-                <div class="box-body">
-                    <div class="row">
-                        <div class="col-lg-4">
-                            Rangking :
-                        </div>        
-                        <div class="col-lg-8">
-                            <?=$posisitin_rangking_user;?>
-                        </div>            
-                    </div>
-                    <div class="row">
-                        <div class="col-lg-4">
-                            Nama :
-                        </div>        
-                        <div class="col-lg-8">
-                            <?=$posisitin_rangking_username;?>
-                        </div>            
-                    </div>                    
-                </div>
-			</div><!-- /.box-body -->
-        </div><!-- /.box -->
-	</div>
-
+                <div class="col-xs-3">
+                    <div class="box">
+                        <div class="box-header">
+                            <h3 class="box-title">Statistik User</h3>
+                        </div><!-- /.box-header -->
+                        <div class="box-body" id="table_fill">
+                            <div class="box-body">
+                                <div class="row">
+                                    <div class="col-lg-4">
+                                        Rangking :
+                                    </div>        
+                                    <div class="col-lg-8">
+                                        <?=$posisitin_rangking_user;?>
+                                    </div>            
+                                </div>
+                                <div class="row">
+                                    <div class="col-lg-4">
+                                        Nama :
+                                    </div>        
+                                    <div class="col-lg-8">
+                                        <?=$posisitin_rangking_username;?>
+                                    </div>            
+                                </div>                    
+                            </div>
+                        </div><!-- /.box-body -->
+                    </div><!-- /.box -->
+                </div>    
+    <?php
+            }
+            else
+            {
+                load_paket_rangking($tipe);
+            }
+        }
+        else {
+            # code...
+            load_paket_rangking($tipe);
+        }
+    ?>
 </section>
-
 <script>
 (function($) {
 	var pagify = {

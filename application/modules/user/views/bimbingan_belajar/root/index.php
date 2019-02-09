@@ -262,8 +262,9 @@ if($verify_user_paid->result_array() == array())
 else {
 	# code...
 ?>
-<section id="viewdata">
-	<div class="col-xs-12">
+	<section id="viewdata">
+	<?=$this->load->view('templates/sidebar/main');?>
+	<div class="col-xs-10">
 		<div class="box">
 			<div class="box-body" id="table_fill">
 				<table class="table table-bordered table-striped table-view">

@@ -114,6 +114,148 @@
 			}
 	
 		}		
+
+
+		function load_paket_rangking($tipe)
+		{
+			# code...
+			$CI =& get_instance();
+			if ($tipe != array()) {
+				# code...
+				for ($i=0; $i < count($tipe); $i++) { 
+					# code...
+					if ($tipe[$i]['id'] != 3) {
+						# code...
+		?>
+						<div class="col-xs-5">
+							<div class="box">
+								<div class="box-header">
+									<h3 class="box-title">Paket Try Out <?=$tipe[$i]['name'];?></h3>
+								</div><!-- /.box-header -->
+								<div class="box-body" id="table_fill">
+									<div class="box-body">                        
+		<?php
+										$get_paket_rangking = $CI->Allcrud->getData('tr_analisis_rangking',array('id_user'=>$CI->session->userdata('session_user')),array('id_paket','ASC'))->result_array();
+										$flag_isempty = 0;
+										if ($get_paket_rangking != array()) {
+											# code...
+											for ($ii=0; $ii < count($get_paket_rangking); $ii++) { 
+												# code...
+												if ($get_paket_rangking[$ii]['id_parent'] == $tipe[$i]['id']) {
+													# code...
+													$get_paket_try_out = $CI->Allcrud->getData('mr_try_out_list',array('id_parent'=>$get_paket_rangking[$ii]['id_parent'],'id'=>$get_paket_rangking[$ii]['id_paket']))->result_array();													
+													if ($get_paket_try_out != array()) {
+														# code...
+														// print_r(count());														
+		?>
+														<div class="col-lg-12 div_row_header">
+															<!-- <div class="col-lg-1"><?=$ii+1;?></div> -->
+															<div class="col-lg-12 text-center" style="border-right: none;"><a class="btn btn-primary" href="<?=base_url();?>user/try_out/rangking/<?=$get_paket_rangking[$ii]['id_parent'];?>/<?=$get_paket_rangking[$ii]['id_paket'];?>"><?=$get_paket_try_out[0]['name'];?></a></div>                                                                                                                                    
+														</div>														
+		<?php
+													}
+												}
+												else {
+													# code...
+													$flag_isempty = 1;
+												}
+											}
+
+											if ($flag_isempty == 1) {
+												# code...
+		?>
+												<div class="col-lg-12 div_row_header">
+													<!-- <div class="col-lg-1"><?=$ii+1;?></div> -->
+													<div class="col-lg-12 text-center" style="border-right: none;">Data tidak ditemukan</div>                                                                                                                                    
+												</div>		
+		<?php
+											}
+										}
+		?>
+									</div>
+								</div>
+							</div>
+						</div>
+		<?php
+					}
+				}
+			}    
+		}
+
+		function load_paket_analisis($tipe)
+		{
+			# code...
+			$CI =& get_instance();
+			if ($tipe != array()) {
+				# code...
+				for ($i=0; $i < count($tipe); $i++) { 
+					# code...
+					if ($tipe[$i]['id'] != 3) {
+						# code...
+		?>
+						<div class="col-xs-5">
+							<div class="box">
+								<div class="box-header">
+									<h3 class="box-title">Paket Try Out <?=$tipe[$i]['name'];?></h3>
+								</div><!-- /.box-header -->
+								<div class="box-body" id="table_fill">
+									<div class="box-body">                        
+		<?php
+										$get_paket_rangking = $CI->Allcrud->getData('tr_analisis_rangking',array('id_user'=>$CI->session->userdata('session_user')),array('id_paket','ASC'))->result_array();
+										$flag_isempty = 0;
+										if ($get_paket_rangking != array()) {
+											# code...
+											for ($ii=0; $ii < count($get_paket_rangking); $ii++) { 
+												# code...
+												if ($get_paket_rangking[$ii]['id_parent'] == $tipe[$i]['id']) {
+													# code...
+													$get_paket_try_out = $CI->Allcrud->getData('mr_try_out_list',array('id_parent'=>$get_paket_rangking[$ii]['id_parent'],'id'=>$get_paket_rangking[$ii]['id_paket']))->result_array();													
+													if ($get_paket_try_out != array()) {
+														# code...
+														// print_r(count());														
+		?>
+														<div class="col-lg-12 div_row_header">
+															<!-- <div class="col-lg-1"><?=$ii+1;?></div> -->
+															<div class="col-lg-12 text-center" style="border-right: none;"><a class="btn btn-primary" href="<?=base_url();?>user/try_out/rangking/<?=$get_paket_rangking[$ii]['id_parent'];?>/<?=$get_paket_rangking[$ii]['id_paket'];?>"><?=$get_paket_try_out[0]['name'];?></a></div>                                                                                                                                    
+														</div>														
+		<?php
+													}
+												}
+												else {
+													# code...
+													$flag_isempty = 1;
+												}
+											}
+
+											if ($flag_isempty == 1) {
+												# code...
+		?>
+												<div class="col-lg-12 div_row_header">
+													<!-- <div class="col-lg-1"><?=$ii+1;?></div> -->
+													<div class="col-lg-12 text-center" style="border-right: none;">Data tidak ditemukan</div>                                                                                                                                    
+												</div>		
+		<?php
+											}
+										}
+		?>
+									</div>
+								</div>
+							</div>
+						</div>
+		<?php
+					}
+				}
+			}    
+		}		
+
+
+
+
+
+
+
+
+
 		
 /***********************************************************************************************************/
 		function status_pekerjaan($posisi,$status)

@@ -152,12 +152,17 @@ class User extends CI_Controller {
 		}
 		elseif ($type == 'analisis') {
 			# code...
+			$parent_name = $this->Allcrud->getData('lt_paket_try_out',array('id'=>$parent))->result_array();
+			$paket_name  = $this->Allcrud->getData('mr_try_out_list',array('id'=>$id,'id_parent'=>$parent))->result_array();
+			$res_parent  = ($parent_name != array()) ? $parent_name[0]['text'] : '' ;
+			$res_paket   = ($paket_name != array()) ? "(".$paket_name[0]['name'].")" : '' ;			
 			$data['list_soal']        = $this->Allcrud->getData('mr_try_out_soal',array('id_parent'=>$parent,'id_paket'=>$id))->result_array();
-			$data['title']            = '';
 			$data['content']          = 'user/try_out/root/analisis';
 			$data['parent']           = $parent;
 			$data['paket']            = $id;
 			$data['verify_user_paid'] = $this->Allcrud->getData('tr_layanan',array('id_user'=>$this->session->userdata('session_user'),'type'=>'bimbel'))->result_array();
+			$data['title']            = 'Analisis Try Out '.$res_parent." ".$res_paket;
+			$data['tipe']             = $this->Allcrud->listData('lt_paket_try_out')->result_array();			
 			$this->load->view('templateAdmin',$data);											
 		}
 		elseif ($type == 'rangking') {
@@ -171,7 +176,9 @@ class User extends CI_Controller {
 			$data['list_rangking']    = $this->Muser->get_rangking_try_out($parent,$id);
 			$data['parent']           = $parent;
 			$data['paket']            = $id;
-			$data['title']            = 'Rangking Try Out '.$res_parent." ".$res_paket;			
+			$data['title']            = 'Rangking Try Out '.$res_parent." ".$res_paket;
+			$data['tipe']             = $this->Allcrud->listData('lt_paket_try_out')->result_array();
+			// print_r($data['tipe']);die();
 			$this->load->view('templateAdmin',$data);			
 		}
 		elseif ($type == NULL) {
@@ -195,7 +202,7 @@ class User extends CI_Controller {
 				# code...
 				$get_tryout_id = 0;
 			}
-			$data['title']                           = '';
+			$data['title']                           = 'Try Out';
 			$data['content']                         = 'user/try_out/root/index';
 			$data['verify_user_paid_bimbel']         = $this->Allcrud->getData('tr_layanan',array('id_user'=>$this->session->userdata('session_user'),'type'=>'bimbel'))->result_array();
 			$data['verify_user_paid_try_out']        = $get_tryout_id;

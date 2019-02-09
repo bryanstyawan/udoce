@@ -2,6 +2,16 @@ v1.0.0
 2019-02-07
 ==========
 New:
+- sidebar Bimbingan Belajar dan try out
+Improved:
+- Penyesuaian layout bimbingan belajar dan try out
+- Cara beli
+Fixed:
+
+v1.0.0    
+2019-02-07
+==========
+New:
 - Cara Beli
 Improved:
 Fixed:

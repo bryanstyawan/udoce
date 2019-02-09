@@ -39,8 +39,13 @@ class Allcrud extends CI_Model {
 		return $query;
 	}
 
-	public function getData($table,$flag){
+	public function getData($table,$flag,$sort=NULL){
 		$this->db->where($flag);
+		if ($sort!=NULL) {
+			# code...
+			// print_r($sort);die();
+			$this->db->order_by($sort[0],$sort[1]);
+		}
 		return $this->db->get($table);
 	}
 
