@@ -7,7 +7,7 @@
 	<div class="col-xs-8">
 		<div class="box">
 			<div class="box-header">
-				<h3 class="box-title"></h3>
+				<h3 class="box-title"><a onclick="verified('<?=$list[0]['id'];?>')" class="btn btn-success">Soal dan jawaban ini telah benar.</a></h3>
 			</div>
 			<div class="box-body">
 				<div class="row">

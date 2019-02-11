@@ -255,6 +255,17 @@ function choose_paket_try_out(_id,_name) {
 						total_counter_child = obj.list[index].twk + obj.list[index].tiu + obj.list[index].tkk;
 					}					
 
+					
+					style_tr = "";
+					if (total_counter_child > obj.list[index].verified) {
+						style_tr = "background-color: #E91E63;color: #fff;";
+					}
+					else
+					{
+						style_tr = "background-color: #8BC34A;color: #fff;";
+					}
+
+
 					if (type_try_out == 'spmb') {
 						if (total_counter_child == 100) {
 							total_counter_child = 'Soal try out telah siap';
@@ -281,10 +292,15 @@ function choose_paket_try_out(_id,_name) {
 												'</td>';
 				}
 
-				var newrec_body  = '<tr>'+
+				verified = '';
+				if (obj.list[index].verified != 0) {
+					verified = ' - '+obj.list[index].verified+' Terverifikasi';
+				}
+
+				var newrec_body  = '<tr style="'+style_tr+'">'+
 										'<td>'+(index+1)+'</td>'+
 										'<td>'+obj.list[index].name+'</td>'+child_result+
-										'<td>'+total_counter_child+'</td>'+									
+										'<td>'+total_counter_child+' '+verified+'</td>'+									
 									'</tr>';
 				$('#view_data_paket tbody').append(newrec_body);                    				
 			}

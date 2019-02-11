@@ -1,5 +1,13 @@
 v1.0.0    
-2019-02-07
+2019-02-11
+==========
+New:
+- verifikasi try out (test)
+Improved:
+Fixed:
+
+v1.0.0    
+2019-02-10
 ==========
 New:
 - sidebar Bimbingan Belajar dan try out

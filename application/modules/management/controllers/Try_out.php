@@ -32,6 +32,7 @@ class Try_out extends CI_Controller {
 				$data['list'][$i]['twk']           = count($this->Allcrud->getdata('mr_try_out_soal',array('id_parent'=>2,'id_type'=>3,'id_paket'=>$data['list'][$i]['id']))->result_array());
 				$data['list'][$i]['tiu']           = count($this->Allcrud->getdata('mr_try_out_soal',array('id_parent'=>2,'id_type'=>4,'id_paket'=>$data['list'][$i]['id']))->result_array());
 				$data['list'][$i]['tkk']           = count($this->Allcrud->getdata('mr_try_out_soal',array('id_parent'=>2,'id_type'=>5,'id_paket'=>$data['list'][$i]['id']))->result_array());
+				$data['list'][$i]['verified']      = count($this->Allcrud->getdata('mr_try_out_soal',array('id_parent'=>2,'id_paket'=>$data['list'][$i]['id'],'audit_verified'=>1))->result_array());
 				$data['list'][$i]['show_analisis'] = ($get_analisis != array()) ? (($get_analisis[0]['status'] != '') ? $get_analisis[0]['status'] : 0 ) : 0 ;
 				$data['list'][$i]['show_rangking'] = ($get_rangking != array()) ? (($get_rangking[0]['status'] != '') ? $get_rangking[0]['status'] : 0 ) : 0 ;
 			}
