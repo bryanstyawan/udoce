@@ -7,7 +7,7 @@
 	<div class="col-xs-8">
 		<div class="box">
 			<div class="box-header">
-				<h3 class="box-title"><a class="pull-right" onclick="verified('<?=$list[0]['id'];?>','<?=($list[0]['audit_verified'] == 1) ? '0' : '1' ;?>')" class="btn  <?=($list[0]['audit_verified'] == 1) ? 'btn-danger' : 'btn-success' ;?>">Soal dan jawaban ini <?=($list[0]['audit_verified'] == 1) ? 'Ada Kesalahan' : 'telah benar.' ;?></a></h3>
+				<h3 class="box-title pull-right"><a class="btn btn-primary" onclick="verified('<?=$list[0]['id'];?>','<?=($list[0]['audit_verified'] == 1) ? '0' : '1' ;?>')" class="btn  <?=($list[0]['audit_verified'] == 1) ? 'btn-danger' : 'btn-success' ;?>">Soal dan jawaban ini <?=($list[0]['audit_verified'] == 1) ? 'Ada Kesalahan' : 'telah benar.' ;?></a></h3>
 			</div>
 			<div class="box-body">
 				<div class="row">

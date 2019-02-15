@@ -218,6 +218,20 @@ $(document).click(function(e) {
                     }
                 ?>
     			<div class="row main_background">                    
+                    <section>
+                        <div class="col-xs-12" style="margin-top: 32px;">
+                            <div class="box" style="background: none;border-top: none;box-shadow: none;">
+                                <div class="box-header">
+                                    <h2 style="font-size: 30px;font-weight: 600;" class="box-title">
+                                        <?php echo $title;?>
+                                        <i id="subtitle">
+                                            <small> <?php if(isset($subtitle)){ echo $subtitle;} ?></small>
+                                        </i>                                                    
+                                    </h3>
+                                </div>
+                            </div>                    
+                        </div>                    
+                    </section>                                                
                     <?php $this->load->view($content);?>
     			</div>
             </section>

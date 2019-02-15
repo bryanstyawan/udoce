@@ -5,6 +5,7 @@ New:
 Improved:
 - verifikasi soal disisi user
 - layout verifikasi soal
+- layout header
 Fixed:
 
 v1.0.0    
