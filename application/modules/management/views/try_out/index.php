@@ -267,7 +267,7 @@ function choose_paket_try_out(_id,_name) {
 
 
 					if (type_try_out == 'spmb') {
-						if (total_counter_child == 100) {
+						if (total_counter_child == 90) {
 							total_counter_child = 'Soal try out telah siap';
 						}
 						else
@@ -277,7 +277,7 @@ function choose_paket_try_out(_id,_name) {
 					}
 					else if(type_try_out == 'skd')
 					{
-						if (total_counter_child == 90) {
+						if (total_counter_child == 100) {
 							total_counter_child = 'Soal try out telah siap';
 						}
 						else

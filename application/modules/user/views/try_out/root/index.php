@@ -371,6 +371,7 @@ function choose_paket_try_out(_id,_name) {
 			{
 				paket_choice = "";
 				lock_choice  = "Mulai";
+				status_soal  = 0;				
 				if (bimbel_choice == 1) 
 				{
 					if (tryout_count != 2) 
@@ -450,15 +451,68 @@ function choose_paket_try_out(_id,_name) {
 				rangking_view = "";
 				if (obj.list[index].show_analisis != 0) {
 					rangking_view = '<a onclick="go('+_id+','+obj.list[index].id+',3)" class="btn btn-primary pull-left" style="margin-right: 10px;">Rangking</a>';
-				}				
+				}	
 
-				var newrec_body  = '<tr>'+
+				total_counter_child = "";
+				type_try_out        = "";
+				style_tr            = "";				
+				for (index1 = 0; index1 < obj.type.length; index1++) 
+				{
+					if (obj.type[index1].name == 'TPA') {
+						counter_child = obj.list[index].tpa;
+						type_try_out  = "spmb";
+					}
+					else if (obj.type[index1].name == 'TBI'){
+						counter_child = obj.list[index].tbi;						
+						total_counter_child = obj.list[index].tpa + obj.list[index].tbi;
+						type_try_out        = "spmb";
+					}
+					else if (obj.type[index1].name == 'TWK'){
+						counter_child = obj.list[index].twk;
+						type_try_out  = "skd";
+					}					
+					else if (obj.type[index1].name == 'TIU'){
+						counter_child = obj.list[index].tiu;
+						type_try_out  = "skd";
+					}					
+					else if (obj.type[index1].name == 'TKK'){
+						counter_child = obj.list[index].tkk;						
+						type_try_out        = "skd";
+						total_counter_child = obj.list[index].twk + obj.list[index].tiu + obj.list[index].tkk;
+					}					
+				}					
+
+				if (type_try_out == 'spmb') {
+					if (total_counter_child == 90) {
+						status_soal = 1;
+					}
+				}
+				else if(type_try_out == 'skd')
+				{
+					if (total_counter_child == 100) {
+						status_soal = 1;
+					}
+				}
+
+
+
+				if (status_soal == 1) {
+					if (total_counter_child > obj.list[index].verified) {
+						style_tr = "style='display: none;'";
+					}
+					else
+					{
+						style_tr = '';
+					}									
+					var newrec_body  = '<tr '+style_tr+'>'+
 										'<td>'+(index+1)+'</td>'+
 										'<td>'+obj.list[index].name+'</td>'+
 										'<td>'+
 										'<a onclick="go('+_id+','+obj.list[index].id+','+paket_choice+')" class="btn btn-primary pull-left" style="margin-right: 10px;">'+lock_choice+'</a>'+analisis_view+rangking_view+																				
 										'</td>'+									
-									'</tr>';
+									'</tr>';					
+				}
+				
 				$('#view_data_paket tbody').append(newrec_body);                    				
 			}
 
