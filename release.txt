@@ -1,4 +1,13 @@
 v1.0.0    
+2019-02-15
+==========
+New:
+Improved:
+- verifikasi try out
+- Penyesuaian layout dashboard
+Fixed:
+
+v1.0.0    
 2019-02-11
 ==========
 New:

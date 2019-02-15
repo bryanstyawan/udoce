@@ -55,7 +55,7 @@
 .footer-icon > i
 {
   background: #fff;
-  color: #00a7d0;
+  color: #00a85a;
   padding: 10px;
   border-radius: 50%;
   font-size: 15px;
@@ -68,6 +68,24 @@
 .footer-icon > label
 {
   padding-left: 10px;
+}
+
+.main_background
+{
+    background-image: url(<?php echo base_url() . 'assets/images/web_backgound.jpg'; ?>)!important;
+    background-size: cover!important;
+    background-position: 50% 50%!important;
+}
+
+.main_text_menu
+{
+    margin: 0px;
+    z-index: 100;
+    position: absolute;
+    color: #fff;
+    font-size: 24px;
+    font-weight: bold;
+    top: 115px;    
 }
 </style>
 <script type="text/javascript">
@@ -184,24 +202,29 @@ $(document).click(function(e) {
 
         </aside>         -->
 
-        <div class="content-wrapper" style="background: #f6ecde;/*height:510px*/;">
-            <section class="content-header">
-                <h1>
+        <div class="content-wrapper main_background">
+			<section class="content">
+                <?php
+                    if(isset($subtitle) != '')
+                    {
+                ?>
+                <h1 class="row main_background">
                     <?php echo $title;?>
                     <i id="subtitle">
                         <small> <?php if(isset($subtitle)){ echo $subtitle;} ?></small>
                     </i>
-                </h1>
-            </section>
-			<section class="content">
-    			<div class="row">
-    			<?php $this->load->view($content);?>
+                </h1>                                
+                <?php
+                    }
+                ?>
+    			<div class="row main_background">                    
+                    <?php $this->load->view($content);?>
     			</div>
             </section>
         </div>    
     </div>
 
-    <footer class="main-footer" style="margin-left:0px;background-color: #00a7d0;padding:26px!important;">
+    <footer class="main-footer" style="margin-left:0px;background-color: #00a85a;padding:26px!important;">
             <div class="container-fluid">
                 <div class="row">
                     <div class="col-lg-12">

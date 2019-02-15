@@ -212,6 +212,20 @@ class Try_out extends CI_Controller {
 		$this->load->view('templateAdmin',$data);
 	}	
 
+	public function store_verified($id,$value)
+	{
+		# code...
+		$data_store['audit_verified'] = $value;
+		$res_data  = $this->Allcrud->editData('mr_try_out_soal',$data_store,array('id'=>$id));		
+		$text_status = $this->Globalrules->check_status_res($res_data,'Data Soal dan Jawaban telah terverifikasi.');					
+		$res = array
+					(
+						'status' => $res_data,
+						'text'   => $text_status
+					);
+		echo json_encode($res);			
+	}
+
 	public function store_soal_detail($param=NULL)
 	{
 		# code...

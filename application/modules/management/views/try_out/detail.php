@@ -7,7 +7,7 @@
 	<div class="col-xs-8">
 		<div class="box">
 			<div class="box-header">
-				<h3 class="box-title"><a onclick="verified('<?=$list[0]['id'];?>')" class="btn btn-success">Soal dan jawaban ini telah benar.</a></h3>
+				<h3 class="box-title"><a onclick="verified('<?=$list[0]['id'];?>','<?=($list[0]['audit_verified'] == 1) ? '0' : '1' ;?>')" class="btn  <?=($list[0]['audit_verified'] == 1) ? 'btn-danger' : 'btn-success' ;?>">Soal dan jawaban ini <?=($list[0]['audit_verified'] == 1) ? 'Ada Kesalahan' : 'telah benar.' ;?></a></h3>
 			</div>
 			<div class="box-body">
 				<div class="row">
@@ -149,6 +149,15 @@
 										# code...
 										$color            = "color:#fff";										
 										$background_color = 'background-color: #2196F3;';																				
+									}
+
+									if ($list_soal[$i]['audit_verified'] == 1) {
+										# code...
+										$color            = "color:#fff";										
+									}
+									else
+									{
+										$color            = "color:#dd4b39";
 									}
 						?>
 									<a href="<?=base_url();?>management/try_out/detail_soal/<?=$list_soal[$i]['id'];?>/<?=$list_soal[$i]['id_parent'];?>/<?=$list_soal[$i]['id_type'];?>/<?=$list_soal[$i]['id_paket'];?>" class="btn btn-default" style="<?=$background_color;?><?=$color;?>"><?=$i+1;?></a>
@@ -676,6 +685,34 @@ function true_answer(id)
 			if (type === 'yes'){			
 				$.ajax({
 					url :"<?php echo site_url();?>bank_data/soal/store_detail/"+'delete/'+id,
+					type:"post",
+					beforeSend:function(){
+						$("#editData").modal('hide');
+						$("#loadprosess").modal('show');
+					},
+					success:function(msg){
+						var obj = jQuery.parseJSON (msg);
+						ajax_status(obj);
+					},
+					error:function(jqXHR,exception)
+					{
+						ajax_catch(jqXHR,exception);					
+					}
+				})
+			}
+		}
+	})		
+}
+
+function verified(id,value)
+{
+	Lobibox.confirm({
+		title   : "Konfirmasi",
+		msg     : "Verifikasi soal dan jawaban ini ?",
+		callback: function ($this, type) {
+			if (type === 'yes'){			
+				$.ajax({
+					url :"<?php echo site_url();?>management/try_out/store_verified/"+id+"/"+value,					
 					type:"post",
 					beforeSend:function(){
 						$("#editData").modal('hide');

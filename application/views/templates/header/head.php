@@ -9,7 +9,7 @@
 	.navbar-custom-menu>.navbar-nav>li:hover,
 	.dropdown-menu > .menu_header:hover
 	{
-		background-color: #00a7d0!important;
+		background-color: #00a85a!important;
 		color: #fff;
 	}
 

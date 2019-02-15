@@ -359,7 +359,7 @@ function choose_paket_try_out(_id,_name) {
 			$("#oid_parent").val(_id);
 			$("#name_parent").val(_name);
 			$("#header_paket").html(_name);
-
+			console.table(obj.list);
 			var newrec_header  = '<tr>'+
 									'<td>No</td>'+
 									'<td>Nama Paket</td>'+
