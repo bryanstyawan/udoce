@@ -174,17 +174,15 @@
 					if ($tipe[$i]['id'] != 3) {
 						# code...
 		?>
-						<div class="col-lg-6">
+						<div class="col-lg-6 col-xs-6">
 							<div class="box">
-								<div class="box-header">
-								</div><!-- /.box-header -->
 								<div class="box-body">
 									<div class="row">					
 										<div class="col-md-12 text-center">
 											<div class="form-group">
 												<h3><?=$tipe[$i]['name'];?></h3>
 											</div>
-											<button class="btn btn-primary btn-lg" onclick="choose_paket_try_out('<?php echo $tipe[$i]['id'];?>','<?=$tipe[$i]['name'];?>')"><i class="fa fa-edit"></i> Pilih</button>&nbsp;&nbsp;								
+											<button class="btn btn-primary btn-md" onclick="choose_paket_try_out('<?php echo $tipe[$i]['id'];?>','<?=$tipe[$i]['name'];?>')"><i class="fa fa-edit"></i> Pilih</button>&nbsp;&nbsp;								
 										</div>				
 									</div>				
 								</div><!-- /.box-body -->

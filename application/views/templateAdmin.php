@@ -219,8 +219,8 @@ $(document).click(function(e) {
                 ?>
     			<div class="row main_background">                    
                     <section>
-                        <div class="col-xs-12" style="margin-top: 32px;">
-                            <div class="box" style="background: none;border-top: none;box-shadow: none;">
+                        <div class="col-xs-12" style="margin-top: 10px;">
+                            <div class="box" style="background: none;border-top: none;box-shadow: none;margin-bottom: 0px;">
                                 <div class="box-header">
                                     <h2 style="font-size: 30px;font-weight: 600;" class="box-title">
                                         <?php echo $title;?>
@@ -332,7 +332,7 @@ $.widget.bridge('uibutton', $.ui.button);
 /* used for = give comma in number
 /*
 /*********************************************************************************************/
-
+_force();
 function _force() {
 	document.addEventListener('contextmenu', event => event.preventDefault());
 	document.onkeydown = function(e) {

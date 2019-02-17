@@ -1,4 +1,13 @@
 v1.0.0    
+2019-02-17
+==========
+New:
+Improved:
+- layout try out
+- upgrade system framework
+Fixed:
+
+v1.0.0    
 2019-02-16
 ==========
 New:
