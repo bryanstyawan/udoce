@@ -5,6 +5,7 @@ New:
 Improved:
 - layout try out
 - upgrade system framework
+- prevent video download 
 Fixed:
 
 v1.0.0    
