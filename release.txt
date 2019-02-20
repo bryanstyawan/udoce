@@ -1,4 +1,16 @@
 v1.0.0    
+2019-02-20
+==========
+New:
+- Management Mini Try Out
+- datetimepicker
+Improved:
+- Penyesuaian soal try out untuk mini try out
+- Tombol Jawaban yang benar
+Fixed:
+- Hapus Konfigurasi di try out
+
+v1.0.0    
 2019-02-17
 ==========
 New:

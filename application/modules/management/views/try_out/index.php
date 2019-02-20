@@ -37,40 +37,6 @@
 			</div><!-- /.box-body -->
 			</div><!-- /.box -->
 	</div>
-	<div class="col-xs-12">
-		<div class="box">
-			<div class="box-header">
-				<h3 class="box-title">Konfigurasi</h3>
-			</div><!-- /.box-header -->
-			<div class="box-body" id="table_fill">
-				<table class="table table-bordered table-striped">
-					<thead>
-				<tr>
-					<th>No</th>
-					<th>Konfigrasi</th>
-					<th>Nilai</th>
-					<th>Aksi</th>
-				</tr>
-				</thead>
-				<tbody>
-					<tr>
-						<td>1</td>
-						<td>Durasi</td>
-						<td></td>
-						<td></td>						
-					</tr>
-					<tr>
-						<td>2</td>
-						<td>Jumlah Soal</td>
-						<td></td>
-						<td></td>						
-					</tr>					
-				</tbody>
-				</table>
-				
-			</div><!-- /.box-body -->
-			</div><!-- /.box -->
-	</div>	
 </section>
 
 <section id="viewdata" style="display:none;">
@@ -114,6 +80,23 @@
 							<input type="text" class="form-control" id="f_name" rows="3" placeholder="Nama Paket">
 						</div>
 					</div>
+
+					<div id="formdata_mini_tryout" style="display:none;">
+
+						<div class="col-md-6">
+							<div class="form-group">
+								<label>Tanggal Publish</label>
+								<input type="text" class="form-control timerangewithtime" id="f_time_publish" placeholder="Tanggal Publish">
+							</div>
+						</div>					
+						<div class="col-md-6">
+							<div class="form-group">
+								<label>Keterangan</label>
+								<textarea class="form-control" id="f_remark" rows="3" placeholder="Keterangan"></textarea>
+							</div>
+						</div>					
+					</div>
+					
 				</div>
 
 			</div><!-- /.box-body -->
@@ -132,6 +115,14 @@ $(document).ready(function(){
 		$("#viewdata").css({"display": "none"})
 		$("#formdata > div > div > div.box-header > h3").html("Tambah Paket Try Out "+$("#name_parent").val());		
 		$("#crud").val('insert');
+		var _parent_ = $("#oid_parent").val();
+		if (_parent_ == 3) {
+			$("#formdata_mini_tryout").css({"display": ""})
+		}
+		else
+		{
+			$("#formdata_mini_tryout").css({"display": "none"})			
+		}
 	})
 
 	$("#closeData").click(function(){
@@ -140,18 +131,21 @@ $(document).ready(function(){
 	})	
 
 	$("#btn-trigger-controll").click(function(){
-		var res_status = 0;
-		var oid        = $("#oid").val();
-		var oid_parent = $("#oid_parent").val();
-		var crud       = $("#crud").val();
-		var f_name     = $("#f_name").val();
-
+		var res_status     = 0;
+		var oid            = $("#oid").val();
+		var oid_parent     = $("#oid_parent").val();
+		var crud           = $("#crud").val();
+		var f_name         = $("#f_name").val();
+		var f_time_publish = $("#f_time_publish").val();
+		var f_remark       = $("#f_remark").val();
 
 		var data_sender = {
 			'oid'              : oid,
 			'crud'             : crud,
 			'oid_parent'       : oid_parent,
-			'f_name'           : f_name
+			'f_name'           : f_name,
+			'f_time_publish'   : f_time_publish,
+			'f_remark'		   : f_remark
 		}
 
 		if (f_name.length <= 0) {
@@ -191,6 +185,7 @@ function choose_paket_try_out(_id,_name) {
 		url :"<?php echo site_url();?>management/try_out/get_data_paket_try_out/"+_id+"",
 		type:"post",
 		beforeSend:function(){
+			$("#formdata").css({"display": "none"})			
 			$("#loadprosess").modal('show');
 			$('#view_data_paket thead').html('');			
 			$('#view_data_paket tbody').html('');						
@@ -203,14 +198,21 @@ function choose_paket_try_out(_id,_name) {
 			$("#header_paket").html(_name);
 
 			child = "";
-			for (index = 0; index < obj.type.length; index++) {
-				child = child+'<td>'+obj.type[index].name+'</td>';
+			if (_id != 3) {
+				for (index = 0; index < obj.type.length; index++) {
+					child = child+'<td>'+obj.type[index].name+'</td>';
+				}				
+			}
+			else
+			{
+				child = "<td>Keterangan</td><td>Tanggal Publish</td><td>Soal</td>";
 			}
 
 			var newrec_header  = '<tr>'+
 									'<td>No</td>'+
 									'<td>Nama Paket</td>'+child+
-									'<td>Status</td>'+									
+									'<td>Status</td>'+
+									'<td>Aksi</td>'+																		
 								'</tr>';
 			$('#view_data_paket thead').append(newrec_header);                    
 
@@ -221,76 +223,114 @@ function choose_paket_try_out(_id,_name) {
 				status_child        = "";
 				total_counter_child = "";
 				type_try_out        = "";
-				for (index1 = 0; index1 < obj.type.length; index1++) 
-				{
-					if (obj.type[index1].name == 'TPA') {
-						counter_child = obj.list[index].tpa;
-						type_try_out  = "spmb";
-					}
-					else if (obj.type[index1].name == 'TBI'){
-						counter_child = obj.list[index].tbi;						
-						if (obj.list[index].tpa < 60) {
-							style_child = "style='display:none;'";
-						}
-						total_counter_child = obj.list[index].tpa + obj.list[index].tbi;
-						type_try_out        = "spmb";
-					}
-					else if (obj.type[index1].name == 'TWK'){
-						counter_child = obj.list[index].twk;
-						type_try_out  = "skd";
-					}					
-					else if (obj.type[index1].name == 'TIU'){
-						counter_child = obj.list[index].tiu;
-						type_try_out  = "skd";
-						if (obj.list[index].twk < 35) {
-							style_child = "style='display:none;'";
-						}						
-					}					
-					else if (obj.type[index1].name == 'TKK'){
-						counter_child = obj.list[index].tkk;						
-						if (obj.list[index].tiu < 30) {
-							style_child = "style='display:none;'";
-						}					
-						type_try_out        = "skd";
-						total_counter_child = obj.list[index].twk + obj.list[index].tiu + obj.list[index].tkk;
-					}					
+				style_tr            = "";	
 
-					
-					style_tr = "";
+				if (_id != 3) {
+					for (index1 = 0; index1 < obj.type.length; index1++) 
+					{
+						if (obj.type[index1].name == 'TPA') {
+							counter_child = obj.list[index].tpa;
+							type_try_out  = "spmb";
+						}
+						else if (obj.type[index1].name == 'TBI'){
+							counter_child = obj.list[index].tbi;						
+							if (obj.list[index].tpa < 60) {
+								style_child = "style='display:none;'";
+							}
+							total_counter_child = obj.list[index].tpa + obj.list[index].tbi;
+							type_try_out        = "spmb";
+						}
+						else if (obj.type[index1].name == 'TWK'){
+							counter_child = obj.list[index].twk;
+							type_try_out  = "skd";
+						}					
+						else if (obj.type[index1].name == 'TIU'){
+							counter_child = obj.list[index].tiu;
+							type_try_out  = "skd";
+							if (obj.list[index].twk < 35) {
+								style_child = "style='display:none;'";
+							}						
+						}					
+						else if (obj.type[index1].name == 'TKK'){
+							counter_child = obj.list[index].tkk;						
+							if (obj.list[index].tiu < 30) {
+								style_child = "style='display:none;'";
+							}					
+							type_try_out        = "skd";
+							total_counter_child = obj.list[index].twk + obj.list[index].tiu + obj.list[index].tkk;
+						}					
+
+						
+						if (total_counter_child > obj.list[index].verified) {
+							style_tr = "background-color: #E91E63;color: #fff;";
+						}
+						else
+						{
+							if (obj.list[index].verified != 0) {
+								style_tr = "background-color: #8BC34A;color: #fff;";							
+							}
+							else
+							{
+								style_tr = "background-color: #E91E63;color: #fff;";							
+							}
+						}
+
+
+						if (type_try_out == 'spmb') {
+							if (total_counter_child == 90) {
+								total_counter_child = 'Soal try out telah siap';
+							}
+							else
+							{
+								total_counter_child = total_counter_child+' Soal';
+							}						
+						}
+						else if(type_try_out == 'skd')
+						{
+							if (total_counter_child == 100) {
+								total_counter_child = 'Soal try out telah siap';
+							}
+							else
+							{
+								total_counter_child = total_counter_child+' Soal';
+							}
+						}
+
+						child_result = child_result+'<td>'+
+														'<span class="pull-left">'+counter_child+'</span>'+
+														'<a onclick="go('+_id+','+obj.type[index1].id+','+obj.list[index].id+')" class="btn btn-primary pull-right" '+style_child+'>'+obj.type[index1].name+'</a>'+
+													'</td>';
+					}					
+				}
+				else
+				{
+					counter_child = obj.list[index].mini_tryout;					
+					total_counter_child = obj.list[index].mini_tryout;
 					if (total_counter_child > obj.list[index].verified) {
 						style_tr = "background-color: #E91E63;color: #fff;";
+						total_counter_child = total_counter_child+' Soal';						
 					}
 					else
 					{
-						style_tr = "background-color: #8BC34A;color: #fff;";
-					}
-
-
-					if (type_try_out == 'spmb') {
-						if (total_counter_child == 90) {
-							total_counter_child = 'Soal try out telah siap';
+						if (obj.list[index].verified != 0) {
+							style_tr = "background-color: #8BC34A;color: #fff;";							
+							total_counter_child = 'Soal try out telah siap';							
 						}
 						else
 						{
-							total_counter_child = total_counter_child+' Soal';
-						}						
-					}
-					else if(type_try_out == 'skd')
-					{
-						if (total_counter_child == 100) {
-							total_counter_child = 'Soal try out telah siap';
+							style_tr = "background-color: #E91E63;color: #fff;";							
+							total_counter_child = total_counter_child+' Soal';							
 						}
-						else
-						{
-							total_counter_child = total_counter_child+' Soal';
-						}
-					}
 
-					child_result = child_result+'<td>'+
-													'<span class="pull-left">'+counter_child+'</span>'+
-													'<a onclick="go('+_id+','+obj.type[index1].id+','+obj.list[index].id+')" class="btn btn-primary pull-right" '+style_child+'>'+obj.type[index1].name+'</a>'+
-												'</td>';
-				}
+					}										
+					child_result =  '<td>'+obj.list[index].remark+'</td>'+
+									'<td>'+obj.list[index].time_publish+'</td>'+										
+									'<td>'+
+										'<span class="pull-left">'+counter_child+'</span>'+
+										'<a onclick="go('+_id+','+3+','+obj.list[index].id+')" class="btn btn-primary pull-right" '+style_child+'>Soal</a>'+
+									'</td>';					
+				}			
+
 
 				verified = '';
 				if (obj.list[index].verified != 0) {
@@ -300,7 +340,8 @@ function choose_paket_try_out(_id,_name) {
 				var newrec_body  = '<tr style="'+style_tr+'">'+
 										'<td>'+(index+1)+'</td>'+
 										'<td>'+obj.list[index].name+'</td>'+child_result+
-										'<td>'+total_counter_child+' '+verified+'</td>'+									
+										'<td>'+total_counter_child+' '+verified+'</td>'+
+										'<td><a class="btn btn-warning col-lg-12" style="margin-bottom: 19px;"><i class="fa fa-edit"></i>&nbsp;Ubah</a><a class="btn btn-danger col-lg-12"><i class="fa fa-trash"></i>&nbsp;Hapus</a></td>'+																			
 									'</tr>';
 				$('#view_data_paket tbody').append(newrec_body);                    				
 			}

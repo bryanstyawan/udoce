@@ -684,7 +684,7 @@ function true_answer(id)
 		callback: function ($this, type) {
 			if (type === 'yes'){			
 				$.ajax({
-					url :"<?php echo site_url();?>bank_data/soal/store_detail/"+'delete/'+id,
+					url :"<?php echo site_url();?>management/try_out/true_answer/"+id+"/"+$("#oid_header").val(),					
 					type:"post",
 					beforeSend:function(){
 						$("#editData").modal('hide');

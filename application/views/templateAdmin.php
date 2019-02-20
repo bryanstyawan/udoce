@@ -33,6 +33,8 @@
 <style type="text/css">@import url("<?php echo base_url() . 'assets/plugins/jvectormap/jquery-jvectormap-1.2.2.css'; ?>");</style>
 <!-- Date Picker -->
 <style type="text/css">@import url("<?php echo base_url() . 'assets/plugins/datepicker/css/bootstrap-datepicker3.css'; ?>");</style>
+<!-- Date Picker -->
+<style type="text/css">@import url("<?php echo base_url() . 'assets/plugins/bootstrap-datetimepicker-master/css/bootstrap-datetimepicker.min.css'; ?>");</style>
 <!-- Daterange picker -->
 <style type="text/css">@import url("<?php echo base_url() . 'assets/plugins/daterangepicker/daterangepicker-bs3.css'; ?>");</style>
 <!-- Select2 -->
@@ -154,6 +156,13 @@ $(document).ready(function()
         todayHighlight: true,
         daysOfWeekHighlighted: "0,6"
     });
+
+    $('.timerangewithtime').datetimepicker({
+        // maxDate: new Date,
+        // format: 'dd-mm-yyyy',
+        // todayHighlight: true,
+        // daysOfWeekHighlighted: "0,6"
+    });    
 
     $(".timerange").inputmask("dd-mm-yyyy", {"placeholder": "dd-mm-yyyy"});
 
@@ -299,6 +308,8 @@ $.widget.bridge('uibutton', $.ui.button);
 <script type='text/javascript' src="<?php echo base_url(); ?>assets/plugins/daterangepicker/daterangepicker.js"></script>
 <!-- datepicker -->
 <script type='text/javascript' src="<?php echo base_url(); ?>assets/plugins/datepicker/bootstrap-datepicker.js"></script>
+<!-- datetimepicker -->
+<script type='text/javascript' src="<?php echo base_url(); ?>assets/plugins/bootstrap-datetimepicker-master/js/bootstrap-datetimepicker.js"></script>
 <!-- Bootstrap WYSIHTML5 -->
 <script type='text/javascript' src="<?php echo base_url(); ?>assets/plugins/bootstrap-wysihtml5/bootstrap3-wysihtml5.all.min.js"></script>
 <!-- Slimscroll -->

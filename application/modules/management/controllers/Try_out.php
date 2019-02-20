@@ -25,16 +25,17 @@ class Try_out extends CI_Controller {
 			# code...
 			for ($i=0; $i < count($data['list']); $i++) { 
 				# code...
-				$get_analisis = $this->Allcrud->getData('tr_track_time_try_out',array('id_user'=>$this->session->userdata('session_user'),'id_paket'=>$data['list'][$i]['id'],'id_parent'=>$data['list'][$i]['id_parent']))->result_array();
-				$get_rangking = $this->Allcrud->getData('tr_analisis_rangking',array('id_user'=>$this->session->userdata('session_user'),'id_paket'=>$data['list'][$i]['id'],'id_parent'=>$data['list'][$i]['id_parent']))->result_array();
-				$data['list'][$i]['tpa']           = count($this->Allcrud->getdata('mr_try_out_soal',array('id_parent'=>1,'id_type'=>1,'id_paket'=>$data['list'][$i]['id']))->result_array());
-				$data['list'][$i]['tbi']           = count($this->Allcrud->getdata('mr_try_out_soal',array('id_parent'=>1,'id_type'=>2,'id_paket'=>$data['list'][$i]['id']))->result_array());
-				$data['list'][$i]['twk']           = count($this->Allcrud->getdata('mr_try_out_soal',array('id_parent'=>2,'id_type'=>3,'id_paket'=>$data['list'][$i]['id']))->result_array());
-				$data['list'][$i]['tiu']           = count($this->Allcrud->getdata('mr_try_out_soal',array('id_parent'=>2,'id_type'=>4,'id_paket'=>$data['list'][$i]['id']))->result_array());
-				$data['list'][$i]['tkk']           = count($this->Allcrud->getdata('mr_try_out_soal',array('id_parent'=>2,'id_type'=>5,'id_paket'=>$data['list'][$i]['id']))->result_array());
-				$data['list'][$i]['verified']      = count($this->Allcrud->getdata('mr_try_out_soal',array('id_parent'=>2,'id_paket'=>$data['list'][$i]['id'],'audit_verified'=>1))->result_array());
-				$data['list'][$i]['show_analisis'] = ($get_analisis != array()) ? (($get_analisis[0]['status'] != '') ? $get_analisis[0]['status'] : 0 ) : 0 ;
-				$data['list'][$i]['show_rangking'] = ($get_rangking != array()) ? (($get_rangking[0]['status'] != '') ? $get_rangking[0]['status'] : 0 ) : 0 ;
+				$get_analisis                                          = $this->Allcrud->getData('tr_track_time_try_out',array('id_user'=>$this->session->userdata('session_user'),'id_paket'=>$data['list'][$i]['id'],'id_parent'=>$data['list'][$i]['id_parent']))->result_array();
+				$get_rangking                                          = $this->Allcrud->getData('tr_analisis_rangking',array('id_user'=>$this->session->userdata('session_user'),'id_paket'=>$data['list'][$i]['id'],'id_parent'=>$data['list'][$i]['id_parent']))->result_array();
+				$data['list'][$i]['tpa']                               = count($this->Allcrud->getdata('mr_try_out_soal',array('id_parent'=>1,'id_type'=>1,'id_paket'=>$data['list'][$i]['id']))->result_array());
+				$data['list'][$i]['tbi']                               = count($this->Allcrud->getdata('mr_try_out_soal',array('id_parent'=>1,'id_type'=>2,'id_paket'=>$data['list'][$i]['id']))->result_array());
+				$data['list'][$i]['twk']                               = count($this->Allcrud->getdata('mr_try_out_soal',array('id_parent'=>2,'id_type'=>3,'id_paket'=>$data['list'][$i]['id']))->result_array());
+				$data['list'][$i]['tiu']                               = count($this->Allcrud->getdata('mr_try_out_soal',array('id_parent'=>2,'id_type'=>4,'id_paket'=>$data['list'][$i]['id']))->result_array());
+				$data['list'][$i]['tkk']                               = count($this->Allcrud->getdata('mr_try_out_soal',array('id_parent'=>2,'id_type'=>5,'id_paket'=>$data['list'][$i]['id']))->result_array());
+				$data['list'][$i]['mini_tryout']                       = count($this->Allcrud->getdata('mr_try_out_soal',array('id_parent'=>3,'id_paket'=>$data['list'][$i]['id']))->result_array());				
+				$data['list'][$i]['verified']                          = count($this->Allcrud->getdata('mr_try_out_soal',array('id_parent'=>$data['list'][$i]['id_parent'],'id_paket'=>$data['list'][$i]['id'],'audit_verified'=>1))->result_array());
+				$data['list'][$i]['show_analisis']                     = ($get_analisis != array()) ? (($get_analisis[0]['status'] != '') ? $get_analisis[0]['status'] : 0 ) : 0 ;
+				$data['list'][$i]['show_rangking']                     = ($get_rangking != array()) ? (($get_rangking[0]['status'] != '') ? $get_rangking[0]['status'] : 0 ) : 0 ;
 			}
 		}		
 		$data['type'] = $this->Allcrud->getData('mr_try_out_paket',array('id_parent'=>$id))->result_array();		
@@ -59,12 +60,25 @@ class Try_out extends CI_Controller {
 		$data_store  = $this->Globalrules->trigger_insert_update($data_sender['crud']);
 		if ($data_sender['crud'] == 'insert') {
 			# code...
+			if ($data_sender['oid_parent'] == 3) {
+				# code...
+				$data_store['mini_try_out_flag'] = 1;
+				$data_store['remark']            = $data_sender['f_remark'];
+				$data_store['time_publish']      = $data_sender['f_time_publish'];								
+				// $data_store['time_publish']      = date('Y-m-d' , strtotime($data_sender['f_time_publish']));
+			}
 			$data_store['id_parent'] = $data_sender['oid_parent'];
 			$data_store['name']      = $data_sender['f_name'];
 			            $res_data    = $this->Allcrud->addData('mr_try_out_list',$data_store);
 			            $text_status = $this->Globalrules->check_status_res($res_data,'Paket Try Out telah berhasil ditambahkan.');
 		} elseif ($data_sender['crud'] == 'update') {
 			# code...
+			if ($data_sender['oid_parent'] == 3) {
+				# code...
+				$data_store['remark']            = $data_sender['f_remark'];
+				$data_store['time_publish']      = $data_sender['f_time_publish'];				
+				// $data_store['time_publish']      = date('Y-m-d' , strtotime($data_sender['f_time_publish']));
+			}			
 			$data_store['id_parent'] = $data_sender['oid_parent'];
 			$data_store['name']      = $data_sender['f_name'];
 			            $res_data    = $this->Allcrud->editData('mr_try_out_list',$data_store,array('id'=>$data_sender['oid']));
@@ -135,14 +149,46 @@ class Try_out extends CI_Controller {
 		echo json_encode($res);		
 	}
 
-	public function soal($id_parent,$type,$id)
+	public function soal($id_parent=NULL,$type=NULL,$id=NULL)
 	{
 		# code...
 		$this->Globalrules->session_rule();								
-		$arg       = $this->Allcrud->getData('mr_try_out_paket',array('id'=>$type))->result_array()[0]['text'];
-		$data['title']   = 'Soal Try Out '.$arg;
+		$arg = "";
+		if ($id_parent != 3) {
+			# code...
+			if ($type != NULL) {
+				# code...
+				$arg       = 'Try Out'.$this->Allcrud->getData('mr_try_out_paket',array('id'=>$type))->result_array()[0]['text'];			
+			}			
+		}
+		else
+		{
+			$arg = "Mini Try Out - ".$this->Allcrud->getData('mr_try_out_list',array('id'=>$id))->result_array()[0]['name'];
+		}
+		$data['title']   = 'Soal '.$arg;
 		$data['content'] = 'management/try_out/soal';
-		$data['list']    = $this->Allcrud->getdata('mr_try_out_soal',array('id_parent'=>$id_parent,'id_type'=>$type,'id_paket'=>$id));
+		if ($id_parent != 3) {
+			# code...
+			if ($type != NULL) {
+				# code...
+				if ($id != NULL) {
+					# code...
+					$data['list']    = $this->Allcrud->getdata('mr_try_out_soal',array('id_parent'=>$id_parent,'id_type'=>$type,'id_paket'=>$id));					
+				}
+				else
+				{
+					$data['list'] = array();
+				}
+			}
+			else
+			{
+				$data['list'] = array();				
+			}			
+		}
+		else
+		{
+			$data['list']    = $this->Allcrud->getdata('mr_try_out_soal',array('id_parent'=>$id_parent,'id_paket'=>$id));			
+		}
 		$data['parent']  = $id_parent;
 		$data['type']    = $type;
 		$data['paket']   = $id;
@@ -465,4 +511,25 @@ class Try_out extends CI_Controller {
 		);
 		echo json_encode($res);						
 	}		
+
+	public function true_answer($id,$parent)
+	{
+		# code...
+		$get_key                = $this->Allcrud->getData('mr_try_out_soal_detail',array('id'=>$id))->result_array()[0]['choice'];
+		$data_store['jawaban']  = $get_key;		
+		$data_store1['jawaban'] = 'false';
+		$data_store2['jawaban'] = 'true';		
+		$res_data  = $this->Allcrud->editData('mr_try_out_soal',$data_store,array('id'=>$parent));
+		$res_data  = $this->Allcrud->editData('mr_try_out_soal_detail',$data_store1,array('id_soal'=>$parent));
+		$res_data  = $this->Allcrud->editData('mr_try_out_soal_detail',$data_store2,array('id'=>$id));		
+
+		$text_status = $this->Globalrules->check_status_res($res_data,'Data Jawaban telah berhasil diubah.');					
+
+		$res = array
+					(
+						'status' => $res_data,
+						'text'   => $text_status
+					);
+		echo json_encode($res);			
+	}
 }

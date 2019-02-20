@@ -47,22 +47,29 @@
 				</thead>
 				<tbody>
 				<?php $x=1;
-					foreach($list->result() as $row){?>
-						<tr>
-							<td><?php echo $x;?></td>
-							<td><?php echo ($row->image != NULL || $row->image != '') ? '<img src="'.base_url().'public/soal/'.$row->image.'">' : $row->name ;?></td>
-							<td><?=$row->desc_pembahasan;?></td>							
-							<td>
-								<a target="_blank" href="<?=base_url();?>management/try_out/detail_soal/<?=$row->id;?>/<?=$row->id_parent;?>/<?=$row->id_type;?>/<?=$row->id_paket;?>" class="btn btn-primary pull-right"><?=count($this->Allcrud->getdata('mr_try_out_soal_detail',array('id_soal'=>$row->id))->result_array());?></a>
-							</td>
-							<td>
-								<button class="btn btn-primary btn-xs" onclick="edit('<?php echo $row->id;?>')" style="margin: 1px;"><i class="fa fa-edit"></i> Ubah</button>&nbsp;&nbsp;
-								<button class="btn btn-danger btn-xs" onclick="del('<?php echo $row->id;?>')"><i class="fa fa-trash"></i> Hapus</button>								
-								<!--<button class="btn btn-success btn-xs" onclick="detail('<?php echo $row->id;?>')"><i class="fa fa-edit"></i> Pilihan Ganda</button>&nbsp;&nbsp;							
-								-->
-							</td>
-						</tr>
-					<?php $x++; }
+					if ($list != array()) {
+						# code...
+						foreach($list->result() as $row)
+						{
+					?>
+							<tr>
+								<td><?php echo $x;?></td>
+								<td><?php echo ($row->image != NULL || $row->image != '') ? '<img src="'.base_url().'public/soal/'.$row->image.'">' : $row->name ;?></td>
+								<td><?=$row->desc_pembahasan;?></td>							
+								<td>
+									<a target="_blank" href="<?=base_url();?>management/try_out/detail_soal/<?=$row->id;?>/<?=$row->id_parent;?>/<?=$row->id_type;?>/<?=$row->id_paket;?>" class="btn btn-primary pull-right"><?=count($this->Allcrud->getdata('mr_try_out_soal_detail',array('id_soal'=>$row->id))->result_array());?></a>
+								</td>
+								<td>
+									<button class="btn btn-primary btn-xs" onclick="edit('<?php echo $row->id;?>')" style="margin: 1px;"><i class="fa fa-edit"></i> Ubah</button>&nbsp;&nbsp;
+									<button class="btn btn-danger btn-xs" onclick="del('<?php echo $row->id;?>')"><i class="fa fa-trash"></i> Hapus</button>								
+									<!--<button class="btn btn-success btn-xs" onclick="detail('<?php echo $row->id;?>')"><i class="fa fa-edit"></i> Pilihan Ganda</button>&nbsp;&nbsp;							
+									-->
+								</td>
+							</tr>
+					<?php 
+							$x++; 
+						}						
+					}
 				?>
 				</tbody>
 				</table>
