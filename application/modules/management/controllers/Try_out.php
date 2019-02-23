@@ -36,13 +36,31 @@ class Try_out extends CI_Controller {
 				$data['list'][$i]['verified']                          = count($this->Allcrud->getdata('mr_try_out_soal',array('id_parent'=>$data['list'][$i]['id_parent'],'id_paket'=>$data['list'][$i]['id'],'audit_verified'=>1))->result_array());
 				$data['list'][$i]['show_analisis']                     = ($get_analisis != array()) ? (($get_analisis[0]['status'] != '') ? $get_analisis[0]['status'] : 0 ) : 0 ;
 				$data['list'][$i]['show_rangking']                     = ($get_rangking != array()) ? (($get_rangking[0]['status'] != '') ? $get_rangking[0]['status'] : 0 ) : 0 ;
+				if ($data['list'][$i]['id_parent'] == 1) {
+					# code...
+					$data['list'][$i]['total_soal'] = $data['list'][$i]['tpa'] + $data['list'][$i]['tbi'];
+				} 
+				elseif ($data['list'][$i]['id_parent'] == 2) {
+					# code...
+					$data['list'][$i]['total_soal'] = $data['list'][$i]['twk'] + $data['list'][$i]['tiu'] + $data['list'][$i]['tkk'];					
+				}
+				elseif ($data['list'][$i]['id_parent'] == 3) {
+					# code...
+					$data['list'][$i]['total_soal'] = $data['list'][$i]['mini_tryout'];					
+				}				
+
+				if ($data['list'][$i]['total_soal'] == $data['list'][$i]['verified']) {
+					# code...
+					$this->Allcrud->editData('mr_try_out_list',array('publish' => 1),array('id'=>$data['list'][$i]['id']));
+				}
+				
 			}
 		}		
 		$data['type'] = $this->Allcrud->getData('mr_try_out_paket',array('id_parent'=>$id))->result_array();		
 		echo json_encode($data);
 	}
 
-	public function store($arg=NULL,$oid=NULL)
+	public function store($arg=NULL,$oid=NULL,$status=NULL)
 	{
 		# code...
 		$res_data    = 0;
@@ -85,8 +103,27 @@ class Try_out extends CI_Controller {
 			            $text_status = $this->Globalrules->check_status_res($res_data,'Paket Try Out telah berhasil diubah.');
 		} elseif ($data_sender['crud'] == 'delete') {
 			# code...
+			$soal    = $this->Allcrud->getdata('mr_try_out_soal',array('id_paket'=>$data_sender['oid']))->result_array();			
+			if ($soal != array()) {
+				# code...
+				for ($i=0; $i < count($soal); $i++) { 
+					# code...
+					$res_data          = $this->Allcrud->delData('mr_try_out_soal_detail',array('id_soal'=>$soal[$i]['id']));					
+				}
+			}
 			$res_data          = $this->Allcrud->delData('mr_try_out_list',array('id'=>$data_sender['oid']));
+			$res_data          = $this->Allcrud->delData('mr_try_out_soal',array('id_paket'=>$data_sender['oid']));			
 			$text_status       = $this->Globalrules->check_status_res($res_data,'Paket Try Out telah berhasil dihapus.');			
+		} elseif ($data_sender['crud'] == 'verify') {
+			# code...
+			if ($status == 0) {
+				# code...
+				$data_store1['audit_verified'] = $status;				
+				$res_data                      = $this->Allcrud->editData('mr_try_out_soal',$data_store1,array('id_paket'=>$data_sender['oid']));							
+			}
+			$data_store['publish'] = $status;			
+			$res_data              = $this->Allcrud->editData('mr_try_out_list',$data_store,array('id'=>$data_sender['oid']));
+			$text_status           = $this->Globalrules->check_status_res($res_data,'Paket Try Out telah berhasil diubah.');			
 		}
 
 		$res = array
@@ -158,7 +195,7 @@ class Try_out extends CI_Controller {
 			# code...
 			if ($type != NULL) {
 				# code...
-				$arg       = 'Try Out'.$this->Allcrud->getData('mr_try_out_paket',array('id'=>$type))->result_array()[0]['text'];			
+				$arg       = 'Try Out '.$this->Allcrud->getData('mr_try_out_paket',array('id'=>$type))->result_array()[0]['text'];			
 			}			
 		}
 		else
@@ -193,6 +230,35 @@ class Try_out extends CI_Controller {
 		$data['type']    = $type;
 		$data['paket']   = $id;
 		$this->load->view('templateAdmin',$data);		
+	}
+
+	public function get_data_paket($id=NULL)
+	{
+		# code...
+		$res_status = "";
+		$res_text   = "";
+		$res_data   = "";
+		$data       = $this->Allcrud->getData('mr_try_out_list',array('id'=>$id));				
+		if ($data->result_array() != array()) {
+			# code...
+			$res_data   = $data->result_array();
+			$res_status = 1;
+			$res_text   = '';
+		}
+		else {
+			# code...
+			$res_data   = $data->result_array();
+			$res_status = $res_data;
+			$res_text   = 'Data tidak ditemukan';
+		}
+
+		$res = array
+					(
+						'status' => $res_status,
+						'data'   => $res_data,
+						'text'   => $res_text
+					);
+		echo json_encode($res);					
 	}
 
 	public function get_data($id,$arg=NULL,$table)

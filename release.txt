@@ -1,4 +1,13 @@
 v1.0.0    
+2019-02-23
+==========
+New:
+- verifikasi per paket di management try out
+- Ubah dan hapus di management try out
+Improved:
+Fixed:
+
+v1.0.0    
 2019-02-20
 ==========
 New:

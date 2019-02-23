@@ -336,12 +336,37 @@ function choose_paket_try_out(_id,_name) {
 				if (obj.list[index].verified != 0) {
 					verified = ' - '+obj.list[index].verified+' Terverifikasi';
 				}
+				
+				text_verified     = "";
+				verified_status   = "";				
+				btn_verified      = "";
+				if (obj.list[index].publish != 0) {
+					verified          = ' - '+((obj.list[index].verified != 0)?obj.list[index].verified:"")+' Terverifikasi';
+					text_verified     = "Batalkan Publikasi";					
+					verified_status   = 0;					
+					btn_verified      = "btn-warning";
+					fa_icon           = "fa-close";
+					style_tr          = "background-color: #8BC34A;color: #fff;";					
+				}
+				else
+				{
+					verified          = '';
+					text_verified     = "Publikasikan";										
+					verified_status   = 1;			
+					btn_verified      = "btn-success";
+					fa_icon           = "fa-check";												
+					style_tr          = "background-color: #E91E63;color: #fff;";										
+				}
+
 
 				var newrec_body  = '<tr style="'+style_tr+'">'+
 										'<td>'+(index+1)+'</td>'+
 										'<td>'+obj.list[index].name+'</td>'+child_result+
 										'<td>'+total_counter_child+' '+verified+'</td>'+
-										'<td><a class="btn btn-warning col-lg-12" style="margin-bottom: 19px;"><i class="fa fa-edit"></i>&nbsp;Ubah</a><a class="btn btn-danger col-lg-12"><i class="fa fa-trash"></i>&nbsp;Hapus</a></td>'+																			
+										'<td>'+
+											'<a class="btn '+btn_verified+' col-lg-12" onclick="verification('+obj.list[index].id+','+verified_status+')" style="margin-bottom: 19px;"><i class="fa '+fa_icon+'"></i>&nbsp;'+text_verified+'</a>'+										
+											'<a class="btn btn-warning col-lg-12" onclick="edit('+obj.list[index].id+')" style="margin-bottom: 19px;"><i class="fa fa-edit"></i>&nbsp;Ubah</a>'+
+											'<a class="btn btn-danger col-lg-12" onclick="del('+obj.list[index].id+')"><i class="fa fa-trash"></i>&nbsp;Hapus</a></td>'+																			
 									'</tr>';
 				$('#view_data_paket tbody').append(newrec_body);                    				
 			}
@@ -357,42 +382,6 @@ function choose_paket_try_out(_id,_name) {
 	})	
 }
 
-function edit(id){
-	$.ajax({
-		url :"<?php echo site_url();?>bank_data/soal/get_data/"+id+"/ajax/mr_soal",
-		type:"post",
-		beforeSend:function(){
-			$("#loadprosess").modal('show');
-		},
-		success:function(msg){
-			var obj = jQuery.parseJSON (msg);
-			if (obj.status == 1)
-			{
-				$(".form-control").val('');
-				$("#formdata").css({"display": ""})
-				$("#viewdata").css({"display": "none"})
-				$("#formdata > div > div > div.box-header > h3").html("Ubah Data Soal");		
-				$("#crud").val('update');
-				$("#oid").val(obj.data[0]['id']);
-				$("#f_name").val(obj.data[0]['name']);				
-				$("#f_desc_pembahasan").val(obj.data[0]['desc_pembahasan']);								
-				$("#loadprosess").modal('hide');				
-			}
-			else
-			{
-				Lobibox.notify('warning',{msg: obj.text});
-				setTimeout(function(){
-					$("#loadprosess").modal('hide');
-				}, 500);
-			}						
-		},
-		error:function(jqXHR,exception)
-		{
-			ajax_catch(jqXHR,exception);					
-		}
-	})
-}
-
 function del(id)
 {					
 	Lobibox.confirm({
@@ -401,7 +390,35 @@ function del(id)
 		callback: function ($this, type) {
 			if (type === 'yes'){			
 				$.ajax({
-					url :"<?php echo site_url();?>bank_data/soal/store/"+'delete/'+id,
+					url :"<?php echo site_url();?>management/try_out/store/"+'delete/'+id,
+					type:"post",
+					beforeSend:function(){
+						$("#editData").modal('hide');
+						$("#loadprosess").modal('show');
+					},
+					success:function(msg){
+						var obj = jQuery.parseJSON (msg);
+						ajax_status(obj);
+					},
+					error:function(jqXHR,exception)
+					{
+						ajax_catch(jqXHR,exception);					
+					}
+				})
+			}
+		}
+	})		
+}
+
+function verification(id,status)
+{					
+	Lobibox.confirm({
+		title   : "Konfirmasi",
+		msg     : "Anda yakin akan menghapus data ini ?",
+		callback: function ($this, type) {
+			if (type === 'yes'){			
+				$.ajax({
+					url :"<?php echo site_url();?>management/try_out/store/"+'verify/'+id+'/'+status,
 					type:"post",
 					beforeSend:function(){
 						$("#editData").modal('hide');
@@ -423,5 +440,51 @@ function del(id)
 
 function go(id_parent,type,id) {
 	window.open("<?php echo site_url();?>management/try_out/soal/"+id_parent+"/"+type+"/"+id,'_blank');		
+}
+
+function edit(id) {
+	$.ajax({
+		url :"<?php echo site_url();?>management/try_out/get_data_paket/"+id+"",
+		type:"post",
+		beforeSend:function(){
+			$("#loadprosess").modal('show');
+		},
+		success:function(msg){
+			var obj = jQuery.parseJSON (msg);
+			if (obj.status == 1)
+			{
+				$(".form-control-detail").val('');
+				$("#formdata").css({"display": ""})
+				$("#viewdata").css({"display": "none"})
+				$("#formdata > div > div > div.box-header > h3").html("Ubah Data Paket");		
+				$("#crud").val('update');
+				var _parent_ = $("#oid_parent").val();
+				if (_parent_ == 3) {
+					$("#formdata_mini_tryout").css({"display": ""})
+					$("#f_time_publish").val(obj.data[0]['time_publish']);
+					$("#f_remark").val(obj.data[0]['remark']);					
+				}
+				else
+				{
+					$("#formdata_mini_tryout").css({"display": "none"})			
+				}				
+				$("#oid").val(obj.data[0]['id']);
+				$("#f_name").val(obj.data[0]['name']);				
+				// $("#f_desc_pembahasan").val(obj.data[0]['desc_pembahasan']);								
+				$("#loadprosess").modal('hide');				
+			}
+			else
+			{
+				Lobibox.notify('warning',{msg: obj.text});
+				setTimeout(function(){
+					$("#loadprosess").modal('hide');
+				}, 500);
+			}						
+		},
+		error:function(jqXHR,exception)
+		{
+			ajax_catch(jqXHR,exception);					
+		}
+	})	
 }
 </script>
