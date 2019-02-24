@@ -240,7 +240,7 @@ if ($list != array()) {
             $show_time = 'Mini Try Out telah selesai.';
             $style     = "style='display:none'";				            
             $end_mini  += 1;
-            // $this->Allcrud->editData('mr_try_out_list',array('publish'=>0),array('id'=>$list[$i]['id']));            
+            $this->Allcrud->editData('mr_try_out_list',array('publish'=>0),array('id'=>$list[$i]['id']));            
         }
 ?>
     <a href="#" onclick="go('<?=$go;?>','<?=$list[$i]['id'];?>')">
