@@ -375,7 +375,7 @@ function choose_paket_try_out(_id,_name) {
 										'<td>'+obj.list[index].name+'</td>'+child_result+
 										'<td>'+total_counter_child+' '+verified+'</td>'+
 										'<td>'+
-											'<a class="btn '+btn_verified+' col-lg-12" onclick="verification('+obj.list[index].id+','+verified_status+')" style="margin-bottom: 19px;"><i class="fa '+fa_icon+'"></i>&nbsp;'+text_verified+'</a>'+										
+											'<a class="btn '+btn_verified+' col-lg-12" onclick="verification('+obj.list[index].id+','+verified_status+','+text_verified+')" style="margin-bottom: 19px;"><i class="fa '+fa_icon+'"></i>&nbsp;'+text_verified+'</a>'+										
 											'<a class="btn btn-warning col-lg-12" onclick="edit('+obj.list[index].id+')" style="margin-bottom: 19px;"><i class="fa fa-edit"></i>&nbsp;Ubah</a>'+
 											'<a class="btn btn-danger col-lg-12" onclick="del('+obj.list[index].id+')"><i class="fa fa-trash"></i>&nbsp;Hapus</a></td>'+																			
 									'</tr>';
@@ -421,11 +421,11 @@ function del(id)
 	})		
 }
 
-function verification(id,status)
+function verification(id,status,text)
 {					
 	Lobibox.confirm({
 		title   : "Konfirmasi",
-		msg     : "Anda yakin akan menghapus data ini ?",
+		msg     : "Anda yakin akan "+text+" data ini ?",
 		callback: function ($this, type) {
 			if (type === 'yes'){			
 				$.ajax({
