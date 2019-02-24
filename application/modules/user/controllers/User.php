@@ -401,8 +401,6 @@ class User extends CI_Controller {
 			$time_expire     = date('Y-m-d H:i:s',strtotime('+'.$data['paket_name'][0]['durasi'].' minutes',strtotime($data['paket_name'][0]['time_publish'])));
 			$timeout_expired = strtotime($time_expire) - strtotime($time_server);        
 			$data['timeout'] = $timeout_expired; 
-
-
 		}
 		else
 		{

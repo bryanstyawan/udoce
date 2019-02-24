@@ -71,7 +71,7 @@ if ($list != array()) {
 						</div>				
 						<div class="col-lg-2">
 							<h3 class="col-lg-12 box-title">
-								<a onclick="end_test(<?=$list[0]['id_parent'];?>,<?=$list[0]['id_paket'];?>)" class="btn btn-success btn-xs">Selesai Ujian</a>
+								<a onclick="end_test(<?=$list[0]['id_paket'];?>)" class="btn btn-success btn-xs">Selesai Ujian</a>
 							</h3>				
 						</div>									
 					</div>																
