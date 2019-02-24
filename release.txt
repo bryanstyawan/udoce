@@ -1,4 +1,14 @@
 v1.0.0    
+2019-02-24
+==========
+New:
+- Penambahan Durasi di management mini try out
+- Mini Try Out disisi user
+Improved:
+Fixed:
+- validasi untuk verifikasi paket soal
+
+v1.0.0    
 2019-02-23
 ==========
 New:

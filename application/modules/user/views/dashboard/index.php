@@ -74,7 +74,7 @@
                     </div>
                 </a>
 
-                <a href="<?=base_url();?>dashboard/soon">
+                <a href="<?=base_url();?>user/mini_try_out">
                     <div class="col-md-6">
                         <div class="box mb-4 shadow-sm" style='background: none;border-top: none;box-shadow: none;'>
                             <h3 class="main_text_menu col-lg-12 text-center">Mini Try Out</h3>

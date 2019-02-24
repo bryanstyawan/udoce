@@ -208,7 +208,6 @@ if ($list_soal != array()) {
 	var time_server = "<?=$timeout;?>";
 	var upgradeTime = time_server;
 	var seconds     = upgradeTime;
-	console.log(seconds);
 	function timer() {
 
 		var days        = Math.floor(seconds/24/60/60);

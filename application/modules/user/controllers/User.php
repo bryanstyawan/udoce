@@ -339,4 +339,110 @@ class User extends CI_Controller {
 		$data['content'] = 'user/video_materi/index';
 		$this->load->view('templateAdmin',$data);		
 	}
+
+	public function mini_try_out()
+	{
+		# code...
+		$this->Globalrules->session_rule();
+		$data['title']   = 'Mini Try Out';
+		$data['list'] = $this->Allcrud->getData('mr_try_out_list',array('id_parent'=>3,'publish'=>1))->result_array();		
+		$data['verify_user_paid'] = $this->Allcrud->getData('tr_layanan',array('id_user'=>$this->session->userdata('session_user'),'type'=>'bimbel'))->result_array();		
+		$data['content'] = 'user/try_out/mini_try_out/index';
+		$this->load->view('templateAdmin',$data);				
+	}
+
+	public function mini_try_out_start($id)
+	{
+		# code...
+		$this->Globalrules->session_rule();
+		$data['title']   = 'Mini Try Out';
+		$data['paket'] = $this->Allcrud->getData('mr_try_out_list',array('id'=>$id,'publish'=>1))->result_array();		
+		if ($data['paket'] != array()) {
+			# code...
+			$data['list']    = $this->Allcrud->getData('mr_try_out_soal',array('id_paket'=>$data['paket'][0]['id']))->result_array();			
+			$data['track']   = $this->Allcrud->getData('tr_track_time_try_out',array('id_user'=>$this->session->userdata('session_user'),'id_paket'=>$data['paket'][0]['id']))->result_array();			
+			// print_r($data['track']);die();
+		}
+		else
+		{
+			redirect('user/mini_try_out');
+		}
+		$data['verify_user_paid'] = $this->Allcrud->getData('tr_layanan',array('id_user'=>$this->session->userdata('session_user'),'type'=>'bimbel'))->result_array();		
+		$data['content'] = 'user/try_out/mini_try_out/start';
+		$this->load->view('templateAdmin',$data);		
+	}
+
+	public function store_choice_mini_try_out()
+	{
+		# code...
+		# code...
+		$crud        = '';
+		$res_data    = "";
+		$text_status = "";
+		$data_sender = $this->input->post('data_sender');
+		$user        = $this->session->userdata('session_user');
+		$check_data  = $this->Allcrud->getData('tr_jawaban_try_out',array('id_user'=>$user,'id_paket'=>$data_sender['paket'],'id_soal'=>$data_sender['soal']))->result_array();
+		if ($check_data == array()) {
+			# code...
+			$crud = 'insert';
+		}
+		else {
+			# code...
+			$crud = 'update';			
+		}
+
+		$data_store = $this->Globalrules->trigger_insert_update($crud);
+		$data_store['id_user']    = $user;
+		$data_store['id_paket']   = $data_sender['paket'];
+		$data_store['id_soal']    = $data_sender['soal'];
+		$data_store['id_jawaban'] = $data_sender['choice'];
+		$data_store['status']     = 0;
+		if ($crud == 'insert') 
+		{
+			# code...
+			$res_data    = $this->Allcrud->addData('tr_jawaban_try_out',$data_store);			
+		}
+		elseif($crud == 'update') 
+		{
+			# code...
+			$res_data  = $this->Allcrud->editData('tr_jawaban_try_out',$data_store,array('id_user'=>$user,'id_paket'=>$data_sender['paket'],'id_soal'=>$data_sender['soal']));			
+		}
+
+		$text_status       = $this->Globalrules->check_status_res($res_data,'Jawaban anda telah disimpan.');
+		$res = array
+					(
+						'status' => $res_data,
+						'text'   => $text_status
+					);
+		echo json_encode($res);		
+	}
+
+	public function end_mini_try_out($paket=NULL)
+	{
+		# code...
+		$user                    = $this->session->userdata('session_user');		
+		$data_store1['status']   = 1;
+		$data_store1['id_user']  = $user;
+		$data_store1['id_paket'] = $paket;		
+		$res_data                = $this->Allcrud->addData('tr_track_time_try_out',$data_store1);
+		$text_status             = $this->Globalrules->check_status_res($res_data,'Anda telah menyelesaikan try out ini.');
+		$res                     = array
+									(
+										'status' => $res_data,
+										'text'   => $text_status
+									);
+		echo json_encode($res);				
+	}
+
+	public function mini_try_out_analisis($id=NULL)
+	{
+		# code...
+		$this->Globalrules->session_rule();
+		$data['title']      = 'Mini Try Out - Analisis';
+		$data['paket']      = $id;
+		$data['data_paket'] = $this->Allcrud->getData('mr_try_out_list',array('id'=>$id))->result_array();		 
+		$data['list']       = $this->Allcrud->getData('mr_try_out_soal',array('id_paket'=>$id))->result_array();		
+		$data['content']    = 'user/try_out/mini_try_out/analisis';
+		$this->load->view('templateAdmin',$data);		
+	}
 }

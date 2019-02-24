@@ -49,9 +49,12 @@ class Try_out extends CI_Controller {
 					$data['list'][$i]['total_soal'] = $data['list'][$i]['mini_tryout'];					
 				}				
 
-				if ($data['list'][$i]['total_soal'] == $data['list'][$i]['verified']) {
+				if ($data['list'][$i]['total_soal'] != 0) {
 					# code...
-					$this->Allcrud->editData('mr_try_out_list',array('publish' => 1),array('id'=>$data['list'][$i]['id']));
+					if ($data['list'][$i]['total_soal'] == $data['list'][$i]['verified']) {
+						# code...
+						$this->Allcrud->editData('mr_try_out_list',array('publish' => 1),array('id'=>$data['list'][$i]['id']));
+					}					
 				}
 				
 			}
@@ -82,6 +85,7 @@ class Try_out extends CI_Controller {
 				# code...
 				$data_store['mini_try_out_flag'] = 1;
 				$data_store['remark']            = $data_sender['f_remark'];
+				$data_store['durasi']            = $data_sender['f_durasi'];				
 				$data_store['time_publish']      = $data_sender['f_time_publish'];								
 				// $data_store['time_publish']      = date('Y-m-d' , strtotime($data_sender['f_time_publish']));
 			}
@@ -94,6 +98,7 @@ class Try_out extends CI_Controller {
 			if ($data_sender['oid_parent'] == 3) {
 				# code...
 				$data_store['remark']            = $data_sender['f_remark'];
+				$data_store['durasi']            = $data_sender['f_durasi'];				
 				$data_store['time_publish']      = $data_sender['f_time_publish'];				
 				// $data_store['time_publish']      = date('Y-m-d' , strtotime($data_sender['f_time_publish']));
 			}			

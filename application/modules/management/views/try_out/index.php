@@ -89,6 +89,14 @@
 								<input type="text" class="form-control timerangewithtime" id="f_time_publish" placeholder="Tanggal Publish">
 							</div>
 						</div>					
+
+						<div class="col-md-6">
+							<div class="form-group">
+								<label>Durasi (menit)</label>
+								<input type="number" class="form-control" id="f_durasi" placeholder="Tanggal Publish">
+							</div>
+						</div>					
+
 						<div class="col-md-6">
 							<div class="form-group">
 								<label>Keterangan</label>
@@ -138,6 +146,7 @@ $(document).ready(function(){
 		var f_name         = $("#f_name").val();
 		var f_time_publish = $("#f_time_publish").val();
 		var f_remark       = $("#f_remark").val();
+		var f_durasi       = $("#f_durasi").val();		
 
 		var data_sender = {
 			'oid'              : oid,
@@ -145,6 +154,7 @@ $(document).ready(function(){
 			'oid_parent'       : oid_parent,
 			'f_name'           : f_name,
 			'f_time_publish'   : f_time_publish,
+			'f_durasi'   	   : f_durasi,			
 			'f_remark'		   : f_remark
 		}
 
@@ -205,7 +215,7 @@ function choose_paket_try_out(_id,_name) {
 			}
 			else
 			{
-				child = "<td>Keterangan</td><td>Tanggal Publish</td><td>Soal</td>";
+				child = "<td>Keterangan</td><td>Tanggal Publish</td><td>Durasi</td><td>Soal</td>";
 			}
 
 			var newrec_header  = '<tr>'+
@@ -324,7 +334,8 @@ function choose_paket_try_out(_id,_name) {
 
 					}										
 					child_result =  '<td>'+obj.list[index].remark+'</td>'+
-									'<td>'+obj.list[index].time_publish+'</td>'+										
+									'<td>'+obj.list[index].time_publish+'</td>'+
+									'<td>'+obj.list[index].durasi+' Menit</td>'+																			
 									'<td>'+
 										'<span class="pull-left">'+counter_child+'</span>'+
 										'<a onclick="go('+_id+','+3+','+obj.list[index].id+')" class="btn btn-primary pull-right" '+style_child+'>Soal</a>'+
