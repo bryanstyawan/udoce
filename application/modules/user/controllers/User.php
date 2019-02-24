@@ -351,22 +351,66 @@ class User extends CI_Controller {
 		$this->load->view('templateAdmin',$data);				
 	}
 
-	public function mini_try_out_start($id)
+	public function mini_try_out_start($id,$detail=NULL,$arg=NULL)
 	{
 		# code...
 		$this->Globalrules->session_rule();
-		$data['title']   = 'Mini Try Out';
-		$data['paket'] = $this->Allcrud->getData('mr_try_out_list',array('id'=>$id,'publish'=>1))->result_array();		
-		if ($data['paket'] != array()) {
+		$data['title']      = 'Mini Try Out';
+		$data['paket_name'] = $this->Allcrud->getData('mr_try_out_list',array('id'=>$id,'publish'=>1))->result_array();		
+		if ($data['paket_name'] != array()) {
 			# code...
-			$data['list']    = $this->Allcrud->getData('mr_try_out_soal',array('id_paket'=>$data['paket'][0]['id']))->result_array();			
-			$data['track']   = $this->Allcrud->getData('tr_track_time_try_out',array('id_user'=>$this->session->userdata('session_user'),'id_paket'=>$data['paket'][0]['id']))->result_array();			
-			// print_r($data['track']);die();
+			$data['list']    = $this->Allcrud->getData('mr_try_out_soal',array('id_paket'=>$data['paket_name'][0]['id']))->result_array();			
+			$data['track']   = $this->Allcrud->getData('tr_track_time_try_out',array('id_user'=>$this->session->userdata('session_user'),'id_paket'=>$data['paket_name'][0]['id']))->result_array();			
+
+
+			if ($arg == 1) {
+				# code...
+				if ($detail != NULL) {
+					# code...
+					if ($detail != 0) {
+						# code...
+						$get_data_jawaban = $this->Allcrud->getData('tr_jawaban_try_out',array('id_user'=>$this->session->userdata('session_user'),'id_paket'=>$data['paket_name'][0]['id'],'id_soal'=>$data['list'][$detail-1]['id']))->result_array();				
+						$_data_store_['status'] = 1;
+						if($get_data_jawaban != array()){$res_data = $this->Allcrud->editData('tr_jawaban_try_out',$_data_store_,array('id'=>$get_data_jawaban[0]['id']));}						
+					}									
+				}
+			}
+			elseif($arg == 0) {
+				# code...
+				if ($detail != NULL) {
+					# code...
+					if ($detail != 0) {
+						# code...
+						$get_data_jawaban = $this->Allcrud->getData('tr_jawaban_try_out',array('id_user'=>$this->session->userdata('session_user'),'id_paket'=>$data['paket_name'][0]['id'],'id_soal'=>$data['list'][$detail-1]['id']))->result_array();				
+						$_data_store_['status'] = 0;
+						if($get_data_jawaban != array()){$res_data = $this->Allcrud->editData('tr_jawaban_try_out',$_data_store_,array('id'=>$get_data_jawaban[0]['id']));}															
+					}
+				}
+			}
+
+			if ($detail == NULL) {
+				# code...
+				$data['counter_soal'] = 0;
+			}
+			else {
+				# code...
+				$data['counter_soal'] = $detail;
+			}			
+
+			$time_server  = date('Y-m-d H:i:s');
+			$time_minute     = $data['paket_name'][0]['durasi'] * 60;
+			$time_expire     = date('Y-m-d H:i:s',strtotime('+'.$data['paket_name'][0]['durasi'].' minutes',strtotime($data['paket_name'][0]['time_publish'])));
+			$timeout_expired = strtotime($time_expire) - strtotime($time_server);        
+			$data['timeout'] = $timeout_expired; 
+
+
 		}
 		else
 		{
 			redirect('user/mini_try_out');
 		}
+		
+		
 		$data['verify_user_paid'] = $this->Allcrud->getData('tr_layanan',array('id_user'=>$this->session->userdata('session_user'),'type'=>'bimbel'))->result_array();		
 		$data['content'] = 'user/try_out/mini_try_out/start';
 		$this->load->view('templateAdmin',$data);		
@@ -438,11 +482,25 @@ class User extends CI_Controller {
 	{
 		# code...
 		$this->Globalrules->session_rule();
-		$data['title']      = 'Mini Try Out - Analisis';
-		$data['paket']      = $id;
-		$data['data_paket'] = $this->Allcrud->getData('mr_try_out_list',array('id'=>$id))->result_array();		 
-		$data['list']       = $this->Allcrud->getData('mr_try_out_soal',array('id_paket'=>$id))->result_array();		
-		$data['content']    = 'user/try_out/mini_try_out/analisis';
-		$this->load->view('templateAdmin',$data);		
+		if ($id != NULL) {
+			# code...
+			$data['title']      = 'Mini Try Out - Analisis';
+			$data['paket']      = $id;
+			$data['data_paket'] = $this->Allcrud->getData('mr_try_out_list',array('id'=>$id))->result_array();		 
+			$data['list']       = $this->Allcrud->getData('mr_try_out_soal',array('id_paket'=>$id))->result_array();		
+			$data['content']    = 'user/try_out/mini_try_out/analisis';
+			$this->load->view('templateAdmin',$data);					
+		}
+		else
+		{
+			redirect('user/mini_try_out');
+		}
+
 	}
+
+	public function secondsToTime($seconds) {
+		$dtF = new \DateTime('@0');
+		$dtT = new \DateTime("@$seconds");
+		return $dtF->diff($dtT)->format('%a Hari, %h Jam, %i Menit dan %s Detik');
+	}	
 }

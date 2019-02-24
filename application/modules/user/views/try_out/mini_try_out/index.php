@@ -250,7 +250,7 @@ if ($list != array()) {
                     <h3 class="box-title"><?=$list[$i]['name'];?></h3>
                 </div>        
                 <div class="box-body">
-                    <p class="card-text"><?=$list[$i]['remark'];?></p>
+                    <p class="card-text" style="color:#000;"><?=$list[$i]['remark'];?></p>
                     <div class="d-flex justify-content-between align-items-center">
                     <small class="text-muted pull-right"><?=$show_time;?></small>
                     </div>

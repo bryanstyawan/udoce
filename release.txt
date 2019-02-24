@@ -5,6 +5,7 @@ New:
 - Penambahan Durasi di management mini try out
 - Mini Try Out disisi user
 Improved:
+- Penyesuaian layout mini try out seperti layout try out
 Fixed:
 - validasi untuk verifikasi paket soal
 

@@ -32,7 +32,7 @@ if ($this->session->userdata('session_role') == 3) {
                 </li>
 
                 <li>
-                    <a href="<?=base_url();?>dashboard/soon">
+                    <a href="<?=base_url();?>user/mini_try_out">
                         <!-- <i class="fa fa-users text-aqua"></i>  -->
                         Mini Try Out
                     </a>
