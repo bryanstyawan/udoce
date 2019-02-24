@@ -16,12 +16,13 @@
         if ($this->uri->segment(5) != '') {
             # code...
 ?>
-            <div class="container" id="viewpembahasan" style="display:none;">
+            <div class="col-lg-10" id="viewpembahasan" style="display:none;">
                 <div class="row">
                     <div class="col-lg-12">
-                        <a onclick="go('close')" class="btn btn-danger pull-right"><i class="fa fa-times"></i></a>
+                        <a onclick="go('close')" class="btn btn-danger pull-right follow-scroll"><i class="fa fa-times"></i></a>
                     </div>
                 </div>
+                <div class="col-lg-7">
             <?php
                 $try_out_true_tbi      = 0;
                 $try_out_false_tbi     = 0;
@@ -58,7 +59,7 @@
             ?>
                         <div class="row">
                             <div class="col-lg-12">
-                                <div class="box">
+                                <div class="box" id="div_soal_<?=$list_soal[$i]['id'];?>">
                                     <div class="box-body">
                                         <div class="row">
                                             <h2 class="col-lg-1 text-center"><?=$i+1;?>.</h2>                            
@@ -240,6 +241,44 @@
 
 
             ?>
+                </div>            
+                <div class="col-lg-5 follow-scroll" id="counter">
+                    <div class="col-lg-12">
+                        <?php
+                            $counter_soal_x = 0;
+                            if ($list_soal != array()) {
+                                # code...
+                                for ($i=0; $i < count($list_soal); $i++) { 
+                                    # code...
+                                    $background_color = '';
+                                    $color            = "";
+                                    $check_choice     = $this->Allcrud->getData('mr_try_out_soal_detail',array('id_soal'=>$list_soal[$i]['id'],'jawaban'=>'true'))->result_array();                                    
+                                    $check_data       = $this->Allcrud->getData('tr_jawaban_try_out',array('id_user'=>$this->session->userdata('session_user'),'id_parent'=>$list_soal[$i]['id_parent'],'id_paket'=>$list_soal[$i]['id_paket'],'id_soal'=>$list_soal[$i]['id']))->result_array();
+                                    if ($check_data != array()) {
+                                        # code...
+                                        if ($check_choice[0]['id'] == $check_data[0]['id_jawaban']) {
+                                            # code...
+                                            $color            = "color:#fff;";
+                                            $background_color = "background-color:#4CAF50;";												
+                                        }
+                                        else {
+                                            # code...
+                                            $color            = "color:#fff;";
+                                            $background_color = "background-color:red;";											
+                                        }
+                                    }										
+                                    // $data_soal        = $this->Allcrud->getdata('mr_try_out_soal',array('id'=>$list_soal[$i]['id']))->result_array();
+                                    
+                                    $counter = ($i < 10) ? str_pad($i+1,2,"0",STR_PAD_LEFT) : $i + 1;
+                        ?>
+                                    <a href="#div_soal_<?=$list_soal[$i]['id'];?>" class="btn btn-default" style="<?=$background_color;?><?=$color;?>"><?=$counter;?></a>
+                        <?php
+                                }								
+                            }
+                        ?>
+                    </div>
+                </div>
+
             </div>
 
             <div class="container col-lg-9" id="viewanalisisheader">
@@ -388,6 +427,26 @@
 
 
 <script>
+    $(document).ready(function(){
+        var element = $('.follow-scroll'),
+            originalY = element.offset().top;
+
+        // Space between element and top of screen (when scrolling)
+        var topMargin = 0;
+
+        // Should probably be set in CSS; but here just for emphasis
+        element.css('position', 'relative');
+
+        $(window).on('scroll', function(event) {
+            var scrollTop = $(window).scrollTop();
+
+            element.stop(false, false).animate({
+                top: scrollTop < originalY
+                        ? 0
+                        : scrollTop - originalY + topMargin
+            }, 300);
+        });
+    })
     function go(params) {
         if (params == 'pembahasan') {
             $("#viewpembahasan").css({"display": ""})

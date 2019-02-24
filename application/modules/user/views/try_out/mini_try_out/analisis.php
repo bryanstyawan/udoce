@@ -8,11 +8,12 @@
 			<h3 class="box-title pull-left col-lg-12">
 				Pembahasan Quiz
 				<div class="box-tools pull-right">
-					<button class="btn btn-block btn-primary" onclick="view_analisis('result_analisis')"><i class="fa fa-arrow-circle-o-left"></i> Kembali</button>
+					<button class="btn btn-block btn-primary follow-scroll" onclick="view_analisis('result_analisis')"><i class="fa fa-arrow-circle-o-left"></i> Kembali</button>
 				</div>
 			</h3>																				
 		</div>
 	</div>
+	<div class="col-lg-9">
 	<?php
 	if ($list != array()) {
 		$quiz_true   = 0;
@@ -22,7 +23,7 @@
 		for ($i=0; $i < count($list); $i++) { 
 			# code...
 	?>
-	<div class="box">
+	<div class="box" id="div_soal_<?=$list[$i]['id'];?>">
 		<div class="box-body">
 			<div class="row">
 				<div class="col-md-12">
@@ -106,6 +107,43 @@
         
 	}
 	?>
+	</div>	
+	<div class="col-lg-3 follow-scroll" id="counter">
+		<div class="col-lg-12">
+			<?php
+				$counter_soal_x = 0;
+				if ($list != array()) {
+					# code...
+					for ($i=0; $i < count($list); $i++) { 
+						# code...
+						$background_color = '';
+						$color            = "";
+						$check_choice     = $this->Allcrud->getData('mr_try_out_soal_detail',array('id_soal'=>$list[$i]['id'],'jawaban'=>'true'))->result_array();						
+						$check_data       = $this->Allcrud->getData('tr_jawaban_try_out',array('id_user'=>$this->session->userdata('session_user'),'id_parent'=>$list[$i]['id_parent'],'id_paket'=>$list[$i]['id_paket'],'id_soal'=>$list[$i]['id']))->result_array();
+						if ($check_data != array()) {
+							# code...
+							if ($check_choice[0]['id'] == $check_data[0]['id_jawaban']) {
+								# code...
+								$color            = "color:#fff;";
+								$background_color = "background-color:#4CAF50;";												
+							}
+							else {
+								# code...
+								$color            = "color:#fff;";
+								$background_color = "background-color:red;";											
+							}
+						}										
+						// $data_soal        = $this->Allcrud->getdata('mr_try_out_soal',array('id'=>$list[$i]['id']))->result_array();
+						
+						$counter = ($i < 10) ? str_pad($i+1,2,"0",STR_PAD_LEFT) : $i + 1;
+			?>
+						<a href="#div_soal_<?=$list[$i]['id'];?>" class="btn btn-default" style="<?=$background_color;?><?=$color;?>"><?=$counter;?></a>
+			<?php
+					}								
+				}
+			?>
+		</div>
+	</div>	
 </section>
 
 <section id="analisis_pre_test_quiz_section" class="col-lg-12" style="">
@@ -188,6 +226,27 @@ $(document).ready(function(){
 		'result': $("#quiz_result").val()
 	}
 	console.table(data_sender);	
+})
+
+$(document).ready(function(){
+    var element = $('.follow-scroll'),
+        originalY = element.offset().top;
+
+    // Space between element and top of screen (when scrolling)
+    var topMargin = 0;
+
+    // Should probably be set in CSS; but here just for emphasis
+    element.css('position', 'relative');
+
+    $(window).on('scroll', function(event) {
+        var scrollTop = $(window).scrollTop();
+
+        element.stop(false, false).animate({
+            top: scrollTop < originalY
+                    ? 0
+                    : scrollTop - originalY + topMargin
+        }, 300);
+    });
 })
 
 function choice(_choice,_soal,_materi,_type) {

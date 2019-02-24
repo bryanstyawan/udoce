@@ -6,6 +6,7 @@ New:
 - Mini Try Out disisi user
 Improved:
 - Penyesuaian layout mini try out seperti layout try out
+- Mini map di Pembahasan try out, mini try out, quiz
 Fixed:
 - validasi untuk verifikasi paket soal
 
