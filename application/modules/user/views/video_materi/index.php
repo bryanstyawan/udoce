@@ -200,213 +200,180 @@
 <?php
 if ($list != array()) {
     # code...
-    if (count($list) > 2) {
-        # code...
-?>
-<div class="col-md-3">
-    <div class="box box-solid" style="">
-
-        <div class="box-header with-border">
-            <!-- <h3 class="box-title">Materi</h3> -->
-        </div>
-        <div class="box-body no-padding" style="display: block;">
-            <ul class="nav nav-pills nav-stacked contact-id">
-                <?php
-                $i = "";
-                for ($i=0; $i < count($list); $i++) {
-                    // code...
-                    ?>
-                        <li style="cursor: pointer;" class="teamwork" onclick="detail_skp('<?=$list[$i]['id'];?>')">
-                            <a class="contact-name">
-                                <i class="fa fa-circle-o text-red contact-name-list"></i><?=$list[$i]['name'];?>
-                            </a>
-                        </li>
+    ?>
+    <div class="container" id="main_video_section">
+        <div class="col-lg-6">
+            <div class="box box-solid" style="">
+                <div class="box-header with-border text-center">
+                    <h3 class="box-title"><?=$list[0]['name'];?></h3>
+                </div>
+                <div class="box-body no-padding" style="display: block;">
+                    
                     <?php
-                }
-                ?>
-            </ul>
-        </div>
-    </div>
-</div>
-<?php        
-    }
-    else {
-        # code...
-?>
-<div class="container" id="main_video_section">
-    <div class="col-lg-6">
-        <div class="box box-solid" style="">
-            <div class="box-header with-border text-center">
-                <h3 class="box-title"><?=$list[0]['name'];?></h3>
-            </div>
-            <div class="box-body no-padding" style="display: block;">
-                
-                <?php
-                    $child = $this->Allcrud->getData('mr_materi',array('id_parent'=>$list[0]['id']))->result_array();
-                    for ($ii=0; $ii < count($child); $ii++) 
-                    { 
-                        # code...
-                        $arg_video  = "";
-                        $id_video   = "";
-                        $file_video = "";
-                        $get_video  = $this->Allcrud->getData('mr_video',array('id_materi'=>$child[$ii]['id'],'id_parent'=>$child[$ii]['id_parent']))->result_array();
-                        $lock       = "";
-                        if ($get_video != array()) {
+                        $child = $this->Allcrud->getData('mr_materi',array('id_parent'=>$list[0]['id']))->result_array();
+                        for ($ii=0; $ii < count($child); $ii++) 
+                        { 
                             # code...
-                            $id_video   = $get_video[0]['id'];
-                            $file_video = $get_video[0]['file'];
-                            if ($verify_user_paid != array()) {
+                            $arg_video  = "";
+                            $id_video   = "";
+                            $file_video = "";
+                            $get_video  = $this->Allcrud->getData('mr_video',array('id_materi'=>$child[$ii]['id'],'id_parent'=>$child[$ii]['id_parent']))->result_array();
+                            $lock       = "";
+                            if ($get_video != array()) {
                                 # code...
-                                $check_data_next  = $this->Allcrud->getData('tr_track_bimbingan_belajar',array('id_user'=>$this->session->userdata('session_user'),'id_tipe_bimbel'=>2,'id_materi'=>$child[$ii]['id']))->result_array();
-                                if ($check_data_next != array()) {
+                                $id_video   = $get_video[0]['id'];
+                                $file_video = $get_video[0]['file'];
+                                if ($verify_user_paid != array()) {
                                     # code...
-                                    $arg_video = 'unlock';
+                                    $check_data_next  = $this->Allcrud->getData('tr_track_bimbingan_belajar',array('id_user'=>$this->session->userdata('session_user'),'id_tipe_bimbel'=>2,'id_materi'=>$child[$ii]['id']))->result_array();
+                                    if ($check_data_next != array()) {
+                                        # code...
+                                        $arg_video = 'unlock';
+                                    }
+                                    else {
+                                        # code...
+                                        $arg_video  = 'lock';
+                                        $file_video = 'maaf, anda diharuskan menyelesaikan materi sebelumnya.';
+                                        $lock       = '<i class="fa fa-lock" style="font-size: 41px;"></i>';
+                                    }
                                 }
                                 else {
                                     # code...
-                                    $arg_video  = 'lock';
-                                    $file_video = 'maaf, anda diharuskan menyelesaikan materi sebelumnya.';
-                                    $lock       = '<i class="fa fa-lock" style="font-size: 41px;"></i>';
+                                    if ($ii < 1) {
+                                        # code...
+                                        $arg_video = 'unlock';
+                                    }
+                                    else {
+                                        # code...
+                                        $arg_video  = 'lock';
+                                        $file_video = "Maaf, video ini akan terbuka jika anda telah membeli paket bimbingan belajar";
+                                        $lock       = '<i class="fa fa-lock" style="font-size: 41px;"></i>';                                    
+                                    }
                                 }
                             }
                             else {
                                 # code...
-                                if ($ii < 1) {
-                                    # code...
-                                    $arg_video = 'unlock';
-                                }
-                                else {
-                                    # code...
-                                    $arg_video  = 'lock';
-                                    $file_video = "Maaf, video ini akan terbuka jika anda telah membeli paket bimbingan belajar";
-                                    $lock       = '<i class="fa fa-lock" style="font-size: 41px;"></i>';                                    
-                                }
+                                $arg_video = 'NA';
+                                $lock       = '<i class="fa fa-lock" style="font-size: 41px;"></i>';                            
                             }
-                        }
-                        else {
-                            # code...
-                            $arg_video = 'NA';
-                            $lock       = '<i class="fa fa-lock" style="font-size: 41px;"></i>';                            
-                        }
-
-                ?>
-                <a class="row" onclick="view_video('<?=$arg_video;?>','<?=$child[$ii]['id'];?>','<?=$file_video;?>','<?=$child[$ii]['name'];?>')" style="margin: 0px;cursor: pointer;">                
-                    <div class="col-lg-6" style="padding-right: 0px;">
-                        <div class="box box-warning direct-chat direct-chat-warning" style="background: transparent;box-shadow: none;">
-                            <div class="box-body">
-                                <video width="480" height="120" controls>
-                                    <source id="f_source" src="" type="video/mp4">
-                                </video>        
-                            </div>        
+    
+                    ?>
+                    <a class="row" onclick="view_video('<?=$arg_video;?>','<?=$child[$ii]['id'];?>','<?=$file_video;?>','<?=$child[$ii]['name'];?>')" style="margin: 0px;cursor: pointer;">                
+                        <div class="col-lg-6" style="padding-right: 0px;">
+                            <div class="box box-warning direct-chat direct-chat-warning" style="background: transparent;box-shadow: none;">
+                                <div class="box-body">
+                                    <video width="480" height="120" controls>
+                                        <source id="f_source" src="" type="video/mp4">
+                                    </video>        
+                                </div>        
+                            </div>
                         </div>
-                    </div>
-                    <div class="col-lg-6" style="padding-left: 0px;">
-                        <div class="box box-warning direct-chat direct-chat-warning" style="height: 120px;">
-                            <div class="box-header with-border text-center" style="border-bottom: transparent;">
-                                <h3 class="box-title"><?=$child[$ii]['name'];?></h3>
-                            </div>        
-                            <div class="box-body">
-                                <div class="row text-center">
-                                <?=$lock;?>
+                        <div class="col-lg-6" style="padding-left: 0px;">
+                            <div class="box box-warning direct-chat direct-chat-warning" style="height: 120px;">
+                                <div class="box-header with-border text-center" style="border-bottom: transparent;">
+                                    <h3 class="box-title"><?=$child[$ii]['name'];?></h3>
+                                </div>        
+                                <div class="box-body">
+                                    <div class="row text-center">
+                                    <?=$lock;?>
+                                    </div>
                                 </div>
                             </div>
                         </div>
-                    </div>
-                </a>                
-                <?php
-                    }                                            
-                ?>
+                    </a>                
+                    <?php
+                        }                                            
+                    ?>
+                </div>
             </div>
         </div>
-    </div>
-    <div class="col-lg-6">
-        <div class="box box-solid" style="">
-            <div class="box-header with-border text-center">
-                <h3 class="box-title"><?=$list[1]['name'];?></h3>
-            </div>
-            <div class="box-body no-padding" style="display: block;">
-                
-                <?php
-                    $child = $this->Allcrud->getData('mr_materi',array('id_parent'=>$list[1]['id']))->result_array();
-                    for ($ii=0; $ii < count($child); $ii++) 
-                    { 
-                        # code...
-                        $arg_video  = "";
-                        $id_video   = "";
-                        $file_video = "";
-                        $get_video  = $this->Allcrud->getData('mr_video',array('id_materi'=>$child[$ii]['id'],'id_parent'=>$child[$ii]['id_parent']))->result_array();
-                        $lock       = "";
-                        if ($get_video != array()) {
+        <div class="col-lg-6">
+            <div class="box box-solid" style="">
+                <div class="box-header with-border text-center">
+                    <h3 class="box-title"><?=$list[1]['name'];?></h3>
+                </div>
+                <div class="box-body no-padding" style="display: block;">
+                    
+                    <?php
+                        $child = $this->Allcrud->getData('mr_materi',array('id_parent'=>$list[1]['id']))->result_array();
+                        for ($ii=0; $ii < count($child); $ii++) 
+                        { 
                             # code...
-                            $id_video   = $get_video[0]['id'];
-                            $file_video = $get_video[0]['file'];
-                            if ($verify_user_paid != array()) {
+                            $arg_video  = "";
+                            $id_video   = "";
+                            $file_video = "";
+                            $get_video  = $this->Allcrud->getData('mr_video',array('id_materi'=>$child[$ii]['id'],'id_parent'=>$child[$ii]['id_parent']))->result_array();
+                            $lock       = "";
+                            if ($get_video != array()) {
                                 # code...
-                                $check_data_next  = $this->Allcrud->getData('tr_track_bimbingan_belajar',array('id_user'=>$this->session->userdata('session_user'),'id_tipe_bimbel'=>2,'id_materi'=>$child[$ii]['id']))->result_array();
-                                if ($check_data_next != array()) {
+                                $id_video   = $get_video[0]['id'];
+                                $file_video = $get_video[0]['file'];
+                                if ($verify_user_paid != array()) {
                                     # code...
-                                    $arg_video = 'unlock';
+                                    $check_data_next  = $this->Allcrud->getData('tr_track_bimbingan_belajar',array('id_user'=>$this->session->userdata('session_user'),'id_tipe_bimbel'=>2,'id_materi'=>$child[$ii]['id']))->result_array();
+                                    if ($check_data_next != array()) {
+                                        # code...
+                                        $arg_video = 'unlock';
+                                    }
+                                    else {
+                                        # code...
+                                        $arg_video  = 'lock';
+                                        $file_video = 'maaf, anda diharuskan menyelesaikan materi sebelumnya.';
+                                        $lock       = '<i class="fa fa-lock" style="font-size: 41px;"></i>';
+                                    }
                                 }
                                 else {
                                     # code...
-                                    $arg_video  = 'lock';
-                                    $file_video = 'maaf, anda diharuskan menyelesaikan materi sebelumnya.';
-                                    $lock       = '<i class="fa fa-lock" style="font-size: 41px;"></i>';
+                                    if ($ii < 1) {
+                                        # code...
+                                        $arg_video = 'unlock';
+                                    }
+                                    else {
+                                        # code...
+                                        $arg_video  = 'lock';
+                                        $file_video = "Maaf, video ini akan terbuka jika anda telah membeli paket bimbingan belajar";
+                                        $lock       = '<i class="fa fa-lock" style="font-size: 41px;"></i>';                                    
+                                    }
                                 }
                             }
                             else {
                                 # code...
-                                if ($ii < 1) {
-                                    # code...
-                                    $arg_video = 'unlock';
-                                }
-                                else {
-                                    # code...
-                                    $arg_video  = 'lock';
-                                    $file_video = "Maaf, video ini akan terbuka jika anda telah membeli paket bimbingan belajar";
-                                    $lock       = '<i class="fa fa-lock" style="font-size: 41px;"></i>';                                    
-                                }
+                                $arg_video = 'NA';
+                                $lock       = '<i class="fa fa-lock" style="font-size: 41px;"></i>';                            
                             }
-                        }
-                        else {
-                            # code...
-                            $arg_video = 'NA';
-                            $lock       = '<i class="fa fa-lock" style="font-size: 41px;"></i>';                            
-                        }
-
-                ?>
-                <a class="row" onclick="view_video('<?=$arg_video;?>','<?=$child[$ii]['id'];?>','<?=$file_video;?>','<?=$child[$ii]['name'];?>')" style="margin: 0px;cursor: pointer;">                
-                    <div class="col-lg-6" style="padding-right: 0px;">
-                        <div class="box box-warning direct-chat direct-chat-warning" style="background: transparent;box-shadow: none;">
-                            <div class="box-body">
-                                <video width="480" height="120" controls>
-                                    <source id="f_source" src="" type="video/mp4">
-                                </video>        
-                            </div>        
+    
+                    ?>
+                    <a class="row" onclick="view_video('<?=$arg_video;?>','<?=$child[$ii]['id'];?>','<?=$file_video;?>','<?=$child[$ii]['name'];?>')" style="margin: 0px;cursor: pointer;">                
+                        <div class="col-lg-6" style="padding-right: 0px;">
+                            <div class="box box-warning direct-chat direct-chat-warning" style="background: transparent;box-shadow: none;">
+                                <div class="box-body">
+                                    <video width="480" height="120" controls>
+                                        <source id="f_source" src="" type="video/mp4">
+                                    </video>        
+                                </div>        
+                            </div>
                         </div>
-                    </div>
-                    <div class="col-lg-6" style="padding-left: 0px;">
-                        <div class="box box-warning direct-chat direct-chat-warning" style="height: 120px;">
-                            <div class="box-header with-border text-center" style="border-bottom: transparent;">
-                                <h3 class="box-title"><?=$child[$ii]['name'];?></h3>
-                            </div>        
-                            <div class="box-body">
-                                <div class="row text-center">
-                                <?=$lock;?>
+                        <div class="col-lg-6" style="padding-left: 0px;">
+                            <div class="box box-warning direct-chat direct-chat-warning" style="height: 120px;">
+                                <div class="box-header with-border text-center" style="border-bottom: transparent;">
+                                    <h3 class="box-title"><?=$child[$ii]['name'];?></h3>
+                                </div>        
+                                <div class="box-body">
+                                    <div class="row text-center">
+                                    <?=$lock;?>
+                                    </div>
                                 </div>
                             </div>
                         </div>
-                    </div>
-                </a>                
-                <?php
-                    }                                            
-                ?>
+                    </a>                
+                    <?php
+                        }                                            
+                    ?>
+                </div>
             </div>
         </div>
-    </div>
-</div>        
-<?php
-    }
+    </div>        
+    <?php    
 }
 ?>
 

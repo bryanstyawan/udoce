@@ -1,4 +1,40 @@
-<section class="container">
+<div id="viewdata" class="col-lg-2">
+	<?=$this->load->view('templates/sidebar/main');?>
+</div>
+<div class="col-lg-10">
+	<section class="col-xs-2 follow-scroll">
+		<div class="box">
+		<div class="box-header">
+				<h3 class="box-title"></h3>
+			</div>
+			<div class="box-body">
+				<div class="row">
+					<div class="col-lg-12">
+						<?php
+							if ($list != array()) {
+								# code...
+								for ($i=0; $i < count($list); $i++) { 
+									# code...
+									$background_color = '';
+									$color            = "";
+									$check_data  = $this->Allcrud->getData('tr_jawaban_bimbingan_belajar',array('id_user'=>$this->session->userdata('session_user'),'id_type'=>$type,'id_materi'=>$materi,'id_soal'=>$list[$i]['id']))->result_array();
+									if ($check_data != array()) {
+										# code...
+										$background_color = "background-color:#4CAF50;";
+									}								
+						?>
+									<a href="#div_soal_<?=$list[$i]['id'];?>" class="btn btn-default col-xs-6" id="counter_choice_<?=$list[$i]['id'];?>" style="<?=$background_color;?><?=$color;?>"><?=$i+1;?></a>
+						<?php
+								}								
+							}
+						?>
+					</div>
+				</div>
+
+			</div><!-- /.box-body -->		
+		</div>
+	</section>
+
 	<section id="headerdata" class="col-xs-10">
 		<input type="hidden" id="oid_header" value="">				
 		<?php
@@ -7,7 +43,7 @@
 			for ($i=0; $i < count($list); $i++) { 
 				# code...
 		?>
-		<div class="box">
+		<div class="box" id="div_soal_<?=$list[$i]['id'];?>">
 			<div class="box-body">
 				<div class="row">
 					<div class="col-md-12">
@@ -70,39 +106,6 @@
 		?>
 	</section>
 
-	<section class="col-xs-2 follow-scroll">
-		<div class="box">
-		<div class="box-header">
-				<h3 class="box-title"></h3>
-			</div>
-			<div class="box-body">
-				<div class="row">
-					<div class="col-lg-12">
-						<?php
-							if ($list != array()) {
-								# code...
-								for ($i=0; $i < count($list); $i++) { 
-									# code...
-									$background_color = '';
-									$color            = "";
-									$check_data  = $this->Allcrud->getData('tr_jawaban_bimbingan_belajar',array('id_user'=>$this->session->userdata('session_user'),'id_type'=>$type,'id_materi'=>$materi,'id_soal'=>$list[$i]['id']))->result_array();
-									if ($check_data != array()) {
-										# code...
-										$background_color = "background-color:#4CAF50;";
-									}								
-						?>
-									<a class="btn btn-default col-xs-6" id="counter_choice_<?=$list[$i]['id'];?>" style="<?=$background_color;?><?=$color;?>"><?=$i+1;?></a>
-						<?php
-								}								
-							}
-						?>
-					</div>
-				</div>
-
-			</div><!-- /.box-body -->		
-		</div>
-	</section>
-
 	<section class="col-lg-12">
 	<div class="box" style="background: none;border-top: none;box-shadow: none;">
 		<div class="box-header">
@@ -118,7 +121,7 @@
 			</div><!-- /.box-body -->		
 		</div>
 	</section>
-</section>
+</div>
 
 <script>
 $(document).ready(function(){

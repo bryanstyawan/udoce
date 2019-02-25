@@ -260,6 +260,24 @@ class User extends CI_Controller {
 		}		
 	}
 
+	public function bimbingan_belajar1($arg=NULL,$type=NULL,$materi=NULL)
+	{
+		# code...
+		if ($arg == NULL) {
+			# code...
+			$this->Globalrules->session_rule();
+			$data['title']            = 'Bimbingan Belajar';
+			$data['verify_user_paid'] = $this->Allcrud->getData('tr_layanan',array('id_user'=>$this->session->userdata('session_user'),'type'=>'bimbel'));
+			$data['list']             = $this->Allcrud->getData('mr_materi',array('id_parent'=>NULL))->result_array();
+			$data['content']          = 'user/bimbingan_belajar/root/index1';
+			$this->load->view('templateAdmin',$data);		
+		}
+		else
+		{
+			redirect('user/zbimbingan_belajar/'.$arg.'/'.$type.'/'.$materi);			
+		}		
+	}	
+
 	public function bimbingan_belajar_trial()
 	{
 		# code...
@@ -268,6 +286,10 @@ class User extends CI_Controller {
 		$data['verify_user_paid'] = $this->Allcrud->getData('tr_layanan',array('id_user'=>$this->session->userdata('session_user'),'type'=>'bimbel'));
 		$data['list']             = $this->Allcrud->getData('mr_materi',array('id_parent'=>NULL))->result_array();
 		$data['content']          = 'user/bimbingan_belajar/root/trial';
+		if ($data['verify_user_paid']->result_array() != array()) {
+			# code...
+			redirect('user/bimbingan_belajar');
+		}
 		$this->load->view('templateAdmin',$data);		
 	}
 

@@ -1,4 +1,15 @@
 v1.0.0    
+2019-02-25
+==========
+New:
+Improved:
+- Pemindahan posisi mini map di quiz dan pre test
+- Penyesuaian layout bimbingan belajar
+- Penyesuaian layout bimbingan belajar trial
+Fixed:
+- Perbaikan Penilaian di quiz dan pre test
+
+v1.0.0    
 2019-02-24
 ==========
 New:

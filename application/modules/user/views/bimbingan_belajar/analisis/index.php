@@ -1,5 +1,8 @@
 <input type="hidden" id="oid_header" value="">
-<section id="pre_test_section" class="col-xs-12" style="display:none;">
+<div id="viewdata" class="col-lg-2">
+	<?=$this->load->view('templates/sidebar/main');?>
+</div>
+<section id="pre_test_section" class="col-xs-10" style="display:none;">
 	<input type="hidden" id="pre_test_true" value="">
 	<input type="hidden" id="pre_test_false" value="">
 	<input type="hidden" id="pre_test_result" value="">			
@@ -9,9 +12,10 @@
 		</div>
 	</div>
 	<?php
+	$pre_test_true   = 0;
+	$pre_test_false  = 0;
+	$pre_test_result = 0;
 	if ($pre_test != array()) {
-		$pre_test_true  = 0;
-		$pre_test_false = 0;
 		# code...
 		for ($i=0; $i < count($pre_test); $i++) { 
 			# code...
@@ -98,10 +102,11 @@
 	<?php
 		}			
 	}
+	$pre_test_result = $pre_test_true * 20;
 	?>
 </section>
 
-<section id="quiz_section" class="col-xs-12" style="display:none;">
+<section id="quiz_section" class="col-xs-10" style="display:none;">
 	<input type="hidden" id="quiz_true" value="">
 	<input type="hidden" id="quiz_false" value="">
 	<input type="hidden" id="quiz_result" value="">		
@@ -117,9 +122,10 @@
 	</div>
 	<div class="col-lg-9">	
 	<?php
+	$quiz_true   = 0;
+	$quiz_false  = 0;
+	$quiz_result = 0;	
 	if ($quiz != array()) {
-		$quiz_true  = 0;
-		$quiz_false = 0;
 		# code...
 		for ($i=0; $i < count($quiz); $i++) { 
 			# code...
@@ -205,6 +211,8 @@
 	<?php
 		}			
 	}
+
+	$quiz_result = $quiz_true * 5;
 	?>
 	</div>
 	<div class="col-xs-2 follow-scroll">
@@ -253,7 +261,7 @@
 	</div>		
 </section>
 
-<section id="analisis_pre_test_quiz_section" class="col-lg-12" style="">
+<section id="analisis_pre_test_quiz_section" class="col-lg-10" style="">
 	<div class="col-lg-6">
 		<div class="box">
 			<div class="box-header">
@@ -327,7 +335,7 @@
 
 
 <section class="col-lg-12">
-	<div class="box">
+	<div class="box" style="background: transparent;border-top: transparent;box-shadow: none;">
 		<div class="box-header">
 			<h3 class="box-title"></h3>
 		</div>
@@ -347,19 +355,19 @@
 $(document).ready(function(){
 	$("#pre_test_true").val('<?=$pre_test_true;?>');
 	$("#pre_test_false").val('<?=$pre_test_false;?>');
-	$("#pre_test_result").val('<?=$pre_test_true*20;?>');
+	$("#pre_test_result").val('<?=$pre_test_result;?>');
 
 	$("#f_pre_test_true").val('<?=$pre_test_true;?>');
 	$("#f_pre_test_false").val('<?=$pre_test_false;?>');
-	$("#f_pre_test_result").val('<?=$pre_test_true*20;?>');			
+	$("#f_pre_test_result").val('<?=$pre_test_result;?>');			
 
 	$("#quiz_true").val('<?=$quiz_true;?>');
 	$("#quiz_false").val('<?=$quiz_false;?>');
-	$("#quiz_result").val('<?=$quiz_true*4;?>');
+	$("#quiz_result").val('<?=$quiz_result;?>');
 
 	$("#f_quiz_true").val('<?=$quiz_true;?>');
 	$("#f_quiz_false").val('<?=$quiz_false;?>');
-	$("#f_quiz_result").val('<?=$quiz_true*4;?>');				
+	$("#f_quiz_result").val('<?=$quiz_result;?>');				
 
 	data_sender = {
 		'true'  : $("#pre_test_true").val(),
@@ -457,7 +465,7 @@ function finish(_materi,_type)
 						if (obj.status == 1)
 						{
 							Lobibox.notify('success', {msg: obj.text});
-							window.location.href = "<?php echo site_url();?>user/bimbingan_belajar";							
+							window.location.href = "<?php echo site_url();?>user/bimbingan_belajar_trial";							
 						}
 						else
 						{
@@ -482,7 +490,8 @@ function view_analisis(params) {
 	} 
 	else if(params == 'quiz') {
 		$("#quiz_section").css({"display": ""});
-		$("#btn_pembahasan").css({"display": "none"});				
+		$("#btn_pembahasan").css({"display": "none"});
+		// $(".main_background").css({"background-image": "url(http://localhost/ecodu/assets/images/web_backgound.jpg)!important","background-size":"cover!important","background-position":"50% 50%!important"});		
 		$("#analisis_pre_test_quiz_section").css({"display": "none"});
 	}
 	else if(params == 'result_analisis')
