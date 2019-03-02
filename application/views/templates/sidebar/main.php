@@ -31,6 +31,7 @@
                         <i class="fa fa-envelope"></i> <span>Raport</span>
                     </a>
                 </li>										
+            </ul>
         </section>
     </aside>
 </div>

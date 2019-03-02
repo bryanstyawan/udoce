@@ -351,6 +351,28 @@
 	</div>
 </section>
 
+<?php
+	$check_data_analisis   = $this->Allcrud->getData('tr_analisis_bimbel',array('id_user'=>$this->session->userdata('session_user'),'id_materi'=>$materi))->result_array();
+	if ($check_data_analisis == array()) {
+		# code...
+		$data_store = array
+					(
+						'id_user'         => $this->session->userdata('session_user'),
+						'id_materi'       => $materi,
+						'pre_test_true'   => $pre_test_true,
+						'pre_test_false'  => $pre_test_false,
+						'pre_test_empty'  => '',
+						'pre_test_value'  => $pre_test_result,
+						'pre_test_status' => '',
+						'quiz_true'       => $quiz_true,
+						'quiz_false'      => $quiz_false,
+						'quiz_empty'      => '',
+						'quiz_value'      => $quiz_result,
+						'quiz_status'     => ''						
+					);
+		$res_data    = $this->Allcrud->addData('tr_analisis_bimbel',$data_store);					
+	}
+?>
 <script>
 $(document).ready(function(){
 	$("#pre_test_true").val('<?=$pre_test_true;?>');

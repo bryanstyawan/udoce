@@ -260,6 +260,17 @@ class User extends CI_Controller {
 		}		
 	}
 
+	public function raport()
+	{
+		# code...
+		$this->Globalrules->session_rule();
+		$data['title']            = 'Bimbingan Belajar';
+		$data['verify_user_paid'] = $this->Allcrud->getData('tr_layanan',array('id_user'=>$this->session->userdata('session_user'),'type'=>'bimbel'));
+		$data['list']             = $this->Allcrud->getData('mr_materi',array('id_parent'=>NULL))->result_array();
+		$data['content']          = 'user/bimbingan_belajar/analisis/raport';
+		$this->load->view('templateAdmin',$data);
+	}	
+
 	public function bimbingan_belajar1($arg=NULL,$type=NULL,$materi=NULL)
 	{
 		# code...
