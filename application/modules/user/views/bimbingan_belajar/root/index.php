@@ -98,7 +98,8 @@ if($verify_user_paid->result_array() == array())
 	}
 
 	.btn a {
-	background: #323232;
+	border-radius: 25px;
+    background: rgb(44, 49, 87);		
 	padding: 10px 30px;
 	color: #fff;
 	text-transform: uppercase;
@@ -162,17 +163,8 @@ if($verify_user_paid->result_array() == array())
 	<input type="hidden" id="oid">
 	<div class="plan">
 		<div class="plan-inner">
-			<div class="entry-title">
-				<h3>Free</h3>
-				<div class="price">Free<span></span>
-				</div>
-			</div>
-			<div class="entry-content">
-				<ul>
-				<li><strong>Bimbingan Belajar</strong> - 3 Materi</li>
-				<li><strong>-</strong></li>
-				<li><strong>Try Out</strong> - Trial</li>
-				</ul>
+			<div class="row">
+				<img style="height:500px;" src="<?=base_url();?>assets_home/layanan/BIMBEL/FREE.png">			
 			</div>
 			<div class="btn">
 				<a class="col-xs-12" href="<?=base_url();?>user/bimbingan_belajar_trial">Coba Sekarang</a>
@@ -184,20 +176,11 @@ if($verify_user_paid->result_array() == array())
     <!--price tab-->
     <div class="plan basic">
         <div class="plan-inner">
-            <div class="entry-title">
-                <h3>Paket A</h3>
-                <div class="price">A<span></span>
-                </div>
-            </div>
-            <div class="entry-content">
-                <ul>
-                    <li><strong>Bimbingan Belajar</strong></li>
-                    <li><strong>Raport</strong></li>
-                    <li><strong>Try Out</strong> -  Trial</li>
-                </ul>
-            </div>
+			<div class="row">
+				<img style="height:500px;" src="<?=base_url();?>assets_home/layanan/BIMBEL/SUPER.png">			
+			</div>
             <div class="btn">
-                <a class="col-xs-12" href="#" onclick="bimbel_package('1')">Beli Sekarang</a>
+                <a class="col-xs-12" href="#" onclick="bimbel_package('1')">BERLANGGANAN</a>
                 <a class="col-xs-12" href="#" onclick="cara_beli()">Cara Beli</a>				
             </div>
         </div>
@@ -205,21 +188,11 @@ if($verify_user_paid->result_array() == array())
 
     <div class="plan ultimite">
         <div class="plan-inner">
-            <div class="hot">Hot</div>        
-            <div class="entry-title">
-                <h3>Paket B</h3>
-                <div class="price">B<span></span>
-                </div>
-            </div>
-            <div class="entry-content">
-                <ul>
-                    <li><strong>Bimbingan Belajar</strong></li>
-                    <li><strong>Raport</strong></li>
-                    <li><strong>Try Out</strong></li>
-                </ul>
-            </div>
+			<div class="row">
+				<img style="height:500px;" src="<?=base_url();?>assets_home/layanan/BIMBEL/MASTER.png">			
+			</div>
             <div class="btn">
-                <a class="col-xs-12" href="#" onclick="bimbel_package('2')">Beli Sekarang</a>
+                <a class="col-xs-12" href="#" onclick="bimbel_package('2')">BERLANGGANAN</a>
                 <a class="col-xs-12" href="#" onclick="cara_beli()">Cara Beli</a>				
             </div>
         </div>

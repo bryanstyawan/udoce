@@ -4,6 +4,7 @@ v1.0.0
 New:
 - Upload file soal dan pembahasan (bimbel & tryout)
 Improved:
+- layout layanan bimbel
 Fixed:
 
 v1.0.0    
