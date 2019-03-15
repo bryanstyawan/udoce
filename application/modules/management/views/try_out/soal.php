@@ -55,7 +55,7 @@
 							<tr>
 								<td><?php echo $x;?></td>
 								<td><?php echo ($row->image != NULL || $row->image != '') ? '<img src="'.base_url().'public/soal/'.$row->image.'">' : $row->name ;?></td>
-								<td><?=$row->desc_pembahasan;?></td>							
+								<td><?php echo ($row->image_desc != NULL || $row->image_desc != '') ? '<img src="'.base_url().'public/soal/'.$row->image_desc.'">' : $row->desc_pembahasan ;?></td>
 								<td>
 									<a target="_blank" href="<?=base_url();?>management/try_out/detail_soal/<?=$row->id;?>/<?=$row->id_parent;?>/<?=$row->id_type;?>/<?=$row->id_paket;?>" class="btn btn-primary pull-right"><?=count($this->Allcrud->getdata('mr_try_out_soal_detail',array('id_soal'=>$row->id))->result_array());?></a>
 								</td>
@@ -114,13 +114,27 @@
                             <textarea class="form-control form-control-detail" id="f_desc_pembahasan" rows="3" placeholder="Jumlah data"></textarea>
                         </div>
                     </div>										
+				
 
-                    <div class="col-md-12">
+					<hr>
+					<hr>					
+
+
+                    <div class="col-md-6">
                         <div class="form-group">
-                            <label>File</label>
+                            <label>File Soal</label>
 							<input type="file" class="form-control" placeholder="File Gambar" id="f_file">
+							<a class="btn btn-primary btn-md" id="btn_upload_soal"><i class="fa fa-upload"></i>&nbsp;Upload</a>							
                         </div>
                     </div>				
+
+                    <div class="col-md-6">
+                        <div class="form-group">
+                            <label>File Pembahasan</label>
+							<input type="file" class="form-control" placeholder="File Gambar" id="f_file_1">
+							<a class="btn btn-primary btn-md" id="btn_upload_pembahasan"><i class="fa fa-upload"></i>&nbsp;Upload</a>							
+                        </div>
+                    </div>									
 
 					<div class="col-lg-12">
 						<div class="progress" style="display:none">
@@ -161,6 +175,7 @@ $(document).ready(function(){
         $("#formdata").css({"display": ""})
         $("#processdata").css({"display": ""})        
         $("#viewdata").css({"display": "none"})
+        $("#editdata").css({"display": "none"})		
         $(".box-footer").css({"display": "none"})        
 		$("#formdata > div > div > div.box-header > h3").html("Tambah Data Soal");		
 		$("#crud").val('insert');
@@ -223,6 +238,7 @@ $(document).ready(function(){
                                     '</div>'+
                                 '</div>';
                 $('#multipartdata').append(newrec);
+				$("#multipartdata").css({"display": ""})				
 				$("#form_multipartdata").css({"display": ""})
                 $("#processdata").css({"display": "none"})
                 $(".box-footer").css({"display": ""})                                        
@@ -230,9 +246,111 @@ $(document).ready(function(){
         }
     })
 
+	$("#btn_upload_pembahasan").click(function(){
+		var oid         = $("#oid").val();
+		var crud        = $("#crud").val();
+		var oid_parent  = $("#id_parent").val();
+		var oid_type    = $("#id_type").val();
+		var oid_paket   = $("#id_paket").val();
+		var processdata = $("#f_inputs").val();
+		var data_sender = '';
+		var data_detail = [];
+
+		var f_file_1      = $("#f_file_1").prop('files')[0];
+		if (f_file_1 == undefined) {
+		}
+		else
+		{
+			var form_data = new FormData();
+			form_data.append('file', f_file_1);
+			$.ajax({
+				url :"<?php echo site_url();?>management/try_out/upload_data_pembahasan/"+crud+"/"+oid,						
+				// dataType: 'json',  // what to expect back from the PHP script, if anything
+				cache: false,
+				contentType: false,
+				processData: false,
+				data: form_data,
+				type: 'post',
+				xhr : function() {
+					var xhr = new window.XMLHttpRequest();
+					xhr.upload.addEventListener('progress', function(e){
+						if(e.lengthComputable){								
+							var percent = Math.round((e.loaded / e.total) * 100);
+							$('#progressBar').attr('aria-valuenow', percent).css('width', percent + '%').text(percent + '%');
+						}
+					});
+					return xhr;
+				},											
+				beforeSend:function(){
+					$("#editData").modal('hide');
+					$("#loadprosess").modal('show');                                                
+				},
+				success: function(msg1){
+					var obj1 = jQuery.parseJSON (msg1);             	
+					ajax_status(obj1);	
+				},
+				error:function(jqXHR,exception)
+				{
+					ajax_catch(jqXHR,exception);					
+				}
+			}); 			
+		}		
+	})
+
+	$("#btn_upload_soal").click(function(){
+		var oid         = $("#oid").val();
+		var crud        = $("#crud").val();
+		var oid_parent  = $("#id_parent").val();
+		var oid_type    = $("#id_type").val();
+		var oid_paket   = $("#id_paket").val();
+		var processdata = $("#f_inputs").val();
+		var data_sender = '';
+		var data_detail = [];
+
+		var f_file      = $("#f_file").prop('files')[0];
+		if (f_file == undefined) {
+		}
+		else
+		{
+			var form_data = new FormData();
+			form_data.append('file', f_file);
+			$.ajax({
+				url :"<?php echo site_url();?>management/try_out/upload_data_soal/"+crud+"/"+oid,						
+				// dataType: 'json',  // what to expect back from the PHP script, if anything
+				cache: false,
+				contentType: false,
+				processData: false,
+				data: form_data,
+				type: 'post',
+				xhr : function() {
+					var xhr = new window.XMLHttpRequest();
+					xhr.upload.addEventListener('progress', function(e){
+						if(e.lengthComputable){								
+							var percent = Math.round((e.loaded / e.total) * 100);
+							$('#progressBar').attr('aria-valuenow', percent).css('width', percent + '%').text(percent + '%');
+						}
+					});
+					return xhr;
+				},											
+				beforeSend:function(){
+					$("#editData").modal('hide');
+					$("#loadprosess").modal('show');                                                
+				},
+				success: function(msg1){
+					var obj1 = jQuery.parseJSON (msg1);             	
+					ajax_status(obj1);	
+				},
+				error:function(jqXHR,exception)
+				{
+					ajax_catch(jqXHR,exception);					
+				}
+			}); 			
+		}		
+	})
+
 	$("#btn-trigger-controll").click(function(){
 		var res_status  = 0;
-		var f_file      = $("#f_file").prop('files')[0];
+
 		var oid         = $("#oid").val();
 		var crud        = $("#crud").val();
 		var oid_parent  = $("#id_parent").val();
@@ -279,112 +397,25 @@ $(document).ready(function(){
 			res_status = 1;
         }
 
-		console.table(data_sender);		
-
-
+		// console.table(data_sender);		
         if (res_status == 1) {
-			if (crud == 'insert') {
-				$.ajax({
-					url :"<?php echo site_url();?>management/try_out/store_detail",
-					type:"post",
-					data:{data_sender : data_sender, data_detail : data_detail},
-					beforeSend:function()
-					{
-						$("#loadprosess").modal('show');
-					},
-					success:function(msg){
-						var obj = jQuery.parseJSON (msg);
-						ajax_status(obj);
-					},
-					error:function(jqXHR,exception)
-					{
-						ajax_catch(jqXHR,exception);					
-					}
-				})            				
-			}
-			else if(crud == 'update')
-			{
-				if (f_file == undefined) {
-					$.ajax({
-						url :"<?php echo site_url();?>management/try_out/store_detail",
-						type:"post",
-						data:{data_sender : data_sender, data_detail : data_detail},
-						beforeSend:function(){
-							$("#loadprosess").modal('show');
-						},
-						success:function(msg){
-							var obj = jQuery.parseJSON (msg);
-							ajax_status(obj);
-						},
-						error:function(jqXHR,exception)
-						{
-							ajax_catch(jqXHR,exception);					
-						}
-					})				
-				}
-				else
+			$.ajax({
+				url :"<?php echo site_url();?>management/try_out/store_detail",
+				type:"post",
+				data:{data_sender : data_sender, data_detail : data_detail},
+				beforeSend:function()
 				{
-					var form_data = new FormData();
-					form_data.append('file', f_file);
-					$.ajax({
-						url :"<?php echo site_url();?>management/try_out/upload_data_soal/"+crud+"/"+oid,						
-						// dataType: 'json',  // what to expect back from the PHP script, if anything
-						cache: false,
-						contentType: false,
-						processData: false,
-						data: form_data,
-						type: 'post',
-						xhr : function() {
-							var xhr = new window.XMLHttpRequest();
-							xhr.upload.addEventListener('progress', function(e){
-								if(e.lengthComputable){								
-									var percent = Math.round((e.loaded / e.total) * 100);
-									$('#progressBar').attr('aria-valuenow', percent).css('width', percent + '%').text(percent + '%');
-								}
-							});
-							return xhr;
-						},											
-						beforeSend:function(){
-							$("#editData").modal('hide');
-							$("#loadprosess").modal('show');                                                
-						},
-						success: function(msg1){
-							var obj1 = jQuery.parseJSON (msg1);             	
-							if (obj1.status == 1)
-							{
-								$.ajax({
-									url :"<?php echo site_url();?>management/try_out/store_detail",
-									type:"post",
-									data:{data_sender : data_sender, data_detail : data_detail},
-									beforeSend:function(){
-										$("#editData").modal('hide');
-										$("#loadprosess").modal('show');
-									},
-									success:function(msg){
-										var obj = jQuery.parseJSON (msg);
-										ajax_status(obj);
-									},
-									error:function(jqXHR,exception)
-									{
-										ajax_catch(jqXHR,exception);					
-									}
-								})
-							}
-							else
-							{
-								Lobibox.notify('warning', {msg: obj1.text});
-								setTimeout(function(){
-									$("#loadprosess").modal('hide');
-								}, 500);
-							}
-						},
-						error:function(jqXHR,exception)
-						{
-							ajax_catch(jqXHR,exception);					
-						}
-					}); 
+					$("#loadprosess").modal('show');
+				},
+				success:function(msg){
+					var obj = jQuery.parseJSON (msg);
+					ajax_status(obj);
+				},
+				error:function(jqXHR,exception)
+				{
+					ajax_catch(jqXHR,exception);					
 				}
-			}
+			})            				
         }
         else
         {
@@ -413,6 +444,7 @@ function edit(id){
 				$("#editdata").css({"display": ""})		
 				$(".box-footer").css({"display": ""})										
 				$("#processdata").css({"display": "none"})
+				$("#multipartdata").css({"display": "none"})        				
 				$("#viewdata").css({"display": "none"})
 				$("#formdata > div > div > div.box-header > h3").html("Ubah Data Soal");		
 				$("#crud").val('update');

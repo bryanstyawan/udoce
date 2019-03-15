@@ -501,6 +501,112 @@ class Try_out extends CI_Controller {
 			'id'     => $res_data_id
 		);
 		echo json_encode($res);						
+	}
+	
+	public function upload_data_pembahasan($arg,$oid=NULL)
+	{
+		# code...
+		$config['upload_path']   = FCPATH.'/public/pembahasan/';
+		$config['allowed_types'] = 'jpg|jpeg|png';
+		$config['max_size']      = '5000';
+		$this->load->library('upload', $config);
+		$id_pekerjaan = "";
+		$f_file       = "";
+		$res_data     = 0;
+		$res_data_id  = "";	
+		$text_status  = "";
+		$data         = "";
+		$msg          = "";
+
+		$data_store  = $this->Globalrules->trigger_insert_update($arg);
+		
+		if ($arg == 'insert') {
+			# code...
+			// if ( ! $this->upload->do_upload('file')){
+			// 	$res_data = 0;
+			// 	$msg      = $this->upload->display_errors();
+			// 	$f_file   = "";
+			// }
+			// else
+			// {
+			// 	$dataupload = $this->upload->data();
+			// 	$res_data   = 1;				
+			// 	$msg        = $dataupload['file_name']." berhasil diupload";
+			// 	$f_file     = $this->upload->data('file_name');
+			// }
+
+			// if ($res_data == 1) {
+			// 	if ($f_file != '')$data_store['image'] = $f_file;
+	
+			// 	$data_store['image']      = $f_file;
+			// 	            $process     = $this->Allcrud->addData_with_return_id('mr_buku',$data_store);
+			// 	            $res_data    = $process['status'];
+			// 	            $res_data_id = $process['id'];
+			// 	            $text_status = $this->Globalrules->check_status_res($res_data,$msg);
+			// }
+			// else {
+			// 	# code...
+			// 	$text_status = $msg;								
+			// }
+		}
+		elseif ($arg == 'update') {
+			# code...
+			$get_data     = $this->get_data($oid,'result_array','mr_try_out_soal');
+			$path_to_file = $config['upload_path'].$get_data[0]['image_desc'];
+			if ($get_data[0]['image_desc'] != '' || $get_data[0]['image_desc'] != NULL) {
+				# code...
+				$param_file_exists = 0;
+				if (file_exists($path_to_file)) {
+					# code...
+					$param_file_exists = 1;
+					if(unlink($path_to_file)) {
+						// echo 'deleted successfully';
+					}
+					else {
+						echo 'errors occured';
+					}							
+				}
+				else {
+					# code...
+					$param_file_exists = 0;				
+				}				
+			}				
+
+			if ( ! $this->upload->do_upload('file')){
+				$res_data = 0;
+				$msg      = $this->upload->display_errors();
+				$f_file   = "";
+			}
+			else
+			{
+				$dataupload = $this->upload->data();
+				$res_data   = 1;				
+				$msg        = $dataupload['file_name']." berhasil diupload";
+				$f_file     = $this->upload->data('file_name');
+			}
+			if ($res_data == 1) {
+				# code...
+				if ($f_file != '')$data_store1['image_desc'] = $f_file;
+	
+				$data_store1['image_desc']      = $f_file;
+								$process     = $this->Allcrud->editData('mr_try_out_soal',$data_store1,array('id'=>$oid));
+								$res_data    = $process;
+								$res_data_id = $oid;
+								$text_status = $this->Globalrules->check_status_res($res_data,$msg);
+			}
+			elseif($res_data == 0) {
+				# code...
+				$text_status = $msg;				
+			}
+		}
+
+		$res = array
+		(
+			'status' => $res_data,
+			'text'   => $text_status,
+			'id'     => $res_data_id
+		);
+		echo json_encode($res);						
 	}	
 
 	public function upload_data_soal_jawaban($arg,$oid=NULL)

@@ -35,45 +35,49 @@
 					?>
 							<div class="col-md-12 text-center">
 								<div class="form-group">
+									<label class="col-lg-12" style="text-align: left;">Soal</label>								
 									<p><?=$list[0]['name'];?></p>
 								</div>
 							</div>									
-
-							<?php
-								if ($type != 5) {
-									# code...
-							?>
-								<div class="col-md-12 text-center">						
-									<label class="col-lg-12" style="text-align: left;">Deskripsi Pembahasan</label>
-									<p><?=$list[0]['desc_pembahasan'];?></p>																					
-								</div>
-							<?php
-								}
-							?>							
 					<?php
 						} else {
 							# code...
 					?>	
 							<div class="col-md-12 text-center">
 								<div class="form-group">							
+									<label class="col-lg-12" style="text-align: left;">Soal</label>								
 									<img src="<?=base_url();?>public/soal/<?=$list['0']['image'];?>">										
 								</div>
 							</div>									
-
-							<?php
-								if ($type != 5) {
-									# code...
-							?>
-								<div class="col-md-12 text-center">						
-									<label class="col-lg-12" style="text-align: left;">Deskripsi Pembahasan</label>
-									<p><?=$list[0]['desc_pembahasan'];?></p>																					
-								</div>
-							<?php
-								}
-							?>							
 					<?php
 						}
 					?>
+
+					<?php
+						if ($type != 5) {
+							# code...
+							if ($list['0']['image_desc'] == NULL) 
+							{
+					?>
+						<div class="col-md-12 text-center">						
+							<label class="col-lg-12" style="text-align: left;">Deskripsi Pembahasan</label>
+							<p><?=$list[0]['desc_pembahasan'];?></p>																					
+						</div>
+					<?php								
+							}
+							else
+							{
+					?>	
+							<div class="col-md-12 text-center">
+								<div class="form-group">							
+								<label class="col-lg-12" style="text-align: left;">Deskripsi Pembahasan</label>								
+									<img src="<?=base_url();?>public/pembahasan/<?=$list['0']['image_desc'];?>">										
+								</div>
+							</div>									
+					<?php
+							}							
+						}
+					?>												
 
 				</div>
 
