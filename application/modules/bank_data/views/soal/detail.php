@@ -140,7 +140,7 @@
 						<tr style="<?=$color_row;?>">
 							<td><?php echo $x;?></td>
 							<td><?php echo $row->choice;?></td>							
-							<td><?php echo $row->name;?></td>							
+							<td><?php echo ($row->image == '') ? $row->name : '<img src="'.base_url().'public/soal/'.$row->image.'">';?></td>
 							<td>
 								<button class="btn btn-primary btn-xs" onclick="edit('<?php echo $row->id;?>')"><i class="fa fa-edit"></i> Ubah</button>&nbsp;&nbsp;
 								<?php
@@ -190,6 +190,15 @@
 							<input class="minimal" id="f_jawaban" type="checkbox" style="display: block;position: absolute;width: 4%;height: 100%;">
 						</div>						
 					</div>
+
+					<div class="col-md-7" id="edit-only">
+						<div class="form-group">
+							<label>File Jawaban</label>
+							<input type="file" class="form-control" placeholder="File Gambar" id="f_file">
+							<a class="btn btn-primary btn-md" id="btn_upload_soal"><i class="fa fa-upload"></i>&nbsp;Upload</a>							
+						</div>
+					</div>								
+
 				</div>
 
 			</div><!-- /.box-body -->
@@ -364,6 +373,54 @@ $(document).ready(function(){
 		}
 		console.table(data_sender);
 	})
+
+	$("#btn_upload_soal").click(function(){
+		var oid         = $("#oid").val();
+		var crud        = $("#crud").val();
+		var oid_parent  = $("#id_parent").val();
+		var data_sender = '';
+		var data_detail = [];
+
+		var f_file      = $("#f_file").prop('files')[0];
+		if (f_file == undefined) {
+		}
+		else
+		{
+			var form_data = new FormData();
+			form_data.append('file', f_file);
+			$.ajax({
+				url :"<?php echo site_url();?>bank_data/soal/upload_data_jawaban/"+crud+"/"+oid,						
+				// dataType: 'json',  // what to expect back from the PHP script, if anything
+				cache: false,
+				contentType: false,
+				processData: false,
+				data: form_data,
+				type: 'post',
+				xhr : function() {
+					var xhr = new window.XMLHttpRequest();
+					xhr.upload.addEventListener('progress', function(e){
+						if(e.lengthComputable){								
+							var percent = Math.round((e.loaded / e.total) * 100);
+							$('#progressBar').attr('aria-valuenow', percent).css('width', percent + '%').text(percent + '%');
+						}
+					});
+					return xhr;
+				},											
+				beforeSend:function(){
+					$("#editData").modal('hide');
+					$("#loadprosess").modal('show');                                                
+				},
+				success: function(msg1){
+					var obj1 = jQuery.parseJSON (msg1);             	
+					ajax_status(obj1);	
+				},
+				error:function(jqXHR,exception)
+				{
+					ajax_catch(jqXHR,exception);					
+				}
+			}); 			
+		}		
+	})	
 
 	$("#btn-trigger-controll").click(function(){
 		var res_status = 0;

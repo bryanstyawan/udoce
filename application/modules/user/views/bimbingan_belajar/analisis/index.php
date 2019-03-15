@@ -135,7 +135,20 @@
 			<div class="row">
 				<div class="col-md-12">
 						<label class="col-lg-1"><?=$i+1;?>.</label>
-						<label class="col-lg-11"><?=$quiz[$i]['name'];?></label>
+						<?php
+							if ($quiz[$i]['image'] == NULL) {
+								# code...
+						?>
+							<label class="col-lg-11"><?=$quiz[$i]['name'];?></label>							
+						<?php
+							}
+							else
+							{
+						?>
+								<img src="<?=base_url();?>public/soal/<?=$quiz[$i]['image'];?>">							
+						<?php
+							}
+						?>						
 				</div>
 			</div>
 			<div class="row">
@@ -189,7 +202,21 @@
 							?>
 										<tr class="tr_choice" id="tr_<?=$detail[$ii]['id'];?>" style="<?=$mark;?><?=$mark_right;?>">
 											<td style="width: 5%;"><?=$detail[$ii]['choice'];?>.</td>
-											<td style="width: 100%;"><?=$detail[$ii]['name'];?>.</td>
+											<td style="width: 100%;">
+												<?php
+													if ($detail[$ii]['image'] == NULL) {
+														# code...
+												?>
+													<?=$detail[$ii]['name'];?>.											
+												<?php
+													} else {
+														# code...
+												?>
+													<img src="<?=base_url();?>public/jawaban/<?=$detail[$ii]['image'];?>">											
+												<?php
+													}	
+												?>											
+											</td>
 											<td><a class="btn btn-primary" onclick="choice(<?=$detail[$ii]['id'];?>,<?=$detail[$ii]['id_soal'];?>,<?=$materi;?>,<?=$type;?>)">Pilih</a></td>
 										</tr>
 							<?php
@@ -202,7 +229,22 @@
 			</div>
 			<div class="row">
 				<div class="col-lg-12">
-					<label><?=$quiz[$i]['desc_pembahasan'];?></label>
+					<?php
+						if ($quiz[$i]['image_desc'] == NULL) {
+							# code...
+					?>
+						<h3>Pembahasan</h3>
+						<label><?=$quiz[$i]['desc_pembahasan'];?></label>							
+					<?php
+						}
+						else
+						{
+					?>
+							<h3>Pembahasan</h3>					
+							<img src="<?=base_url();?>public/pembahasan/<?=$quiz[$i]['image_desc'];?>">							
+					<?php
+						}
+					?>				
 				</div>
 			</div>			
 
@@ -343,7 +385,7 @@
 			<div class="row">
 				<div class="col-lg-12 text-center">
 					<button class="btn btn-primary" id="btn_pembahasan" onclick="view_analisis('quiz')"><i class="fa fa-x"></i> Pembahasan Quiz</button>				
-					<a class="btn btn-success" onclick="finish(<?=$materi;?>,<?=$type;?>)">Kembali Ke Materi</a>
+					<a style="display:none;" class="btn btn-success" onclick="finish(<?=$materi;?>,<?=$type;?>)">Kembali Ke Materi</a>
 				</div>
 			</div>
 

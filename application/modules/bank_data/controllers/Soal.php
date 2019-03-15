@@ -234,6 +234,86 @@ class Soal extends CI_Controller {
 		echo json_encode($res);						
 	}	
 
+	public function upload_data_jawaban($arg,$oid=NULL)
+	{
+		# code...
+		$config['upload_path']   = FCPATH.'/public/jawaban/';
+		$config['allowed_types'] = 'jpg|jpeg|png';
+		$config['max_size']      = '5000';
+		$this->load->library('upload', $config);
+		$id_pekerjaan = "";
+		$f_file       = "";
+		$res_data     = 0;
+		$res_data_id  = "";
+		$text_status  = "";
+		$data         = "";
+		$msg          = "";
+
+		$data_store  = $this->Globalrules->trigger_insert_update($arg);
+		
+		if ($arg == 'insert') {
+			# code...
+		}
+		elseif ($arg == 'update') {
+			# code...
+			$get_data     = $this->get_data($oid,'result_array','mr_soal_detail');
+			$path_to_file = $config['upload_path'].$get_data[0]['image'];
+			if ($get_data[0]['image'] != '' || $get_data[0]['image'] != NULL) {
+				# code...
+				$param_file_exists = 0;
+				if (file_exists($path_to_file)) {
+					# code...
+					$param_file_exists = 1;
+					if(unlink($path_to_file)) {
+						// echo 'deleted successfully';
+					}
+					else {
+						echo 'errors occured';
+					}							
+				}
+				else {
+					# code...
+					$param_file_exists = 0;				
+				}				
+			}				
+
+			if ( ! $this->upload->do_upload('file')){
+				$res_data = 0;
+				$msg      = $this->upload->display_errors();
+				$f_file   = "";
+			}
+			else
+			{
+				$dataupload = $this->upload->data();
+				$res_data   = 1;				
+				$msg        = $dataupload['file_name']." berhasil diupload";
+				$f_file     = $this->upload->data('file_name');
+			}
+			if ($res_data == 1) {
+				# code...
+				if ($f_file != '')$data_store['image'] = $f_file;
+	
+				$data_store['image']     = $f_file;
+				$process     = $this->Allcrud->editData('mr_soal_detail',$data_store,array('id'=>$oid));
+				$res_data    = $process;
+				$res_data_id = $oid;
+				$text_status = $this->Globalrules->check_status_res($res_data,$msg);
+			}
+			elseif($res_data == 0) {
+				# code...
+				$text_status = $msg;				
+			}
+		}
+
+		$res = array
+		(
+			'status' => $res_data,
+			'text'   => $text_status,
+			'id'     => $res_data_id
+		);
+		echo json_encode($res);						
+	}	
+
 	public function store($arg=NULL,$oid=NULL)
 	{
 		# code...

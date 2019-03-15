@@ -48,7 +48,20 @@
 				<div class="row">
 					<div class="col-md-12">
 							<label class="col-lg-1"><?=$i+1;?>.</label>
-							<label class="col-lg-11"><?=$list[$i]['name'];?></label>
+							<?php
+								if ($list[$i]['image'] == NULL) {
+									# code...
+							?>
+								<label class="col-lg-11"><?=$list[$i]['name'];?></label>							
+							<?php
+								}
+								else
+								{
+							?>
+									<img src="<?=base_url();?>public/soal/<?=$list[$i]['image'];?>">							
+							<?php
+								}
+							?>
 					</div>
 				</div>
 				<div class="row">
@@ -87,7 +100,21 @@
 											<a <?=$hidden_btn;?> class="btn btn-primary" onclick="choice(<?=$detail[$ii]['id'];?>,<?=$detail[$ii]['id_soal'];?>,<?=$materi;?>,<?=$type;?>)"><?=$detail[$ii]['choice'];?></a>
 											<?=$show_choice;?>
 										</td>								
-										<td style="width: 100%;"><?=$detail[$ii]['name'];?>.</td>
+										<td style="width: 100%;">
+											<?php
+												if ($detail[$ii]['image'] == NULL) {
+													# code...
+											?>
+													<?=$detail[$ii]['name'];?>.											
+											<?php
+												} else {
+													# code...
+											?>
+												<img src="<?=base_url();?>public/jawaban/<?=$detail[$ii]['image'];?>">											
+											<?php
+												}	
+											?>
+										</td>
 									</tr>
 						<?php
 								}
