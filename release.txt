@@ -1,5 +1,13 @@
 v1.0.0    
-2019-03-02
+2019-03-20
+==========
+New:
+- Layout layanan try out
+Improved:
+Fixed:
+
+v1.0.0    
+2019-03-16
 ==========
 New:
 - Upload file soal dan pembahasan (bimbel & tryout)

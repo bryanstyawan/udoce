@@ -208,6 +208,7 @@ class User extends CI_Controller {
 			$data['verify_user_paid_try_out_count']  = count($get_tryout);
 			$data['verify_user_paid_try_out_gratis'] = ($get_tryout_gratis != array()) ? ((count($get_tryout_gratis) == 2) ? '7' : $get_tryout_gratis[0]['id_layanan'] ) : '0' ;
 			$data['tipe']                            = $this->Allcrud->listData('lt_paket_try_out')->result_array();
+			// print_r($data['verify_user_paid_bimbel']);
 			$this->load->view('templateAdmin',$data);					
 		}
 	}
