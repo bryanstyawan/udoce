@@ -20,7 +20,7 @@ class Try_out extends CI_Controller {
 	public function get_data_paket_try_out($id=NULL)
 	{
 		# code...
-		$data['list'] = $this->Allcrud->getData('mr_try_out_list',array('id_parent'=>$id,'publish'=>1))->result_array();
+		$data['list'] = $this->Allcrud->getData('mr_try_out_list',array('id_parent'=>$id))->result_array();
 		if ($data['list'] != 0) {
 			# code...
 			for ($i=0; $i < count($data['list']); $i++) { 

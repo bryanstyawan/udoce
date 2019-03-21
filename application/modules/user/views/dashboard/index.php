@@ -12,28 +12,36 @@
                         </ol>
                         <div class="carousel-inner">
                             <div class="item active left">
-                                <img src="<?=base_url();?>assets_home/dash/slide_try_out.png" alt="Try Out">                        
-                                <div class="carousel-caption">
-                                Try Out
-                                </div>
+                                <a href="<?=base_url();?>user/try_out">
+                                    <img src="<?=base_url();?>assets_home/dash/slide_try_out.png" alt="Try Out">                        
+                                    <div class="carousel-caption">
+                                    Try Out
+                                    </div>                                
+                                </a>
                             </div>
                             <div class="item next left">
-                                <img src="<?=base_url();?>assets_home/dash/slide_bimbingan_belajar.png" alt="Try Out">
-                                <div class="carousel-caption">
-                                Bimbingan Belajar
-                                </div>
+                                <a href="<?=base_url();?>user/bimbingan_belajar">
+                                    <img src="<?=base_url();?>assets_home/dash/slide_bimbingan_belajar.png" alt="Try Out">
+                                    <div class="carousel-caption">
+                                    Bimbingan Belajar
+                                    </div>                                
+                                </a>
                             </div>
                             <div class="item">
-                                <img src="<?=base_url();?>assets_home/dash/slide_video_materi.png" alt="Video Materi">
-                                <div class="carousel-caption">
-                                Video Materi
-                                </div>
+                                <a href="<?=base_url();?>user/video_materi">
+                                    <img src="<?=base_url();?>assets_home/dash/slide_video_materi.png" alt="Video Materi">
+                                    <div class="carousel-caption">
+                                    Video Materi
+                                    </div>                                
+                                </a>
                             </div>
                             <div class="item">
-                                <img src="<?=base_url();?>assets_home/dash/slide_mini_try_out.png" alt="Video Materi">
-                                <div class="carousel-caption">
-                                Mini Try Out
-                                </div>
+                                <a href="<?=base_url();?>user/mini_try_out">
+                                    <img src="<?=base_url();?>assets_home/dash/slide_mini_try_out.png" alt="Video Materi">
+                                    <div class="carousel-caption">
+                                    Mini Try Out
+                                    </div>                                
+                                </a>
                             </div>                        
                         </div>
                         <a class="left carousel-control" href="#carousel-example-generic" data-slide="prev">
