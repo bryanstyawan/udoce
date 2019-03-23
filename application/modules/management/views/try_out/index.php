@@ -88,7 +88,14 @@
 								<label>Tanggal Publish</label>
 								<input type="text" class="form-control timerangewithtime" id="f_time_publish" placeholder="Tanggal Publish">
 							</div>
-						</div>					
+						</div>
+
+						<div class="col-md-6">
+							<div class="form-group">
+								<label>Tanggal Berakhir</label>
+								<input type="text" class="form-control timerangewithtime" id="f_time_expired" placeholder="Tanggal Berakhir">
+							</div>
+						</div>											
 
 						<div class="col-md-6">
 							<div class="form-group">
@@ -145,6 +152,7 @@ $(document).ready(function(){
 		var crud           = $("#crud").val();
 		var f_name         = $("#f_name").val();
 		var f_time_publish = $("#f_time_publish").val();
+		var f_time_expired = $("#f_time_expired").val();
 		var f_remark       = $("#f_remark").val();
 		var f_durasi       = $("#f_durasi").val();		
 
@@ -154,6 +162,7 @@ $(document).ready(function(){
 			'oid_parent'       : oid_parent,
 			'f_name'           : f_name,
 			'f_time_publish'   : f_time_publish,
+			'f_time_expired'   : f_time_expired,			
 			'f_durasi'   	   : f_durasi,			
 			'f_remark'		   : f_remark
 		}
@@ -215,7 +224,7 @@ function choose_paket_try_out(_id,_name) {
 			}
 			else
 			{
-				child = "<td>Keterangan</td><td>Tanggal Publish</td><td>Durasi</td><td>Soal</td>";
+				child = "<td>Keterangan</td><td>Tanggal Publish</td><td>Tanggal Berakhir</td><td>Durasi</td><td>Soal</td>";
 			}
 
 			var newrec_header  = '<tr>'+
@@ -335,6 +344,7 @@ function choose_paket_try_out(_id,_name) {
 					}										
 					child_result =  '<td>'+obj.list[index].remark+'</td>'+
 									'<td>'+obj.list[index].time_publish+'</td>'+
+									'<td>'+obj.list[index].time_expired+'</td>'+									
 									'<td>'+obj.list[index].durasi+' Menit</td>'+																			
 									'<td>'+
 										'<span class="pull-left">'+counter_child+'</span>'+
@@ -473,6 +483,7 @@ function edit(id) {
 				if (_parent_ == 3) {
 					$("#formdata_mini_tryout").css({"display": ""})
 					$("#f_time_publish").val(obj.data[0]['time_publish']);
+					$("#f_time_expired").val(obj.data[0]['time_expired']);					
 					$("#f_remark").val(obj.data[0]['remark']);					
 				}
 				else

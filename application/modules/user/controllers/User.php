@@ -378,7 +378,7 @@ class User extends CI_Controller {
 		# code...
 		$this->Globalrules->session_rule();
 		$data['title']   = 'Mini Try Out';
-		$data['list'] = $this->Allcrud->getData('mr_try_out_list',array('id_parent'=>3,'publish'=>1))->result_array();		
+		$data['list'] = $this->Allcrud->getData('mr_try_out_list',array('id_parent'=>3,'publish'=>1))->result_array();
 		$data['verify_user_paid'] = $this->Allcrud->getData('tr_layanan',array('id_user'=>$this->session->userdata('session_user'),'type'=>'bimbel'))->result_array();		
 		$data['content'] = 'user/try_out/mini_try_out/index';
 		$this->load->view('templateAdmin',$data);				

@@ -1,3 +1,6 @@
+<div class="row">
+<h3>Ubah Password</h3>
+</div>
 <div class="form-horizontal">
 	<form id="form_password" name="form_password">
 		<div class="col-md-12">
@@ -53,7 +56,7 @@ $(document).ready(function()
 			if (pass_baru == re_pass_baru ) 
 			{
 				$.ajax({
-					url :"<?php echo site_url()?>/admin/do_change_password",
+					url :"<?php echo site_url()?>/auth/do_change_password",
 					type:"post",
 					data:$("#form_password").serialize(),
 					beforeSend:function(){

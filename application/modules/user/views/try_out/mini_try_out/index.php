@@ -209,24 +209,24 @@ function secondsToTime($seconds) {
 $end_mini = 0;
 if ($list != array()) {
     # code...
-
+    // print_r(count($list));die();
     for ($i=0; $i < count($list); $i++) { 
         # code...
-        $show_time    = "";
-        $time_publish = $list[$i]['time_publish'];
-        $time_server  = date('Y-m-d H:i:s');
-        $timeout      = strtotime($time_publish) - strtotime($time_server);        
+        $show_time       = "";
+        $time_publish    = $list[$i]['time_publish'];
+        $time_expired     = $list[$i]['time_expired'];        
+        $time_server     = date('Y-m-d H:i:s');
+        $timeout         = strtotime($time_publish) - strtotime($time_server);
+        $timeout_expired = strtotime($time_expired) - strtotime($time_server);                
 
-        $time_minute     = $list[$i]['durasi'] * 60;
-        $time_expire     = date('Y-m-d H:i:s',strtotime('+'.$list[$i]['durasi'].' minutes',strtotime($list[$i]['time_publish'])));
-        $timeout_expired = strtotime($time_expire) - strtotime($time_server);        
+        // $timeout_expired = strtotime($time_expire) - strtotime($time_server);        
         $style           = "";
         $go              = "";
 
         if ($timeout < 0) {
             # code...
             $go = "push";
-            $show_time = 'Mini Try Out akan selesai pada '.secondsToTime($timeout_expired).' ('.$time_expire.')';
+            $show_time = 'Mini Try Out akan selesai pada '.secondsToTime($timeout_expired).' ('.$time_expired.')';
         }
         else
         {
@@ -240,7 +240,7 @@ if ($list != array()) {
             $show_time = 'Mini Try Out telah selesai.';
             $style     = "style='display:none'";				            
             $end_mini  += 1;
-            $this->Allcrud->editData('mr_try_out_list',array('publish'=>0),array('id'=>$list[$i]['id']));            
+            // $this->Allcrud->editData('mr_try_out_list',array('publish'=>0),array('id'=>$list[$i]['id']));            
         }
 ?>
     <a href="#" onclick="go('<?=$go;?>','<?=$list[$i]['id'];?>')">

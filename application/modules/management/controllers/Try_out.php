@@ -86,7 +86,8 @@ class Try_out extends CI_Controller {
 				$data_store['mini_try_out_flag'] = 1;
 				$data_store['remark']            = $data_sender['f_remark'];
 				$data_store['durasi']            = $data_sender['f_durasi'];				
-				$data_store['time_publish']      = $data_sender['f_time_publish'];								
+				$data_store['time_publish']      = $data_sender['f_time_publish'];
+				$data_store['time_expired']      = $data_sender['f_time_expired'];												
 				// $data_store['time_publish']      = date('Y-m-d' , strtotime($data_sender['f_time_publish']));
 			}
 			$data_store['id_parent'] = $data_sender['oid_parent'];
@@ -99,7 +100,8 @@ class Try_out extends CI_Controller {
 				# code...
 				$data_store['remark']            = $data_sender['f_remark'];
 				$data_store['durasi']            = $data_sender['f_durasi'];				
-				$data_store['time_publish']      = $data_sender['f_time_publish'];				
+				$data_store['time_publish']      = $data_sender['f_time_publish'];
+				$data_store['time_expired']      = $data_sender['f_time_expired'];								
 				// $data_store['time_publish']      = date('Y-m-d' , strtotime($data_sender['f_time_publish']));
 			}			
 			$data_store['id_parent'] = $data_sender['oid_parent'];

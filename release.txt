@@ -2,6 +2,14 @@ v1.0.0
 2019-03-20
 ==========
 New:
+- Time Expired mini try out
+Improved:
+Fixed:
+
+v1.0.0    
+2019-03-20
+==========
+New:
 - Layout layanan try out
 Improved:
 Fixed:

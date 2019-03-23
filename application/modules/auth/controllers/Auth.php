@@ -79,9 +79,9 @@ class Auth extends CI_Controller
 			redirect('auth');
 		}
 		$this->Globalrules->notif_message();		
-		$data['title']      = 'Ubah Password';		
+		$data['title']      = '';		
 		$data['subtitle']   = '';
-		$data['content']    = 'admin/user/change_password';
+		$data['content']    = 'auth/user/change_password';
 		$this->load->view('templateAdmin',$data);		
 	}
 
