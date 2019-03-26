@@ -1,5 +1,13 @@
 v1.0.0    
-2019-03-20
+2019-03-27
+==========
+New:
+- Hapus data pilihan ganda
+Improved:
+Fixed:
+
+v1.0.0    
+2019-03-23
 ==========
 New:
 - Time Expired mini try out

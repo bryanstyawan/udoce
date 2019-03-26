@@ -248,7 +248,7 @@
 								<?php
 									}
 								?>
-								<!-- <button class="btn btn-danger btn-xs" onclick="del('<?php echo $row->id;?>')"><i class="fa fa-trash"></i> Hapus</button> -->
+								<button class="btn btn-danger btn-xs" onclick="del('<?php echo $row->id;?>')"><i class="fa fa-trash"></i> Hapus</button>
 							</td>
 						</tr>
 					<?php $x++; }
@@ -324,14 +324,21 @@
 			<div class="box-body">
 				<?php
 					$counter = 5;
-					// if ($parent == 1) {
-					// 	# code...
-					// 	$counter = 5;
-					// }
-					// elseif($parent == 2)
-					// {
-					// 	$counter = 5;
-					// }
+					if ($parent == 1) {
+						# code...
+						if ($type == 2) {
+							# code...
+							$counter = 4;							
+						}
+						else
+						{
+							$counter = 5;
+						}
+					}
+					elseif($parent == 2)
+					{
+						$counter = 5;
+					}
 					for ($i=0; $i < $counter; $i++) { 
 						# code...
 						$_class = "";
@@ -744,7 +751,7 @@ function del(id)
 		callback: function ($this, type) {
 			if (type === 'yes'){			
 				$.ajax({
-					url :"<?php echo site_url();?>bank_data/soal/store_detail/"+'delete/'+id,
+					url :"<?php echo site_url();?>management/try_out/store_soal_detail/"+'delete/'+id,
 					type:"post",
 					beforeSend:function(){
 						$("#editData").modal('hide');

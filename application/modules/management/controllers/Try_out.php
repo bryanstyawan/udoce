@@ -345,7 +345,7 @@ class Try_out extends CI_Controller {
 		echo json_encode($res);			
 	}
 
-	public function store_soal_detail($param=NULL)
+	public function store_soal_detail($param=NULL,$iod=NULL)
 	{
 		# code...
 		$res_data    = 0;
@@ -389,6 +389,11 @@ class Try_out extends CI_Controller {
 			$data_store['jawaban']   = $data_sender['f_jawaban'];
 			$res_data    = $this->Allcrud->editData('mr_try_out_soal_detail',$data_store,array('id'=>$data_sender['oid']));
 			$text_status = $this->Globalrules->check_status_res($res_data,'Data Jawaban telah berhasil diubah.');			
+		}
+		elseif($param == 'delete')
+		{
+			$res_data          = $this->Allcrud->delData('mr_try_out_soal_detail',array('id'=>$iod));
+			$text_status       = $this->Globalrules->check_status_res($res_data,'Data Jawaban telah berhasil dihapus.');			
 		}
 
 		$res = array
