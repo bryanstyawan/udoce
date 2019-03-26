@@ -78,7 +78,7 @@
 		}
 		$CI->load->view('templates/header/close_tag',array('tag'=>'ul'));
 		$CI->load->view('templates/header/close_tag',array('tag'=>'div'));
-		$CI->load->view('templates/header/open_tag',array('tag'=>'div','class'=>'navbar-custom-menu hidden-xs'));
+		$CI->load->view('templates/header/open_tag',array('tag'=>'div','class'=>'navbar-custom-menu'));
 		$CI->load->view('templates/header/open_tag',array('tag'=>'ul','class'=>'nav navbar-nav pull-right'));
 		// $CI->load->view('templates/header/message');
 		$CI->load->view('templates/header/menu_user');		

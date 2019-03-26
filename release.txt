@@ -3,6 +3,8 @@ v1.0.0
 ==========
 New:
 - Hapus data pilihan ganda
+- Mobile layout navigation
+- Mobile layout dashboard
 Improved:
 Fixed:
 
