@@ -140,7 +140,7 @@
 						<tr style="<?=$color_row;?>">
 							<td><?php echo $x;?></td>
 							<td><?php echo $row->choice;?></td>							
-							<td><?php echo ($row->image == '') ? $row->name : '<img src="'.base_url().'public/soal/'.$row->image.'">';?></td>
+							<td><?php echo ($row->image == '') ? $row->name : '<img src="'.base_url().'public/jawaban/'.$row->image.'">';?></td>
 							<td>
 								<button class="btn btn-primary btn-xs" onclick="edit('<?php echo $row->id;?>')"><i class="fa fa-edit"></i> Ubah</button>&nbsp;&nbsp;
 								<?php
