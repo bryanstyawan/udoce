@@ -200,16 +200,13 @@ $(document).click(function(e) {
             <?php menu_header();?>
         </header>
 
-        <aside class="content-mobile main-sidebar">
+        <aside class="content-mobile main-sidebar hidden-sm hidden-xs">
             <section class="sidebar" style="height: auto;">
                 <ul class="sidebar-menu tree" data-widget="tree">
                     <?php menuSamping();?>
                 </ul>
             </section>        
         </aside>
-        <!-- <aside class="main-sidebar hidden-lg">
-
-        </aside>         -->
 
         <div class="content-wrapper main_background">
 			<section class="content">

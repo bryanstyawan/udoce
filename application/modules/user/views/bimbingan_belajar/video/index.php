@@ -57,7 +57,8 @@
   color: #92959e;
 }
 .chat {
-  width: 490px;
+  /* width: 490px; */
+  width: 100%	
   float: left;
   background: #f2f5f8;
   border-top-right-radius: 5px;
@@ -196,6 +197,98 @@
   height: 0;
 }
 
+	/* Extra small devices (phones, 600px and down) */
+	@media only screen and (max-width: 600px) {
+		#f_video
+		{
+			height: 350px;
+			width: 100%;
+		}
+
+		#headerdata
+		{
+			padding-left: 0px;
+		}
+
+		#section_video
+		{
+
+		}
+	} 
+
+	/* Small devices (portrait tablets and large phones, 600px and up) */
+	@media only screen and (min-width: 600px) {
+		#f_video
+		{
+			
+		}
+
+		#headerdata
+		{
+			
+		}
+
+		#section_video
+		{
+			
+		}				
+	} 
+
+	/* Medium devices (landscape tablets, 768px and up) */
+	@media only screen and (min-width: 768px) {
+		#f_video
+		{
+			width: 100%;
+			height: 445px;
+		}
+
+		#headerdata
+		{
+			
+		}
+
+		#section_video
+		{
+			padding-left: 0px;
+		}								
+	} 
+
+	/* Large devices (laptops/desktops, 992px and up) */
+	@media only screen and (min-width: 992px) {
+		#f_video
+		{
+			width: 100%;
+		}
+		
+		#headerdata
+		{
+			
+		}
+
+		#section_video
+		{
+			
+		}						
+	} 
+
+	/* Extra large devices (large laptops and desktops, 1200px and up) */
+	@media only screen and (min-width: 1200px) {
+		#f_video
+		{
+			
+		}
+
+		#headerdata
+		{
+			
+		}
+
+		#section_video
+		{
+			
+		}				
+	}	
+
 </style>
 
 <section id="headerdata" class="col-lg-7 col-xs-12">
@@ -205,13 +298,13 @@
 			<source id="f_source" src="" type="video/mp4">
 		</video>
 
-		<div class="col-lg-12 text-center">
+		<div class="col-lg-12 text-center" style="padding: 10px;">
 			<a class="btn btn-success" id="btn_next_step" onclick="finish(<?=$materi;?>,<?=$type;?>)" style="display:none;">Lanjut ke Quiz</a>
 		</div>
 	</div>
 </section>
 
-<section id="headerdata" class="col-xs-5">
+<section id="headerdata" class="col-lg-5 col-sm-6 col-xs-12">
 	<div class="clearfix">		
 		<div class="chat">
 			<div class="chat-header clearfix">

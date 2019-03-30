@@ -1,5 +1,5 @@
-<div class="col-lg-2">
-    <aside class="main-sidebar" style="height: 450px;">
+<div class="col-lg-2 col-sm-2  hidden-xs">
+    <aside class="main-sidebar hidden-sm hidden-xs" style="height: 450px;">
         <section class="sidebar" style="height: auto;">
             <ul class="sidebar-menu tree" data-widget="tree">
                 <li class="header">MAIN NAVIGATION</li>

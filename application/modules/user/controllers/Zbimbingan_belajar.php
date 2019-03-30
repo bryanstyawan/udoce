@@ -124,6 +124,11 @@ class Zbimbingan_belajar extends CI_Controller {
 				# code...
 				$list_soal   = count($this->Allcrud->getData('mr_soal',array('id_materi'=>$data_sender['materi'],'id_tipe_soal'=>$data_sender['type']))->result_array());
 				$list_choice = count($this->Allcrud->getData('tr_jawaban_bimbingan_belajar',array('id_user'=>$user,'id_type'=>$data_sender['type'],'id_materi'=>$data_sender['materi']))->result_array());
+				if ($list_choice > 20) {
+					# code...
+					$list_choice = $list_soal;
+				}	
+
 				if ($list_soal == $list_choice) {
 					# code...
 					$flag_res = 1;

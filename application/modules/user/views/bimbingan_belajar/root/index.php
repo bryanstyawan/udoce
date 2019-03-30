@@ -156,7 +156,97 @@ if($verify_user_paid->result_array() == array())
 
 	.ultimite .price {
 	background: #DD4B5E;
-	}
+	}	
+
+	/* Extra small devices (phones, 600px and down) */
+	@media only screen and (max-width: 600px) {
+		.main-sidebar
+		{
+			
+		}
+
+		#type_2
+		{
+
+		}
+
+		#type_1
+		{
+			
+		}		
+	} 
+
+	/* Small devices (portrait tablets and large phones, 600px and up) */
+	@media only screen and (min-width: 600px) {
+		.main-sidebar
+		{
+			
+		}
+
+		#type_2
+		{
+
+		}
+
+		#type_1
+		{
+			
+		}			
+	} 
+
+	/* Medium devices (landscape tablets, 768px and up) */
+	@media only screen and (min-width: 768px) {
+		.main-sidebar
+		{
+
+		}
+
+		#type_2
+		{
+
+		}
+
+		#type_1
+		{
+			
+		}			
+	} 
+
+	/* Large devices (laptops/desktops, 992px and up) */
+	@media only screen and (min-width: 992px) {
+		.main-sidebar
+		{
+			
+		}	
+
+		#type_2
+		{
+
+		}
+
+		#type_1
+		{
+			
+		}			
+	} 
+
+	/* Extra large devices (large laptops and desktops, 1200px and up) */
+	@media only screen and (min-width: 1200px) {
+		.main-sidebar
+		{
+			
+		}
+
+		#type_2
+		{
+
+		}
+
+		#type_1
+		{
+			
+		}			
+	}	
 </style>
 <div id="price">
     <!--price tab-->
@@ -237,11 +327,16 @@ else {
 ?>
 <section id="viewdata">
 	<?=$this->load->view('templates/sidebar/main');?>
-	<div class="col-xs-10">
+	<div class="col-lg-10 col-sm-10 col-xs-12">
 		<div class="box" style="background: transparent;border-top: none;box-shadow: none;">
 			<div class="box-body" id="table_fill">
 
-				<div class="col-lg-6">
+				<div class="box-header with-border text-center hidden-lg" style="border-bottom: none;margin-bottom: 20px;">
+					<a href="#" id="btn_type_1" class="col-xs-6" style="background: #E91E63;color: #fff;padding: 10px 0px 10px 0px;"><h3 class="box-title"><?=$list[0]['name'];?></h3></a>
+					<a href="#" id="btn_type_2" class="col-xs-6" style="background: #03A9F4;color: #fff;padding: 10px 0px 10px 0px;"><h3 class="box-title"><?=$list[1]['name'];?></h3></a>					
+				</div>			
+
+				<div id="type_1" class="col-lg-6 hidden-xs hidden-sm">
 					<div class="box box-warning" style="box-shadow: none;background: none;">
 						<div class="box-header with-border text-center" style="background: #f39c12;color: #fff;">
 							<h3 class="box-title"><?=$list[0]['name'];?></h3>
@@ -335,7 +430,7 @@ else {
 						</div>
 					</div>
 				</div>
-				<div class="col-lg-6">
+				<div id="type_2" class="col-lg-6 hidden-xs hidden-sm">
 					<div class="box box-warning" style="box-shadow: none;background: none;">
 						<div class="box-header with-border text-center" style="background: #f39c12;color: #fff;">
 							<h3 class="box-title"><?=$list[1]['name'];?></h3>
@@ -451,7 +546,25 @@ function bimbel_package(arg) {
 	$("#oid").val(arg);
 }
 
-$(document).ready(function(){
+$(document).ready(function(){	
+	$("#btn_type_1").click(function() {
+		$("#type_2").addClass("hidden-xs");
+		$("#type_2").addClass("hidden-sm");		
+        $("#type_1").removeClass("hidden-xs");
+        $("#type_1").removeClass("hidden-sm");		
+		$("#type_2").css({"display": "none"})
+		$("#type_1").css({"display": ""})				
+	})
+
+	$("#btn_type_2").click(function() {
+		$("#type_1").addClass("hidden-xs");
+		$("#type_1").addClass("hidden-sm");		
+        $("#type_2").removeClass("hidden-xs");
+        $("#type_2").removeClass("hidden-sm");		
+		$("#type_2").css({"display": ""})
+		$("#type_1").css({"display": "none"})				
+	})	
+
 	$("#btn-verify").click(function() {
 		var oid   = $("#oid").val();
 		var token = $("#token").val();

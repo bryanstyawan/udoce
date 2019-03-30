@@ -1,12 +1,100 @@
-<div id="viewdata" class="col-lg-2">
+<style>
+	/* Extra small devices (phones, 600px and down) */
+	@media only screen and (max-width: 600px) {
+		.follow-scroll
+		{
+			float: right;
+		}
+
+		#headerdata
+		{
+
+		}
+
+		.main-sidebar
+		{
+			
+		}		
+	} 
+
+	/* Small devices (portrait tablets and large phones, 600px and up) */
+	@media only screen and (min-width: 600px) {
+		.follow-scroll
+		{
+			float: right;			
+		}
+
+		#headerdata
+		{
+			
+		}
+
+		.main-sidebar
+		{
+			
+		}				
+	} 
+
+	/* Medium devices (landscape tablets, 768px and up) */
+	@media only screen and (min-width: 768px) {
+		.follow-scroll
+		{
+			float: right;			
+		}
+
+		#headerdata
+		{
+			
+		}
+
+		.main-sidebar
+		{
+			
+		}				
+	} 
+
+	/* Large devices (laptops/desktops, 992px and up) */
+	@media only screen and (min-width: 992px) {
+		.follow-scroll
+		{
+			float: right;
+		}
+
+		#headerdata
+		{
+			
+		}
+
+		.main-sidebar
+		{
+			width: 600%;			
+		}				
+	} 
+
+	/* Extra large devices (large laptops and desktops, 1200px and up) */
+	@media only screen and (min-width: 1200px) {
+		.follow-scroll
+		{
+			float: right;			
+		}
+
+		#headerdata
+		{
+			
+		}
+
+		.main-sidebar
+		{
+			
+		}							
+	}	
+</style>
+<div id="viewdata" class="col-lg-2 col-sm-2 col-xs-2 hidden-xs hidden-sm">
 	<?=$this->load->view('templates/sidebar/main');?>
 </div>
-<div class="col-lg-10">
-	<section class="col-xs-2 follow-scroll">
+<div class="col-lg-10 col-sm-10 col-xs-10">
+	<section class="col-lg-2 col-sm-2 col-xs-2 follow-scroll">
 		<div class="box">
-		<div class="box-header">
-				<h3 class="box-title"></h3>
-			</div>
 			<div class="box-body">
 				<div class="row">
 					<div class="col-lg-12">
@@ -23,7 +111,7 @@
 										$background_color = "background-color:#4CAF50;";
 									}								
 						?>
-									<a href="#div_soal_<?=$list[$i]['id'];?>" class="btn btn-default col-xs-6" id="counter_choice_<?=$list[$i]['id'];?>" style="<?=$background_color;?><?=$color;?>"><?=$i+1;?></a>
+									<a href="#div_soal_<?=$list[$i]['id'];?>" class="btn btn-default col-lg-6 col-xs-12" id="counter_choice_<?=$list[$i]['id'];?>" style="<?=$background_color;?><?=$color;?>"><?=$i+1;?></a>
 						<?php
 								}								
 							}
@@ -47,12 +135,12 @@
 			<div class="box-body">
 				<div class="row">
 					<div class="col-md-12">
-							<label class="col-lg-1"><?=$i+1;?>.</label>
+							<label class="col-lg-1 col-xs-1"><?=$i+1;?>.</label>
 							<?php
 								if ($list[$i]['image'] == NULL) {
 									# code...
 							?>
-								<label class="col-lg-11"><?=$list[$i]['name'];?></label>							
+								<label class="col-lg-11 col-xs-9"><?=$list[$i]['name'];?></label>							
 							<?php
 								}
 								else
@@ -133,19 +221,20 @@
 		?>
 	</section>
 
-	<section class="col-lg-12">
-	<div class="box" style="background: none;border-top: none;box-shadow: none;">
-		<div class="box-header">
-				<h3 class="box-title"></h3>
-			</div>
-			<div class="box-body">
-				<div class="row">
-					<div class="col-lg-12 text-center">
-						<a class="btn btn-success" onclick="finish(<?=$materi;?>,<?=$type;?>)"><?=($type==1)?'Lanjut ke Video Materi':'Lanjut ke Analisis';?></a>
-					</div>
+	<section class="col-lg-12 col-sm-12 col-xs-12">
+		<div class="box" style="background: none;border-top: none;box-shadow: none;">
+			<div class="box-header">
+					<h3 class="box-title"></h3>
 				</div>
+				<div class="box-body">
+					<div class="row">
+						<div class="col-lg-12 text-center">
+							<a class="btn btn-success" onclick="finish(<?=$materi;?>,<?=$type;?>)"><?=($type==1)?'Lanjut ke Video Materi':'Lanjut ke Analisis';?></a>
+						</div>
+					</div>
 
-			</div><!-- /.box-body -->		
+				</div><!-- /.box-body -->		
+			</div>
 		</div>
 	</section>
 </div>

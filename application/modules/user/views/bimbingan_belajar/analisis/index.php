@@ -1,5 +1,122 @@
+<style>
+	/* Extra small devices (phones, 600px and down) */
+	@media only screen and (max-width: 600px) {
+		#headerdata
+		{
+
+		}
+
+		.main-sidebar
+		{
+			
+		}	
+
+		#container_1
+		{
+			margin-top: 100px;
+		}
+
+		#container_2
+		{
+			
+		}		
+	} 
+
+	/* Small devices (portrait tablets and large phones, 600px and up) */
+	@media only screen and (min-width: 600px) {
+		#headerdata
+		{
+			
+		}
+
+		.main-sidebar
+		{
+			
+		}		
+
+		#container_1
+		{
+
+		}
+
+		#container_2
+		{
+			
+		}						
+	} 
+
+	/* Medium devices (landscape tablets, 768px and up) */
+	@media only screen and (min-width: 768px) {
+		#headerdata
+		{
+			
+		}
+
+		.main-sidebar
+		{
+			
+		}		
+
+		#container_1
+		{
+
+		}
+
+		#container_2
+		{
+			
+		}						
+	} 
+
+	/* Large devices (laptops/desktops, 992px and up) */
+	@media only screen and (min-width: 992px) {
+		#headerdata
+		{
+			
+		}
+
+		.main-sidebar
+		{
+			width: 600%;			
+		}		
+
+		#container_1
+		{
+
+		}
+
+		#container_2
+		{
+			
+		}						
+	} 
+
+	/* Extra large devices (large laptops and desktops, 1200px and up) */
+	@media only screen and (min-width: 1200px) {
+		#headerdata
+		{
+			
+		}
+
+		.main-sidebar
+		{
+			
+		}		
+
+		#container_1
+		{
+
+		}
+
+		#container_2
+		{
+			
+		}									
+	}	
+</style>
+
 <input type="hidden" id="oid_header" value="">
-<div id="viewdata" class="col-lg-2">
+<div id="viewdata" class="col-lg-2 col-sm-2">
 	<?=$this->load->view('templates/sidebar/main');?>
 </div>
 <section id="pre_test_section" class="col-xs-10" style="display:none;">
@@ -112,8 +229,8 @@
 	<input type="hidden" id="quiz_result" value="">		
 	<div class="row">
 		<div class="col-lg-12">
-			<h3 class="box-title pull-left col-lg-12">
-				Pembahasan Quiz
+			<h3 class="box-title pull-left col-lg-12 col-sm-12 col-xs-12">
+				<label>Pembahasan Quiz</label>
 				<div class="box-tools pull-right">
 					<button class="btn btn-block btn-primary follow-scroll" onclick="view_analisis('result_analisis')"><i class="fa fa-arrow-circle-o-left"></i> Kembali</button>
 				</div>
@@ -303,8 +420,8 @@
 	</div>		
 </section>
 
-<section id="analisis_pre_test_quiz_section" class="col-lg-10" style="">
-	<div class="col-lg-6">
+<section id="analisis_pre_test_quiz_section" class="col-lg-10 col-sm-10" style="">
+	<div id="container_1" class="col-lg-6 col-sm-6">
 		<div class="box">
 			<div class="box-header">
 				<h3 class="box-title">Pre Test</h3>
@@ -337,7 +454,7 @@
 			</div><!-- /.box-body -->		
 		</div>
 	</div>
-	<div class="col-lg-6">
+	<div id="container_2" class="col-lg-6 col-sm-6">
 		<div class="box">
 			<div class="box-header">
 				<h3 class="box-title">Quiz</h3>
