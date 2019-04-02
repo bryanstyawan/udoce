@@ -2,6 +2,15 @@ v1.0.0
 2019-03-27
 ==========
 New:
+- Mobile layout Video Materi
+- Mobile layout Bimbingan Belajar
+Improved:
+Fixed:
+
+v1.0.0    
+2019-03-27
+==========
+New:
 - Hapus data pilihan ganda
 - Mobile layout navigation
 - Mobile layout dashboard

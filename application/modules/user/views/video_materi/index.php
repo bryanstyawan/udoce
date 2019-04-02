@@ -196,15 +196,112 @@
   height: 0;
 }
 
+<style>
+	/* Extra small devices (phones, 600px and down) */
+	@media only screen and (max-width: 600px) {
+		#headerdata
+		{
+
+		}
+
+		#container_1
+		{
+			margin-top: 100px;
+		}
+
+		#container_2
+		{
+			
+		}		
+	} 
+
+	/* Small devices (portrait tablets and large phones, 600px and up) */
+	@media only screen and (min-width: 600px) {
+		#headerdata
+		{
+			
+		}
+
+		#container_1
+		{
+
+		}
+
+		#container_2
+		{
+			
+		}						
+	} 
+
+	/* Medium devices (landscape tablets, 768px and up) */
+	@media only screen and (min-width: 768px) {
+		#headerdata
+		{
+			
+		}
+
+		#container_1
+		{
+
+		}
+
+		#container_2
+		{
+			
+		}						
+	} 
+
+	/* Large devices (laptops/desktops, 992px and up) */
+	@media only screen and (min-width: 992px) {
+		#headerdata
+		{
+			
+		}
+
+		#container_1
+		{
+
+		}
+
+		#container_2
+		{
+			
+		}						
+	} 
+
+	/* Extra large devices (large laptops and desktops, 1200px and up) */
+	@media only screen and (min-width: 1200px) {
+		#headerdata
+		{
+			
+		}
+
+		#container_1
+		{
+
+		}
+
+		#container_2
+		{
+			
+		}									
+	}	
+</style>
+
 </style>
 <?php
 if ($list != array()) {
     # code...
     ?>
     <div class="container" id="main_video_section">
-        <div class="col-lg-6">
-            <div class="box box-solid" style="">
-                <div class="box-header with-border text-center">
+				<div class="box-header with-border text-center hidden-lg hidden-md" style="border-bottom: none;margin-bottom: 20px;">
+					<a href="#" id="btn_type_1" class="col-xs-6" style="background: #E91E63;color: #fff;padding: 10px 0px 10px 0px;"><h3 class="box-title"><?=$list[0]['name'];?></h3></a>
+					<a href="#" id="btn_type_2" class="col-xs-6" style="background: #03A9F4;color: #fff;padding: 10px 0px 10px 0px;"><h3 class="box-title"><?=$list[1]['name'];?></h3></a>					
+				</div>			
+            
+        <div id="type_1" class="col-lg-6 col-md-6 col-sm-12 col-xs-12 hidden-xs hidden-sm">
+            <div id="container_1" class="box box-solid" style="">
+                <div class="box-header with-border text-center" style="background: #f39c12;color: #fff;">
                     <h3 class="box-title"><?=$list[0]['name'];?></h3>
                 </div>
                 <div class="box-body no-padding" style="display: block;">
@@ -229,6 +326,7 @@ if ($list != array()) {
                                     if ($check_data_next != array()) {
                                         # code...
                                         $arg_video = 'unlock';
+                                        $lock       = '<i class="fa fa-play" style="font-size: 41px;"></i>';                                        
                                     }
                                     else {
                                         # code...
@@ -242,6 +340,7 @@ if ($list != array()) {
                                     if ($ii < 1) {
                                         # code...
                                         $arg_video = 'unlock';
+                                        $lock       = '<i class="fa fa-play" style="font-size: 41px;"></i>';                                        
                                     }
                                     else {
                                         # code...
@@ -259,16 +358,7 @@ if ($list != array()) {
     
                     ?>
                     <a class="row" onclick="view_video('<?=$arg_video;?>','<?=$child[$ii]['id'];?>','<?=$file_video;?>','<?=$child[$ii]['name'];?>')" style="margin: 0px;cursor: pointer;">                
-                        <div class="col-lg-6" style="padding-right: 0px;">
-                            <div class="box box-warning direct-chat direct-chat-warning" style="background: transparent;box-shadow: none;">
-                                <div class="box-body">
-                                    <video width="480" height="120" controls>
-                                        <source id="f_source" src="" type="video/mp4">
-                                    </video>        
-                                </div>        
-                            </div>
-                        </div>
-                        <div class="col-lg-6" style="padding-left: 0px;">
+                        <div class="col-lg-12" style="padding-left: 0px;">
                             <div class="box box-warning direct-chat direct-chat-warning" style="height: 120px;">
                                 <div class="box-header with-border text-center" style="border-bottom: transparent;">
                                     <h3 class="box-title"><?=$child[$ii]['name'];?></h3>
@@ -287,9 +377,9 @@ if ($list != array()) {
                 </div>
             </div>
         </div>
-        <div class="col-lg-6">
-            <div class="box box-solid" style="">
-                <div class="box-header with-border text-center">
+        <div id="type_2" class="col-lg-6 col-md-6 col-sm-12 col-xs-12 hidden-xs hidden-sm">
+            <div id="container_2" class="box box-solid" style="">
+                <div class="box-header with-border text-center" style="background: #f39c12;color: #fff;">
                     <h3 class="box-title"><?=$list[1]['name'];?></h3>
                 </div>
                 <div class="box-body no-padding" style="display: block;">
@@ -344,16 +434,7 @@ if ($list != array()) {
     
                     ?>
                     <a class="row" onclick="view_video('<?=$arg_video;?>','<?=$child[$ii]['id'];?>','<?=$file_video;?>','<?=$child[$ii]['name'];?>')" style="margin: 0px;cursor: pointer;">                
-                        <div class="col-lg-6" style="padding-right: 0px;">
-                            <div class="box box-warning direct-chat direct-chat-warning" style="background: transparent;box-shadow: none;">
-                                <div class="box-body">
-                                    <video width="480" height="120" controls>
-                                        <source id="f_source" src="" type="video/mp4">
-                                    </video>        
-                                </div>        
-                            </div>
-                        </div>
-                        <div class="col-lg-6" style="padding-left: 0px;">
+                        <div class="col-lg-12" style="padding-left: 0px;">
                             <div class="box box-warning direct-chat direct-chat-warning" style="height: 120px;">
                                 <div class="box-header with-border text-center" style="border-bottom: transparent;">
                                     <h3 class="box-title"><?=$child[$ii]['name'];?></h3>
@@ -490,7 +571,26 @@ function view_video(arg,id,file,materi) {
         
     }
 }
-$(document).ready(function(){
+$(document).ready(function()
+{
+	$("#btn_type_1").click(function() {
+		$("#type_2").addClass("hidden-xs");
+		$("#type_2").addClass("hidden-sm");		
+    $("#type_1").removeClass("hidden-xs");
+    $("#type_1").removeClass("hidden-sm");		
+		$("#type_2").css({"display": "none"})
+		$("#type_1").css({"display": ""})				
+	})
+
+	$("#btn_type_2").click(function() {
+		$("#type_1").addClass("hidden-xs");
+		$("#type_1").addClass("hidden-sm");		
+    $("#type_2").removeClass("hidden-xs");
+    $("#type_2").removeClass("hidden-sm");		
+		$("#type_2").css({"display": ""})
+		$("#type_1").css({"display": "none"})				
+	})	
+
 	$("#closeData").click(function(){
 		$("#detail_video_section").css({"display": "none"})
 		$("#main_video_section").css({"display": ""})		

@@ -360,7 +360,7 @@ else {
 										$display = "";
 										if ($type[$j]['id'] == 1) {
 											# code...
-											$text = "Mulai";
+											$text = "Pre Test";
 										}
 										elseif ($type[$j]['id'] == 2) {
 											# code...
@@ -368,7 +368,7 @@ else {
 										}
 										elseif ($type[$j]['id'] == 3) {
 											# code...
-											$text = "Mulai";											
+											$text = "Quiz";											
 										}
 										elseif ($type[$j]['id'] == 4) {
 											# code...
@@ -384,7 +384,7 @@ else {
 													# code...
 													$display    = "";
 													$lock       = '';										
-													$btn_arr .= '<a class="btn btn-primary" style="'.$display.'" href="'.base_url()."user/bimbingan_belajar/".$type[$j]['name']."/".$type[$j]['id']."/".$child[$ii]['id'].'"><i class="fa fa-hourglass-start"></i>&nbsp;'.$text.'</a>&nbsp;';
+													$btn_arr .= '<a class="btn btn-primary" style="'.$display.'" href="'.base_url()."user/bimbingan_belajar/".$type[$j]['name']."/".$type[$j]['id']."/".$child[$ii]['id'].'">&nbsp;'.$text.'</a>&nbsp;';
 												}
 												else {
 													# code...
@@ -395,7 +395,7 @@ else {
 															# code...
 															$display    = "margin-right: 10px;";															
 															$lock       = '';										
-															$btn_arr .= '<a class="btn btn-primary" style="'.$display.'" href="'.base_url()."user/bimbingan_belajar/".$type[$j]['name']."/".$type[$j]['id']."/".$child[$ii]['id'].'"><i class="fa fa-hourglass-start"></i>&nbsp;'.$text.'</a>&nbsp;';												
+															$btn_arr .= '<a class="btn btn-primary" style="'.$display.'" href="'.base_url()."user/bimbingan_belajar/".$type[$j]['name']."/".$type[$j]['id']."/".$child[$ii]['id'].'">&nbsp;'.$text.'</a>&nbsp;';												
 														}
 													}
 												}
@@ -403,15 +403,15 @@ else {
 										}
 										else
 										{
-											$display    = "margin-right: 10px;";
+											$display    = "margin-right: 10px;margin-top: 10px;";
 											$lock       = '';										
-											$btn_arr .= '<a class="btn btn-primary" style="'.$display.'" href="'.base_url()."user/bimbingan_belajar/".$type[$j]['name']."/".$type[$j]['id']."/".$child[$ii]['id'].'"><i class="fa fa-hourglass-start"></i>&nbsp;'.$text.'</a>';								
+											$btn_arr .= '<a class="btn btn-primary" style="'.$display.'" href="'.base_url()."user/bimbingan_belajar/".$type[$j]['name']."/".$type[$j]['id']."/".$child[$ii]['id'].'">&nbsp;'.$text.'</a>';								
 										}
 									}
 							?>
 							<div class="row" style="margin-left: 0px;cursor: pointer;">                
 								<div class="col-lg-12" style="padding-left: 0px;">
-									<div class="box box-solid" style="height: 120px;">
+									<div class="box box-solid" style="height: auto">
 										<div class="box-header with-border text-center" style="border-bottom: transparent;">
 											<h3 class="box-title"><?=$child[$ii]['name'];?></h3>
 										</div>        
@@ -478,7 +478,7 @@ else {
 													# code...
 													$display    = "";
 													$lock       = '';										
-													$btn_arr .= '<a class="btn btn-primary" style="'.$display.'" href="'.base_url()."user/bimbingan_belajar/".$type[$j]['name']."/".$type[$j]['id']."/".$child[$ii]['id'].'"><i class="fa fa-hourglass-start"></i>&nbsp;'.$text.'</a>&nbsp;';
+													$btn_arr .= '<a class="btn btn-primary" style="'.$display.'" href="'.base_url()."user/bimbingan_belajar/".$type[$j]['name']."/".$type[$j]['id']."/".$child[$ii]['id'].'">&nbsp;'.$text.'</a>&nbsp;';
 												}
 												else {
 													# code...
@@ -489,7 +489,7 @@ else {
 															# code...
 															$display    = "margin-right: 10px;";															
 															$lock       = '';										
-															$btn_arr .= '<a class="btn btn-primary" style="'.$display.'" href="'.base_url()."user/bimbingan_belajar/".$type[$j]['name']."/".$type[$j]['id']."/".$child[$ii]['id'].'"><i class="fa fa-hourglass-start"></i>&nbsp;'.$text.'</a>&nbsp;';												
+															$btn_arr .= '<a class="btn btn-primary" style="'.$display.'" href="'.base_url()."user/bimbingan_belajar/".$type[$j]['name']."/".$type[$j]['id']."/".$child[$ii]['id'].'">&nbsp;'.$text.'</a>&nbsp;';												
 														}
 													}
 												}
@@ -499,7 +499,7 @@ else {
 										{
 											$display    = "margin-right: 10px;";
 											$lock       = '';										
-											$btn_arr .= '<a class="btn btn-primary" style="'.$display.'" href="'.base_url()."user/bimbingan_belajar/".$type[$j]['name']."/".$type[$j]['id']."/".$child[$ii]['id'].'"><i class="fa fa-hourglass-start"></i>&nbsp;'.$text.'</a>';								
+											$btn_arr .= '<a class="btn btn-primary" style="'.$display.'" href="'.base_url()."user/bimbingan_belajar/".$type[$j]['name']."/".$type[$j]['id']."/".$child[$ii]['id'].'">&nbsp;'.$text.'</a>';								
 										}
 									}
 							?>
