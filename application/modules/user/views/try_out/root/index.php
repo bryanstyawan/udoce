@@ -464,7 +464,7 @@ else
 }
 ?>
 
-<section id="user_paid" class="col-lg-10" style="display:none;">
+<section id="user_paid" class="col-lg-10 col-md-10" style="display:none;">
 	<div class="col-xs-12" style="padding: 0px;">
 		<?php
 			if ($tipe != array()) {

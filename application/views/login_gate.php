@@ -389,6 +389,72 @@ input {
 	padding: 8px 0;
 	margin-top: 20px;
 }
+
+	/* Extra small devices (phones, 600px and down) */
+	@media only screen and (max-width: 600px) {
+		#slideBox
+		{
+
+		}
+
+		#back
+		{
+
+		}
+	} 
+
+	/* Small devices (portrait tablets and large phones, 600px and up) */
+	@media only screen and (min-width: 600px) {
+		#slideBox
+		{
+			
+		}
+
+		#back
+		{
+			
+		}		
+	} 
+
+	/* Medium devices (landscape tablets, 768px and up) */
+	@media only screen and (min-width: 768px) {
+		#slideBox
+		{
+			margin-left: 60%;
+			width: 40%;			
+		}
+
+		#back
+		{
+			
+		}		
+	} 
+
+	/* Large devices (laptops/desktops, 992px and up) */
+	@media only screen and (min-width: 992px) {
+		#slideBox
+		{
+			
+		}
+
+		#back
+		{
+			
+		}		
+	} 
+
+	/* Extra large devices (large laptops and desktops, 1200px and up) */
+	@media only screen and (min-width: 1200px) {
+		#slideBox
+		{
+			
+		}
+
+		#back
+		{
+			
+		}		
+	}	
 </style>
 
 <div class="example-modal">
