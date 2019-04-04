@@ -14,6 +14,104 @@
     padding: 8px;
     text-align: center;
 }
+
+#p_soal
+{
+	font-size: 22px;
+    text-align: justify;
+}
+
+#p_nomor
+{
+	font-size: 22px;
+}
+
+.cls_choice
+{
+	padding-left: 0px;font-size:22px;text-align: justify;
+}
+
+.cls_choice_btn > a
+{
+	font-size:20px;
+}
+	/* Extra small devices (phones, 600px and down) */
+	@media only screen and (max-width: 600px) {
+		.box-header-try-out > div > div > h3
+		{
+			font-size: 23px;
+		}
+
+		.hidden-border-custom
+		{
+			border:none!important;
+		}		
+
+		#p_soal
+		{
+			font-size:16px;
+		}
+
+		#p_nomor
+		{
+			font-size:16px;
+		}
+		
+		#container-soal
+		{
+			padding:0px;
+		}
+
+		.cls_choice
+		{
+			padding-left: 0px;font-size:16px;text-align: justify;
+		}
+
+		.cls_choice_btn > a
+		{
+			font-size:16px;
+		}		
+
+		#btn-step1
+		{
+			margin-top:10px;
+		}
+
+		#btn-step2
+		{
+			margin-top:10px;
+		}
+
+	} 
+
+	/* Small devices (portrait tablets and large phones, 600px and up) */
+	@media only screen and (min-width: 600px) {
+		.box-header-try-out > div > div > h3
+		{
+		}		
+	} 
+
+	/* Medium devices (landscape tablets, 768px and up) */
+	@media only screen and (min-width: 768px) {
+		.box-header-try-out > div > div > h3
+		{
+			font-size: 13px;
+		}		
+	} 
+
+	/* Large devices (laptops/desktops, 992px and up) */
+	@media only screen and (min-width: 992px) {
+		.box-header-try-out > div > div > h3
+		{
+		}		
+	} 
+
+	/* Extra large devices (large laptops and desktops, 1200px and up) */
+	@media only screen and (min-width: 1200px) {
+		.box-header-try-out > div > div > h3
+		{
+		}		
+	}	
 </style>
 <?php
 if ($list_soal != array()) {
@@ -25,45 +123,45 @@ if ($list_soal != array()) {
 			<div class="box-header">
 				<div class="box-header-try-out">
 					<div class="row">
-						<div class="col-lg-2">
+						<div class="col-lg-2 col-md-2 col-sm-2 col-xs-6">
 							<h3>Judul</h3>
 						</div>			
-						<div class="col-lg-2">
+						<div class="col-lg-2 col-md-2 col-sm-2 col-xs-6">
 							<h3>Waktu</h3>
 						</div>
-						<div class="col-lg-2">
+						<div class="col-lg-2 col-md-2 col-sm-2 col-xs-2 hidden-xs">
 							<h3>Jumlah Soal</h3>
 						</div>
-						<div class="col-lg-2">
+						<div class="col-lg-2 col-md-2 col-sm-2 col-xs-2 hidden-xs">
 							<h3>Sudah Dijawab</h3>
 						</div>				
-						<div class="col-lg-2">
+						<div class="col-lg-2 col-md-2 col-sm-2 col-xs-2 hidden-xs">
 							<h3>Belum Dijawab</h3>
 						</div>				
-						<div class="col-lg-2">
+						<div class="col-lg-2 col-md-2 col-sm-2 col-xs-4 hidden-xs">
 							<h3>Selesai Ujian</h3>
 						</div>				
 					</div>
 					<div class="row">
-						<div class="col-lg-2">
+						<div class="col-lg-2 col-md-2 col-sm-2 col-xs-6 hidden-border-custom">
 							<h3 class="col-lg-12 box-title"><?=$paket_name[0]['name'].' '.$parent_name[0]['name'];?></h3>				
 						</div>			
-						<div class="col-lg-2">
+						<div class="col-lg-2 col-md-2 col-sm-2 col-xs-6 hidden-border-custom">
 							<h3 class="col-lg-12 box-title"><div id="time_counter"></div></h3>				
 						</div>
-						<div class="col-lg-2">
+						<div class="col-lg-2 col-md-2 col-sm-2 col-xs-2 hidden-xs">
 							<h3 class="col-lg-12 box-title"><?=count($list_soal);?></h3>				
 						</div>
-						<div class="col-lg-2">
+						<div class="col-lg-2 col-md-2 col-sm-2 col-xs-2 hidden-xs">
 							<h3 class="col-lg-12 box-title">
 								<?=count($this->Allcrud->getData('tr_jawaban_try_out',array('id_user'=>$this->session->userdata('session_user'),'id_parent'=>$list_soal[0]['id_parent'],'id_paket'=>$list_soal[0]['id_paket'],'status'=>1))->result_array());?>
 							</h3>				
 						</div>				
-						<div class="col-lg-2">
-						<h3 class="col-lg-12 box-title"><?=count($list_soal)-count($this->Allcrud->getData('tr_jawaban_try_out',array('id_user'=>$this->session->userdata('session_user'),'id_parent'=>$list_soal[0]['id_parent'],'id_paket'=>$list_soal[0]['id_paket'],'status'=>1))->result_array());?></h3>
+						<div class="col-lg-2 col-md-2 col-sm-2 col-xs-2 hidden-xs">
+							<h3 class="col-lg-12 box-title"><?=count($list_soal)-count($this->Allcrud->getData('tr_jawaban_try_out',array('id_user'=>$this->session->userdata('session_user'),'id_parent'=>$list_soal[0]['id_parent'],'id_paket'=>$list_soal[0]['id_paket'],'status'=>1))->result_array());?></h3>
 						</div>				
-						<div class="col-lg-2">
-							<h3 class="col-lg-12 box-title">
+						<div class="col-lg-2 col-md-2 col-sm-2 col-xs-12 hidden-border-custom">
+							<h3 class="col-lg-12 col-xs-12 text-center box-title">
 								<a onclick="end_test(<?=$list_soal[0]['id_parent'];?>,<?=$list_soal[0]['id_paket'];?>)" class="btn btn-success btn-xs">Selesai Ujian</a>
 							</h3>				
 						</div>									
@@ -80,13 +178,13 @@ if ($list_soal != array()) {
 					<input type="hidden" id="oid_soal" value="<?=$list_soal[$counter_soal]['id'];?>">
 					<input type="hidden" id="oid_parent" value="<?=$list_soal[0]['id_parent'];?>">									
 					<input type="hidden" id="oid_paket" value="<?=$list_soal[0]['id_paket'];?>">
-                    <div class="col-lg-9 col-xs-12">
+                    <div id="container-soal" class="col-lg-9 col-xs-12">
                         <div class="col-lg-12">
                             <div class="form-group">
-								<div class="col-lg-1">
-									<p style="font-size:22px;"><?=(($counter_soal+1) < 10) ? str_pad(($counter_soal+1),2,"0",STR_PAD_LEFT) : ($counter_soal+1);?>.</p> 									
+								<div class="col-lg-1 col-xs-1">
+									<p id="p_nomor"><?=(($counter_soal+1) < 10) ? str_pad(($counter_soal+1),2,"0",STR_PAD_LEFT) : ($counter_soal+1);?>.</p> 									
 								</div>
-								<div class="col-lg-11"><p style="font-size:22px;text-align: justify;"><?=($list_soal[$counter_soal]['image'] == '') ? $list_soal[$counter_soal]['name'] : '<img src="'.base_url().'public/soal/'.$list_soal[$counter_soal]['image'].'">';?></p></div>
+								<div class="col-lg-11 col-xs-10"><p id="p_soal"><?=($list_soal[$counter_soal]['image'] == '') ? $list_soal[$counter_soal]['name'] : '<img src="'.base_url().'public/soal/'.$list_soal[$counter_soal]['image'].'">';?></p></div>
                             </div>
                         </div>
                         
@@ -118,8 +216,8 @@ if ($list_soal != array()) {
 										}
                             ?>
                                         <div class="row row_choice" id="row_<?=$get_data_detail[$i]['id'];?>" style="padding:10px;<?=$style_background;?>">
-                                            <div class="col-lg-2 col-xs-3"><a onclick="choice(<?=$get_data_detail[$i]['id'];?>,<?=$get_data_detail[$i]['id_soal'];?>,<?=$list_soal[$counter_soal]['id_parent'];?>,<?=$list_soal[$counter_soal]['id_paket'];?>)" class="btn btn-warning btn-xs" style="font-size:20px;"><?=$get_data_detail[$i]['choice'];?></a></div>
-                                            <div class="col-lg-10" style="padding-left: 0px;font-size:22px;text-align: justify;"><?=($get_data_detail[$i]['image'] == '') ? $get_data_detail[$i]['name'] : '<img src="'.base_url().'public/soal/'.$get_data_detail[$i]['image'].'">' ;?></div>                                        
+                                            <div class="col-lg-2 col-xs-3 cls_choice_btn"><a onclick="choice(<?=$get_data_detail[$i]['id'];?>,<?=$get_data_detail[$i]['id_soal'];?>,<?=$list_soal[$counter_soal]['id_parent'];?>,<?=$list_soal[$counter_soal]['id_paket'];?>)" class="btn btn-warning"><?=$get_data_detail[$i]['choice'];?></a></div>
+                                            <div class="col-lg-10 cls_choice"><?=($get_data_detail[$i]['image'] == '') ? $get_data_detail[$i]['name'] : '<img src="'.base_url().'public/soal/'.$get_data_detail[$i]['image'].'">' ;?></div>                                        
                                         </div>
                             <?php
                                     }
@@ -132,11 +230,11 @@ if ($list_soal != array()) {
 						{
 						?>
 						<div class="col-lg-12 box-footer">
-							<div class="col-lg-6">
-								<a onclick="go(<?=$list_soal[$counter_soal]['id_parent'];?>,<?=$list_soal[$counter_soal]['id_paket'];?>,<?=$counter_soal+1;?>,1)" class="btn btn-primary">SIMPAN DAN LANJUTKAN </a>
+							<div class="col-lg-6 col-md-6 col-sm-6 col-xs-12">
+								<a id="btn-step1" onclick="go(<?=$list_soal[$counter_soal]['id_parent'];?>,<?=$list_soal[$counter_soal]['id_paket'];?>,<?=$counter_soal+1;?>,1)" class="btn btn-primary col-xs-12">SIMPAN DAN LANJUTKAN </a>
 							</div>
-							<div class="col-lg-6">
-								<a onclick="go(<?=$list_soal[$counter_soal]['id_parent'];?>,<?=$list_soal[$counter_soal]['id_paket'];?>,<?=$counter_soal+1;?>,0)" class="btn btn-primary pull-right">LEWATKAN SOAL INI </a>
+							<div class="col-lg-6 col-md-6 col-sm-6 col-xs-12">
+								<a id="btn-step2" onclick="go(<?=$list_soal[$counter_soal]['id_parent'];?>,<?=$list_soal[$counter_soal]['id_paket'];?>,<?=$counter_soal+1;?>,0)" class="btn btn-primary col-xs-12 pull-right">LEWATKAN SOAL INI </a>
 							</div>
 						</div>						
 						<?php
@@ -154,7 +252,7 @@ if ($list_soal != array()) {
 <?php				
 	}
 ?>
-                    <div class="col-lg-3" id="counter">
+                    <div class="col-lg-3 text-center" id="counter">
                         <div class="col-lg-12">
                             <?php
 								$counter_soal_x = 0;

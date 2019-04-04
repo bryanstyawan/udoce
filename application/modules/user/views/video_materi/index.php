@@ -202,7 +202,6 @@
   height: 100%;
 }
 
-<style>
 	/* Extra small devices (phones, 600px and down) */
 	@media only screen and (max-width: 600px) {
 		#headerdata
@@ -212,7 +211,7 @@
 
 		#container_1
 		{
-			margin-top: 100px;
+			/* margin-top: 100px; */
 		}
 
 		#container_2
@@ -223,6 +222,26 @@
     #f_video_detail
     {
 
+    } 
+
+    .chat 
+    {
+      width: 287%;        
+    }       
+
+    .chat .chat-history
+    {
+      padding: 5px 5px 5px;      
+    }    
+
+    .chat .chat-header
+    {
+      padding: 5px;      
+    }    
+
+    .chat .chat-message
+    {
+      padding: 5px;
     }    
 	} 
 
@@ -246,7 +265,12 @@
     #f_video_detail
     {
 
-    }        
+    }       
+
+    .chat 
+    {
+      
+    }            
 	} 
 
 	/* Medium devices (landscape tablets, 768px and up) */
@@ -269,7 +293,12 @@
     #f_video_detail
     {
 
-    }        				
+    }       
+
+    .chat 
+    {
+      
+    }            				
 	} 
 
 	/* Large devices (laptops/desktops, 992px and up) */
@@ -292,7 +321,12 @@
     #f_video_detail
     {
 
-    }        				
+    }       
+
+    .chat 
+    {
+      
+    }            				
 	} 
 
 	/* Extra large devices (large laptops and desktops, 1200px and up) */
@@ -315,9 +349,13 @@
     #f_video_detail
     {
 
-    }        							
+    }       
+
+    .chat 
+    {
+      
+    }            							
 	}	
-</style>
 
 </style>
 <?php
@@ -567,7 +605,7 @@ function view_video(arg,id,file,materi) {
                             var newrec  = '<li>'+
                                                 '<div class="message-data">'+
                                                     '<span class="message-data-name"><i class="fa fa-circle online"></i> Admin</span>'+
-                                                    '<span class="message-data-time">obj.chat[index].audit_time_insert</span>'+
+                                                    '<span class="message-data-time">'+obj.chat[index].audit_time_insert+'</span>'+
                                                 '</div>'+
                                                 '<div class="message my-message">'+obj.chat[index].name+'</div>'+
                                             '</li>';

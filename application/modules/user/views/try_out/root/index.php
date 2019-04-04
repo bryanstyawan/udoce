@@ -767,12 +767,12 @@ function choose_paket_try_out(_id,_name) {
 
 				analisis_view = "";
 				if (obj.list[index].show_analisis != 0) {
-					analisis_view = '<a style="padding: 10px;margin-right: 10px;" onclick="go('+_id+','+obj.list[index].id+',2)" class="btn btn-primary pull-left" style="margin-right: 10px;">Analisis</a>';
+					analisis_view = '<a style="padding: 10px;margin: 10px;" onclick="go('+_id+','+obj.list[index].id+',2)" class="btn btn-primary col-lg-2 col-sm-2 col-xs-12 pull-left">Analisis</a>';
 				}
 
 				rangking_view = "";
 				if (obj.list[index].show_analisis != 0) {
-					rangking_view = '<a style="padding: 10px;margin-right: 10px;" onclick="go('+_id+','+obj.list[index].id+',3)" class="btn btn-primary pull-left" style="margin-right: 10px;">Rangking</a>';
+					rangking_view = '<a style="padding: 10px;margin: 10px;" onclick="go('+_id+','+obj.list[index].id+',3)" class="btn btn-primary col-lg-2 col-sm-2 col-xs-12 pull-left">Rangking</a>';
 				}	
 
 				total_counter_child = "";
@@ -830,7 +830,7 @@ function choose_paket_try_out(_id,_name) {
 										'<td>'+(index+1)+'</td>'+
 										'<td>'+obj.list[index].name+'</td>'+
 										'<td>'+
-										'<a onclick="go('+_id+','+obj.list[index].id+','+paket_choice+')" style="padding: 10px;margin-right: 10px;" class="btn btn-primary pull-left" style="margin-right: 10px;">'+lock_choice+'</a>'+analisis_view+rangking_view+																				
+										'<a onclick="go('+_id+','+obj.list[index].id+','+paket_choice+')" style="padding: 10px;margin: 10px;" class="btn btn-primary pull-left col-lg-2 col-sm-2 col-xs-12" style="margin-right: 10px;">'+lock_choice+'</a>'+analisis_view+rangking_view+																				
 										'</td>'+									
 									'</tr>';					
 				}
