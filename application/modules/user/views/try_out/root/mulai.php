@@ -215,8 +215,8 @@ if ($list_soal != array()) {
 							<?php
 										}
                             ?>
-                                        <div class="row row_choice" id="row_<?=$get_data_detail[$i]['id'];?>" style="padding:10px;<?=$style_background;?>">
-                                            <div class="col-lg-2 col-xs-3 cls_choice_btn"><a onclick="choice(<?=$get_data_detail[$i]['id'];?>,<?=$get_data_detail[$i]['id_soal'];?>,<?=$list_soal[$counter_soal]['id_parent'];?>,<?=$list_soal[$counter_soal]['id_paket'];?>)" class="btn btn-warning"><?=$get_data_detail[$i]['choice'];?></a></div>
+                                        <div onclick="choice(<?=$get_data_detail[$i]['id'];?>,<?=$get_data_detail[$i]['id_soal'];?>,<?=$list_soal[$counter_soal]['id_parent'];?>,<?=$list_soal[$counter_soal]['id_paket'];?>)" class="row row_choice" id="row_<?=$get_data_detail[$i]['id'];?>" style="padding:10px;<?=$style_background;?>">
+                                            <div class="col-lg-2 col-xs-3 cls_choice_btn"><a class="btn btn-warning"><?=$get_data_detail[$i]['choice'];?></a></div>
                                             <div class="col-lg-10 cls_choice"><?=($get_data_detail[$i]['image'] == '') ? $get_data_detail[$i]['name'] : '<img src="'.base_url().'public/soal/'.$get_data_detail[$i]['image'].'">' ;?></div>                                        
                                         </div>
                             <?php
@@ -241,6 +241,7 @@ if ($list_soal != array()) {
 						}
 						?>
                     </div>
+				</div>
 <?php
 	}	
 	else {
