@@ -179,7 +179,7 @@ if ($list_soal != array()) {
 					<input type="hidden" id="oid_parent" value="<?=$list_soal[0]['id_parent'];?>">									
 					<input type="hidden" id="oid_paket" value="<?=$list_soal[0]['id_paket'];?>">
                     <div id="container-soal" class="col-lg-9 col-xs-12">
-                        <div class="col-lg-12">
+                        <div class="col-lg-12" style="padding-bottom: 45px;">
                             <div class="form-group">
 								<div class="col-lg-1 col-xs-1">
 									<p id="p_nomor"><?=(($counter_soal+1) < 10) ? str_pad(($counter_soal+1),2,"0",STR_PAD_LEFT) : ($counter_soal+1);?>.</p> 									
