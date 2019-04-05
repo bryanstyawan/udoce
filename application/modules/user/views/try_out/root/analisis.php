@@ -178,8 +178,8 @@
                                                         }								                                            
                                             ?>
                                                         <div class="row row_choice" id="row_<?=$get_data_detail[$ii]['id'];?>" style="padding:10px;<?=$style_background.$style_background_false;?>">
-                                                            <div class="col-lg-2 col-xs-3 text-center"><?=$get_data_detail[$ii]['choice'];?></div>
-                                                            <div class="col-lg-10" style="padding-left: 0px;"><?=$get_data_detail[$ii]['name'];?></div>                                        
+                                                            <div class="col-lg-2 col-xs-3 text-center"><?=$get_data_detail[$ii]['choice'];?></div>                                                            
+                                                            <div class="col-lg-10" style="padding-left: 0px;"><?=($get_data_detail[$ii]['image'] == '') ? $get_data_detail[$ii]['name'] : '<img src="'.base_url().'public/jawaban/'.$get_data_detail[$ii]['image'].'">';?></div>                                        
                                                         </div>
                                             <?php
                                                     }
@@ -189,8 +189,7 @@
                                         </div>   
                                         <div class="row">
                                             <div class="col-lg-12">
-                                                <h3 style="text-align:justify" id="p_soal"><?=($list_soal[$i]['image_desc'] == '') ? $list_soal[$i]['desc_pembahasan'] : '<img src="'.base_url().'public/pembahasan/'.$list_soal[$i]['image_desc'].'">';?></h3>                                            
-                                                
+                                                <h3 style="text-align:justify" id="p_soal"><?=($list_soal[$i]['image_desc'] == '') ? $list_soal[$i]['desc_pembahasan'] : '<img src="'.base_url().'public/pembahasan/'.$list_soal[$i]['image_desc'].'">';?></h3>                                                                                            
                                             </div>
                                         </div>                         
                                     </div>
