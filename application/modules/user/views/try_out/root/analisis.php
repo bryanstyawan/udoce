@@ -260,20 +260,24 @@
                                     $color            = "";
                                     $check_choice     = $this->Allcrud->getData('mr_try_out_soal_detail',array('id_soal'=>$list_soal[$i]['id'],'jawaban'=>'true'))->result_array();                                    
                                     $check_data       = $this->Allcrud->getData('tr_jawaban_try_out',array('id_user'=>$this->session->userdata('session_user'),'id_parent'=>$list_soal[$i]['id_parent'],'id_paket'=>$list_soal[$i]['id_paket'],'id_soal'=>$list_soal[$i]['id']))->result_array();
-                                    if ($check_data != array()) {
+                                    if ($check_choice != array()) {
                                         # code...
-                                        if ($check_choice[0]['id'] == $check_data[0]['id_jawaban']) {
+                                        if ($check_data != array()) {
                                             # code...
-                                            $color            = "color:#fff;";
-                                            $background_color = "background-color:#4CAF50;";												
-                                        }
-                                        else {
-                                            # code...
-                                            $color            = "color:#fff;";
-                                            $background_color = "background-color:red;";											
-                                        }
-                                    }										
-                                    // $data_soal        = $this->Allcrud->getdata('mr_try_out_soal',array('id'=>$list_soal[$i]['id']))->result_array();
+                                            if ($check_choice[0]['id'] == $check_data[0]['id_jawaban']) {
+                                                # code...
+                                                $color            = "color:#fff;";
+                                                $background_color = "background-color:#4CAF50;";												
+                                            }
+                                            else {
+                                                # code...
+                                                $color            = "color:#fff;";
+                                                $background_color = "background-color:red;";											
+                                            }
+                                        }										
+    
+                                    }
+                                     // $data_soal        = $this->Allcrud->getdata('mr_try_out_soal',array('id'=>$list_soal[$i]['id']))->result_array();
                                     
                                     $counter = ($i < 10) ? str_pad($i+1,2,"0",STR_PAD_LEFT) : $i + 1;
                         ?>
