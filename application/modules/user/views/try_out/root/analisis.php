@@ -189,7 +189,7 @@
                                         </div>   
                                         <div class="row">
                                             <div class="col-lg-12">
-                                                <h3 style="text-align:justify" id="p_soal"><?=($list_soal[$i]['image_desc'] == '') ? $list_soal[$i]['desc_pembahasan'] : '<img src="'.base_url().'public/soal/'.$list_soal[$i]['image_desc'].'">';?></h3>                                            
+                                                <h3 style="text-align:justify" id="p_soal"><?=($list_soal[$i]['image_desc'] == '') ? $list_soal[$i]['desc_pembahasan'] : '<img src="'.base_url().'public/pembahasan/'.$list_soal[$i]['image_desc'].'">';?></h3>                                            
                                                 
                                             </div>
                                         </div>                         
