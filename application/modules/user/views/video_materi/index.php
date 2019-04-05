@@ -447,7 +447,7 @@ if ($list != array()) {
             </div>
         </div>
         <div id="type_2" class="col-lg-6 col-md-6 col-sm-12 col-xs-12 hidden-xs hidden-sm">
-            <div id="container_2" class="box box-solid" style="">
+            <div id="container_1" class="box box-solid" style="">
                 <div class="box-header with-border text-center" style="background: #f39c12;color: #fff;">
                     <h3 class="box-title"><?=$list[1]['name'];?></h3>
                 </div>
@@ -473,6 +473,7 @@ if ($list != array()) {
                                     if ($check_data_next != array()) {
                                         # code...
                                         $arg_video = 'unlock';
+                                        $lock       = '<i class="fa fa-play" style="font-size: 41px;"></i>';                                        
                                     }
                                     else {
                                         # code...
@@ -486,6 +487,7 @@ if ($list != array()) {
                                     if ($ii < 1) {
                                         # code...
                                         $arg_video = 'unlock';
+                                        $lock       = '<i class="fa fa-play" style="font-size: 41px;"></i>';                                        
                                     }
                                     else {
                                         # code...

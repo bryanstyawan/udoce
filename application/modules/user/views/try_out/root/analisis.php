@@ -62,8 +62,9 @@
                                 <div class="box" id="div_soal_<?=$list_soal[$i]['id'];?>">
                                     <div class="box-body">
                                         <div class="row">
-                                            <h2 class="col-lg-1 text-center"><?=$i+1;?>.</h2>                            
-                                            <h2 class="col-lg-11 text-center"><?=$list_soal[$i]['name'];?></h2>
+                                            <h2 class="col-lg-1 text-center"><?=$i+1;?>.</h2>    
+                                            <h3 id="p_soal"><?=($list_soal[$i]['image'] == '') ? $list_soal[$i]['name'] : '<img src="'.base_url().'public/soal/'.$list_soal[$i]['image'].'">';?></h3>                                                                    
+                                            <!-- <h2 class="col-lg-11 text-center"><?=$list_soal[$i]['name'];?></h2> -->
                                         </div>
                                         <div class="row">
                                             <div class="col-lg-6">
@@ -185,7 +186,13 @@
                                                 }
                                             ?>
                                             </div>
-                                        </div>                            
+                                        </div>   
+                                        <div class="row">
+                                            <div class="col-lg-12">
+                                                <h3 style="text-align:justify" id="p_soal"><?=($list_soal[$i]['image_desc'] == '') ? $list_soal[$i]['desc_pembahasan'] : '<img src="'.base_url().'public/soal/'.$list_soal[$i]['image_desc'].'">';?></h3>                                            
+                                                
+                                            </div>
+                                        </div>                         
                                     </div>
                                 </div>
                             </div>
