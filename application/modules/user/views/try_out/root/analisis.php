@@ -375,7 +375,7 @@
                                                     $data_store['tbi_empty']   = $try_out_empty_tbi;
                                                     $data_store['tbi_value']   = $try_out_value_tbi;
                                                     $data_store['tbi_status']  = $try_out_parameter_tbi;
-                                                    $data_store['total_value'] = $try_out_value_twk + $try_out_value_tiu + $try_out_value_tkk;
+                                                    $data_store['total_value'] = $try_out_value_tpa + $try_out_value_tbi;
                                                     $data_store['end_status']  = $end_result;
                                                 }
                                                 elseif($parent == 2) {

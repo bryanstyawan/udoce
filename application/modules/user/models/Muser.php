@@ -43,6 +43,7 @@ class Muser extends CI_Model {
 				LEFT JOIN mr_user b ON b.id = a.id_user
 				WHERE a.id_parent = '".$parent."'
 				AND a.id_paket = '".$paket."'
+				ORDER BY a.total_value
 		";
 		$query = $this->db->query($sql);
 		if($query->num_rows() > 0)
