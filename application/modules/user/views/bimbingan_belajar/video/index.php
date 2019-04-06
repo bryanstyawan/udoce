@@ -302,6 +302,32 @@
 			<a class="btn btn-success" id="btn_next_step" onclick="finish(<?=$materi;?>,<?=$type;?>)" style="display:none;">Lanjut ke Quiz</a>
 		</div>
 	</div>
+	<div class="col-lg-12 col-md-12">
+		<?php
+			if ($list != array()) {
+				# code...
+				if (count($list) > 1) {
+					# code...
+					for ($i=0; $i < count($list); $i++) { 
+						# code...
+		?>
+		<a onclick="view_video_other('<?=$list[$i]['file'];?>')" class="col-md-6 col-sm-6 col-xs-12">
+			<div class="info-box">
+				<span class="info-box-icon bg-aqua"><i class="fa fa-play"></i></span>
+
+				<div class="info-box-content">
+					<span class="info-box-text"><?=$list[$i]['name'];?></span>
+				</div>
+				<!-- /.info-box-content -->
+			</div>
+          <!-- /.info-box -->
+        </a>						
+		<?php
+					}
+				}
+			}
+		?>
+	</div>
 </section>
 
 <section id="headerdata" class="col-lg-5 col-sm-6 col-xs-12">
@@ -493,6 +519,14 @@ function edit(id){
 			ajax_catch(jqXHR,exception);					
 		}
 	})
+}
+
+function view_video_other(file) {
+	var source = '<?=base_url();?>public/video/'+file;
+	var f_video = document.getElementById('f_video');
+	var f_source = document.getElementById('f_source');
+	f_source.src = source;
+	f_video.load();		
 }
 
 function del(id)
