@@ -1,5 +1,14 @@
 v1.0.0    
-2019-03-27
+2019-04-10
+==========
+New:
+- Mobile layout penawaran bimbel
+- Perubahan penawaran bimbel
+Improved:
+Fixed:
+
+v1.0.0    
+2019-04-02
 ==========
 New:
 - Mobile layout Video Materi

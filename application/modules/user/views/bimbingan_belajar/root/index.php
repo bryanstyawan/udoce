@@ -29,6 +29,10 @@ if($verify_user_paid->result_array() == array())
 	position:relative;
 	}
 
+	.plan-inner > div > img {
+		height: 450px;
+	}	
+
 	.entry-title {
 	background: #53CFE9;
 	height: 140px;
@@ -174,6 +178,10 @@ if($verify_user_paid->result_array() == array())
 		{
 			
 		}		
+
+		.plan-inner > div > img {
+
+		}		
 	} 
 
 	/* Small devices (portrait tablets and large phones, 600px and up) */
@@ -192,6 +200,10 @@ if($verify_user_paid->result_array() == array())
 		{
 			
 		}			
+
+		.plan-inner > div > img {
+
+		}			
 	} 
 
 	/* Medium devices (landscape tablets, 768px and up) */
@@ -209,7 +221,11 @@ if($verify_user_paid->result_array() == array())
 		#type_1
 		{
 			
-		}			
+		}	
+
+		.plan-inner > div > img {
+
+		}					
 	} 
 
 	/* Large devices (laptops/desktops, 992px and up) */
@@ -227,7 +243,11 @@ if($verify_user_paid->result_array() == array())
 		#type_1
 		{
 			
-		}			
+		}	
+
+		.plan-inner > div > img {
+
+		}					
 	} 
 
 	/* Extra large devices (large laptops and desktops, 1200px and up) */
@@ -245,7 +265,11 @@ if($verify_user_paid->result_array() == array())
 		#type_1
 		{
 			
-		}			
+		}	
+
+		.plan-inner > div > img {
+
+		}					
 	}	
 </style>
 <div id="price">
@@ -254,7 +278,7 @@ if($verify_user_paid->result_array() == array())
 	<div class="plan">
 		<div class="plan-inner">
 			<div class="row">
-				<img style="height:500px;" src="<?=base_url();?>assets_home/layanan/BIMBEL/FREE.png">			
+				<img src="<?=base_url();?>assets_home/layanan/BIMBEL/FREE.png">			
 			</div>
 			<div class="btn">
 				<a class="col-xs-12" href="<?=base_url();?>user/bimbingan_belajar_trial">Coba Sekarang</a>
@@ -267,7 +291,7 @@ if($verify_user_paid->result_array() == array())
     <div class="plan basic">
         <div class="plan-inner">
 			<div class="row">
-				<img style="height:500px;" src="<?=base_url();?>assets_home/layanan/BIMBEL/SUPER.png">			
+				<img src="<?=base_url();?>assets_home/layanan/BIMBEL/PENAWARAN_BIMBEL_SUPER.png">			
 			</div>
             <div class="btn">
                 <a class="col-xs-12" href="#" onclick="bimbel_package('1')">BERLANGGANAN</a>
@@ -279,7 +303,7 @@ if($verify_user_paid->result_array() == array())
     <div class="plan ultimite">
         <div class="plan-inner">
 			<div class="row">
-				<img style="height:500px;" src="<?=base_url();?>assets_home/layanan/BIMBEL/MASTER.png">			
+				<img src="<?=base_url();?>assets_home/layanan/BIMBEL/PENAWARAN_BIMBEL_MASTER.png">			
 			</div>
             <div class="btn">
                 <a class="col-xs-12" href="#" onclick="bimbel_package('2')">BERLANGGANAN</a>
