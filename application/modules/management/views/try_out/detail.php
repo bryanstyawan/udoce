@@ -4,7 +4,7 @@
 ?>
 
 <section id="headerdata" >
-	<div class="col-xs-8">
+	<div class="col-xs-12">
 		<div class="box">
 			<div class="box-header">
 				<h3 class="box-title pull-right"><a class="btn btn-primary" onclick="verified('<?=$list[0]['id'];?>','<?=($list[0]['audit_verified'] == 1) ? '0' : '1' ;?>')" class="btn  <?=($list[0]['audit_verified'] == 1) ? 'btn-danger' : 'btn-success' ;?>">Soal dan jawaban ini <?=($list[0]['audit_verified'] == 1) ? 'Ada Kesalahan' : 'telah benar.' ;?></a></h3>
@@ -83,6 +83,90 @@
 
 			</div><!-- /.box-body -->
 		</div><!-- /.box -->
+	</div>
+</section>
+
+<section id="viewdata">
+	<div class="col-xs-12">
+		<div class="box">
+			<div class="box-header">
+				<h3 class="box-title"></h3>
+				<?php
+				if (count($detail->result_array()) == 0) {
+					# code...
+				?>
+					<div class="box-tools pull-right">
+						<button class="btn btn-block btn-primary" id="addDatamulti"><i class="fa fa-plus-square"></i> Tambah Data</button>
+					</div>
+					<div class="box-tools pull-right" style="margin-right: 130px;display:none;">
+						<button class="btn btn-block btn-primary" id="addData"><i class="fa fa-plus-square"></i> Tambah Data (single)</button>
+					</div>				
+				<?php
+				}
+				?>				
+			</div><!-- /.box-header -->
+			<div class="box-body" id="table_fill">
+				<table class="table table-bordered table-striped table-view">
+					<thead>
+				<tr>
+					<th></th>
+					<th>Deskripsi Pilihan</th>
+					<?php
+					if ($type == 5) {
+						# code...
+					?>
+						<th>Bobot</th>
+					<?php
+					}
+					?>
+					<th>Aksi</th>
+				</tr>
+				</thead>
+				<tbody>
+				<?php $x=1;
+					foreach($detail->result() as $row)
+					{
+						$color_row = "";
+						if ($row->jawaban == 'true') {
+							# code...
+							$color_row = "background-color:#8BC34A;";
+						}
+						else
+						{
+							$color_row = "";							
+						}
+				?>
+						<tr style="<?=$color_row;?>">
+							<td><?php echo $row->choice;?></td>							
+							<td><?php echo ($row->image == '') ? $row->name : '<img src="'.base_url().'public/soal/'.$row->image.'">';?></td>							
+							<?php
+							if ($type == 5) {
+								# code...
+							?>
+								<td><?php echo $row->bobot;?></td>
+							<?php
+							}
+							?>							
+							<td>
+								<button class="btn btn-primary btn-xs" onclick="edit('<?php echo $row->id;?>')"><i class="fa fa-edit"></i> Ubah</button>&nbsp;&nbsp;
+								<?php
+									if ($row->jawaban == 'false') {
+										# code...
+								?>
+								<button class="btn btn-success btn-xs" onclick="true_answer('<?php echo $row->id;?>')"><i class="fa "></i> Jawaban Yang Benar</button>								
+								<?php
+									}
+								?>
+								<button class="btn btn-danger btn-xs" onclick="del('<?php echo $row->id;?>')"><i class="fa fa-trash"></i> Hapus</button>
+							</td>
+						</tr>
+					<?php $x++; }
+				?>
+				</tbody>
+				</table>
+				
+			</div><!-- /.box-body -->
+			</div><!-- /.box -->
 	</div>
 	<div class="col-xs-4">
 		<div class="box">
@@ -174,91 +258,7 @@
 
 			</div><!-- /.box-body -->		
 		</div>
-	</div>
-</section>
-
-<section id="viewdata">
-	<div class="col-xs-12">
-		<div class="box">
-			<div class="box-header">
-				<h3 class="box-title"></h3>
-				<?php
-				if (count($detail->result_array()) == 0) {
-					# code...
-				?>
-					<div class="box-tools pull-right">
-						<button class="btn btn-block btn-primary" id="addDatamulti"><i class="fa fa-plus-square"></i> Tambah Data</button>
-					</div>
-					<div class="box-tools pull-right" style="margin-right: 130px;display:none;">
-						<button class="btn btn-block btn-primary" id="addData"><i class="fa fa-plus-square"></i> Tambah Data (single)</button>
-					</div>				
-				<?php
-				}
-				?>				
-			</div><!-- /.box-header -->
-			<div class="box-body" id="table_fill">
-				<table class="table table-bordered table-striped table-view">
-					<thead>
-				<tr>
-					<th></th>
-					<th>Deskripsi Pilihan</th>
-					<?php
-					if ($type == 5) {
-						# code...
-					?>
-						<th>Bobot</th>
-					<?php
-					}
-					?>
-					<th>Aksi</th>
-				</tr>
-				</thead>
-				<tbody>
-				<?php $x=1;
-					foreach($detail->result() as $row)
-					{
-						$color_row = "";
-						if ($row->jawaban == 'true') {
-							# code...
-							$color_row = "background-color:#8BC34A;";
-						}
-						else
-						{
-							$color_row = "";							
-						}
-				?>
-						<tr style="<?=$color_row;?>">
-							<td><?php echo $row->choice;?></td>							
-							<td><?php echo ($row->image == '') ? $row->name : '<img src="'.base_url().'public/soal/'.$row->image.'">';?></td>							
-							<?php
-							if ($type == 5) {
-								# code...
-							?>
-								<td><?php echo $row->bobot;?></td>
-							<?php
-							}
-							?>							
-							<td>
-								<button class="btn btn-primary btn-xs" onclick="edit('<?php echo $row->id;?>')"><i class="fa fa-edit"></i> Ubah</button>&nbsp;&nbsp;
-								<?php
-									if ($row->jawaban == 'false') {
-										# code...
-								?>
-								<button class="btn btn-success btn-xs" onclick="true_answer('<?php echo $row->id;?>')"><i class="fa "></i> Jawaban Yang Benar</button>								
-								<?php
-									}
-								?>
-								<button class="btn btn-danger btn-xs" onclick="del('<?php echo $row->id;?>')"><i class="fa fa-trash"></i> Hapus</button>
-							</td>
-						</tr>
-					<?php $x++; }
-				?>
-				</tbody>
-				</table>
-				
-			</div><!-- /.box-body -->
-			</div><!-- /.box -->
-	</div>
+	</div>	
 </section>
 
 <section id="formdata" style="display:none">
