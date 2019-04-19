@@ -340,7 +340,7 @@ $.widget.bridge('uibutton', $.ui.button);
 /* used for = give comma in number
 /*
 /*********************************************************************************************/
-// _force();
+_force();
 function _force() {
 	document.addEventListener('contextmenu', event => event.preventDefault());
 	document.onkeydown = function(e) {
