@@ -56,7 +56,7 @@ $(document).ready(function()
 			if (pass_baru == re_pass_baru ) 
 			{
 				$.ajax({
-					url :"<?php echo site_url()?>/auth/do_change_password",
+					url :"<?php echo site_url()?>auth/do_change_password",
 					type:"post",
 					data:$("#form_password").serialize(),
 					beforeSend:function(){
@@ -73,9 +73,9 @@ $(document).ready(function()
 		                    setTimeout(function(){ 
 		                        $("#loadprosess").modal('hide');
 		                        setTimeout(function(){
-									window.location.href = "<?php echo site_url()?>/admin/loginadmin/signout";
+									window.location.href = "<?php echo site_url()?>auth/signout";
 		                        }, 1500);                                                                   
-		                    }, 5000);                
+		                    }, 1500);                
 		                }
 		                else
 		                {

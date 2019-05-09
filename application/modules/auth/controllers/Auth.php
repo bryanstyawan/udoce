@@ -42,10 +42,11 @@ class Auth extends CI_Controller
 			# code...
 			$data = array
 						(
-							'session_user'  => $cekuser[0]->id,
-							'session_name'  => $cekuser[0]->name,
-							'session_role'  => $cekuser[0]->id_role,
-							'session_login' => TRUE
+							'session_user'     => $cekuser[0]->id,
+							'session_name'     => $cekuser[0]->name,
+							'session_username' => $cekuser[0]->username,
+							'session_role'     => $cekuser[0]->id_role,
+							'session_login'    => TRUE
 						);
 			$this->session->set_userdata($data);
 			$res = array
@@ -93,10 +94,10 @@ class Auth extends CI_Controller
 		$pass_lama    = $this->input->post('pass_lama');
 		$pass_baru    = $this->input->post('pass_baru');
 		$re_pass_baru =	$this->input->post('re_pass_baru');
-		$nip          = $this->session->userdata('sesNip');
-		$id           = $this->session->userdata('sesUser');
-		
-		$cekUser      = $this->mlogin->cekUser($nip,$pass_lama);
+		$session_user = $this->session->userdata('session_username');
+		$id           = $this->session->userdata('session_user');
+
+		$cekUser      = $this->mlogin->cekUser($session_user,$pass_lama);
 		if ($cekUser != 0) 
 		{		
 			$data_change = array
@@ -104,7 +105,7 @@ class Auth extends CI_Controller
 								'password'            => md5($re_pass_baru) 
 							);		
 			$flag        = array('id'=>$id);
-			$res_data    = $this->Allcrud->editData('mr_pegawai',$data_change,$flag);					
+			$res_data    = $this->Allcrud->editData('mr_user',$data_change,$flag);					
 			$text_status = "Password telah diubah";
 			if ($res_data != 1) {
 				# code...
