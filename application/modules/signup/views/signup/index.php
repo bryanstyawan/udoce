@@ -64,21 +64,28 @@
 						</div>
 					</div>										
 
-					<div class="col-md-4">
+					<div class="col-md-6">
 						<div class="form-group">
 							<label>No HP</label>
 							<input type="number" class="form-control" id="f_no_hp" placeholder="No Hp">
 						</div>
 					</div>
 					
-					<div class="col-md-4">
+					<div class="col-md-6">
 						<div class="form-group">
 							<label>No WA</label>
 							<input type="number" class="form-control" id="f_no_wa" placeholder="No WA">
 						</div>
 					</div>
+
+					<div class="col-md-6">
+						<div class="form-group">
+							<label>Email</label>
+							<input type="email" class="form-control" id="f_email" placeholder="Email">
+						</div>
+					</div>					
 					
-					<div class="col-md-4">
+					<div class="col-md-6">
 						<div class="form-group">
 							<label>ID LINE</label>
 							<input type="text" class="form-control" id="f_id_line" placeholder="ID LINE">
@@ -124,11 +131,12 @@ $(document).ready(function(){
 		var f_asal_sekolah    = $("#f_asal_sekolah").val();
 		var f_no_hp           = $("#f_no_hp").val();
 		var f_no_wa           = $("#f_no_wa").val();
+		var f_email           = $("#f_email").val();		
 		var f_id_line         = $("#f_id_line").val();
 		var f_password        = $("#f_password").val();
 		var f_password_repeat = $("#f_password_repeat").val();
 
-		if (f_name.length <= 0 || f_username.length <= 0 || f_alamat.length <= 0 || f_asal_sekolah.length <= 0 
+		if (f_name.length <= 0 || f_username.length <= 0 || f_alamat.length <= 0 || f_asal_sekolah.length <= 0 || f_email.length <= 0 
 		|| f_no_hp.length <= 0 || f_no_wa.length <= 0 || f_password.length <= 0 || f_password_repeat.length <= 0) {
 			if(f_name.length <= 0)
 			{
@@ -172,6 +180,13 @@ $(document).ready(function(){
 					msg: "Tidak bisa melakukan pendaftaran, harap lengkapi no wa"
 				});
 			}
+			else if(f_email.length <= 0)
+			{
+				Lobibox.alert("warning", //AVAILABLE TYPES: "error", "info", "success", "warning"
+				{
+					msg: "Tidak bisa melakukan pendaftaran, harap lengkapi email"
+				});
+			}			
 			else if(f_password.length <= 0)
 			{
 				Lobibox.alert("warning", //AVAILABLE TYPES: "error", "info", "success", "warning"
@@ -219,6 +234,7 @@ function login() {
 	var f_asal_sekolah    = $("#f_asal_sekolah").val();
 	var f_no_hp           = $("#f_no_hp").val();
 	var f_no_wa           = $("#f_no_wa").val();
+	var f_email           = $("#f_email").val();	
 	var f_id_line         = $("#f_id_line").val();
 	var f_password        = $("#f_password").val();
 	var f_password_repeat = $("#f_password_repeat").val();
@@ -231,6 +247,7 @@ function login() {
 		'alamat'      : f_alamat,
 		'asal_sekolah': f_asal_sekolah,
 		'no_hp'       : f_no_hp,
+		'email'       : f_email,		
 		'no_wa'       : f_no_wa,
 		'id_line'     : f_id_line,
 		'password'    : f_password

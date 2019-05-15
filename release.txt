@@ -2,6 +2,7 @@ v1.0.0
 2019-05-15
 ==========
 New:
+- Penambahan email pada pendaftaran akun
 Improved:
 Fixed:
 - Hapus Soal try out
