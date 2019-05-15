@@ -394,17 +394,23 @@
 									// print_r($check_data);
 									if ($check_data != array()) {
 										# code...
-
-										if ($check_choice[0]['id'] == $check_data[0]['id_jawaban']) {
+										if ($check_choice != array()) {
 											# code...
-											$color            = "color:#fff;";
-											$background_color = "background-color:#4CAF50;";												
-										}
-										else {
-											# code...
-											$color            = "color:#fff;";
-											$background_color = "background-color:red;";											
-										}										
+											if ($check_choice[0]['id'] == $check_data[0]['id_jawaban']) {
+												# code...
+												$color            = "color:#fff;";
+												$background_color = "background-color:#4CAF50;";												
+											}
+											else {
+												# code...
+												$color            = "color:#fff;";
+												$background_color = "background-color:red;";											
+											}											
+										}	
+										else
+										{
+											
+										}									
 									}								
 						?>
 									<a href="#div_soal_<?=$quiz[$i]['id'];?>" class="btn btn-default col-xs-6" id="counter_choice_<?=$quiz[$i]['id'];?>" style="<?=$background_color;?><?=$color;?>"><?=$i+1;?></a>

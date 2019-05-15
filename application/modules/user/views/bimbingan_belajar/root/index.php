@@ -360,7 +360,7 @@ else {
 					<a href="#" id="btn_type_2" class="col-xs-6" style="background: #03A9F4;color: #fff;padding: 10px 0px 10px 0px;"><h3 class="box-title"><?=$list[1]['name'];?></h3></a>					
 				</div>			
 
-				<div id="type_1" class="col-lg-6 hidden-xs hidden-sm">
+				<div id="type_1" class="col-lg-6">
 					<div class="box box-warning" style="box-shadow: none;background: none;">
 						<div class="box-header with-border text-center" style="background: #f39c12;color: #fff;">
 							<h3 class="box-title"><?=$list[0]['name'];?></h3>

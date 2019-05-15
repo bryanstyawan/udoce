@@ -475,7 +475,7 @@ function del(id)
 		callback: function ($this, type) {
 			if (type === 'yes'){			
 				$.ajax({
-					url :"<?php echo site_url();?>bank_data/soal/store/"+'delete/'+id,
+					url :"<?php echo site_url();?>management/try_out/store/"+'delete/'+id,
 					type:"post",
 					beforeSend:function(){
 						$("#editData").modal('hide');

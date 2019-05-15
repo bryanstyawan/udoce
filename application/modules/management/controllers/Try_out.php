@@ -110,7 +110,7 @@ class Try_out extends CI_Controller {
 			            $text_status = $this->Globalrules->check_status_res($res_data,'Paket Try Out telah berhasil diubah.');
 		} elseif ($data_sender['crud'] == 'delete') {
 			# code...
-			$soal    = $this->Allcrud->getdata('mr_try_out_soal',array('id_paket'=>$data_sender['oid']))->result_array();			
+			$soal    = $this->Allcrud->getdata('mr_try_out_soal',array('id'=>$data_sender['oid']))->result_array();			
 			if ($soal != array()) {
 				# code...
 				for ($i=0; $i < count($soal); $i++) { 
@@ -118,8 +118,7 @@ class Try_out extends CI_Controller {
 					$res_data          = $this->Allcrud->delData('mr_try_out_soal_detail',array('id_soal'=>$soal[$i]['id']));					
 				}
 			}
-			$res_data          = $this->Allcrud->delData('mr_try_out_list',array('id'=>$data_sender['oid']));
-			$res_data          = $this->Allcrud->delData('mr_try_out_soal',array('id_paket'=>$data_sender['oid']));			
+			$res_data          = $this->Allcrud->delData('mr_try_out_soal',array('id'=>$data_sender['oid']));			
 			$text_status       = $this->Globalrules->check_status_res($res_data,'Paket Try Out telah berhasil dihapus.');			
 		} elseif ($data_sender['crud'] == 'verify') {
 			# code...
