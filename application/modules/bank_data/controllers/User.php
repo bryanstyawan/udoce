@@ -13,7 +13,7 @@ class User extends CI_Controller {
 		$this->Globalrules->session_rule();						
 		$data['title']     = 'Data Pengguna';
 		$data['content']   = 'bank_data/pengguna/index';
-		$data['list']      = $this->Allcrud->listData('mr_user');
+		$data['list']      = $this->Allcrud->getData('mr_user',array('id_role' => 3),array('id_role','DESC'));
 		$data['role_user'] = $this->Allcrud->listData('user_role');
 		$this->load->view('templateAdmin',$data);
 	}

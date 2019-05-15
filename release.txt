@@ -4,6 +4,7 @@ v1.0.0
 New:
 - Penambahan email pada pendaftaran akun
 Improved:
+- Detail Pengguna
 Fixed:
 - Hapus Soal try out
 - Pembahasan bimbel

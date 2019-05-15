@@ -1,3 +1,5 @@
+<!-- <script type='text/javascript' src="<?php echo base_url(); ?>assets/plugins/datatables/jquery.dataTables.min.js"></script>
+<script type='text/javascript' src="<?php echo base_url(); ?>assets/plugins/datatables/dataTables.bootstrap.min.js"></script> -->
 <section id="viewdata">
 	<div class="col-xs-12">
 		<div class="box">
@@ -12,6 +14,12 @@
 					<th>No</th>
 					<th>Nama</th>
 					<th>Username</th>
+					<th>Alamat</th>
+					<th>Asal Sekolah</th>
+					<th>No Hp</th>
+					<th>No WA</th>
+					<th>ID LINE</th>
+					<th>Email</th>
 					<th>Level Pengguna</th>
 					<th>action</th>
 				</tr>
@@ -22,10 +30,16 @@
 						<tr>
 							<td><?php echo $x;?></td>
 							<td><?php echo $row->name;?></td>
-							<td><?php echo $row->username;?></td>							
+							<td><?php echo $row->username;?></td>
+							<td><?php echo $row->alamat;?></td>
+							<td><?php echo $row->asal_sekolah;?></td>
+							<td><?php echo $row->no_hp;?></td>
+							<td><?php echo $row->no_wa;?></td>
+							<td><?php echo $row->id_line;?></td>
+							<td><?php echo $row->email;?></td>																																										
 							<td><?=$this->Allcrud->getData('user_role',array('id_role'=>$row->id_role))->result_array()[0]['nama_role'];?></td>
 							<td>
-								<button class="btn btn-primary btn-xs" onclick="edit('<?php echo $row->id;?>')"><i class="fa fa-edit"></i> Ubah</button>&nbsp;&nbsp;
+								<button class="btn btn-primary btn-xs" onclick="edit('<?php echo $row->id;?>')"><i class="fa fa-edit"></i> Ubah</button>&nbsp;&nbsp;&nbsp;
 								<button class="btn btn-danger btn-xs" onclick="del('<?php echo $row->id;?>')"><i class="fa fa-trash"></i> Hapus</button>
 							</td>
 						</tr>
