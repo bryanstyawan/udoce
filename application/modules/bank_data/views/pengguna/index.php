@@ -20,8 +20,8 @@
 					<th>No WA</th>
 					<th>ID LINE</th>
 					<th>Email</th>
-					<th>Level Pengguna</th>
-					<th>action</th>
+					<th>Detail Layanan</th>
+					<th>Aksi</th>
 				</tr>
 				</thead>
 				<tbody>
@@ -33,11 +33,15 @@
 							<td><?php echo $row->username;?></td>
 							<td><?php echo $row->alamat;?></td>
 							<td><?php echo $row->asal_sekolah;?></td>
-							<td><?php echo $row->no_hp;?></td>
-							<td><?php echo $row->no_wa;?></td>
+							<td>
+								<label>No HP : <?php echo $row->no_hp;?></label>
+								<label> </label>								
+							</td>
+							<td>
+							</td>
 							<td><?php echo $row->id_line;?></td>
 							<td><?php echo $row->email;?></td>																																										
-							<td><?=$this->Allcrud->getData('user_role',array('id_role'=>$row->id_role))->result_array()[0]['nama_role'];?></td>
+							<td></td>
 							<td>
 								<button class="btn btn-primary btn-xs" onclick="edit('<?php echo $row->id;?>')"><i class="fa fa-edit"></i> Ubah</button>&nbsp;&nbsp;&nbsp;
 								<button class="btn btn-danger btn-xs" onclick="del('<?php echo $row->id;?>')"><i class="fa fa-trash"></i> Hapus</button>

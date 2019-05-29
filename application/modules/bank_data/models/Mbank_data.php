@@ -1,5 +1,5 @@
 <?php
-class Mmaster extends CI_Model {
+class Mbank_data extends CI_Model {
 
 	public function __construct () {
 		parent::__construct();

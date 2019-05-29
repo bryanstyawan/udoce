@@ -5,7 +5,7 @@ class Soal extends CI_Controller {
 
 	public function __construct () {
 		parent::__construct();
-		$this->load->model ('Mmaster', '', TRUE);
+		$this->load->model ('Mbank_data', '', TRUE);
 	}
 	
 	public function index($arg=NULL,$id=NULL,$parent=NULL,$param=NULL)

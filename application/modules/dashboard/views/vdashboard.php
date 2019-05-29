@@ -1,50 +1,87 @@
-<div class="col-md-3">
-    <!-- USERS LIST -->
-    <div class="box box-danger">
-        <div class="box-header with-border">Kotak Pesan</div>
-        <!-- /.box-header -->
-        <div class="box-body no-padding">
-            <ul class="users-list clearfix">
-                <?php
-                    if($user_chat != 0)
-                    {
-                        if ($user_chat[0]->name != '') {
-                            # code...
-                            for ($i=0; $i < count($user_chat); $i++) { 
-                                # code...
-                                if ($user_chat[$i]->counter != 0) {
-                                    # code...
-                        ?>
-                    <li>
-                        <a style="cursor: pointer;" onclick="open_chat('<?=$user_chat[$i]->name;?>','<?=$user_chat[$i]->id_user_sender;?>','<?=$user_chat[$i]->id_materi;?>')">
-                            <img src="https://adminlte.io/themes/AdminLTE/dist/img/user1-128x128.jpg" alt="User Image">
-                            <span class="users-list-name" href="#"><?=$user_chat[$i]->name;?><span id="counter_message_<?=$user_chat[$i]->id_user_sender;?>" class="badge bg-yellow"><?=($user_chat[$i]->counter!=0?$user_chat[$i]->counter:'');?></span></span>
-                            <span class="users-list-date">
-                                <span class="badge bg-yellow col-lg-12" style="overflow-x: hidden;"><?=$user_chat[$i]->materi;?></span>
-                            </span>                                            
-                        </a>
-                    </li>                    
-                        <?php                                
-                                }
-                            }
-                        }
-                    }
-                ?>
-            </ul>
-        <!-- /.users-list -->
+<div id="main_dashboard">
+    <a href="#" id="main_mailbox" class="col-md-2 col-sm-6 col-xs-12">
+        <div class="info-box">
+            <span class="info-box-icon bg-aqua"><i class="fa fa-envelope-o"></i></span>
+
+            <div class="info-box-content">
+                <span class="info-box-text">Pesan</span>
+                <span class="info-box-number" id="counter_pesan"></span>
+            </div>
+            <!-- /.info-box-content -->
         </div>
-        <!-- <div class="box-footer text-center">
-            <a href="javascript:void(0)" class="uppercase">View All Users</a>
-        </div> -->
-    </div>
-    <!--/.box -->
+        <!-- /.info-box -->
+    </a>
 </div>
 
+<div class="secondary_board" id="table_mailbox" style="display:none;">
+    
+    <div class="col-xs-6 table-responsive">
+        <div class="box">
+			<div class="box-header">
+                <h3>Pesan Masuk</h3>
+				<div class="box-tools pull-right"><button class="btn btn-block btn-danger back_to_main"><i class="fa fa-close"></i></button></div>
+			</div><!-- /.box-header -->        
+            <div class="box-body" id="table_fill">
+                <table class="table table-bordered table-striped table-view">
+                    <thead>
+                    <tr>
+                        <th>No</th>
+                        <th>Nama</th>
+                        <th>Topik</th>
+                        <th>Status</th>
+                        <th>Aksi</th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                        <?php
+                            $get_data_mail = 0;
+                            if($user_chat != 0)
+                            {
+                                if ($user_chat[0]->name != '') {
+                                    # code...
+                                    for ($i=0; $i < count($user_chat); $i++) { 
+                                        # code...
+                                        if ($user_chat[$i]->counter != 0) {
+                                            # code...
+                                            $get_data_mail++;
+                                ?>
+                                    <tr id="tr_<?=$i;?>">
+                                        <td><?=$get_data_mail;?></td>
+                                        <td><?=$user_chat[$i]->name;?></td>                    
+                                        <td>
+                                            <span class="users-list-date">
+                                                <span class="badge bg-yellow col-lg-12" style="overflow-x: hidden;"><?=$user_chat[$i]->materi;?></span>
+                                            </span>                                        
+                                        </td>
+                                        <td><span class="users-list-name" href="#"><span id="counter_message_<?=$user_chat[$i]->id_user_sender;?>" class="badge bg-yellow"><?=($user_chat[$i]->counter!=0?$user_chat[$i]->counter:'');?></span></span> Pesan</td>
+                                        <td>
+                                            <a class="btn btn-success" style="cursor: pointer;" onclick="open_chat('<?=$user_chat[$i]->name;?>','<?=$user_chat[$i]->id_user_sender;?>','<?=$user_chat[$i]->id_materi;?>','<?=$i;?>')">
+                                                <span>Balas</span>
+                                            </a>                                        
+                                        </td>                                    
+                                    </tr>
+                                <?php                                
+                                        }
+                                    }
+                                }
+                            }
+                        ?>                    
+                    </tbody>            
+                </table>        
+            </div>
+        </div>
+    </div>                    
+</div>
+    
+
 <div class="row boxboard" id="chat_board" style="display:none;">
-    <div class="col-md-4" style="padding-right: 0px;">
+    <div class="col-md-6" style="padding-right: 0px;">
         <div class="box box-warning direct-chat direct-chat-warning">
             <div class="box-header with-border">
                 <h3 class="box-title" id="video_board_user_sender"></h3>
+                <div class="box-tools pull-right">
+                    <button type="button" class="btn btn-block btn-danger closeBox"><i class="fa fa-close"></i></button>
+                </div>                
             </div>
             <div class="box-body">
                 <video id="f_video" width="480" height="320" controls>
@@ -53,14 +90,11 @@
             </div>        
         </div>
     </div>
-    <div class="col-md-3" style="padding-left: 0px;">
+    <div class="col-md-6" style="padding-left: 0px;">
         <!-- DIRECT CHAT -->    
         <div class="box box-warning direct-chat direct-chat-warning">
         <div class="box-header with-border">
-            <h3 class="box-title" id="chat_board_user_sender"></h3>
-            <div class="box-tools pull-right">
-                <button type="button" class="btn btn-box-tool closeBox"><i class="fa fa-times"></i></button>
-            </div>        
+            <h3 class="box-title" id="chat_board_user_sender"></h3>        
         </div>
         <!-- /.box-header -->
         <div class="box-body">
@@ -113,7 +147,7 @@
 
 
 <script>
-function open_chat(name,id,materi) {
+function open_chat(name,id,materi,sort) {
     var data_sender = {
         'oid_user'  : id,
         'oid_materi': materi
@@ -165,6 +199,7 @@ function open_chat(name,id,materi) {
             f_source.src = source;
             f_video.load();
                         
+            $("#tr_"+sort).css({'display':'none'})
             $("#chat_board").css({'display':''});            
             $("#loadprosess").modal('hide');            
             $("#chat_board_user_sender").html(name);
@@ -176,6 +211,17 @@ function open_chat(name,id,materi) {
 }
 
 $(document).ready(function(){
+    $("#counter_pesan").html('<?=$get_data_mail;?>');    
+    $("#main_mailbox").click(function() {
+        $("#main_dashboard").css({'display':'none'});
+        $("#table_mailbox").css({'display':''});                
+    })
+
+    $(".back_to_main").click(function() {
+        $("#main_dashboard").css({'display':''});
+        $(".secondary_board").css({'display':'none'});        
+    })
+
 	$("#btn-trigger-controll").click(function(){
 		var f_name     = $("#message-to-send").val();
 		var oid        = $("#hdn_oid_user").val();

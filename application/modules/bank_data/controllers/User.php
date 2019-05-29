@@ -5,7 +5,7 @@ class User extends CI_Controller {
 
 	public function __construct () {
 		parent::__construct();
-		$this->load->model ('Mmaster', '', TRUE);
+		$this->load->model ('Mbank_data', '', TRUE);
 	}
 	
 	public function index()
@@ -13,7 +13,14 @@ class User extends CI_Controller {
 		$this->Globalrules->session_rule();						
 		$data['title']     = 'Data Pengguna';
 		$data['content']   = 'bank_data/pengguna/index';
-		$data['list']      = $this->Allcrud->getData('mr_user',array('id_role' => 3),array('id_role','DESC'));
+		$data['list']      = $this->Allcrud->getData('mr_user',array('id_role' => 3),array('name','ASC'));
+		if ($data['list'] != array()) {
+			# code...
+			// for ($i=0; $i < count($data['list']); $i++) { 
+			// 	# code...
+			// 	$get_token = $this->Allcrud->getData('mr_user',array('id_user' => 3),array('id_role','DESC'));
+			// }
+		}
 		$data['role_user'] = $this->Allcrud->listData('user_role');
 		$this->load->view('templateAdmin',$data);
 	}

@@ -1,4 +1,15 @@
 v1.0.0    
+2019-05-29
+==========
+New:
+Improved:
+- Perubahan sistem dan layout untuk kotak pesan disisi admin
+Fixed:
+- Menghapus pembatasan release soal
+- sortir data user berdasarkan nama
+- Menghapus kolom level user di pengguna
+
+v1.0.0    
 2019-05-15
 ==========
 New:

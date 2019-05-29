@@ -804,17 +804,18 @@ function choose_paket_try_out(_id,_name) {
 					}					
 				}					
 
-				if (type_try_out == 'spmb') {
-					if (total_counter_child == 90) {
-						status_soal = 1;
-					}
-				}
-				else if(type_try_out == 'skd')
-				{
-					if (total_counter_child == 100) {
-						status_soal = 1;
-					}
-				}
+				status_soal = 1;
+				// if (type_try_out == 'spmb') {
+				// 	if (total_counter_child == 90) {
+				// 		status_soal = 1;
+				// 	}
+				// }
+				// else if(type_try_out == 'skd')
+				// {
+				// 	if (total_counter_child == 100) {
+				// 		status_soal = 1;
+				// 	}
+				// }
 
 
 
