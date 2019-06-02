@@ -230,7 +230,7 @@ if ($list != array()) {
 		if (seconds == 0) {
 			clearInterval(countdownTimer);
 			document.getElementById('time_counter').innerHTML = "Jam ujian telah telah selesai";
-			window.location.href = "<?php echo site_url();?>user/try_out/analisis/"+$("#oid_parent").val()+"/"+$("#oid_paket").val();					
+			// window.location.href = "<?php echo site_url();?>user/try_out/analisis/"+$("#oid_parent").val()+"/"+$("#oid_paket").val();					
 		} else {
 			
 			if (seconds <= 600) {
@@ -241,7 +241,7 @@ if ($list != array()) {
 	}
 		// var countdownTimer = setInterval('timer()', 1000);		
 	if (seconds <= 0) {
-		window.location.href = "<?php echo site_url();?>user/try_out/analisis/"+$("#oid_parent").val()+"/"+$("#oid_paket").val();
+		// window.location.href = "<?php echo site_url();?>user/try_out/analisis/"+$("#oid_parent").val()+"/"+$("#oid_paket").val();
 	} else {
 		var countdownTimer = setInterval('timer()', 1000);		
 	}
@@ -321,7 +321,8 @@ if ($list != array()) {
 						},
 						success:function(msg){
 							var obj = jQuery.parseJSON (msg);
-							ajax_status(obj);
+							window.location.href = "<?php echo site_url();?>user/mini_try_out";							
+							// ajax_status(obj);
 						},
 						error:function(jqXHR,exception)
 						{
