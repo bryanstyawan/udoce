@@ -499,7 +499,8 @@ class User extends CI_Controller {
 		$data_store1['status']   = 1;
 		$data_store1['id_user']  = $user;
 		$data_store1['id_paket'] = $paket;		
-		$res_data                = $this->Allcrud->addData('tr_track_time_try_out',$data_store1);
+
+		$res_data    			 = $this->Allcrud->editData('tr_track_time_try_out',$data_store1,array('id_user'=>$user,'id_paket' => $paket));		
 		$text_status             = $this->Globalrules->check_status_res($res_data,'Anda telah menyelesaikan try out ini.');
 		$res                     = array
 									(
