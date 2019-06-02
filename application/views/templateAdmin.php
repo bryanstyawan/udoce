@@ -368,13 +368,15 @@ function cara_beli() {
             content:    '<div class="container">'+    
                         '<div class="col-lg-12">'+
                         '<div><div class="row"><h3>cara membeli token</h3></div>'+
-                        '<div class="row"><span>1. Token dapat dibeli melalui :</span></div>'+
-                        '<div class="row"><p>a. Whatsapps : 0858 5181 6987</p></div>'+
-                        '<div class="row"><p>b. Shopee : <a href="https://shopee.co.id/PAKET-LULUS-SPMB-PKN-STAN-ECODU-i.63017014.1896730820">Klik Disini</a></p></div>'+
-                        '<div class="row"><p>c. LINE : @ecodu.id</p></div>'+
+                        '<div class="row"><span class="col-lg-3">1. Token dapat dibeli melalui :</span></div>'+
+                        '<div class="row"><p class="col-lg-3">a. Whatsapps :</p></div>'+
+                        '<div class="row"><p class="col-lg-3"><span>- 0858 5181 6987 (Kak Saka)</span></p></div>'+
+                        '<div class="row"><p class="col-lg-3"><span>- 0812 4915 2180 (Kak Arief)</span></p></div>'+                                                
+                        // '<div class="row"><p>b. Shopee : <a href="https://shopee.co.id/PAKET-LULUS-SPMB-PKN-STAN-ECODU-i.63017014.1896730820">Klik Disini</a></p></div>'+
+                        '<div class="row"><p class="col-lg-3">b. LINE : @ecodu.id</p></div>'+
                         '<div class="row"><p class="col-lg-3">2. Setelah mendapatkan token, klik tombol beli sekarang dan masukkan token.</p></div>'+
-                        '<div class="row"><span>3. Verifikasi Token.</span></div>'+
-                        '<div class="row"><span>4. Selesai.</span></div>'+
+                        '<div class="row"><span class="col-lg-3">3. Verifikasi Token.</span></div>'+
+                        '<div class="row"><span class="col-lg-3">4. Selesai.</span></div>'+
                         '</div></div>'  
         }); 	
 }
