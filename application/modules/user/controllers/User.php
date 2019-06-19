@@ -395,7 +395,6 @@ class User extends CI_Controller {
 			$data['list']    = $this->Allcrud->getData('mr_try_out_soal',array('id_paket'=>$data['paket_name'][0]['id']))->result_array();			
 			$data['track']   = $this->Allcrud->getData('tr_track_time_try_out',array('id_user'=>$this->session->userdata('session_user'),'id_paket'=>$data['paket_name'][0]['id']))->result_array();			
 
-
 			if ($arg == 1) {
 				# code...
 				if ($detail != NULL) {
@@ -430,11 +429,13 @@ class User extends CI_Controller {
 				$data['counter_soal'] = $detail;
 			}			
 
-			$time_server  = date('Y-m-d H:i:s');
+			$time_server     = date('Y-m-d H:i:s');
 			$time_minute     = $data['paket_name'][0]['durasi'] * 60;
-			$time_expire     = date('Y-m-d H:i:s',strtotime('+'.$data['paket_name'][0]['durasi'].' minutes',strtotime($data['paket_name'][0]['time_publish'])));
+			$time_expire     = date('Y-m-d H:i:s',strtotime('+'.$data['paket_name'][0]['durasi'].' minutes'));
 			$timeout_expired = strtotime($time_expire) - strtotime($time_server);        
-			$data['timeout'] = $timeout_expired; 
+			$data['timeout'] = $timeout_expired;
+			// print_r($data['track']);die();			
+			// print_r($data['paket_name'][0]['id']);die(); 
 		}
 		else
 		{
@@ -495,12 +496,21 @@ class User extends CI_Controller {
 	public function end_mini_try_out($paket=NULL)
 	{
 		# code...
+		$res_data                = "";
 		$user                    = $this->session->userdata('session_user');		
 		$data_store1['status']   = 1;
 		$data_store1['id_user']  = $user;
 		$data_store1['id_paket'] = $paket;		
 
-		$res_data    			 = $this->Allcrud->editData('tr_track_time_try_out',$data_store1,array('id_user'=>$user,'id_paket' => $paket));		
+		$track   = $this->Allcrud->getData('tr_track_time_try_out',array('id_user'=>$this->session->userdata('session_user'),'id_paket'=>$paket))->result_array();			
+		if($track != array())
+		{
+			$res_data = $this->Allcrud->editData('tr_track_time_try_out',$data_store1,array('id_user'=>$user,'id_paket' => $paket));
+		}		
+		else
+		{
+			$res_data = $this->Allcrud->addData('tr_track_time_try_out',$data_store1);			
+		}
 		$text_status             = $this->Globalrules->check_status_res($res_data,'Anda telah menyelesaikan try out ini.');
 		$res                     = array
 									(

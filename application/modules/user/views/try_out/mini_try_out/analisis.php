@@ -186,7 +186,7 @@
 </section>
 
 
-<section class="col-lg-12">
+<!-- <section class="col-lg-12">
 	<div class="box">
 		<div class="box-header">
 			<h3 class="box-title"></h3>
@@ -195,13 +195,12 @@
 			<div class="row">
 				<div class="col-lg-12 text-center">
 					<button class="btn btn-primary" id="btn_pembahasan" onclick="view_analisis('quiz')"><i class="fa fa-x"></i> Pembahasan Mini Try Out</button>				
-					<!-- <a class="btn btn-success" onclick="finish()">Kembali Ke Materi</a> -->
 				</div>
 			</div>
 
-		</div><!-- /.box-body -->		
+		</div>
 	</div>
-</section>
+</section> -->
 
 <script>
 $(document).ready(function(){		

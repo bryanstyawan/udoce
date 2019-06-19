@@ -239,7 +239,7 @@ if ($list != array()) {
 			seconds--;
 		}
 	}
-		// var countdownTimer = setInterval('timer()', 1000);		
+		var countdownTimer = setInterval('timer()', 1000);		
 	if (seconds <= 0) {
 		// window.location.href = "<?php echo site_url();?>user/try_out/analisis/"+$("#oid_parent").val()+"/"+$("#oid_paket").val();
 	} else {
@@ -321,7 +321,7 @@ if ($list != array()) {
 						},
 						success:function(msg){
 							var obj = jQuery.parseJSON (msg);
-							window.location.href = "<?php echo site_url();?>user/mini_try_out";							
+							window.location.href = "<?php echo site_url();?>user/mini_try_out_analisis/<?php $paket_name[0]['id'];?>";							
 							// ajax_status(obj);
 						},
 						error:function(jqXHR,exception)
