@@ -184,7 +184,29 @@
 
 	</div>
 </section>
+<div clas="row text-center">
+	<?php
+		$get_result_analisis = $this->Allcrud->getData('tr_analisis_rangking',array('id_user'=>$this->session->userdata('session_user'),'id_parent'=>$parent,'id_paket'=>$paket))->result_array();
+		if ($get_result_analisis == array()) {
+			# code...
+			$data_store = array();
+			$data_store = $this->Globalrules->trigger_insert_update('insert');
 
+			$data_store['id_user']     = $this->session->userdata('session_user');
+			$data_store['id_parent']   = $parent;
+			$data_store['id_paket']    = $paket;
+			$data_store['twk_true']    = $quiz_true;
+			$data_store['twk_false']   = $quiz_false;
+			$data_store['total_value'] = $quiz_result;
+			$data_store['end_status']  = '';                                        
+
+			if ($data_store != array()) {
+				# code...
+				$res_data       = $this->Allcrud->addData('tr_analisis_rangking',$data_store);                                                    
+			}                                                                        
+		}
+	?>
+</div>
 
 <!-- <section class="col-lg-12">
 	<div class="box">

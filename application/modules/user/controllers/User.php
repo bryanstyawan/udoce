@@ -529,6 +529,7 @@ class User extends CI_Controller {
 			$data['title']      = 'Mini Try Out - Analisis';
 			$data['paket']      = $id;
 			$data['data_paket'] = $this->Allcrud->getData('mr_try_out_list',array('id'=>$id))->result_array();		 
+			$data['parent']     = $data['data_paket'][0]['id_parent']; 
 			$data['list']       = $this->Allcrud->getData('mr_try_out_soal',array('id_paket'=>$id))->result_array();		
 			$data['content']    = 'user/try_out/mini_try_out/analisis';
 			$this->load->view('templateAdmin',$data);					

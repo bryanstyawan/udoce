@@ -63,6 +63,28 @@
 	</div>
 </section>
 
+<section id="viewrangking" style="display:none;">
+	<div class="col-xs-8">
+		<div class="box">
+			<div class="box-header">
+				<h3 class="box-title" id="header_paket"></h3>
+				<div class="box-tools pull-right"><button class="btn btn-block btn-primary" id="addData"><i class="fa fa-plus-square"></i> Tambah Data</button></div>
+			</div><!-- /.box-header -->
+			<div class="box-body" id="table_fill">
+				<table class="table table-bordered table-striped" id="view_data_rangking">
+					<thead>
+
+					</thead>
+					<tbody>
+					
+					</tbody>
+				</table>
+				
+			</div><!-- /.box-body -->
+		</div><!-- /.box -->
+	</div>
+</section>
+
 <section id="formdata" style="display:none">
 	<div class="col-xs-8">
 		<div class="box">
@@ -385,6 +407,7 @@ function choose_paket_try_out(_id,_name) {
 										'<td>'+obj.list[index].name+'</td>'+child_result+
 										'<td>'+total_counter_child+' '+verified+'</td>'+
 										'<td>'+
+										'<a class="btn '+btn_verified+' col-lg-12" onclick="rangking('+obj.list[index].id+')" style="margin-bottom: 19px;"><i class="fa "></i>&nbsp;Rangking</a>'+										
 											'<a class="btn '+btn_verified+' col-lg-12" onclick="verification('+obj.list[index].id+','+verified_status+')" style="margin-bottom: 19px;"><i class="fa '+fa_icon+'"></i>&nbsp;'+text_verified+'</a>'+										
 											'<a class="btn btn-warning col-lg-12" onclick="edit('+obj.list[index].id+')" style="margin-bottom: 19px;"><i class="fa fa-edit"></i>&nbsp;Ubah</a>'+
 											'<a class="btn btn-danger col-lg-12" onclick="del('+obj.list[index].id+')"><i class="fa fa-trash"></i>&nbsp;Hapus</a></td>'+																			
@@ -502,6 +525,70 @@ function edit(id) {
 					$("#loadprosess").modal('hide');
 				}, 500);
 			}						
+		},
+		error:function(jqXHR,exception)
+		{
+			ajax_catch(jqXHR,exception);					
+		}
+	})	
+}
+
+function rangking(id) {
+	$.ajax({
+		url :"<?php echo site_url();?>management/try_out/get_rangking_try_out/"+id+"",
+		type:"post",
+		beforeSend:function(){
+			$("#loadprosess").modal('show');
+			$('#view_data_rangking thead').html('');			
+			$('#view_data_rangking tbody').html('');									
+		},
+		success:function(msg){
+			var obj = jQuery.parseJSON (msg);
+			$("#viewrangking").css({"display": ""})
+			$("#viewdata").css({"display": "none"})
+			if (obj.parent == 3) {
+				var newrec_header  = '<tr>'+
+										'<td>No</td>'+
+										'<td>Nama</td>'+
+										'<td>Asal Sekolah</td>'+
+										'<td>Total Nilai</td>'+																		
+									'</tr>';
+				$('#view_data_rangking thead').append(newrec_header);				
+
+				for (index = 0; index < obj.list_rangking.length; index++) {
+					var newrec_body  = '<tr>'+
+											'<td>'+(index+1)+'</td>'+
+											'<td>'+obj.list_rangking[index].b_name+'</td>'+
+											'<td>'+obj.list_rangking[index].b_asal_sekolah+'</td>'+
+											'<td>'+obj.list_rangking[index].total_value+'</td>'+
+										'</tr>';
+					$('#view_data_rangking tbody').append(newrec_body);				
+					
+				}
+			}
+			else
+			{
+				var newrec_header  = '<tr>'+
+										'<td>No</td>'+
+										'<td>Nama</td>'+
+										'<td>Asal Sekolah</td>'+
+										'<td>Total Nilai</td>'+																		
+									'</tr>';
+				$('#view_data_rangking thead').append(newrec_header);				
+
+				for (index = 0; index < obj.list_rangking.length; index++) {
+					var newrec_body  = '<tr>'+
+											'<td>'+(index+1)+'</td>'+
+											'<td>'+obj.list_rangking[index].b_name+'</td>'+
+											'<td>'+obj.list_rangking[index].b_asal_sekolah+'</td>'+
+											'<td>'+obj.list_rangking[index].total_value+'</td>'+
+										'</tr>';
+					$('#view_data_rangking tbody').append(newrec_body);				
+					
+				}				
+			}
+			console.table(obj);
+			console.log(obj.parent);
 		},
 		error:function(jqXHR,exception)
 		{

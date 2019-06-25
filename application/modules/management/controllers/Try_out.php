@@ -17,6 +17,17 @@ class Try_out extends CI_Controller {
 		$this->load->view('templateAdmin',$data);
 	}
 
+	public function get_rangking_try_out($id)
+	{
+		# code...
+		$list = $this->Allcrud->getData('mr_try_out_list',array('id'=>$id))->result_array();		
+		$parent = $list[0]['id_parent'];
+		$data['list_rangking']    = $this->Mmaster->get_rangking_try_out($parent,$id);
+		$data['parent']           = $parent;
+		$data['paket']            = $id;
+		echo json_encode($data);		
+	}
+
 	public function get_data_paket_try_out($id=NULL)
 	{
 		# code...

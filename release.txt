@@ -1,4 +1,12 @@
 v1.0.0    
+2019-06-25
+==========
+New:
+- Rangking disisi admin
+Improved:
+Fixed:
+
+v1.0.0    
 2019-05-29
 ==========
 New:
