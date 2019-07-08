@@ -29,13 +29,7 @@ user_guide_src/cilexer/pycilexer.egg-info/*
 ## Files and Folder Development
 *.sql
 /DB
-/public/excel
-/public/file_pendukung
-/public/file_tugas_tambahan
-/public/video
-/public/buku
-/public/soal
-/.vscode
+
 
 ## Other Files
 .ftpconfig
