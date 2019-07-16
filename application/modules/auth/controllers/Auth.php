@@ -7,7 +7,7 @@ class Auth extends CI_Controller
 	{
 		parent::__construct();
 		$this->load->model ('Madmin', '', TRUE);
-		$this->load->model ('mlogin', '', TRUE);		
+		$this->load->model ('Mlogin', '', TRUE);		
 		date_default_timezone_set('Asia/Jakarta');				
 	}
 	
@@ -36,7 +36,7 @@ class Auth extends CI_Controller
 		error_reporting(E_ALL ^ E_WARNING);		
 		$username = htmlspecialchars($this->input->post('username'), ENT_QUOTES| ENT_COMPAT, 'UTF-8');
 		$pass     = htmlspecialchars($this->input->post('password'), ENT_QUOTES| ENT_COMPAT, 'UTF-8');
-		$cekuser  = $this->mlogin->cekuser($username,$pass);
+		$cekuser  = $this->Mlogin->cekuser($username,$pass);
 		if ($cekuser != 0) 
 		{
 			# code...
@@ -97,7 +97,7 @@ class Auth extends CI_Controller
 		$session_user = $this->session->userdata('session_username');
 		$id           = $this->session->userdata('session_user');
 
-		$cekUser      = $this->mlogin->cekUser($session_user,$pass_lama);
+		$cekUser      = $this->Mlogin->cekUser($session_user,$pass_lama);
 		if ($cekUser != 0) 
 		{		
 			$data_change = array
