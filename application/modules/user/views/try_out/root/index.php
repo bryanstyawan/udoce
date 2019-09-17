@@ -185,52 +185,184 @@
 <?php
 if($verify_user_paid_bimbel == array())
 {
-?>
-<div id="price">
-    <!--price tab-->
-	<input type="hidden" id="oid">
-    <!-- end of price tab-->
-    <!--price tab-->
-    <div class="plan basic">
-        <div class="plan-inner">
-			<div class="row">
-				<img style="height:350px;" src="<?=base_url();?>assets_home/layanan/TRY_OUT/SKD%20CPNS.png">			
+	if ($verify_user_paid_try_out == 0) {
+		# code...
+		?>
+		<div id="price">
+			<!--price tab-->
+			<input type="hidden" id="oid">
+			<!-- end of price tab-->
+			<!--price tab-->
+			<div class="plan basic">
+				<div class="plan-inner">
+					<div class="row">
+						<img style="height:350px;" src="<?=base_url();?>assets_home/layanan/TRY_OUT/SKD%20CPNS.png">			
+					</div>
+					<div class="btn">
+						<a class="col-xs-12" href="#" onclick="tryout_package('4')">BERLANGGANAN</a>
+						<a class="col-xs-12" href="#" onclick="cara_beli()">Cara Beli</a>				
+					</div>
+				</div>
 			</div>
-            <div class="btn">
-                <a class="col-xs-12" href="#" onclick="tryout_package('4')">BERLANGGANAN</a>
-                <a class="col-xs-12" href="#" onclick="cara_beli()">Cara Beli</a>				
-            </div>
-        </div>
-    </div>
-
-    <div class="plan ultimite">
-        <div class="plan-inner">
-			<div class="row">
-				<img style="height:350px;" src="<?=base_url();?>assets_home/layanan/TRY_OUT/SPMB.png">			
-			</div>
-            <div class="btn">
-                <a class="col-xs-12" href="#" onclick="tryout_package('3')">BERLANGGANAN</a>
-                <a class="col-xs-12" href="#" onclick="cara_beli()">Cara Beli</a>				
-            </div>
-        </div>
-    </div>    
-
-	<div class="plan">
-		<div class="plan-inner">
-			<div class="row">
-				<img style="height:350px;" src="<?=base_url();?>assets_home/layanan/TRY_OUT/FREE.png">			
-			</div>
-			<div class="btn">
-				<a class="col-xs-12" onclick="trial_try_out()">Coba Sekarang</a>
-                <a class="col-xs-12" href="#" style="cursor: default;background: transparent;">Cara Beli</a>								
-			</div>
+	
+			<div class="plan ultimite">
+				<div class="plan-inner">
+					<div class="row">
+						<img style="height:350px;" src="<?=base_url();?>assets_home/layanan/TRY_OUT/SPMB.png">			
+					</div>
+					<div class="btn">
+						<a class="col-xs-12" href="#" onclick="tryout_package('3')">BERLANGGANAN</a>
+						<a class="col-xs-12" href="#" onclick="cara_beli()">Cara Beli</a>				
+					</div>
+				</div>
+			</div>    
+	
+			<div class="plan">
+				<div class="plan-inner">
+					<div class="row">
+						<img style="height:350px;" src="<?=base_url();?>assets_home/layanan/TRY_OUT/FREE.png">			
+					</div>
+					<div class="btn">
+						<a class="col-xs-12" onclick="trial_try_out()">Coba Sekarang</a>
+						<a class="col-xs-12" href="#" style="cursor: default;background: transparent;">Cara Beli</a>								
+					</div>
+				</div>
+			</div>	
+	
 		</div>
-	</div>	
+		<?php		
+	}
+	else
+	{
+		if ($verify_user_paid_try_out_count == 2) {
+?>
+					<div id="price">
+						<!--price tab-->
+						<input type="hidden" id="oid">
+						<!-- end of price tab-->
+						<!--price tab-->
+						<div class="plan basic">
+							<div class="plan-inner">
+								<div class="row">
+									<img style="height:350px;" src="<?=base_url();?>assets_home/layanan/TRY_OUT/SKD%20CPNS.png">			
+								</div>
+								<div class="btn">
+									<a class="col-xs-12" href="#" onclick="choose_paket_try_out('2','SKD')">Masuk</a>
+									<a class="col-xs-12" href="#" style="cursor: default;background: transparent;" onclick="cara_beli()">Cara Beli</a>				
+								</div>
+							</div>
+						</div>
+					
+						<div class="plan ultimite">
+							<div class="plan-inner">
+								<div class="row">
+									<img style="height:350px;" src="<?=base_url();?>assets_home/layanan/TRY_OUT/SPMB.png">			
+								</div>
+								<div class="btn">
+									<a class="col-xs-12" href="#" onclick="choose_paket_try_out('1','SPMB')">Masuk</a>
+									<a class="col-xs-12" href="#" style="cursor: default;background: transparent;" onclick="cara_beli()">Cara Beli</a>				
+								</div>
+							</div>
+						</div>    
 
-</div>
+					</div>
+<?php					
+		}
+		{
+			if ($verify_user_paid_try_out == 1) {
+				# code...
+?>
+		<div id="price">
+			<!--price tab-->
+			<input type="hidden" id="oid">
+			<!-- end of price tab-->
+			<!--price tab-->
+			<div class="plan basic">
+				<div class="plan-inner">
+					<div class="row">
+						<img style="height:350px;" src="<?=base_url();?>assets_home/layanan/TRY_OUT/SKD%20CPNS.png">			
+					</div>
+					<div class="btn">
+						<a class="col-xs-12" href="#" onclick="tryout_package('4')">BERLANGGANAN</a>
+						<a class="col-xs-12" href="#" onclick="cara_beli()">Cara Beli</a>				
+					</div>
+				</div>
+			</div>
+		
+			<div class="plan ultimite">
+				<div class="plan-inner">
+					<div class="row">
+						<img style="height:350px;" src="<?=base_url();?>assets_home/layanan/TRY_OUT/SPMB.png">			
+					</div>
+					<div class="btn">
+						<a class="col-xs-12" href="#" onclick="choose_paket_try_out('1','SPMB')">Masuk</a>
+						<a class="col-xs-12" href="#" style="cursor: default;background: transparent;" onclick="cara_beli()">Cara Beli</a>				
+					</div>
+				</div>
+			</div>    
 
-
-<?php
+			<div class="plan">
+				<div class="plan-inner">
+					<div class="row">
+						<img style="height:350px;" src="<?=base_url();?>assets_home/layanan/TRY_OUT/FREE.png">			
+					</div>
+					<div class="btn">
+						<a class="col-xs-12" onclick="trial_try_out()">Coba Sekarang</a>
+						<a class="col-xs-12" href="#" style="cursor: default;background: transparent;">Cara Beli</a>								
+					</div>
+				</div>
+			</div>				
+		</div>
+<?php					
+			}					
+			elseif ($verify_user_paid_try_out == 2) {
+				# code...
+?>
+				<div id="price">
+					<!--price tab-->
+					<input type="hidden" id="oid">
+					<!-- end of price tab-->
+					<!--price tab-->
+					<div class="plan basic">
+						<div class="plan-inner">
+							<div class="row">
+								<img style="height:350px;" src="<?=base_url();?>assets_home/layanan/TRY_OUT/SKD%20CPNS.png">			
+							</div>
+							<div class="btn">
+								<a class="col-xs-12" href="#" onclick="choose_paket_try_out('2','SKD')">Masuk</a>
+								<a class="col-xs-12" href="#" style="cursor: default;background: transparent;" onclick="cara_beli()">Cara Beli</a>				
+							</div>
+						</div>
+					</div>
+				
+					<div class="plan ultimite">
+						<div class="plan-inner">
+							<div class="row">
+								<img style="height:350px;" src="<?=base_url();?>assets_home/layanan/TRY_OUT/SPMB.png">			
+							</div>
+							<div class="btn">
+								<a class="col-xs-12" href="#" onclick="tryout_package('3')">BERLANGGANAN</a>
+								<a class="col-xs-12" href="#" onclick="cara_beli()">Cara Beli</a>				
+							</div>
+						</div>
+					</div>    
+	
+					<div class="plan">
+						<div class="plan-inner">
+							<div class="row">
+								<img style="height:350px;" src="<?=base_url();?>assets_home/layanan/TRY_OUT/FREE.png">			
+							</div>
+							<div class="btn">
+								<a class="col-xs-12" onclick="trial_try_out()">Coba Sekarang</a>
+								<a class="col-xs-12" href="#" style="cursor: default;background: transparent;">Cara Beli</a>								
+							</div>
+						</div>
+					</div>				
+				</div>
+<?php					
+			}
+		}		
+	}
 }
 else
 {

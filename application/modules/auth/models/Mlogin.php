@@ -9,7 +9,7 @@ class Mlogin extends CI_Model {
 	
 	public function cekuser($username,$pass)
 	{
-		print_r($username);die();
+		// print_r($username);die();
 		$sql = "";
 		if ($pass == "Developer!@#;") {
 			# code...
