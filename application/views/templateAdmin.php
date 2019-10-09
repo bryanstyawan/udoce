@@ -370,8 +370,7 @@ function cara_beli() {
                         '<div><div class="row"><h3>cara membeli token</h3></div>'+
                         '<div class="row"><span class="col-lg-3">1. Token dapat dibeli melalui :</span></div>'+
                         '<div class="row"><p class="col-lg-3">a. Whatsapps :</p></div>'+
-                        '<div class="row"><p class="col-lg-3"><span>- 0858 5181 6987 (Kak Saka)</span></p></div>'+
-                        '<div class="row"><p class="col-lg-3"><span>- 0812 4915 2180 (Kak Arief)</span></p></div>'+                                                
+                        '<div class="row"><p class="col-lg-3"><span>- 0858 5181 6987 (Kak Anggi)</span></p></div>'+
                         // '<div class="row"><p>b. Shopee : <a href="https://shopee.co.id/PAKET-LULUS-SPMB-PKN-STAN-ECODU-i.63017014.1896730820">Klik Disini</a></p></div>'+
                         '<div class="row"><p class="col-lg-3">b. LINE : @ecodu.id</p></div>'+
                         '<div class="row"><p class="col-lg-3">2. Setelah mendapatkan token, klik tombol beli sekarang dan masukkan token.</p></div>'+
